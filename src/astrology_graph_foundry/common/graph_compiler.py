@@ -63,6 +63,12 @@ class GraphCompiler:
 
     @classmethod
     def from_provider(cls, provider: Any, *, relationship_limit: int = 12) -> "GraphCompiler":
+        reusable = getattr(provider, "graph_compiler", None)
+        if callable(reusable):
+            compiler = reusable(relationship_limit=relationship_limit)
+            if compiler is not None:
+                logger.info("Reusing provider-compiled GraphCompiler")
+                return compiler
         return cls(provider.target_chart(), relationship_limit=relationship_limit)
 
     @staticmethod

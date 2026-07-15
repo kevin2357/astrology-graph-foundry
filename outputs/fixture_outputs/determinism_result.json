@@ -1,0 +1,8 @@
+{
+  "gzip_byte_identical": true,
+  "gzip_sha256_run1": "a7d63837a15a0a7b2836b66960848869457d2a35f17ae8f84b90184fddf82d66",
+  "gzip_sha256_run2": "a7d63837a15a0a7b2836b66960848869457d2a35f17ae8f84b90184fddf82d66",
+  "json_byte_identical": true,
+  "json_sha256_run1": "169ab401ce7b56b3b72f6b8c901f37249bb5c2957ec86e489f7e357c2e83df32",
+  "json_sha256_run2": "169ab401ce7b56b3b72f6b8c901f37249bb5c2957ec86e489f7e357c2e83df32"
+}

@@ -25,6 +25,139 @@ PIPELINE_VERSION = "transit_period_pipeline_v2.0.0_transitable_chart"
 logger = logging.getLogger(__name__)
 
 
+STREAMING_PROFILES = ("standard", "compact", "game")
+TRANSIT_TARGET_SETS = ("core", "expanded", "all", "gameplay")
+_GAMEPLAY_TARGET_NAMES = {
+    "Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn",
+    "Uranus", "Neptune", "Pluto", "True Node", "ASC", "DSC", "MC", "IC",
+}
+_GAMEPLAY_TRANSITING_BODIES = {
+    "Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn",
+    "Uranus", "Neptune", "Pluto", "True Node",
+}
+_ZODIAC_SIGNS = (
+    "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
+    "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces",
+)
+
+
+def _normalize_target_name(candidate: dict[str, Any]) -> str:
+    raw = str(candidate.get("target_name") or candidate.get("target") or "").strip()
+    return raw[1:] if raw.startswith("n") else raw
+
+
+def _target_set_accepts(candidate: dict[str, Any], target_set: str) -> bool:
+    if target_set == "all":
+        return True
+    name = _normalize_target_name(candidate)
+    target_type = str(candidate.get("target_type") or "")
+    if target_set == "gameplay":
+        return name in _GAMEPLAY_TARGET_NAMES
+    if target_set == "core":
+        return name in _GAMEPLAY_TARGET_NAMES
+    if target_set == "expanded":
+        return target_type not in {"harmonic_point"}
+    raise ValueError(f"Unknown transit target set: {target_set!r}")
+
+
+def _target_cusps(package: dict[str, Any]) -> list[float]:
+    chart = ((package.get("target") or {}).get("chart") or {})
+    houses = chart.get("houses") or {}
+    try:
+        return [float(houses[str(i)]["lon"]) for i in range(1, 13)]
+    except (KeyError, TypeError, ValueError):
+        return []
+
+
+def _sign_for_lon(lon: float | None) -> str | None:
+    if lon is None:
+        return None
+    return _ZODIAC_SIGNS[int(float(lon) % 360 // 30)]
+
+
+def _daily_sky_record(day: dict[str, Any], package: dict[str, Any]) -> dict[str, Any]:
+    from astrology_graph_foundry.common.geometry import house_for_lon
+
+    cusps = _target_cusps(package)
+    positions: dict[str, dict[str, Any]] = {}
+    for body, row in sorted((day.get("positions") or {}).items()):
+        clean = str(body)[1:] if str(body).startswith("n") else str(body)
+        if clean not in _GAMEPLAY_TRANSITING_BODIES:
+            continue
+        lon = row.get("lon")
+        positions[clean] = {
+            "longitude": lon,
+            "sign": _sign_for_lon(lon),
+            "house": house_for_lon(float(lon), cusps) if lon is not None and len(cusps) == 12 else None,
+            "retrograde": bool(row.get("retrograde", False)),
+            "speed_longitude": row.get("speed_lon"),
+        }
+    return {
+        "transit_datetime": day.get("transit_datetime"),
+        "positions": positions,
+    }
+
+
+def _compact_candidate_registry_entry(candidate: dict[str, Any], *, game: bool = False) -> dict[str, Any]:
+    row = {
+        "candidate_id": _candidate_id(candidate),
+        "transit_body": candidate.get("transit_body"),
+        "aspect": candidate.get("aspect"),
+        "target_id": candidate.get("target_id"),
+        "target_name": _normalize_target_name(candidate),
+        "target_type": candidate.get("target_type"),
+        "target_house": candidate.get("target_house"),
+        "transit_house_in_target_chart": candidate.get("transit_house_in_target_chart"),
+        "relationship_type": candidate.get("relationship_type", "TRANSIT_ACTIVATION"),
+        "theme_tags": candidate.get("theme_tags", []),
+        "semantic_operator_hints": candidate.get("semantic_operator_hints", []),
+    }
+    if not game:
+        row["activated_target_relationship_refs"] = candidate.get("activated_target_relationship_refs", [])
+    return row
+
+
+def _compact_activation_ref(candidate: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "candidate_id": _candidate_id(candidate),
+        "rank": candidate.get("rank"),
+        "orb": candidate.get("orb"),
+        "relevance_score": candidate.get("relevance_score"),
+        "phase": candidate.get("phase"),
+        "strength_label": candidate.get("strength"),
+    }
+
+
+def _profiled_candidates(day: dict[str, Any], target_set: str) -> list[dict[str, Any]]:
+    return [c for c in (day.get("candidates") or []) if _target_set_accepts(c, target_set)]
+
+
+def _compact_relationship_registry(
+    package: dict[str, Any],
+    candidate_rows: list[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    wanted = {
+        str(ref)
+        for candidate in candidate_rows
+        for ref in (candidate.get("activated_target_relationship_refs") or [])
+    }
+    source = package.get("activated_target_relationship_registry") or {}
+    out: dict[str, dict[str, Any]] = {}
+    for ref in sorted(wanted):
+        row = source.get(ref)
+        if not row:
+            continue
+        out[ref] = {
+            "relationship_id": row.get("relationship_id") or ref,
+            "relationship_type": row.get("relationship_type"),
+            "source_object_id": row.get("source_object_id"),
+            "target_object_id": row.get("target_object_id"),
+            "structural_strength_score": row.get("structural_strength_score"),
+        }
+    return out
+
+
+
 def _enrich(candidate: dict[str, Any]) -> dict[str, Any]:
     out = dict(candidate)
     out["theme_tags"] = theme_tags(
@@ -314,23 +447,109 @@ def _analysis_view(package: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _streaming_index(package: dict[str, Any]) -> dict[str, Any]:
-    days = package.get("daily_windows", [])
-    registry = _candidate_registry(package)
-    logger.info("Creating streaming index: days=%d candidate_registry=%d arcs=%d", len(days), len(registry), len(package.get("transit_arcs", [])))
-    return {
+def _streaming_index(
+    package: dict[str, Any],
+    *,
+    profile: str = "standard",
+    target_set: str | None = None,
+) -> dict[str, Any]:
+    if profile not in STREAMING_PROFILES:
+        raise ValueError(f"Unknown streaming profile {profile!r}; expected one of {STREAMING_PROFILES}")
+    if target_set is None:
+        target_set = "gameplay" if profile == "game" else "all"
+    if target_set not in TRANSIT_TARGET_SETS:
+        raise ValueError(f"Unknown transit target set {target_set!r}; expected one of {TRANSIT_TARGET_SETS}")
+
+    days = package.get("daily_windows", []) or []
+    logger.info(
+        "Creating streaming index: profile=%s target_set=%s days=%d arcs=%d",
+        profile,
+        target_set,
+        len(days),
+        len(package.get("transit_arcs", [])),
+    )
+
+    if profile == "standard":
+        registry = _candidate_registry(package)
+        return {
+            "view_type": "streaming_index",
+            "streaming_profile": "standard",
+            "target_set": "all",
+            "metadata": {**package["metadata"], "streaming_index_compaction": "candidate_registry_v1"},
+            "period": package["period"],
+            "canonical_graph_summary": canonical_graph_from_package(package).get("summary", {}),
+            "candidate_registry": registry,
+            "activated_target_relationship_registry": _orthodox_relationship_registry(package.get("activated_target_relationship_registry", {})),
+            "days": [_day_ref(day, candidate_limit=25, registry_refs_only=True) for day in days],
+            "arcs": [_arc_ref(arc, registry_refs_only=True) for arc in package["transit_arcs"]],
+            "arcs_by_target_type": package["target_type_metrics"],
+            "arcs_by_activated_relationship_type": package["activated_relationship_type_metrics"],
+            "months": package["monthly_summary"],
+        }
+
+    selected: list[dict[str, Any]] = []
+    days_by_date: dict[str, dict[str, Any]] = {}
+    for day in days:
+        candidates = _profiled_candidates(day, target_set)
+        if profile == "game":
+            candidates = [
+                candidate
+                for candidate in candidates
+                if str(candidate.get("transit_body") or "").replace("_", " ") in _GAMEPLAY_TRANSITING_BODIES
+            ]
+        selected.extend(candidates)
+        day_row: dict[str, Any] = {
+            "transit_datetime": day.get("transit_datetime"),
+            "candidate_count": len(candidates),
+            "contacts": [_compact_activation_ref(c) for c in candidates],
+        }
+        if profile == "game":
+            day_row["daily_sky"] = _daily_sky_record(day, package)
+        days_by_date[str(day["date"])] = day_row
+
+    registry: dict[str, dict[str, Any]] = {}
+    for candidate in selected:
+        cid = _candidate_id(candidate)
+        registry.setdefault(cid, _compact_candidate_registry_entry(candidate, game=profile == "game"))
+
+    out: dict[str, Any] = {
         "view_type": "streaming_index",
-        "metadata": {**package["metadata"], "streaming_index_compaction": "candidate_registry_v1"},
+        "streaming_profile": profile,
+        "target_set": target_set,
+        "metadata": {
+            **package["metadata"],
+            "streaming_index_compaction": f"{profile}_registry_v1",
+            "gameplay_filtering_policy": (
+                "Foundry retains every source candidate eligible under the gameplay target set; "
+                "the game applies final mechanics thresholds."
+                if profile == "game"
+                else None
+            ),
+        },
         "period": package["period"],
-        "canonical_graph_summary": canonical_graph_from_package(package).get("summary", {}),
-        "candidate_registry": registry,
-        "activated_target_relationship_registry": _orthodox_relationship_registry(package.get("activated_target_relationship_registry", {})),
-        "days": [_day_ref(day, candidate_limit=25, registry_refs_only=True) for day in days],
-        "arcs": [_arc_ref(arc, registry_refs_only=True) for arc in package["transit_arcs"]],
-        "arcs_by_target_type": package["target_type_metrics"],
-        "arcs_by_activated_relationship_type": package["activated_relationship_type_metrics"],
-        "months": package["monthly_summary"],
+        "candidate_registry": dict(sorted(registry.items())),
+        "days_by_date": dict(sorted(days_by_date.items())),
     }
+
+    if profile == "compact":
+        out["canonical_graph_summary"] = canonical_graph_from_package(package).get("summary", {})
+        out["activated_target_relationship_registry"] = _compact_relationship_registry(package, selected)
+        accepted_ids = set(registry)
+        out["arcs"] = [
+            {
+                "arc_id": arc.get("arc_id"),
+                "candidate_id": arc.get("candidate_id"),
+                "start_date": arc.get("start_date"),
+                "end_date": arc.get("end_date"),
+                "active_days": arc.get("active_days"),
+                "closest_orb": arc.get("closest_orb"),
+                "max_relevance_score": arc.get("max_relevance_score"),
+            }
+            for arc in package.get("transit_arcs", [])
+            if str(arc.get("candidate_id")) in accepted_ids
+        ]
+        out["months"] = package.get("monthly_summary", [])
+    return out
 
 
 def build_from_provider(provider: EphemerisProvider, start: str, end: str, top_n_per_day: int = 20, min_arc_days: int = 2) -> dict[str, Any]:
@@ -479,9 +698,23 @@ def analysis_view(package: dict[str, Any]) -> dict[str, Any]:
     return finalize_view_semantic_boundary(_analysis_view(package), package)
 
 
-def streaming_index(package: dict[str, Any]) -> dict[str, Any]:
-    """Materialize the compact day-index view for games/dashboards."""
-    return finalize_view_semantic_boundary(_streaming_index(package), package)
+def streaming_index(
+    package: dict[str, Any],
+    *,
+    profile: str = "standard",
+    target_set: str | None = None,
+) -> dict[str, Any]:
+    """Materialize a deterministic date-indexed Transit view.
+
+    Profiles:
+    - standard: legacy rich streaming/index artifact.
+    - compact: reduced general-purpose date index and registries.
+    - game: gameplay target set, daily sky state, and active contacts only.
+    """
+    return finalize_view_semantic_boundary(
+        _streaming_index(package, profile=profile, target_set=target_set),
+        package,
+    )
 
 
 def build(

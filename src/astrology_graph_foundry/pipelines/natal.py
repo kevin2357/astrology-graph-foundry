@@ -122,9 +122,14 @@ def build(
             house_system=house_system,
         ),
     )
-    logger.info("Building natal semantic graph")
-    graph = build_chart_graph(ep.natal_chart())
-    ep.natal_chart()["semantic_graph"] = graph
+    existing_graph = ep.natal_chart().get("semantic_graph")
+    if existing_graph:
+        logger.info("Reusing provider-compiled natal semantic graph")
+        graph = existing_graph
+    else:
+        logger.info("Building natal semantic graph")
+        graph = build_chart_graph(ep.natal_chart())
+        ep.natal_chart()["semantic_graph"] = graph
     long_transits = _aggregate_long_running_transits(ep) if start and end else []
     themes: dict[str, dict[str, Any]] = {}
     for tr in long_transits[:50]:

@@ -1,0 +1,65 @@
+{
+  "determinism": {
+    "gzip_byte_identical": true,
+    "gzip_sha256_run1": "a7d63837a15a0a7b2836b66960848869457d2a35f17ae8f84b90184fddf82d66",
+    "gzip_sha256_run2": "a7d63837a15a0a7b2836b66960848869457d2a35f17ae8f84b90184fddf82d66",
+    "json_byte_identical": true,
+    "json_sha256_run1": "169ab401ce7b56b3b72f6b8c901f37249bb5c2957ec86e489f7e357c2e83df32",
+    "json_sha256_run2": "169ab401ce7b56b3b72f6b8c901f37249bb5c2957ec86e489f7e357c2e83df32"
+  },
+  "fixture": "scripts\\outputs\\kevin_bre_test\\kevin_2026-01-01_to_2026-02-01_transit.full.json",
+  "negative_test": {
+    "exception_type": "ValueError",
+    "message": "Unknown streaming profile 'not-a-profile'; expected one of ('standard', 'compact', 'game')",
+    "passed": true
+  },
+  "passed": true,
+  "profiles": {
+    "compact": {
+      "candidate_registry_count": 80,
+      "compression_ratio": 0.073511,
+      "day_count": 32,
+      "gzip_bytes": 33952,
+      "json_bytes": 461865,
+      "schema_errors": [],
+      "schema_valid": true
+    },
+    "game": {
+      "candidate_registry_count": 50,
+      "compression_ratio": 0.07763,
+      "day_count": 32,
+      "gzip_bytes": 17983,
+      "json_bytes": 231649,
+      "schema_errors": [],
+      "schema_valid": true
+    },
+    "standard": {
+      "candidate_registry_count": 80,
+      "compression_ratio": 0.04825,
+      "day_count": 32,
+      "gzip_bytes": 163466,
+      "json_bytes": 3387917,
+      "schema_errors": [],
+      "schema_valid": true
+    }
+  },
+  "pytest": {
+    "exit_code": 0,
+    "log": "outputs\\fixture_outputs\\pytest.log"
+  },
+  "qa_contract": "foundry_one_command_qa.v1",
+  "solar_return": {
+    "fixture": "scripts\\outputs\\kevin_bre_test\\kevin_2026_solar_return.json",
+    "output_bytes": 454634,
+    "relationship_family_distribution": {
+      "antiscia_relationship": 12,
+      "declination_relationship": 3,
+      "declination_relationship_between_derived_objects": 12,
+      "direct_aspect": 13,
+      "direct_aspect_between_derived_objects": 13,
+      "has_dignity_between_derived_objects": 12,
+      "has_sect_between_derived_objects": 2,
+      "lot_derived_from_between_derived_objects": 13
+    }
+  }
+}

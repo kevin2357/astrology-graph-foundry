@@ -367,3 +367,8 @@ Input-consuming pipelines are canonical-first. Legacy graph fallback remains onl
 Use `orthodox_row_annotation()` when a report-facing consumer needs conventional theme tags for a canonical object or relationship. Do not add those tags back to `canonical_astrology_graph`.
 
 Analysis views intentionally expose compact orthodox extracts and projection summaries rather than full duplicated projection views.
+
+
+## Environment diagnostics
+
+Use `astro-package doctor` or `astro-package doctor --json` to distinguish core Foundry availability, external Semantic Projection Core availability, and optional live Swiss Ephemeris capability. Development and cached-package workflows should not require the native ephemeris dependency.

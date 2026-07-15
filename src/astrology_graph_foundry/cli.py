@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 from pathlib import Path
 
 from astrology_graph_foundry.common.io import read_json, write_json
+from astrology_graph_foundry.doctor import build_doctor_report, render_doctor_report
 from astrology_graph_foundry.common.logging_config import configure_logging
 from astrology_graph_foundry.common.temporal_activation import (
     TemporalExportOptions,
@@ -106,6 +108,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="astro-package")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
+    p = sub.add_parser(
+        "doctor",
+        help="Inspect installation health and report graph/projection/live-calculation capabilities.",
+    )
+    p.add_argument("--json", action="store_true", help="Emit the doctor report as JSON.")
+
     p = sub.add_parser("generate-ephemeris")
     add_provider_args(p)
     p.add_argument("--start")
@@ -133,7 +141,34 @@ def main() -> None:
     p.add_argument("--out", help="Default compact output stem/path. Writes .analysis.json and .streaming_index.json unless explicit view paths are provided.")
     p.add_argument("--out-analysis")
     p.add_argument("--out-streaming-index")
+    p.add_argument(
+        "--streaming-profile",
+        choices=["standard", "compact", "game"],
+        default="standard",
+        help="Retention/materialization profile for the Transit streaming index.",
+    )
+    p.add_argument(
+        "--transit-target-set",
+        choices=["core", "expanded", "all", "gameplay"],
+        help="Target selection policy for compact/game streaming views. Defaults to gameplay for game and all otherwise.",
+    )
+    p.add_argument(
+        "--streaming-compression",
+        choices=["none", "gzip"],
+        default="none",
+        help="Optionally write the streaming artifact as deterministic gzip-compressed JSON.",
+    )
     p.add_argument("--out-full", help="Explicitly write the full-detail transit package. Full output is opt-in because it can be very large.")
+
+    p = sub.add_parser(
+        "transit-streaming-view",
+        help="Materialize standard, compact, or game streaming views from an existing full Transit package.",
+    )
+    p.add_argument("--source-dataset", required=True)
+    p.add_argument("--streaming-profile", choices=["standard", "compact", "game"], default="standard")
+    p.add_argument("--transit-target-set", choices=["core", "expanded", "all", "gameplay"])
+    p.add_argument("--compression", choices=["none", "gzip"], default="none")
+    p.add_argument("--out", required=True)
 
     p = sub.add_parser("synastry")
     add_pair_args(p)
@@ -172,6 +207,14 @@ def main() -> None:
     p.add_argument("--house-system", default="P")
     p.add_argument("--output-dir")
     p.add_argument("--out")
+    p.add_argument("--out-analysis", help="Optionally write compact Solar Return analysis view.")
+
+    p = sub.add_parser(
+        "solar-return-analysis",
+        help="Materialize a compact factual analysis view from an existing full Solar Return package.",
+    )
+    p.add_argument("--source-dataset", required=True)
+    p.add_argument("--out", required=True)
 
     p = sub.add_parser("lunar-return")
     p.add_argument("--target-dataset", required=True, help="Natal, composite, or Davison package exposing TransitableChart.")
@@ -314,6 +357,21 @@ def main() -> None:
     logger.info("CLI command parsed: %s", args.cmd)
     logger.debug("CLI args: %s", vars(args))
 
+    if args.cmd == "doctor":
+        report = build_doctor_report()
+        if args.json:
+            print(json.dumps(report, indent=2, sort_keys=True))
+        else:
+            print(render_doctor_report(report))
+        return
+
+    if args.cmd == "solar-return-analysis":
+        package = read_json(args.source_dataset)
+        if package.get("metadata", {}).get("analysis_type") != "solar_return_dataset":
+            raise SystemExit("solar-return-analysis requires a full solar_return_dataset package.")
+        write_json(args.out, solar_return.analysis_view(package))
+        print(f"Wrote {args.out}")
+        return
 
     if args.cmd == "export-temporal-graph":
         logger.info(
@@ -531,23 +589,51 @@ def main() -> None:
             stem = f"{safe_name(data['metadata'].get('target_label'))}_{suffix}_transit"
             return base / f"{stem}.analysis.json", base / f"{stem}.streaming_index.json"
 
+        def streaming_output_path(path: Path) -> Path:
+            if args.streaming_compression == "gzip" and path.suffix != ".gz":
+                return path.with_name(path.name + ".gz")
+            return path
+
+        def streaming_payload() -> dict:
+            return transit.streaming_index(
+                data,
+                profile=args.streaming_profile,
+                target_set=args.transit_target_set,
+            )
+
         wrote: list[Path] = []
         explicit_view_paths = bool(args.out_analysis or args.out_streaming_index or args.out_full)
         if explicit_view_paths:
             if args.out_analysis:
                 path = Path(args.out_analysis); write_json(path, transit.analysis_view(data)); wrote.append(path)
             if args.out_streaming_index:
-                path = Path(args.out_streaming_index); write_json(path, transit.streaming_index(data)); wrote.append(path)
+                path = streaming_output_path(Path(args.out_streaming_index))
+                write_json(path, streaming_payload())
+                wrote.append(path)
             if args.out_full:
                 path = Path(args.out_full); write_json(path, data); wrote.append(path)
         else:
             analysis_path, streaming_path = derived_transit_view_paths()
             write_json(analysis_path, transit.analysis_view(data))
-            write_json(streaming_path, transit.streaming_index(data))
+            streaming_path = streaming_output_path(streaming_path)
+            write_json(streaming_path, streaming_payload())
             wrote.extend([analysis_path, streaming_path])
         for path in wrote:
             print(f"Wrote {path}")
         logger.info("Command complete: wrote %d transit output files", len(wrote))
+        return
+    elif args.cmd == "transit-streaming-view":
+        source = read_json(args.source_dataset)
+        output_path = Path(args.out)
+        if args.compression == "gzip" and output_path.suffix != ".gz":
+            output_path = output_path.with_name(output_path.name + ".gz")
+        view = transit.streaming_index(
+            source,
+            profile=args.streaming_profile,
+            target_set=args.transit_target_set,
+        )
+        write_json(output_path, view)
+        print(f"Wrote {output_path}")
         return
     elif args.cmd == "synastry":
         logger.info("Building synastry package out=%s", args.out)
@@ -657,6 +743,9 @@ def main() -> None:
         data = solar_return.build(target_dataset=args.target_dataset, return_year=args.return_year, return_location_policy=args.return_location_policy, location_timezone=args.location_timezone, location_lat=args.location_lat, location_lon=args.location_lon, location_label=args.location_label, ephe_path=args.ephe_path, house_system=args.house_system)
         target_label = safe_name(data.get("metadata", {}).get("target_label"))
         out = resolve_output_path(args, f"{target_label}_solar_return_{args.return_year}.json", data)
+        if args.out_analysis:
+            write_json(args.out_analysis, solar_return.analysis_view(data))
+            print(f"Wrote {args.out_analysis}")
     elif args.cmd == "lunar-return":
         data = lunar_return.build(target_dataset=args.target_dataset, start=args.start, end=args.end, return_location_policy=args.return_location_policy, location_timezone=args.location_timezone, location_lat=args.location_lat, location_lon=args.location_lon, location_label=args.location_label, ephe_path=args.ephe_path, house_system=args.house_system)
         target_label = safe_name(data.get("metadata", {}).get("target_label"))

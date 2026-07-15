@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/solar_return_analysis_view_v1.schema.json",
+  "title": "Solar Return Analysis View v1",
+  "type": "object",
+  "required": [
+    "metadata",
+    "target",
+    "return_event",
+    "return_chart_summary",
+    "canonical_graph_summary",
+    "top_objects",
+    "top_relationships"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "analysis_type",
+        "view_type"
+      ],
+      "properties": {
+        "analysis_type": {
+          "const": "solar_return_dataset"
+        },
+        "view_type": {
+          "const": "solar_return_analysis"
+        }
+      },
+      "additionalProperties": true
+    },
+    "target": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "return_location": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "return_event": {
+      "type": "object"
+    },
+    "return_chart_summary": {
+      "type": "object"
+    },
+    "canonical_graph_summary": {
+      "type": "object"
+    },
+    "top_objects": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "top_relationships": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "report_materials": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
