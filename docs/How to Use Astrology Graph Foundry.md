@@ -1,8 +1,8 @@
 # How to Use the Astrology Graph Foundry
 
-> **Pass 2 documentation map**
+> **Documentation map**
 >
-> This quick-start is intentionally narrow: use it when you want to run commands. For conceptual/developer guidance, see [`Astrology Graph Foundry Developer Manual.md`](Astrology%20Graph%20Foundry%20Developer%20Manual.md). For the system-wide architecture, see [`Astrology Ecosystem Architecture.md`](Astrology%20Ecosystem%20Architecture.md). For downstream domain translation, see [`Projection Layer Architecture.md`](Projection%20Layer%20Architecture.md). For standard report products and `report_view.json`, see [`Report Blueprint Specification.md`](Report%20Blueprint%20Specification.md). For evidence objects and graph philosophy, see [`Semantic Graph Philosophy.md`](Semantic%20Graph%20Philosophy.md). For the long-term synthesis/research layer, see [`Multi-Pipeline Semantic Synthesis.md`](Multi-Pipeline%20Semantic%20Synthesis.md). For concrete package-combination examples, see [`Consumer Cookbook.md`](Consumer%20Cookbook.md).
+> Use this guide for commands and package-reading examples. See [`Astrology Graph Foundry Developer Manual.md`](Astrology%20Graph%20Foundry%20Developer%20Manual.md) for internal architecture, [`Astrology Ecosystem Architecture.md`](Astrology%20Ecosystem%20Architecture.md) for repository boundaries, [`Consumer Cookbook.md`](Consumer%20Cookbook.md) for package combinations, and [`Canonical Temporal Activation Graph.md`](Canonical%20Temporal%20Activation%20Graph.md) for the Foundry temporal source contract. Projection-profile authoring and projected semantic rendering are documented in the separate Semantic Projection Core repository.
 
 
 > **Documentation status note**
@@ -17,6 +17,21 @@ This SDK is designed around a simple separation of concerns:
 3. **Downstream consumption** — report writers, CFANFF reverse reads, OMTA/projected-chart generation, infographics, timelines, and game engines read those packages instead of recomputing astrology.
 
 The project standard is: preserve audit-grade facts, use stable IDs, avoid repeated payloads in compact outputs, and make semantic reasoning explicit through graph objects, relationship types, theme tags, operator hints, evidence claims, and report materials.
+
+## Installation diagnostics
+
+```bat
+astro-package doctor
+astro-package doctor --json
+```
+
+The doctor command reports three independently useful capabilities:
+
+- Foundry saved-package workflows;
+- projection through an installed Semantic Projection Core;
+- optional live Swiss Ephemeris calculation.
+
+A missing `pyswisseph` installation does not prevent cached-package, schema, graph, or projection workflows.
 
 ## Invocation styles
 
@@ -52,7 +67,7 @@ transit_pkg = transit.build(
     start="2026-01-01",
     end="2026-02-01",
     provider="live",
-    natal_dataset=alex,
+    target_dataset=alex,
     ephe_path=r"C:\dev\swisseph",
 )
 analysis = transit.analysis_view(transit_pkg)
@@ -153,7 +168,14 @@ Annual profections activate a house by completed age and identify a time lord fr
 python -m astrology_graph_foundry.cli solar-return --target-dataset alex_natal_dataset.json --return-year 2026 --return-location-policy explicit --location-timezone America/Denver --location-lat 39.7392 --location-lon -104.9903 --location-label "Denver, Colorado" --ephe-path C:\dev\swisseph --out alex_2026_solar_return.json
 ```
 
-A solar return chart is cast for the exact moment the transiting Sun returns to the natal Sun longitude.
+A solar return chart is cast for the exact moment the transiting Sun returns to the target Sun longitude.
+
+Optionally write a compact factual analysis view:
+
+```bat
+python -m astrology_graph_foundry.cli solar-return ... --out alex_2026_solar_return.json --out-analysis alex_2026_solar_return.analysis.json
+python -m astrology_graph_foundry.cli solar-return-analysis --source-dataset alex_2026_solar_return.json --out alex_2026_solar_return.analysis.json
+```
 
 ### Lunar return
 
@@ -177,7 +199,13 @@ Davison uses the midpoint in birth time and location, then casts a real chart fo
 python -m astrology_graph_foundry.cli eclipse-lunation --start 2026-01-01 --end 2026-12-31 --target-dataset alex_natal_dataset.json --ephe-path C:\dev\swisseph --out alex_2026_lunations.json
 ```
 
-The eclipse/lunation pipeline scans an explicit date range, identifies each new and full moon, classifies node-proximity eclipse-season windows, adds ±3-day activation windows, and records contacts to any natal, composite, or Davison TransitableChart target. The node-distance classification is intentionally described as an eclipse window rather than asserting global visibility or exact eclipse subtype.
+The eclipse/lunation pipeline scans an explicit date range, identifies each new and full moon, classifies ordinary lunations versus node-proximity eclipse-season candidates, adds ±3-day activation windows, and records contacts to any Natal, Composite, or Davison `TransitableChart` target. It does not claim global eclipse confirmation, local visibility, or exact subtype from node distance alone.
+
+A helper keeps lunation windows aligned with long Transit packages:
+
+```bat
+scripts\generate_long_window_lunations.bat --start 2026-01-01 --end 2027-07-01 --target-dataset alex_natal_dataset.json --ephe-path C:\dev\swisseph --out alex_lunations_2026_to_2027.json
+```
 
 ## Scaffolded future pipelines
 

@@ -57,10 +57,18 @@ def _eclipse_classification(event_type: str, node_distance: float) -> dict[str, 
     eclipse_type = None
     if is_window:
         eclipse_type = "solar_eclipse_window" if event_type == "new_moon" else "lunar_eclipse_window"
+    lunation_kind = "new_moon" if event_type == "new_moon" else "full_moon"
+    potential_kind = "solar_eclipse" if event_type == "new_moon" else "lunar_eclipse"
     return {
         "is_eclipse_window": is_window,
         "eclipse_type": eclipse_type,
         "eclipse_proximity": proximity,
+        "lunation_classification": (
+            f"{potential_kind}_season_lunation" if is_window else f"ordinary_{lunation_kind}"
+        ),
+        "eclipse_status": "eclipse_season_candidate" if is_window else "ordinary_lunation",
+        "potential_eclipse_kind": potential_kind if is_window else None,
+        "classification_precision": "eclipse_season_window_not_global_eclipse_confirmation",
         "classification_method": "lunation distance to true lunar node; identifies eclipse-season windows but not visibility or exact global eclipse subtype",
     }
 

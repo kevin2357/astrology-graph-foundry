@@ -5,7 +5,11 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from astrology_graph_foundry.common.transitable_chart import from_package
-from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
+from astrology_graph_foundry.common.semantic_layers import (
+    canonical_graph_from_package,
+    finalize_package_semantic_boundary,
+    finalize_view_semantic_boundary,
+)
 from astrology_graph_foundry.common.return_location import resolve_return_location
 from astrology_graph_foundry.pipelines.return_charts import cast_return_chart, find_longitude_return, require_swe
 
@@ -145,3 +149,116 @@ def build(
         },
     } 
     return finalize_package_semantic_boundary(package)
+
+
+
+def _compact_relationship_selection(
+    relationships: list[dict[str, Any]],
+    *,
+    limit: int,
+) -> list[dict[str, Any]]:
+    """Select a diversified factual relationship sample for compact views.
+
+    Core/direct rows are preferred. Mechanically entailed derived-owner rows remain
+    available but cannot consume the entire top-N list.
+    """
+    tier_priority = {
+        "core": 0,
+        "angle": 0,
+        "calculated": 1,
+        "lot": 2,
+        "antiscia": 3,
+        "harmonic": 4,
+        "derived": 5,
+    }
+
+    def key(row: dict[str, Any]) -> tuple[Any, ...]:
+        evidence = row.get("evidence_metadata") or {}
+        tier = str(evidence.get("evidence_tier") or "")
+        family = str(evidence.get("derivation_family") or "unknown")
+        owners = [str(v) for v in (evidence.get("owner_object_refs") or []) if v not in (None, "unknown")]
+        mechanically_entailed = len(set(owners)) <= 1 and len(owners) > 0
+        return (
+            1 if mechanically_entailed else 0,
+            tier_priority.get(tier, 6),
+            float(row.get("orb", 999)) if row.get("orb") is not None else 999,
+            -float(row.get("structural_strength_score") or 0),
+            family,
+            str(row.get("id") or ""),
+        )
+
+    ordered = sorted(relationships, key=key)
+    selected: list[dict[str, Any]] = []
+    family_counts: dict[str, int] = {}
+    family_cap = max(4, limit // 6)
+    deferred: list[dict[str, Any]] = []
+    for row in ordered:
+        family = str((row.get("evidence_metadata") or {}).get("derivation_family") or "unknown")
+        if family_counts.get(family, 0) >= family_cap:
+            deferred.append(row)
+            continue
+        selected.append(row)
+        family_counts[family] = family_counts.get(family, 0) + 1
+        if len(selected) >= limit:
+            return selected
+    for row in deferred:
+        selected.append(row)
+        if len(selected) >= limit:
+            break
+    return selected
+
+
+def analysis_view(
+    package: dict[str, Any],
+    *,
+    object_limit: int = 40,
+    relationship_limit: int = 80,
+) -> dict[str, Any]:
+    """Compact factual Solar Return view derived from the canonical return graph."""
+    graph = canonical_graph_from_package(package)
+    objects = list(graph.get("objects", []) or [])
+    relationships = list(graph.get("relationships", []) or [])
+
+    object_priority = {
+        "planet_or_point": 0,
+        "angle": 1,
+        "calculated_point": 2,
+        "lot": 3,
+        "antiscia_point": 4,
+        "contra_antiscia_point": 5,
+        "harmonic_point": 6,
+    }
+    objects.sort(
+        key=lambda row: (
+            object_priority.get(str(row.get("object_type")), 9),
+            str(row.get("id") or row.get("name") or ""),
+        )
+    )
+    relationships = _compact_relationship_selection(
+        relationships,
+        limit=relationship_limit,
+    )
+
+    return_chart = package.get("return_chart", {}) or {}
+    view = {
+        "metadata": {
+            **package.get("metadata", {}),
+            "view_type": "solar_return_analysis",
+            "view_compaction": "canonical_return_graph_summary_v1",
+        },
+        "target": package.get("target"),
+        "return_location": package.get("return_location"),
+        "return_event": package.get("return_event"),
+        "return_chart_summary": {
+            "bodies": return_chart.get("bodies", {}),
+            "angles": return_chart.get("angles", {}),
+            "houses": return_chart.get("houses", {}),
+            "lots": return_chart.get("lots", {}),
+            "sect": return_chart.get("sect", {}),
+        },
+        "canonical_graph_summary": graph.get("summary", {}),
+        "top_objects": objects[:object_limit],
+        "top_relationships": relationships,
+        "report_materials": package.get("report_materials", {}),
+    }
+    return finalize_view_semantic_boundary(view, package)

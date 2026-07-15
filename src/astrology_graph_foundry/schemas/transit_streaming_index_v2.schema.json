@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Transit Streaming Index v2",
+  "type": "object",
+  "required": ["view_type", "streaming_profile", "target_set", "metadata", "period", "candidate_registry"],
+  "properties": {
+    "view_type": {"const": "streaming_index"},
+    "streaming_profile": {"enum": ["standard", "compact", "game"]},
+    "target_set": {"enum": ["core", "expanded", "all", "gameplay"]},
+    "metadata": {"type": "object"},
+    "period": {"type": "object"},
+    "candidate_registry": {"type": "object"},
+    "days": {"type": "array"},
+    "days_by_date": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["candidate_count", "contacts"],
+        "properties": {
+          "transit_datetime": {"type": ["string", "null"]},
+          "candidate_count": {"type": "integer", "minimum": 0},
+          "contacts": {"type": "array"},
+          "daily_sky": {
+            "type": "object",
+            "properties": {
+              "transit_datetime": {"type": ["string", "null"]},
+              "positions": {"type": "object"}
+            },
+            "required": ["positions"]
+          }
+        }
+      }
+    },
+    "arcs": {"type": "array"},
+    "months": {"type": "array"},
+    "activated_target_relationship_registry": {"type": "object"},
+    "canonical_graph_summary": {"type": "object"},
+    "semantic_boundary": {"type": "object"},
+    "structural_evidence_summary": {"type": "object"},
+    "projection_view_summaries": {"type": "object"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"streaming_profile": {"const": "standard"}}},
+      "then": {"required": ["days", "arcs", "months"]}
+    },
+    {
+      "if": {"properties": {"streaming_profile": {"enum": ["compact", "game"]}}},
+      "then": {"required": ["days_by_date"]}
+    }
+  ],
+  "additionalProperties": true
+}

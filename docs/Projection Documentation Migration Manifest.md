@@ -15,3 +15,8 @@ Canonical astrology graph, structural evidence, calculation pipelines, providers
 - Developer Manual: Foundry documents source contracts and integration; Profile Authoring and projection internals live in Projection Core.
 
 Duplicated projection documents in this repository have been replaced by migration pointers so there is one authoritative source.
+
+
+## Foundry 0.5 cleanup
+
+Chunk 2 implementation documents are now stored under `docs/history/projection-extraction/`. Current projection-concept filenames remain as short migration pointers where older links may still refer to them.

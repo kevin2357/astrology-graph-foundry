@@ -68,12 +68,19 @@ def configure_logging(config_path: str | Path | None = None, *, default_log_file
         if path and path.exists():
             with path.open("r", encoding="utf-8") as f:
                 config: dict[str, Any] = json.load(f)
+            explicit_log_file = os.environ.get("ASTROLOGY_FOUNDRY_LOG_FILE")
+            if explicit_log_file:
+                for handler in (config.get("handlers") or {}).values():
+                    if handler.get("class") == "logging.FileHandler":
+                        handler["filename"] = explicit_log_file
             logging.config.dictConfig(config)
             configure_logging._configured = True
             configure_logging._config_path_used = path
             logging.getLogger(__name__).debug("Configured logging from %s", path)
             return path
 
+    if os.environ.get("ASTROLOGY_FOUNDRY_LOG_FILE"):
+        default_log_file = os.environ["ASTROLOGY_FOUNDRY_LOG_FILE"]
     fallback = dict(_DEFAULT_CONFIG)
     fallback["handlers"] = dict(_DEFAULT_CONFIG["handlers"])
     fallback["handlers"]["file"] = dict(_DEFAULT_CONFIG["handlers"]["file"])

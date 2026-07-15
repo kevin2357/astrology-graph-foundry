@@ -16,6 +16,22 @@ target-domain projected semantic graphs
 
 Semantic Projection Core is maintained separately. This repository retains the saved-package adapters and CLI bridges that translate Foundry package structures into generic projection inputs.
 
+## Installation health check
+
+After installation, run:
+
+```bat
+astro-package doctor
+```
+
+For machine-readable diagnostics:
+
+```bat
+astro-package doctor --json
+```
+
+The command distinguishes saved-package/projection workflows from optional live Swiss Ephemeris calculation support.
+
 ## Current capabilities
 
 Implemented pipelines include:
@@ -71,6 +87,34 @@ See:
 
 - `docs/Canonical Temporal Activation Graph.md`
 - `docs/Temporal Projection A-B-C Implementation Plan.md`
+
+## Practical compact and long-window helpers
+
+Solar Return can optionally emit a compact factual analysis view:
+
+```bat
+astro-package solar-return ... ^
+  --out full_solar_return.json ^
+  --out-analysis solar_return.analysis.json
+
+REM Or compact an existing saved full package without recalculation:
+astro-package solar-return-analysis ^
+  --source-dataset full_solar_return.json ^
+  --out solar_return.analysis.json
+```
+
+Long-window eclipse/lunation generation can mirror an annual or multi-month Transit window:
+
+```bat
+scripts\generate_long_window_lunations.bat ^
+  --start 2026-01-01 ^
+  --end 2027-07-01 ^
+  --target-dataset natal.json ^
+  --ephe-path C:\dev\swisseph ^
+  --out lunations_2026_to_2027.json
+```
+
+Eclipse-season classifications remain explicit candidates until a global eclipse calculation confirms subtype and geometry.
 
 ## Installation
 
@@ -143,3 +187,11 @@ See:
 ```text
 docs/logging.md
 ```
+
+## Transit streaming profiles
+
+Transit streaming/index artifacts support `standard`, `compact`, and `game` retention profiles, optional deterministic gzip transport, and conservative gameplay source/target selection. See `docs/Transit Streaming Profiles and Game Index.md`.
+
+## One-command QA
+
+Place canonical fixtures in `outputs/fixture_test_files` and run `scripts\run_streaming_profiles_qa.bat`. All generated artifacts and logs are written to `outputs/fixture_outputs`.

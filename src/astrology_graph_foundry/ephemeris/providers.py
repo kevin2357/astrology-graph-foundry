@@ -21,6 +21,8 @@ class EphemerisProvider:
     def person_metadata(self) -> dict[str, Any]: return self.target_metadata()
     def natal_chart(self) -> dict[str, Any]: return self.target_chart()
     def iter_days(self) -> Iterable[DailySnapshot]: raise NotImplementedError
+    def graph_compiler(self, *, relationship_limit: int = 12):
+        return None
     def to_jsonl_rows(self) -> list[dict[str, Any]]:
         person = self.person_metadata().get("person")
         rows = [{**self.person_metadata(), "type": "person_metadata"}, {**self.natal_chart(), "type": "natal_chart"}]
@@ -73,6 +75,10 @@ class LiveSwissEphemerisProvider(EphemerisProvider):
         self._chart["semantic_graph"] = self._target.semantic_graph or build_chart_graph(self._chart)
         self._active_bodies = None; self._skipped_transit_bodies = []
         self._graph_compiler = GraphCompiler(self._chart)
+    def graph_compiler(self, *, relationship_limit: int = 12):
+        if self._graph_compiler.relationship_limit == relationship_limit:
+            return self._graph_compiler
+        return GraphCompiler(self._chart, relationship_limit=relationship_limit)
     def target_metadata(self) -> dict[str, Any]:
         return {
             "person": self._target.label,

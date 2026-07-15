@@ -64,7 +64,12 @@ def analysis_view(package: dict[str, Any]) -> dict[str, Any]:
     return view
 
 
-def streaming_index(package: dict[str, Any]) -> dict[str, Any]:
-    view = transit_period.streaming_index(package)
+def streaming_index(
+    package: dict[str, Any],
+    *,
+    profile: str = "standard",
+    target_set: str | None = None,
+) -> dict[str, Any]:
+    view = transit_period.streaming_index(package, profile=profile, target_set=target_set)
     view["metadata"] = {**view.get("metadata", {}), "public_pipeline_name": "transit"}
     return view

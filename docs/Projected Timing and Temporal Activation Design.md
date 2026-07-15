@@ -1,7 +1,8 @@
 # Moved to Semantic Projection Core
 
-This document is now owned by the standalone **Semantic Projection Core** repository.
+This document is owned by the standalone **Semantic Projection Core** project.
 
-Authoritative document: `../semantic-projection-core/docs/Projected Timing and Temporal Activation Design.md`
+- Repository: https://github.com/kevin2357/semantic-projection-core
+- Historical Foundry-era copy: [`history/projection-extraction/Projected Timing and Temporal Activation Design.md`](history/projection-extraction/Projected%20Timing%20and%20Temporal%20Activation%20Design.md)
 
-Astrology Graph Foundry owns canonical astrology calculation, graph, structural-evidence, and saved-package contracts.
+Astrology Graph Foundry retains only source-package adapters and integration boundaries.
