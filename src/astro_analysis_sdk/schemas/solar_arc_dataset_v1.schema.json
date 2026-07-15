@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "solar_arc_dataset",
+  "type": "object",
+  "required": [
+    "metadata"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "analysis_type"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "pipeline_version": {
+          "type": "string"
+        },
+        "analysis_type": {
+          "const": "solar_arc_dataset"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "report_materials": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

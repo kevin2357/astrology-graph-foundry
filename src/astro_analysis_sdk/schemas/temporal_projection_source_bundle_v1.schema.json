@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "temporal_projection_source_bundle_v1.schema.json",
+  "title": "Temporal Projection Source Bundle v1",
+  "description": "Foundry-owned projection-neutral handoff reserved for Semantic Projection Core temporal support.",
+  "type": "object",
+  "required": [
+    "metadata",
+    "source_identity",
+    "target_identity",
+    "static_source_graph",
+    "structural_evidence",
+    "temporal_source_graph",
+    "source_registries",
+    "limitations"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "package_type",
+        "contract_version",
+        "bundle_id",
+        "projection_neutral",
+        "consumer_status"
+      ],
+      "properties": {
+        "package_type": {
+          "const": "temporal_projection_source_bundle"
+        },
+        "contract_version": {
+          "const": "1.0.0"
+        },
+        "bundle_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "projection_neutral": {
+          "const": true
+        },
+        "consumer_status": {
+          "const": "reserved_for_semantic_projection_core_temporal_support"
+        }
+      },
+      "additionalProperties": true
+    },
+    "source_identity": {
+      "type": "object",
+      "required": [
+        "source_chart_id",
+        "source_chart_ids",
+        "sensor_instance_id"
+      ],
+      "additionalProperties": true
+    },
+    "target_identity": {
+      "type": "object"
+    },
+    "static_source_graph": {
+      "type": "object"
+    },
+    "structural_evidence": {
+      "type": "object"
+    },
+    "temporal_source_graph": {
+      "$ref": "canonical_temporal_activation_graph_v1.schema.json"
+    },
+    "source_registries": {
+      "type": "object"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

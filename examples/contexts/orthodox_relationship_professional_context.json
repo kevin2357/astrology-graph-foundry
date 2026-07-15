@@ -1,0 +1,14 @@
+{
+  "context_id": "orthodox.relationship.professional.v1",
+  "context_version": "1.0.0",
+  "subject_scope": "relationship",
+  "relationship_type": "professional",
+  "age_band": null,
+  "target_domain": "orthodox_astrology.v1",
+  "application_context": "professional_relationship",
+  "audience": "adult_general",
+  "output_intent": "structured_semantic_model",
+  "constraints": {},
+  "parameters": {},
+  "extensions": {}
+}

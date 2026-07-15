@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence Provenance Metadata v1",
+  "type": "object",
+  "required": [
+    "evidence_tier",
+    "derivation_type",
+    "derivation_family",
+    "source_sensor_id",
+    "independence_group",
+    "sensor_instance_id",
+    "source_chart_ids",
+    "source_chart_family_group"
+  ],
+  "properties": {
+    "evidence_tier": {
+      "enum": [
+        "core",
+        "angle",
+        "calculated_point",
+        "antiscia",
+        "harmonic",
+        "derived",
+        "supplemental"
+      ]
+    },
+    "derivation_type": {
+      "enum": [
+        "direct",
+        "derived",
+        "supplemental",
+        "direct_relation_between_derived_objects"
+      ]
+    },
+    "derivation_family": {
+      "type": "string"
+    },
+    "owner_object_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "owner_object_refs": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "source_sensor_id": {
+      "type": "string"
+    },
+    "independence_group": {
+      "type": "string"
+    },
+    "root_owner_object_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_owner_object_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_owner_object_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "endpoint_evidence_tiers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "record_independence_group": {
+      "type": "string"
+    },
+    "evidence_family_group": {
+      "type": "string"
+    },
+    "sensor_instance_id": {
+      "type": "string"
+    },
+    "source_chart_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "source_chart_family_group": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

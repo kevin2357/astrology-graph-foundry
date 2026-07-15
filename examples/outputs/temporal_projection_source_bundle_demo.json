@@ -1,0 +1,348 @@
+{
+  "limitations": [
+    "Semantic Projection Core does not yet execute this bundle.",
+    "The bundle preserves source timing facts and carries no projected temporal meanings."
+  ],
+  "metadata": {
+    "bundle_id": "temporal_projection_source:14c163d236bcacee6109",
+    "consumer_status": "reserved_for_semantic_projection_core_temporal_support",
+    "contract_version": "1.0.0",
+    "package_type": "temporal_projection_source_bundle",
+    "projection_neutral": true
+  },
+  "source_identity": {
+    "sensor_instance_id": "temporal:natal:example:2026-01-01:2026-01-12",
+    "source_chart_id": "natal:example",
+    "source_chart_ids": [
+      "natal:example"
+    ]
+  },
+  "source_registries": {
+    "activated_target_relationship_registry": {}
+  },
+  "static_source_graph": {
+    "graph_type": "canonical_astrology_graph",
+    "graph_version": "1.3.0",
+    "metadata": {
+      "graph_id": "canonical:natal:example"
+    },
+    "objects": [],
+    "relationships": []
+  },
+  "structural_evidence": {
+    "graph_type": "structural_evidence_graph",
+    "graph_version": "1.3.0"
+  },
+  "target_identity": {
+    "chart_id": "natal:example",
+    "chart_type": "natal",
+    "label": "Example",
+    "semantic_scope": "individual_climate",
+    "subject_scope": "individual"
+  },
+  "temporal_source_graph": {
+    "activations": [
+      {
+        "activation_type": "transit_aspect_arc",
+        "activator_ref": "canonical:transiting_object:mars",
+        "aspect": "square",
+        "closest_observed_at": "2026-01-03T12:00:00-07:00",
+        "end_at": "2026-01-04T12:00:00-07:00",
+        "exact_at": "2026-01-03T12:00:00-07:00",
+        "exactness": {
+          "closest_orb": 0.005,
+          "note": "Exact time is a sampled observation, not a solved exact event.",
+          "sampled_exact_orb_threshold": 0.01,
+          "status": "sampled_exact"
+        },
+        "id": "temporal_activation:c02e82b63ce467fa8494",
+        "motion": {
+          "changes_motion_within_activation": false,
+          "states": [
+            "direct"
+          ]
+        },
+        "observation_count": 4,
+        "observation_states": [
+          {
+            "activator_state": {
+              "house": null,
+              "latitude": null,
+              "longitude": 120.0,
+              "retrograde": false,
+              "sign": "Leo",
+              "speed": 0.4
+            },
+            "date": "2026-01-01",
+            "distance": null,
+            "observed_at": "2026-01-01T12:00:00-07:00",
+            "orb": 1.1,
+            "phase": "applying_observed",
+            "rank": 1,
+            "relevance_score": 0.88,
+            "state_id": "temporal_state:e21f527eae117c117b92",
+            "strength": null
+          },
+          {
+            "activator_state": {
+              "house": null,
+              "latitude": null,
+              "longitude": 120.0,
+              "retrograde": false,
+              "sign": "Leo",
+              "speed": 0.4
+            },
+            "date": "2026-01-02",
+            "distance": null,
+            "observed_at": "2026-01-02T12:00:00-07:00",
+            "orb": 0.3,
+            "phase": "applying_observed",
+            "rank": 1,
+            "relevance_score": 0.88,
+            "state_id": "temporal_state:52fb67e5a4f09bdd8765",
+            "strength": null
+          },
+          {
+            "activator_state": {
+              "house": null,
+              "latitude": null,
+              "longitude": 120.0,
+              "retrograde": false,
+              "sign": "Leo",
+              "speed": 0.4
+            },
+            "date": "2026-01-03",
+            "distance": null,
+            "observed_at": "2026-01-03T12:00:00-07:00",
+            "orb": 0.005,
+            "phase": "sampled_exact",
+            "rank": 1,
+            "relevance_score": 0.88,
+            "state_id": "temporal_state:2a37381c842283fa30e0",
+            "strength": null
+          },
+          {
+            "activator_state": {
+              "house": null,
+              "latitude": null,
+              "longitude": 120.0,
+              "retrograde": false,
+              "sign": "Leo",
+              "speed": 0.4
+            },
+            "date": "2026-01-04",
+            "distance": null,
+            "observed_at": "2026-01-04T12:00:00-07:00",
+            "orb": 0.4,
+            "phase": "separating_observed",
+            "rank": 1,
+            "relevance_score": 0.88,
+            "state_id": "temporal_state:ce9979441b0986febf77",
+            "strength": null
+          }
+        ],
+        "pass_index": 1,
+        "provenance": {
+          "max_observation_gap_days": 2,
+          "normalization_policy": "arc_first_with_observation_segmentation.v1",
+          "source_analysis_type": "transit_range_dataset",
+          "source_arc_id": "arc:tc:Mars:square:natal_Venus",
+          "source_candidate_id": "tc:Mars:square:natal_Venus",
+          "source_materialization": "full"
+        },
+        "relationship_type": "TRANSIT_ACTIVATION",
+        "sequence_id": "temporal_sequence:bc20b362716fee208ea9",
+        "source_refs": [
+          "transit_arc:arc:tc:Mars:square:natal_Venus",
+          "transit_candidate:tc:Mars:square:natal_Venus",
+          "transit_observation:2026-01-01:tc:Mars:square:natal_Venus",
+          "transit_observation:2026-01-02:tc:Mars:square:natal_Venus",
+          "transit_observation:2026-01-03:tc:Mars:square:natal_Venus",
+          "transit_observation:2026-01-04:tc:Mars:square:natal_Venus"
+        ],
+        "start_at": "2026-01-01T12:00:00-07:00",
+        "target_chart_ref": "natal:example",
+        "target_house": 8,
+        "target_ref": "natal:Venus",
+        "target_type": "planet_or_point",
+        "transit_house_in_target_chart": 6
+      },
+      {
+        "activation_type": "transit_aspect_arc",
+        "activator_ref": "canonical:transiting_object:mars",
+        "aspect": "square",
+        "closest_observed_at": "2026-01-11T12:00:00-07:00",
+        "end_at": "2026-01-12T12:00:00-07:00",
+        "exact_at": null,
+        "exactness": {
+          "closest_orb": 0.2,
+          "note": "No solved exact event is asserted by this source package.",
+          "sampled_exact_orb_threshold": 0.01,
+          "status": "closest_observed_only"
+        },
+        "id": "temporal_activation:705386faf3cbe6e598c5",
+        "motion": {
+          "changes_motion_within_activation": false,
+          "states": [
+            "retrograde"
+          ]
+        },
+        "observation_count": 3,
+        "observation_states": [
+          {
+            "activator_state": {
+              "house": null,
+              "latitude": null,
+              "longitude": 120.0,
+              "retrograde": true,
+              "sign": "Leo",
+              "speed": -0.1
+            },
+            "date": "2026-01-10",
+            "distance": null,
+            "observed_at": "2026-01-10T12:00:00-07:00",
+            "orb": 0.5,
+            "phase": "applying_observed",
+            "rank": 1,
+            "relevance_score": 0.88,
+            "state_id": "temporal_state:dfbbce5f6a7120dafc0f",
+            "strength": null
+          },
+          {
+            "activator_state": {
+              "house": null,
+              "latitude": null,
+              "longitude": 120.0,
+              "retrograde": true,
+              "sign": "Leo",
+              "speed": -0.1
+            },
+            "date": "2026-01-11",
+            "distance": null,
+            "observed_at": "2026-01-11T12:00:00-07:00",
+            "orb": 0.2,
+            "phase": "closest_observed",
+            "rank": 1,
+            "relevance_score": 0.88,
+            "state_id": "temporal_state:238d990e68a184b20755",
+            "strength": null
+          },
+          {
+            "activator_state": {
+              "house": null,
+              "latitude": null,
+              "longitude": 120.0,
+              "retrograde": true,
+              "sign": "Leo",
+              "speed": -0.1
+            },
+            "date": "2026-01-12",
+            "distance": null,
+            "observed_at": "2026-01-12T12:00:00-07:00",
+            "orb": 0.7,
+            "phase": "separating_observed",
+            "rank": 1,
+            "relevance_score": 0.88,
+            "state_id": "temporal_state:c40ae439f7d77404359d",
+            "strength": null
+          }
+        ],
+        "pass_index": 2,
+        "provenance": {
+          "max_observation_gap_days": 2,
+          "normalization_policy": "arc_first_with_observation_segmentation.v1",
+          "source_analysis_type": "transit_range_dataset",
+          "source_arc_id": "arc:tc:Mars:square:natal_Venus",
+          "source_candidate_id": "tc:Mars:square:natal_Venus",
+          "source_materialization": "full"
+        },
+        "relationship_type": "TRANSIT_ACTIVATION",
+        "sequence_id": "temporal_sequence:bc20b362716fee208ea9",
+        "source_refs": [
+          "transit_arc:arc:tc:Mars:square:natal_Venus",
+          "transit_candidate:tc:Mars:square:natal_Venus",
+          "transit_observation:2026-01-10:tc:Mars:square:natal_Venus",
+          "transit_observation:2026-01-11:tc:Mars:square:natal_Venus",
+          "transit_observation:2026-01-12:tc:Mars:square:natal_Venus"
+        ],
+        "start_at": "2026-01-10T12:00:00-07:00",
+        "target_chart_ref": "natal:example",
+        "target_house": 8,
+        "target_ref": "natal:Venus",
+        "target_type": "planet_or_point",
+        "transit_house_in_target_chart": 6
+      }
+    ],
+    "activators": [
+      {
+        "id": "canonical:transiting_object:mars",
+        "name": "Mars",
+        "object_type": "transiting_object",
+        "source_body": "Mars"
+      }
+    ],
+    "diagnostics": {
+      "limitations": [
+        "Current Transit packages provide sampled observations rather than solved exact-event timestamps.",
+        "Repeated passes are segmented by observation gaps and remain conservative until exact-event grouping is available.",
+        "Only full and streaming_index Transit materializations are accepted to avoid incomplete analysis-view export."
+      ],
+      "warnings": []
+    },
+    "indexes": {
+      "activation_ids_by_activator": {
+        "canonical:transiting_object:mars": [
+          "temporal_activation:705386faf3cbe6e598c5",
+          "temporal_activation:c02e82b63ce467fa8494"
+        ]
+      },
+      "activation_ids_by_start_month": {
+        "2026-01": [
+          "temporal_activation:705386faf3cbe6e598c5",
+          "temporal_activation:c02e82b63ce467fa8494"
+        ]
+      },
+      "activation_ids_by_target": {
+        "natal:Venus": [
+          "temporal_activation:705386faf3cbe6e598c5",
+          "temporal_activation:c02e82b63ce467fa8494"
+        ]
+      }
+    },
+    "metadata": {
+      "authoritative_unit": "activation_arc",
+      "contract_version": "1.0.0",
+      "graph_id": "canonical_temporal_graph:115440fdc2d1d64d568e",
+      "normalization_policy": "arc_first_with_observation_segmentation.v1",
+      "package_type": "canonical_temporal_activation_graph",
+      "projection_neutral": true,
+      "source_analysis_type": "transit_range_dataset",
+      "source_materialization": "full"
+    },
+    "period": {
+      "day_count": 12,
+      "end_at": "2026-01-12",
+      "start_at": "2026-01-01"
+    },
+    "source_graph_ref": {
+      "graph_id": "canonical:natal:example",
+      "graph_type": "canonical_astrology_graph",
+      "graph_version": "1.3.0"
+    },
+    "summary": {
+      "activation_count": 2,
+      "activator_count": 1,
+      "observation_state_count": 7,
+      "sampled_exact_count": 1,
+      "sequence_count": 1,
+      "warning_count": 0
+    },
+    "target_identity": {
+      "chart_id": "natal:example",
+      "chart_type": "natal",
+      "label": "Example",
+      "semantic_scope": "individual_climate",
+      "subject_scope": "individual"
+    }
+  }
+}

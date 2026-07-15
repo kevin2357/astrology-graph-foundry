@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Orthodox Astrology Projection View v1",
+  "type": "object",
+  "required": [
+    "view_type",
+    "projection_profile",
+    "projection_profile_version",
+    "source_graph_ref",
+    "ontology_policy",
+    "theme_metrics",
+    "claim_candidates",
+    "consumer_views"
+  ],
+  "properties": {
+    "view_type": {
+      "const": "projected_semantic_view"
+    },
+    "projection_profile": {
+      "const": "orthodox_astrology.v1"
+    },
+    "projection_profile_version": {
+      "const": "1.0.0"
+    },
+    "source_graph_ref": {
+      "type": "string"
+    },
+    "ontology_policy": {
+      "type": "string"
+    },
+    "theme_metrics": {
+      "type": [
+        "array",
+        "object"
+      ]
+    },
+    "claim_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_status",
+          "projection_profile"
+        ],
+        "properties": {
+          "claim_status": {
+            "const": "orthodox_projection_candidate"
+          },
+          "projection_profile": {
+            "const": "orthodox_astrology.v1"
+          },
+          "weighted_support_score": {
+            "type": "number"
+          },
+          "legacy_confidence": {
+            "type": "number"
+          },
+          "confidence_note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "consumer_views": {
+      "type": "object"
+    },
+    "metric_source_field": {
+      "type": "string"
+    },
+    "materialization_notes": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

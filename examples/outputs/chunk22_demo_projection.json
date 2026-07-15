@@ -1,0 +1,197 @@
+{
+  "metadata": {
+    "package_type": "projected_semantic_graph",
+    "projection_id": "projection:1271b00458fe0cacdd42413d",
+    "engine_version": "0.3.0",
+    "profile_id": "demonstration_projection.v0",
+    "profile_version": "0.1.0",
+    "context_id": "demonstration.general.v0",
+    "context_version": "0.1.0"
+  },
+  "source_identity": {
+    "source_chart_id": "fixture:chunk22",
+    "source_chart_ids": [
+      "fixture:chunk22"
+    ],
+    "sensor_instance_id": "fixture:chunk22"
+  },
+  "source_graph_ref": {
+    "graph_type": "canonical_astrology_graph",
+    "graph_version": "1.3.0",
+    "source_graph_hash": "a99d367e921b380828cee509"
+  },
+  "target_ontology": "demonstration_semantics.v0",
+  "objects": [
+    {
+      "id": "projected:demonstration_projection.v0:3708f7b2833957b0ddceefb6",
+      "object_type": "demonstration_primitive",
+      "name": "shared_process",
+      "target_ontology": "demonstration_semantics.v0",
+      "operators": [
+        "initiate",
+        "sustain"
+      ],
+      "source_refs": [
+        "canonical:object:source:a",
+        "canonical:object:source:b"
+      ],
+      "mapping_rule_refs": [
+        "demonstration_projection.v0.object.shared_process"
+      ],
+      "context_refs": [
+        "demonstration.general.v0"
+      ],
+      "attributes": {
+        "source_names": [
+          "Input A",
+          "Input B"
+        ]
+      },
+      "structural_strength_score": null,
+      "projection_relevance_score": 1.0,
+      "provenance": {}
+    }
+  ],
+  "relationships": [
+    {
+      "id": "projected_relation:demonstration_projection.v0:3ecf6ac8e75fcc68946b8bbf",
+      "relationship_type": "coordinates_with",
+      "source_id": "projected:demonstration_projection.v0:3708f7b2833957b0ddceefb6",
+      "target_id": "projected:demonstration_projection.v0:3708f7b2833957b0ddceefb6",
+      "source_relationship_refs": [
+        "canonical:relationship:source:relation"
+      ],
+      "mapping_rule_refs": [
+        "demonstration_projection.v0.relationship.coordinates_with"
+      ],
+      "context_refs": [
+        "demonstration.general.v0"
+      ],
+      "operators": [
+        "coordinates_with"
+      ],
+      "theme_tags": [],
+      "attributes": {
+        "source_relationship_type": "DEMO"
+      },
+      "projection_relevance_score": 1.0,
+      "provenance": {}
+    }
+  ],
+  "indexes": {
+    "object_by_id": {
+      "projected:demonstration_projection.v0:3708f7b2833957b0ddceefb6": 0
+    },
+    "relationship_by_id": {
+      "projected_relation:demonstration_projection.v0:3ecf6ac8e75fcc68946b8bbf": 0
+    },
+    "projected_objects_by_source_ref": {
+      "source:a": [
+        "projected:demonstration_projection.v0:3708f7b2833957b0ddceefb6"
+      ],
+      "source:b": [
+        "projected:demonstration_projection.v0:3708f7b2833957b0ddceefb6"
+      ]
+    }
+  },
+  "summary": {
+    "object_count": 1,
+    "relationship_count": 1,
+    "mapped_source_object_count": 2,
+    "mapped_source_relationship_count": 1,
+    "unmapped_source_count": 1,
+    "profile_finalize_called": true
+  },
+  "audit": {
+    "profile_id": "demonstration_projection.v0",
+    "profile_version": "0.1.0",
+    "engine_version": "0.3.0",
+    "request_hash": "1271b00458fe0cacdd42413d",
+    "source_graph_hash": "a99d367e921b380828cee509",
+    "context_hash": "96336e096914def27bc2c80f",
+    "coverage": {
+      "source_object_count": 3,
+      "mapped_source_object_count": 2,
+      "unmapped_source_object_count": 1,
+      "source_relationship_count": 1,
+      "mapped_source_relationship_count": 1,
+      "unmapped_source_relationship_count": 0
+    },
+    "mapping_executions": [
+      {
+        "execution_id": "mapping_execution:1bf21a35a0014aab4e394753",
+        "mapping_rule_id": "demonstration_projection.v0.object.shared_process",
+        "mapping_rule_version": "1.0.0",
+        "source_refs": [
+          "canonical:object:source:b"
+        ],
+        "context_refs": [
+          "demonstration.general.v0"
+        ],
+        "result_refs": [
+          "projected:demonstration_projection.v0:3708f7b2833957b0ddceefb6"
+        ],
+        "status": "applied",
+        "conditions_evaluated": [],
+        "warnings": []
+      },
+      {
+        "execution_id": "mapping_execution:97287e43caf76644ae3cf620",
+        "mapping_rule_id": "demonstration_projection.v0.object.shared_process",
+        "mapping_rule_version": "1.0.0",
+        "source_refs": [
+          "canonical:object:source:a"
+        ],
+        "context_refs": [
+          "demonstration.general.v0"
+        ],
+        "result_refs": [
+          "projected:demonstration_projection.v0:3708f7b2833957b0ddceefb6"
+        ],
+        "status": "applied",
+        "conditions_evaluated": [],
+        "warnings": []
+      },
+      {
+        "execution_id": "mapping_execution:ef63c6c9419540d5bc55f9be",
+        "mapping_rule_id": "demonstration_projection.v0.relationship.coordinates_with",
+        "mapping_rule_version": "1.0.0",
+        "source_refs": [
+          "canonical:relationship:source:relation"
+        ],
+        "context_refs": [
+          "demonstration.general.v0"
+        ],
+        "result_refs": [
+          "projected_relation:demonstration_projection.v0:3ecf6ac8e75fcc68946b8bbf"
+        ],
+        "status": "applied",
+        "conditions_evaluated": [],
+        "warnings": []
+      }
+    ],
+    "unmapped_source_refs": [
+      "canonical:object:source:unmapped"
+    ],
+    "fallbacks": [],
+    "diagnostics_ref": "projection_diagnostics"
+  },
+  "diagnostics": {
+    "errors": [],
+    "warnings": [],
+    "infos": [
+      {
+        "code": "projection.source_unmapped",
+        "message": "No mapping applied to object source",
+        "details": {
+          "source_ref": "canonical:object:source:unmapped",
+          "policy": "diagnostic"
+        }
+      }
+    ],
+    "unmapped_source_refs": [
+      "canonical:object:source:unmapped"
+    ],
+    "fallbacks": []
+  }
+}

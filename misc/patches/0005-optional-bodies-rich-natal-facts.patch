@@ -1,0 +1,5 @@
+Subject: [PATCH] Add graceful optional ephemeris handling and rich natal facts
+
+Optional Chiron/asteroid bodies are tested and skipped if ephemeris files are missing.
+Skipped optional bodies are recorded under natal.calculation_warnings.
+The standard natal package is expanded with sect, dignity, lots, declinations/parallels, antiscia, harmonics, optional asteroids, and optional fixed stars.

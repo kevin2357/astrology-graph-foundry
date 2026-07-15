@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Unified TransitableChart transit dataset",
+  "type": "object",
+  "required": [
+    "metadata",
+    "target",
+    "period",
+    "daily_windows",
+    "transit_arcs",
+    "canonical_astrology_graph",
+    "structural_evidence_graph",
+    "projection_views",
+    "semantic_boundary"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "analysis_type",
+        "created_at",
+        "target_label",
+        "target_chart_type",
+        "target_subject_scope",
+        "semantic_scope"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "2.0.0"
+        },
+        "analysis_type": {
+          "enum": [
+            "transit_dataset",
+            "transit_range_dataset",
+            "transit_period_dataset"
+          ]
+        },
+        "target_chart_type": {
+          "enum": [
+            "natal",
+            "composite",
+            "davison"
+          ]
+        },
+        "target_subject_scope": {
+          "enum": [
+            "individual",
+            "relationship"
+          ]
+        },
+        "semantic_scope": {
+          "enum": [
+            "individual_climate",
+            "relationship_pattern_climate",
+            "relationship_lifecycle_climate"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "chart"
+      ],
+      "properties": {
+        "metadata": {
+          "type": "object"
+        },
+        "chart": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "activated_target_relationship_registry": {
+      "type": "object"
+    },
+    "period": {
+      "type": "object"
+    },
+    "daily_windows": {
+      "type": "array"
+    },
+    "transit_arcs": {
+      "type": "array"
+    },
+    "target_type_metrics": {
+      "type": "array"
+    },
+    "canonical_astrology_graph": {
+      "$ref": "canonical_astrology_graph_v1.schema.json"
+    },
+    "structural_evidence_graph": {
+      "$ref": "structural_evidence_graph_v1.schema.json"
+    },
+    "projection_views": {
+      "type": "object",
+      "required": [
+        "orthodox_astrology.v1"
+      ],
+      "properties": {
+        "orthodox_astrology.v1": {
+          "$ref": "orthodox_astrology_projection_view_v1.schema.json"
+        }
+      }
+    },
+    "semantic_boundary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Single-day or date-range transits to any package implementing TransitableChart. Compact analysis and streaming views are default CLI outputs; full output is opt-in."
+}

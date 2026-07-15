@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lunar Return Dataset v2",
+  "type": "object",
+  "required": [
+    "metadata",
+    "target",
+    "return_location",
+    "period",
+    "returns",
+    "indexes",
+    "canonical_astrology_graph",
+    "structural_evidence_graph",
+    "projection_views",
+    "semantic_boundary"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "pipeline_version",
+        "analysis_type",
+        "created_at",
+        "target_chart_id",
+        "target_chart_type",
+        "semantic_scope",
+        "start",
+        "end",
+        "return_count",
+        "return_location_policy"
+      ],
+      "properties": {
+        "analysis_type": {
+          "const": "lunar_return_dataset"
+        },
+        "return_location_policy": {
+          "enum": [
+            "target_reference",
+            "explicit"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "chart_identity",
+        "reference_event"
+      ],
+      "additionalProperties": true
+    },
+    "period": {
+      "type": "object",
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "returns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "return_id",
+          "sequence",
+          "return_event",
+          "return_chart"
+        ],
+        "properties": {
+          "return_event": {
+            "type": "object",
+            "required": [
+              "event_utc",
+              "event_local",
+              "target_moon_longitude",
+              "method"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "indexes": {
+      "type": "object",
+      "required": [
+        "returns_by_id",
+        "returns_by_month"
+      ]
+    },
+    "return_location": {
+      "type": "object",
+      "required": [
+        "policy",
+        "timezone",
+        "lat",
+        "lon",
+        "location_label",
+        "source"
+      ],
+      "properties": {
+        "policy": {
+          "enum": [
+            "target_reference",
+            "explicit"
+          ]
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        },
+        "location_label": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "canonical_astrology_graph": {
+      "$ref": "canonical_astrology_graph_v1.schema.json"
+    },
+    "structural_evidence_graph": {
+      "$ref": "structural_evidence_graph_v1.schema.json"
+    },
+    "projection_views": {
+      "type": "object",
+      "required": [
+        "orthodox_astrology.v1"
+      ],
+      "properties": {
+        "orthodox_astrology.v1": {
+          "$ref": "orthodox_astrology_projection_view_v1.schema.json"
+        }
+      }
+    },
+    "semantic_boundary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

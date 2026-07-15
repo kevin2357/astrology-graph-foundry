@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Transit Analysis View v1",
+  "type": "object",
+  "required": [
+    "view_type",
+    "metadata",
+    "period",
+    "transit_arcs"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "period": {
+      "type": "object"
+    },
+    "transit_arcs": {
+      "type": "array"
+    },
+    "target_type_metrics": {
+      "type": "array"
+    },
+    "activated_target_relationship_registry": {
+      "type": "object"
+    },
+    "view_type": {
+      "const": "analysis"
+    },
+    "monthly_summary": {
+      "type": "array"
+    },
+    "semantic_graph_summary": {
+      "type": "object"
+    },
+    "semantic_boundary": {
+      "type": "object"
+    },
+    "canonical_astrology_graph_summary": {
+      "type": "object"
+    },
+    "structural_evidence_summary": {
+      "type": "object"
+    },
+    "projection_view_summaries": {
+      "type": "object"
+    },
+    "orthodox_projection_extract": {
+      "type": "object"
+    },
+    "orthodox_relationship_metric_summary": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

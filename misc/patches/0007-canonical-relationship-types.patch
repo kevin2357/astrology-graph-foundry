@@ -1,0 +1,7 @@
+Subject: [PATCH] Add canonical semantic graph relationship_type ontology
+
+- Canonicalizes semantic graph relationship_type values to uppercase ontology labels.
+- Adds relationship_type_ontology and relationships_by_type index to semantic graphs.
+- Updates transit candidates to use relationship_type=TRANSIT_ACTIVATION.
+- Updates chart, natal, transit, and transit-period schemas.
+- Updates semantic graph docs and usage notes.

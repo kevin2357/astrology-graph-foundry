@@ -1,0 +1,3 @@
+Subject: [PATCH] Add SDK-wide diagnostic logging
+
+Adds logging.json, logging configuration helper, and diagnostic logging in CLI, I/O, provider, graph, natal, transit, transit-period, timeline, and live natal code paths.

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ephemeris Provider Output v1",
+  "type": "object",
+  "required": [],
+  "additionalProperties": true
+}

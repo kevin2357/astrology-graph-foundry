@@ -1,0 +1,18 @@
+{
+  "context_id": "cognitive_architecture.general.v0",
+  "context_version": "0.2.0",
+  "subject_scope": "individual",
+  "relationship_type": null,
+  "age_band": null,
+  "target_domain": "cognitive_architecture_demo.v0",
+  "application_context": "cognitive_architecture_demo",
+  "audience": "adult_general",
+  "output_intent": "structured_semantic_model",
+  "constraints": {
+    "experimental": true,
+    "clinical_use": false,
+    "diagnostic_use": false
+  },
+  "parameters": {},
+  "extensions": {}
+}

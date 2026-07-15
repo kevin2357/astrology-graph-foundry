@@ -1,0 +1,15 @@
+From 1111111111111111111111111111111111111111 Mon Sep 17 00:00:00 2001
+From: Kevin Tankersley <kevin2357@gmail.com>
+Date: Fri, 26 Jun 2026 00:00:00 +0000
+Subject: [PATCH] Add transit period analysis package
+
+---
+ README.md                                                        |  18 ++
+ docs/transit_period_dataset.md                                   |  70 ++++++
+ src/astro_analysis_sdk/cli.py                                    |  42 ++++
+ src/astro_analysis_sdk/common/io.py                              |  45 ++++
+ src/astro_analysis_sdk/common/themes.py                          |  74 +++++++
+ src/astro_analysis_sdk/pipelines/transit_period.py                | 205 ++++++++++++++++++
+ src/astro_analysis_sdk/schemas/transit_period_dataset_v1.schema.json | 144 +++++++++++++
+ tests/test_transit_period_package_shape.py                       |   4 +
+ 8 files changed, 602 insertions(+)

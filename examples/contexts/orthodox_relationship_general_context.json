@@ -1,0 +1,14 @@
+{
+  "context_id": "orthodox.relationship.general.v1",
+  "context_version": "1.0.0",
+  "subject_scope": "relationship",
+  "relationship_type": "general",
+  "age_band": null,
+  "target_domain": "orthodox_astrology.v1",
+  "application_context": "relationship_interpretation",
+  "audience": "adult_general",
+  "output_intent": "structured_semantic_model",
+  "constraints": {},
+  "parameters": {},
+  "extensions": {}
+}

@@ -1,0 +1,62 @@
+{
+  "audit": {
+    "context_hash": "fixture",
+    "coverage": {
+      "mapped_source_object_count": 0,
+      "mapped_source_relationship_count": 0,
+      "source_object_count": 0,
+      "source_relationship_count": 0,
+      "unmapped_source_object_count": 0,
+      "unmapped_source_relationship_count": 0
+    },
+    "diagnostics_ref": "projection_diagnostics",
+    "engine_version": "0.1.0",
+    "fallbacks": [],
+    "mapping_executions": [],
+    "profile_id": "orthodox_astrology.v1",
+    "profile_version": "1.0.0",
+    "request_hash": "fixture",
+    "source_graph_hash": "fixture",
+    "unmapped_source_refs": []
+  },
+  "diagnostics": {
+    "errors": [],
+    "fallbacks": [],
+    "infos": [],
+    "unmapped_source_refs": [],
+    "warnings": []
+  },
+  "indexes": {
+    "object_by_id": {},
+    "relationship_by_id": {}
+  },
+  "metadata": {
+    "context_id": "orthodox.general.v1",
+    "context_version": "1.0.0",
+    "engine_version": "0.1.0",
+    "package_type": "projected_semantic_graph",
+    "profile_id": "orthodox_astrology.v1",
+    "profile_version": "1.0.0",
+    "projection_id": "projection:empty-fixture"
+  },
+  "objects": [],
+  "relationships": [],
+  "source_graph_ref": {
+    "graph_type": "canonical_astrology_graph",
+    "graph_version": "1.3.0",
+    "sensor_instance_id": "natal:fixture"
+  },
+  "source_identity": {
+    "sensor_instance_id": "natal:fixture",
+    "source_chart_id": "natal:fixture",
+    "source_chart_ids": [
+      "natal:fixture"
+    ]
+  },
+  "summary": {
+    "object_count": 0,
+    "relationship_count": 0
+  },
+  "target_ontology": "orthodox_astrology.v1",
+  "projected_term_registry": {}
+}

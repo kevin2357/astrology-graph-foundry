@@ -1,0 +1,3 @@
+Subject: [PATCH] Add project-wide semantic graph and output-dir defaults
+
+Updates natal/transit/transit-period/graph pipelines to use a shared semantic graph of chart objects and relationships. Transit builders now target all graph objects with transit_target=true. Adds output directory defaults and schema/docs updates.

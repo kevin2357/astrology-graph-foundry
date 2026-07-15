@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Natal Analysis View v1",
+  "type": "object",
+  "required": [
+    "metadata",
+    "natal_summary",
+    "semantic_graph_summary",
+    "top_objects",
+    "top_relationships"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "view_type"
+      ],
+      "properties": {
+        "view_type": {
+          "const": "natal_analysis"
+        }
+      },
+      "additionalProperties": true
+    },
+    "person": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "natal_summary": {
+      "type": "object"
+    },
+    "semantic_graph_summary": {
+      "type": "object"
+    },
+    "top_objects": {
+      "type": "array"
+    },
+    "top_relationships": {
+      "type": "array"
+    },
+    "transit_climate_summary": {
+      "type": "object"
+    },
+    "semantic_boundary": {
+      "type": "object"
+    },
+    "canonical_astrology_graph_summary": {
+      "type": "object"
+    },
+    "structural_evidence_summary": {
+      "type": "object"
+    },
+    "projection_view_summaries": {
+      "type": "object"
+    },
+    "orthodox_projection_extract": {
+      "type": "object"
+    },
+    "orthodox_relationship_metric_summary": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

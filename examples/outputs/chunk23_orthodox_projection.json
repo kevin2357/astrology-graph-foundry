@@ -1,0 +1,347 @@
+{
+  "metadata": {
+    "package_type": "projected_semantic_graph",
+    "projection_id": "projection:304324398280aa3b324d5c57",
+    "engine_version": "0.3.0",
+    "profile_id": "orthodox_astrology.v1",
+    "profile_version": "1.0.0",
+    "context_id": "orthodox.natal.general.v1",
+    "context_version": "1.0.0"
+  },
+  "source_identity": {
+    "source_chart_id": "fixture:orthodox_chunk23",
+    "source_chart_ids": [
+      "fixture:orthodox_chunk23"
+    ],
+    "sensor_instance_id": "fixture:orthodox_chunk23"
+  },
+  "source_graph_ref": {
+    "graph_type": "canonical_astrology_graph",
+    "graph_version": "1.3.0",
+    "source_graph_hash": "0a4315b49fda21409a048458"
+  },
+  "target_ontology": "orthodox_astrology.v1",
+  "objects": [
+    {
+      "id": "projected:orthodox_astrology.v1:1dbabdb74955f6ef14b6d9f4",
+      "object_type": "orthodox_astrology_primitive",
+      "name": "action_assertion_drive",
+      "target_ontology": "orthodox_astrology.v1",
+      "operators": [
+        "act",
+        "assert",
+        "defend",
+        "initiate"
+      ],
+      "source_refs": [
+        "canonical:object:natal:Mars"
+      ],
+      "mapping_rule_refs": [
+        "orthodox_astrology.v1.object.mars.action_assertion_drive"
+      ],
+      "context_refs": [
+        "orthodox.natal.general.v1"
+      ],
+      "attributes": {
+        "canonical_object_name": "Mars",
+        "source_names": [
+          "Mars"
+        ],
+        "semantic_domains": [
+          "action",
+          "assertion",
+          "desire",
+          "conflict"
+        ],
+        "theme_tags": [
+          "conflict_drive"
+        ],
+        "sign": "Libra",
+        "house": 8,
+        "projection_relevance_components": {
+          "structural_strength": 0.86,
+          "profile_salience": 0.94,
+          "context_salience": 1.0
+        }
+      },
+      "structural_strength_score": 0.86,
+      "projection_relevance_score": 0.8084,
+      "provenance": {
+        "profile_layer": "orthodox_object_mapping",
+        "source_object_type": "planet_or_point"
+      }
+    },
+    {
+      "id": "projected:orthodox_astrology.v1:cded23453f3b1449bdfc06d0",
+      "object_type": "orthodox_astrology_primitive",
+      "name": "value_attraction_harmony",
+      "target_ontology": "orthodox_astrology.v1",
+      "operators": [
+        "attract",
+        "bond",
+        "connect",
+        "value"
+      ],
+      "source_refs": [
+        "canonical:object:natal:Venus"
+      ],
+      "mapping_rule_refs": [
+        "orthodox_astrology.v1.object.venus.value_attraction_harmony"
+      ],
+      "context_refs": [
+        "orthodox.natal.general.v1"
+      ],
+      "attributes": {
+        "canonical_object_name": "Venus",
+        "source_names": [
+          "Venus"
+        ],
+        "semantic_domains": [
+          "values",
+          "attraction",
+          "harmony",
+          "relationship"
+        ],
+        "theme_tags": [
+          "romance_affection",
+          "values_resources"
+        ],
+        "sign": "Scorpio",
+        "house": 8,
+        "projection_relevance_components": {
+          "structural_strength": 0.91,
+          "profile_salience": 0.94,
+          "context_salience": 1.0
+        }
+      },
+      "structural_strength_score": 0.91,
+      "projection_relevance_score": 0.8554,
+      "provenance": {
+        "profile_layer": "orthodox_object_mapping",
+        "source_object_type": "planet_or_point"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "projected_relation:orthodox_astrology.v1:3c2c780cc7bfe63601f7e3f2",
+      "relationship_type": "pressures_and_develops",
+      "source_id": "projected:orthodox_astrology.v1:1dbabdb74955f6ef14b6d9f4",
+      "target_id": "projected:orthodox_astrology.v1:cded23453f3b1449bdfc06d0",
+      "source_relationship_refs": [
+        "canonical:relationship:aspect:Mars:square:Venus"
+      ],
+      "mapping_rule_refs": [
+        "orthodox_astrology.v1.aspect.square.pressures_and_develops"
+      ],
+      "context_refs": [
+        "orthodox.natal.general.v1"
+      ],
+      "operators": [
+        "activate",
+        "develop",
+        "stress"
+      ],
+      "theme_tags": [
+        "conflict_drive",
+        "growth_edge",
+        "romance_affection",
+        "values_resources"
+      ],
+      "attributes": {
+        "canonical_aspect": "square",
+        "orb": 0.8,
+        "source_relationship_type": "ASPECT",
+        "source_object_name": "Mars",
+        "target_object_name": "Venus",
+        "projection_relevance_components": {
+          "structural_strength": 0.79,
+          "profile_salience": 0.98,
+          "context_salience": 1.0
+        },
+        "theme_origins": {
+          "object_mapping": [
+            "conflict_drive",
+            "romance_affection",
+            "values_resources"
+          ],
+          "aspect_mapping": [
+            "growth_edge"
+          ]
+        }
+      },
+      "projection_relevance_score": 0.7742,
+      "provenance": {
+        "profile_layer": "orthodox_relationship_mapping"
+      }
+    }
+  ],
+  "indexes": {
+    "object_by_id": {
+      "projected:orthodox_astrology.v1:1dbabdb74955f6ef14b6d9f4": 0,
+      "projected:orthodox_astrology.v1:cded23453f3b1449bdfc06d0": 1
+    },
+    "relationship_by_id": {
+      "projected_relation:orthodox_astrology.v1:3c2c780cc7bfe63601f7e3f2": 0
+    },
+    "projected_objects_by_source_ref": {
+      "natal:Mars": [
+        "projected:orthodox_astrology.v1:1dbabdb74955f6ef14b6d9f4"
+      ],
+      "natal:Venus": [
+        "projected:orthodox_astrology.v1:cded23453f3b1449bdfc06d0"
+      ]
+    }
+  },
+  "summary": {
+    "object_count": 2,
+    "relationship_count": 1,
+    "mapped_source_object_count": 2,
+    "mapped_source_relationship_count": 1,
+    "unmapped_source_count": 1,
+    "orthodox_theme_counts": {
+      "conflict_drive": 1,
+      "growth_edge": 1,
+      "romance_affection": 1,
+      "values_resources": 1
+    },
+    "supported_object_names": [
+      "ASC",
+      "DSC",
+      "IC",
+      "Jupiter",
+      "MC",
+      "Mars",
+      "Mercury",
+      "Moon",
+      "Neptune",
+      "Pluto",
+      "Saturn",
+      "Sun",
+      "Uranus",
+      "Venus"
+    ],
+    "supported_major_aspects": [
+      "conjunction",
+      "opposition",
+      "sextile",
+      "square",
+      "trine"
+    ],
+    "profile_scope": "core_objects_and_major_aspects"
+  },
+  "audit": {
+    "profile_id": "orthodox_astrology.v1",
+    "profile_version": "1.0.0",
+    "engine_version": "0.3.0",
+    "request_hash": "304324398280aa3b324d5c57",
+    "source_graph_hash": "0a4315b49fda21409a048458",
+    "context_hash": "5875b27eb5eaa70ca67f54aa",
+    "coverage": {
+      "source_object_count": 3,
+      "mapped_source_object_count": 2,
+      "unmapped_source_object_count": 1,
+      "source_relationship_count": 1,
+      "mapped_source_relationship_count": 1,
+      "unmapped_source_relationship_count": 0
+    },
+    "mapping_executions": [
+      {
+        "execution_id": "mapping_execution:380ee67a38539a7ede31b9da",
+        "mapping_rule_id": "orthodox_astrology.v1.aspect.square.pressures_and_develops",
+        "mapping_rule_version": "1.0.0",
+        "source_refs": [
+          "canonical:relationship:aspect:Mars:square:Venus"
+        ],
+        "context_refs": [
+          "orthodox.natal.general.v1"
+        ],
+        "result_refs": [
+          "projected_relation:orthodox_astrology.v1:3c2c780cc7bfe63601f7e3f2"
+        ],
+        "status": "applied",
+        "conditions_evaluated": [
+          {
+            "condition": "major_aspect_supported",
+            "result": true,
+            "value": "square"
+          },
+          {
+            "condition": "projected_endpoints_available",
+            "result": true
+          }
+        ],
+        "warnings": []
+      },
+      {
+        "execution_id": "mapping_execution:8630d67a1841c36657ad9957",
+        "mapping_rule_id": "orthodox_astrology.v1.object.mars.action_assertion_drive",
+        "mapping_rule_version": "1.0.0",
+        "source_refs": [
+          "canonical:object:natal:Mars"
+        ],
+        "context_refs": [
+          "orthodox.natal.general.v1"
+        ],
+        "result_refs": [
+          "projected:orthodox_astrology.v1:1dbabdb74955f6ef14b6d9f4"
+        ],
+        "status": "applied",
+        "conditions_evaluated": [
+          {
+            "condition": "canonical_object_supported",
+            "result": true,
+            "value": "Mars"
+          }
+        ],
+        "warnings": []
+      },
+      {
+        "execution_id": "mapping_execution:a60b096f9c11d80323f9e58b",
+        "mapping_rule_id": "orthodox_astrology.v1.object.venus.value_attraction_harmony",
+        "mapping_rule_version": "1.0.0",
+        "source_refs": [
+          "canonical:object:natal:Venus"
+        ],
+        "context_refs": [
+          "orthodox.natal.general.v1"
+        ],
+        "result_refs": [
+          "projected:orthodox_astrology.v1:cded23453f3b1449bdfc06d0"
+        ],
+        "status": "applied",
+        "conditions_evaluated": [
+          {
+            "condition": "canonical_object_supported",
+            "result": true,
+            "value": "Venus"
+          }
+        ],
+        "warnings": []
+      }
+    ],
+    "unmapped_source_refs": [
+      "canonical:object:natal:MinorPoint"
+    ],
+    "fallbacks": [],
+    "diagnostics_ref": "projection_diagnostics"
+  },
+  "diagnostics": {
+    "errors": [],
+    "warnings": [],
+    "infos": [
+      {
+        "code": "projection.source_unmapped",
+        "message": "No mapping applied to object source",
+        "details": {
+          "source_ref": "canonical:object:natal:MinorPoint",
+          "policy": "diagnostic"
+        }
+      }
+    ],
+    "unmapped_source_refs": [
+      "canonical:object:natal:MinorPoint"
+    ],
+    "fallbacks": []
+  }
+}

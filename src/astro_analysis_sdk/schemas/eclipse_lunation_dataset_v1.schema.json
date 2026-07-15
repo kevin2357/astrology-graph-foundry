@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Eclipse/Lunation Dataset v2",
+  "type": "object",
+  "required": [
+    "metadata",
+    "period",
+    "events",
+    "indexes",
+    "canonical_astrology_graph",
+    "structural_evidence_graph",
+    "projection_views",
+    "semantic_boundary"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "pipeline_version",
+        "analysis_type",
+        "created_at",
+        "start",
+        "end",
+        "event_count",
+        "eclipse_window_count"
+      ],
+      "properties": {
+        "analysis_type": {
+          "const": "eclipse_lunation_dataset"
+        }
+      },
+      "additionalProperties": true
+    },
+    "target": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "period": {
+      "type": "object",
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "event_id",
+          "event_type",
+          "event_utc",
+          "lunation_lon",
+          "node_distance",
+          "is_eclipse_window",
+          "eclipse_proximity",
+          "activation_window",
+          "target_aspects",
+          "activation_count",
+          "total_activation_count",
+          "retained_activation_count"
+        ],
+        "properties": {
+          "event_type": {
+            "enum": [
+              "new_moon",
+              "full_moon"
+            ]
+          },
+          "eclipse_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_eclipse_window": {
+            "type": "boolean"
+          },
+          "total_activation_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "retained_activation_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "indexes": {
+      "type": "object"
+    },
+    "canonical_astrology_graph": {
+      "$ref": "canonical_astrology_graph_v1.schema.json"
+    },
+    "structural_evidence_graph": {
+      "$ref": "structural_evidence_graph_v1.schema.json"
+    },
+    "projection_views": {
+      "type": "object",
+      "required": [
+        "orthodox_astrology.v1"
+      ],
+      "properties": {
+        "orthodox_astrology.v1": {
+          "$ref": "orthodox_astrology_projection_view_v1.schema.json"
+        }
+      }
+    },
+    "semantic_boundary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "astrology-graph-foundry"
+version = "0.4.0"
+description = "Ephemeris-backed canonical astrology graph and structural-evidence package foundry."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["semantic-projection-core>=0.1.0"]
+
+[project.optional-dependencies]
+live = ["pyswisseph>=2.10"]
+dev = ["pytest>=8", "jsonschema>=4", "ruff>=0.5"]
+full = ["pyswisseph>=2.10", "pytest>=8", "jsonschema>=4", "ruff>=0.5"]
+
+[project.scripts]
+astro-package = "astro_analysis_sdk.cli:main"
+generate-daily-ephemeris = "astro_analysis_sdk.ephemeris.generate_daily_ephemeris:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+astro_analysis_sdk = ["schemas/*.json"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py310"

@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transitable_chart_v1.schema.json",
+  "title": "TransitableChart descriptor",
+  "type": "object",
+  "required": [
+    "interface_version",
+    "chart_identity",
+    "chart_key",
+    "capabilities"
+  ],
+  "properties": {
+    "interface_version": {
+      "const": "transitable_chart_v1.0.0"
+    },
+    "chart_identity": {
+      "type": "object",
+      "required": [
+        "chart_id",
+        "chart_type",
+        "subject_scope",
+        "semantic_scope",
+        "label"
+      ],
+      "properties": {
+        "chart_id": {
+          "type": "string"
+        },
+        "chart_type": {
+          "enum": [
+            "natal",
+            "composite",
+            "davison"
+          ]
+        },
+        "subject_scope": {
+          "enum": [
+            "individual",
+            "relationship"
+          ]
+        },
+        "semantic_scope": {
+          "enum": [
+            "individual_climate",
+            "relationship_pattern_climate",
+            "relationship_lifecycle_climate"
+          ]
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "chart_key": {
+      "enum": [
+        "natal",
+        "composite_chart",
+        "davison_chart"
+      ]
+    },
+    "construction": {
+      "type": "object"
+    },
+    "capabilities": {
+      "type": "object",
+      "required": [
+        "supports_longitude_aspects",
+        "supports_house_transits",
+        "supports_angle_transits",
+        "supports_semantic_graph_activation"
+      ],
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "reference_event": {
+      "type": "object",
+      "properties": {
+        "event_utc": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "event_local": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timezone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lat": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "lon": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "location_label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,3 @@
+Subject: [PATCH] Add cached/live ephemeris provider abstraction and live computation mode
+
+Adds ephemeris provider layer, live Swiss provider, cached JSONL provider, generator CLI, updated natal/transit/transit-period/timeline builders, docs, schemas, and tests.

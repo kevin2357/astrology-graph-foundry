@@ -1,0 +1,9 @@
+Subject: [PATCH] Add live natal computation path to natal builder
+
+Adds:
+- BirthData model
+- live_natal.py Swiss Ephemeris natal computation engine
+- LiveSwissEphemerisProvider birth-data mode
+- natal builder provider=live birth-data support
+- CLI flags for live natal generation from scratch
+- schemas/docs/tests

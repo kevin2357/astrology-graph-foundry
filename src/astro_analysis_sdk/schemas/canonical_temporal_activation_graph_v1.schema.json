@@ -1,0 +1,441 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "canonical_temporal_activation_graph_v1.schema.json",
+  "title": "Canonical Temporal Activation Graph v1",
+  "description": "Projection-neutral arc-first temporal source contract exported by Astrology Graph Foundry.",
+  "type": "object",
+  "required": [
+    "metadata",
+    "target_identity",
+    "period",
+    "activators",
+    "activations",
+    "indexes",
+    "summary",
+    "diagnostics"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "package_type",
+        "contract_version",
+        "graph_id",
+        "source_analysis_type",
+        "source_materialization",
+        "projection_neutral",
+        "authoritative_unit",
+        "normalization_policy"
+      ],
+      "properties": {
+        "package_type": {
+          "const": "canonical_temporal_activation_graph"
+        },
+        "contract_version": {
+          "const": "1.0.0"
+        },
+        "graph_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_analysis_type": {
+          "enum": [
+            "transit_dataset",
+            "transit_range_dataset",
+            "transit_period_dataset"
+          ]
+        },
+        "source_materialization": {
+          "enum": [
+            "full",
+            "streaming_index"
+          ]
+        },
+        "projection_neutral": {
+          "const": true
+        },
+        "authoritative_unit": {
+          "const": "activation_arc"
+        },
+        "normalization_policy": {
+          "const": "arc_first_with_observation_segmentation.v1"
+        }
+      },
+      "additionalProperties": true
+    },
+    "target_identity": {
+      "type": "object",
+      "required": [
+        "chart_id"
+      ],
+      "properties": {
+        "chart_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "chart_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subject_scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "semantic_scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "period": {
+      "type": "object",
+      "properties": {
+        "start_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "end_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "day_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "source_graph_ref": {
+      "type": "object"
+    },
+    "activators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "object_type",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "object_type": {
+            "const": "transiting_object"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_body": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "activations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "sequence_id",
+          "pass_index",
+          "activation_type",
+          "activator_ref",
+          "target_ref",
+          "relationship_type",
+          "start_at",
+          "closest_observed_at",
+          "end_at",
+          "exactness",
+          "motion",
+          "observation_count",
+          "source_refs",
+          "provenance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sequence_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pass_index": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "activation_type": {
+            "const": "transit_aspect_arc"
+          },
+          "activator_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_chart_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "relationship_type": {
+            "const": "TRANSIT_ACTIVATION"
+          },
+          "aspect": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "start_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "closest_observed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "exact_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "end_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "exactness": {
+            "type": "object",
+            "required": [
+              "status",
+              "closest_orb",
+              "sampled_exact_orb_threshold",
+              "note"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "sampled_exact",
+                  "closest_observed_only"
+                ]
+              },
+              "closest_orb": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "sampled_exact_orb_threshold": {
+                "type": "number",
+                "minimum": 0
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "motion": {
+            "type": "object",
+            "required": [
+              "states",
+              "changes_motion_within_activation"
+            ],
+            "properties": {
+              "states": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "direct",
+                    "retrograde"
+                  ]
+                },
+                "uniqueItems": true
+              },
+              "changes_motion_within_activation": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": true
+          },
+          "target_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "target_house": {
+            "type": [
+              "integer",
+              "number",
+              "string",
+              "null"
+            ]
+          },
+          "transit_house_in_target_chart": {
+            "type": [
+              "integer",
+              "number",
+              "string",
+              "null"
+            ]
+          },
+          "observation_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "observation_states": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "state_id",
+                "observed_at",
+                "date",
+                "phase"
+              ],
+              "properties": {
+                "state_id": {
+                  "type": "string"
+                },
+                "observed_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "phase": {
+                  "enum": [
+                    "applying_observed",
+                    "closest_observed",
+                    "sampled_exact",
+                    "separating_observed"
+                  ]
+                },
+                "orb": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0
+                },
+                "distance": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "rank": {
+                  "type": [
+                    "integer",
+                    "number",
+                    "null"
+                  ]
+                },
+                "relevance_score": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "strength": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "activator_state": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "provenance": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "indexes": {
+      "type": "object"
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "activator_count",
+        "activation_count",
+        "sequence_count",
+        "sampled_exact_count",
+        "observation_state_count",
+        "warning_count"
+      ],
+      "additionalProperties": true
+    },
+    "diagnostics": {
+      "type": "object",
+      "required": [
+        "warnings",
+        "limitations"
+      ],
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

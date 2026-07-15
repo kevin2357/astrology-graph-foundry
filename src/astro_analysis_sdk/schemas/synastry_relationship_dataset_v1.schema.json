@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Synastry Relationship Dataset v1",
+  "type": "object",
+  "required": [
+    "metadata",
+    "person_a",
+    "person_b",
+    "natal_synastry",
+    "canonical_astrology_graph",
+    "structural_evidence_graph",
+    "projection_views",
+    "semantic_boundary"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "pipeline_version",
+        "analysis_type",
+        "created_at",
+        "person_a",
+        "person_b",
+        "uses_expanded_natal_semantic_graph"
+      ],
+      "properties": {
+        "analysis_type": {
+          "const": "synastry_relationship_dataset"
+        },
+        "uses_expanded_natal_semantic_graph": {
+          "const": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "person_a": {
+      "type": "object"
+    },
+    "person_b": {
+      "type": "object"
+    },
+    "natal_graphs": {
+      "type": "object"
+    },
+    "natal_synastry": {
+      "type": "object",
+      "required": [
+        "a_to_b_aspects",
+        "b_to_a_aspects",
+        "a_to_b_house_overlays",
+        "b_to_a_house_overlays"
+      ],
+      "properties": {
+        "a_to_b_aspects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/synastry_aspect"
+          }
+        },
+        "b_to_a_aspects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/synastry_aspect"
+          }
+        },
+        "a_to_b_house_overlays": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/house_overlay"
+          }
+        },
+        "b_to_a_house_overlays": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/house_overlay"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "composite": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "canonical_astrology_graph": {
+      "$ref": "canonical_astrology_graph_v1.schema.json"
+    },
+    "structural_evidence_graph": {
+      "$ref": "structural_evidence_graph_v1.schema.json"
+    },
+    "projection_views": {
+      "type": "object",
+      "required": [
+        "orthodox_astrology.v1"
+      ],
+      "properties": {
+        "orthodox_astrology.v1": {
+          "$ref": "orthodox_astrology_projection_view_v1.schema.json"
+        }
+      }
+    },
+    "semantic_boundary": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "synastry_aspect": {
+      "type": "object",
+      "required": [
+        "relationship_type",
+        "source_object_id",
+        "target_object_id",
+        "aspect",
+        "orb"
+      ],
+      "properties": {
+        "relationship_type": {
+          "const": "SYNASTRY_ASPECT"
+        }
+      },
+      "additionalProperties": true
+    },
+    "house_overlay": {
+      "type": "object",
+      "required": [
+        "relationship_type",
+        "source_object_id",
+        "target_house"
+      ],
+      "properties": {
+        "relationship_type": {
+          "const": "HOUSE_OVERLAY"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

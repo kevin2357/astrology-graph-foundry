@@ -1,0 +1,237 @@
+from __future__ import annotations
+
+import logging
+from datetime import datetime
+from typing import Any
+
+from astro_analysis_sdk.common.themes import operator_hints, theme_tags
+from astro_analysis_sdk.common.chart_graph import build_chart_graph
+from astro_analysis_sdk.ephemeris.models import BirthData, ProviderConfig
+from astro_analysis_sdk.ephemeris.providers import create_provider
+from astro_analysis_sdk.common.transitable_chart import descriptor_for_package
+from astro_analysis_sdk.common.semantic_layers import (
+    canonical_graph_from_package,
+    finalize_package_semantic_boundary,
+    finalize_view_semantic_boundary,
+    orthodox_claims_from_package,
+    orthodox_metrics_from_package,
+    orthodox_report_materials_from_package,
+    orthodox_row_annotation,
+)
+
+SCHEMA_VERSION = "1.1.0"
+
+logger = logging.getLogger(__name__)
+
+def _aggregate_long_running_transits(provider, min_days: int = 14) -> list[dict[str, Any]]:
+    logger.info("Aggregating long-running transits min_days=%d", min_days)
+    agg = {}
+    processed = 0
+    for day in provider.iter_days():
+        processed += 1
+        if processed == 1 or processed % 10 == 0:
+            logger.info("Natal transit climate aggregation day %d %s", processed, day.date_local)
+        for cand in day.reverse_read_candidates[:15]:
+            key = (cand.get("transit_body"), cand.get("aspect"), cand.get("natal_target"))
+            row = agg.setdefault(key, {"dates": [], "orbs": [], "ranks": [], "scores": [], **cand})
+            row["dates"].append(day.date_local)
+            row["orbs"].append(float(cand.get("orb", 99)))
+            row["ranks"].append(float(cand.get("rank", 99)))
+            row["scores"].append(float(cand.get("relevance_score", 0)))
+    out = []
+    for row in agg.values():
+        if len(row["dates"]) < min_days:
+            continue
+        out.append({
+            "transit_body": row.get("transit_body"),
+            "aspect": row.get("aspect"),
+            "natal_target": row.get("natal_target"),
+            "count_days_top15": len(row["dates"]),
+            "first_date": min(row["dates"]),
+            "last_date": max(row["dates"]),
+            "closest_orb": min(row["orbs"]),
+            "average_rank": sum(row["ranks"]) / len(row["ranks"]),
+            "max_relevance_score": max(row["scores"]),
+            "natal_target_house": row.get("natal_target_house"),
+            "transit_house_in_natal_chart": row.get("transit_house_in_natal_chart"),
+            "theme_tags": theme_tags(row.get("transit_body"), row.get("natal_target"), row.get("natal_target_house"), aspect=row.get("aspect")),
+            "semantic_operator_hints": operator_hints(row.get("transit_body"), row.get("natal_target"), aspect=row.get("aspect")),
+        })
+    logger.info("Long-running transit aggregation complete: days=%d arc_count=%d", processed, len(out))
+    out.sort(key=lambda r: (-r["count_days_top15"], r["average_rank"], r["closest_orb"]))
+    return out
+
+def build(
+    *,
+    provider: str = "cached",
+    person_jsonl: str | None = None,
+    natal_dataset: str | None = None,
+    global_jsonl: str | None = None,
+    name: str | None = None,
+    birth_local: str | None = None,
+    birth_timezone: str | None = None,
+    birth_lat: float | None = None,
+    birth_lon: float | None = None,
+    birth_location_label: str = "",
+    start: str | None = None,
+    end: str | None = None,
+    snapshot_timezone: str = "America/Denver",
+    snapshot_time: str = "12:00",
+    ephe_path: str = ".",
+    house_system: str = "P",
+) -> dict[str, Any]:
+    logger.info("Building natal package provider=%s name=%s natal_dataset=%s start=%s end=%s", provider, name, natal_dataset, start, end)
+    birth_data = None
+    if provider == "live" and natal_dataset is None:
+        missing = [
+            flag for flag, value in {
+                "name": name,
+                "birth_local": birth_local,
+                "birth_timezone": birth_timezone,
+                "birth_lat": birth_lat,
+                "birth_lon": birth_lon,
+            }.items()
+            if value is None or value == ""
+        ]
+        if missing:
+            raise ValueError(
+                "provider='live' requires either natal_dataset or complete birth data. Missing: "
+                + ", ".join(missing)
+            )
+        birth_data = BirthData(
+            name=name or "Unknown",
+            birth_local=birth_local or "",
+            birth_timezone=birth_timezone or "",
+            birth_lat=float(birth_lat),
+            birth_lon=float(birth_lon),
+            birth_location_label=birth_location_label,
+        )
+
+    ep = create_provider(
+        provider,
+        person_jsonl=person_jsonl,
+        target_dataset=natal_dataset,
+        birth_data=birth_data,
+        global_jsonl=global_jsonl,
+        config=ProviderConfig(
+            start=start,
+            end=end,
+            snapshot_timezone=snapshot_timezone,
+            snapshot_time=snapshot_time,
+            ephe_path=ephe_path,
+            house_system=house_system,
+        ),
+    )
+    logger.info("Building natal semantic graph")
+    graph = build_chart_graph(ep.natal_chart())
+    ep.natal_chart()["semantic_graph"] = graph
+    long_transits = _aggregate_long_running_transits(ep) if start and end else []
+    themes: dict[str, dict[str, Any]] = {}
+    for tr in long_transits[:50]:
+        for tag in tr["theme_tags"]:
+            themes.setdefault(tag, {"score": 0, "evidence": []})
+            themes[tag]["score"] += tr["count_days_top15"]
+            themes[tag]["evidence"].append(tr)
+
+    evidence_graph = [
+        {
+            "id": f"claim_{i:04d}",
+            "theme": theme,
+            "claim": f"{ep.person_metadata().get('person')} has a strong {theme.replace('_', ' ')} transit activation signature.",
+            "confidence": min(0.99, 0.45 + data["score"] / 365),
+            "supporting_observations": data["evidence"][:8],
+        }
+        for i, (theme, data) in enumerate(sorted(themes.items(), key=lambda kv: -kv[1]["score"]), 1)
+    ]
+
+    logger.info("Natal package complete person=%s graph_objects=%d graph_relationships=%d long_transits=%d", ep.person_metadata().get("person"), len(graph.get("objects", [])), len(graph.get("relationships", [])), len(long_transits))
+    package = {
+        "metadata": {
+            "schema_version": SCHEMA_VERSION,
+            "analysis_type": "natal_dataset",
+            "created_at": datetime.now().isoformat(timespec="seconds"),
+            "person": ep.person_metadata().get("person"),
+            "provider": ep.person_metadata().get("provider"),
+            "start_date": start,
+            "end_date": end,
+            "live_natal_computation": provider == "live" and natal_dataset is None,
+        },
+        "person": ep.person_metadata(),
+        "natal": ep.natal_chart(),
+        "semantic_graph": graph,
+        "transit_climate": {"long_running_transits": long_transits},
+        "theme_metrics": themes,
+        "evidence_graph": evidence_graph,
+        "report_materials": {
+            "recommended_sections": [
+                "Source and Extraction Summary",
+                "Natal Core",
+                "Big Three",
+                "Planet-by-Planet",
+                "House Analysis",
+                "Aspect Synthesis",
+                "Transit Climate",
+                "Technical Appendix",
+            ],
+            "top_evidence": evidence_graph[:12],
+        },
+    }
+    package["transitable_chart"] = descriptor_for_package(package)
+    return finalize_package_semantic_boundary(package)
+
+
+def analysis_view(package: dict[str, Any], *, top_relationship_limit: int = 80, top_object_limit: int = 80) -> dict[str, Any]:
+    """Compact natal view for lightweight report/game/infographic consumers."""
+    graph = canonical_graph_from_package(package)
+    objects = graph.get("objects", []) or []
+    relationships = graph.get("relationships", []) or []
+    def object_weight(obj: dict[str, Any]) -> tuple[int, str]:
+        priority = {
+            "planet_or_point": 0,
+            "angle": 1,
+            "calculated_point": 2,
+            "lot": 3,
+            "dignity_state": 4,
+            "antiscia_point": 5,
+            "contra_antiscia_point": 6,
+            "harmonic_point": 7,
+        }.get(str(obj.get("object_type")), 9)
+        return priority, str(obj.get("id") or obj.get("name"))
+    compact_objects = [
+        {k: obj.get(k) for k in ("id", "object_type", "name", "source_key", "longitude", "sign", "house", "pretty", "element", "modality", "ruler", "dignity_state") if obj.get(k) is not None}
+        for obj in sorted(objects, key=object_weight)[:top_object_limit]
+    ]
+    compact_relationships = []
+    for rel in relationships[:top_relationship_limit]:
+        projected = orthodox_row_annotation(rel)
+        compact_relationships.append({
+            k: projected.get(k)
+            for k in (
+                "id", "relationship_id", "relationship_type", "source",
+                "target", "source_id", "target_id", "source_name",
+                "target_name", "aspect", "orb", "weight", "theme_tags",
+                "orthodox_astrology_theme_tags", "semantic_operator_hints",
+            )
+            if projected.get(k) is not None
+        })
+    view = {
+        "metadata": {**package.get("metadata", {}), "view_type": "natal_analysis", "view_compaction": "semantic_graph_summary_v1"},
+        "person": package.get("person"),
+        "natal_summary": {
+            "bodies": package.get("natal", {}).get("bodies", {}),
+            "houses": package.get("natal", {}).get("houses", {}),
+            "angles": package.get("natal", {}).get("angles", {}),
+            "lots": package.get("natal", {}).get("lots", {}),
+            "sect": package.get("natal", {}).get("sect", {}),
+        },
+        "canonical_graph_summary": graph.get("summary", {}),
+        "top_objects": compact_objects,
+        "top_relationships": compact_relationships,
+        "transit_climate_summary": {"long_running_transits": package.get("transit_climate", {}).get("long_running_transits", [])[:30]},
+        "orthodox_projection_extract": {
+            "theme_metrics": orthodox_metrics_from_package(package),
+            "claim_candidates": orthodox_claims_from_package(package)[:20],
+            "report_materials": orthodox_report_materials_from_package(package),
+        },
+    }
+    return finalize_view_semantic_boundary(view, package)

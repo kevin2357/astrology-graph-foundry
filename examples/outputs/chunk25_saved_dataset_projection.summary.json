@@ -1,0 +1,79 @@
+{
+  "coverage": {
+    "mapped_source_object_count": 2,
+    "mapped_source_relationship_count": 1,
+    "source_object_count": 2,
+    "source_relationship_count": 1,
+    "unmapped_source_object_count": 0,
+    "unmapped_source_relationship_count": 0
+  },
+  "diagnostics_summary": {
+    "error_count": 0,
+    "info_count": 0,
+    "unmapped_source_count": 0,
+    "warning_count": 0
+  },
+  "metadata": {
+    "context_id": "orthodox.general.v1",
+    "context_version": "1.0.0",
+    "engine_version": "0.4.0",
+    "package_type": "projected_semantic_graph",
+    "profile_id": "orthodox_astrology.v1",
+    "profile_version": "1.0.0",
+    "projection_id": "projection:b79c98b02905b112324110fe",
+    "source_dataset_analysis_type": "natal_dataset"
+  },
+  "source_graph_ref": {
+    "graph_type": "canonical_astrology_graph",
+    "graph_version": "1.3.0",
+    "source_graph_hash": "fff88b2e162ec06aebe1c55a"
+  },
+  "source_identity": {
+    "sensor_instance_id": "natal:fixture",
+    "source_chart_id": "natal:fixture",
+    "source_chart_ids": [
+      "natal:fixture"
+    ]
+  },
+  "summary": {
+    "context_mode": "general",
+    "mapped_source_object_count": 2,
+    "mapped_source_relationship_count": 1,
+    "object_count": 2,
+    "orthodox_theme_counts": {
+      "conflict_drive": 1,
+      "growth_edge": 1,
+      "romance_affection": 1,
+      "values_resources": 1
+    },
+    "profile_scope": "core_objects_major_aspects_synastry_overlays_contexts",
+    "projected_house_overlay_count": 0,
+    "registry_resolved_theme_evidence_count": 0,
+    "relationship_count": 1,
+    "supported_major_aspects": [
+      "conjunction",
+      "opposition",
+      "sextile",
+      "square",
+      "trine"
+    ],
+    "supported_object_names": [
+      "ASC",
+      "DSC",
+      "IC",
+      "Jupiter",
+      "MC",
+      "Mars",
+      "Mercury",
+      "Moon",
+      "Neptune",
+      "Pluto",
+      "Saturn",
+      "Sun",
+      "Uranus",
+      "Venus"
+    ],
+    "unmapped_source_count": 0
+  },
+  "target_ontology": "orthodox_astrology.v1"
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Composite Dataset v1",
+  "type": "object",
+  "required": [
+    "metadata",
+    "composite_chart",
+    "composite_aspects",
+    "transitable_chart",
+    "canonical_astrology_graph",
+    "structural_evidence_graph",
+    "projection_views",
+    "semantic_boundary"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "pipeline_version",
+        "analysis_type",
+        "created_at",
+        "person_a",
+        "person_b",
+        "composite_method"
+      ],
+      "properties": {
+        "analysis_type": {
+          "const": "composite_dataset"
+        },
+        "composite_method": {
+          "const": "midpoint_longitude"
+        }
+      },
+      "additionalProperties": true
+    },
+    "person_a": {
+      "type": "object"
+    },
+    "person_b": {
+      "type": "object"
+    },
+    "composite_chart": {
+      "type": "object"
+    },
+    "composite_aspects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "relationship_type",
+          "source_body",
+          "target_body",
+          "aspect",
+          "orb",
+          "theme_tags",
+          "semantic_operator_hints"
+        ],
+        "properties": {
+          "relationship_type": {
+            "const": "COMPOSITE_ASPECT"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "balance_metrics": {
+      "type": "object"
+    },
+    "transitable_chart": {
+      "$ref": "transitable_chart_v1.schema.json"
+    },
+    "composite_reference_event": {
+      "type": "object"
+    },
+    "canonical_astrology_graph": {
+      "$ref": "canonical_astrology_graph_v1.schema.json"
+    },
+    "structural_evidence_graph": {
+      "$ref": "structural_evidence_graph_v1.schema.json"
+    },
+    "projection_views": {
+      "type": "object",
+      "required": [
+        "orthodox_astrology.v1"
+      ],
+      "properties": {
+        "orthodox_astrology.v1": {
+          "$ref": "orthodox_astrology_projection_view_v1.schema.json"
+        }
+      }
+    },
+    "semantic_boundary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

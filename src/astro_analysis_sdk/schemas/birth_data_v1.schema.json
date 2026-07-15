@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Birth Data v1",
+  "type": "object",
+  "required": [
+    "name",
+    "birth_local",
+    "birth_timezone",
+    "birth_lat",
+    "birth_lon"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "birth_local": {
+      "type": "string"
+    },
+    "birth_timezone": {
+      "type": "string"
+    },
+    "birth_lat": {
+      "type": "number"
+    },
+    "birth_lon": {
+      "type": "number"
+    },
+    "birth_location_label": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

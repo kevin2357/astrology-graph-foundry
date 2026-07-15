@@ -1,0 +1,7 @@
+Subject: [PATCH] Promote semantic facts to first-class graph objects and add transit period views
+
+- Promotes dignity, declination, antiscia, contra-antiscia, harmonics, lots, fixed stars, and sect into first-class graph objects/relationships.
+- Transit builders now activate semantic graph targets, including antiscia and harmonic points.
+- Transit candidates carry activated natal relationship context.
+- Transit period packages now include full, analysis, and streaming/index views.
+- Updates graph and transit period schemas and ingestion docs.

@@ -1,0 +1,1158 @@
+{
+  "general": {
+    "metadata": {
+      "package_type": "projected_semantic_graph",
+      "projection_id": "projection:16457133c57d2bba3ed1085a",
+      "engine_version": "0.4.0",
+      "profile_id": "orthodox_astrology.v1",
+      "profile_version": "1.0.0",
+      "context_id": "orthodox.relationship.general.v1",
+      "context_version": "1.0.0"
+    },
+    "source_identity": {
+      "source_chart_id": "natal:person_a",
+      "source_chart_ids": [
+        "natal:person_a",
+        "natal:person_b"
+      ],
+      "sensor_instance_id": "synastry:natal:person_a:natal:person_b"
+    },
+    "source_graph_ref": {
+      "graph_type": "canonical_astrology_graph",
+      "graph_version": "1.3.0",
+      "source_graph_hash": "91cb7b3bd6605fccc34b02e3"
+    },
+    "target_ontology": "orthodox_astrology.v1",
+    "objects": [
+      {
+        "id": "projected:orthodox_astrology.v1:61cb181977306bf476eedec8",
+        "object_type": "orthodox_astrology_primitive",
+        "name": "value_attraction_harmony",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "attract",
+          "bond",
+          "connect",
+          "value"
+        ],
+        "source_refs": [
+          "canonical:object:synastry:person_a:natal:Venus"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.object.venus.value_attraction_harmony"
+        ],
+        "context_refs": [
+          "orthodox.relationship.general.v1"
+        ],
+        "attributes": {
+          "canonical_object_name": "Venus",
+          "source_names": [
+            "Venus"
+          ],
+          "semantic_domains": [
+            "values",
+            "attraction",
+            "harmony",
+            "relationship"
+          ],
+          "theme_tags": [
+            "romance_affection",
+            "values_resources"
+          ],
+          "source_theme_tags": [
+            "romance_affection",
+            "values_resources"
+          ],
+          "sign": null,
+          "house": null,
+          "subject_owner": "person_a",
+          "context_mode": "general",
+          "projection_relevance_components": {
+            "structural_strength": 0.9,
+            "profile_salience": 0.94,
+            "context_salience": 1.0
+          }
+        },
+        "structural_strength_score": 0.9,
+        "projection_relevance_score": 0.846,
+        "provenance": {
+          "profile_layer": "orthodox_object_mapping",
+          "source_object_type": "planet_or_point"
+        }
+      },
+      {
+        "id": "projected:orthodox_astrology.v1:79816d0be0b454596a16c048",
+        "object_type": "orthodox_astrology_primitive",
+        "name": "communication_interpretation",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "compare",
+          "interpret",
+          "represent",
+          "translate"
+        ],
+        "source_refs": [
+          "canonical:object:synastry:person_b:natal:Mercury"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.object.mercury.communication_interpretation"
+        ],
+        "context_refs": [
+          "orthodox.relationship.general.v1"
+        ],
+        "attributes": {
+          "canonical_object_name": "Mercury",
+          "source_names": [
+            "Mercury"
+          ],
+          "semantic_domains": [
+            "communication",
+            "thought",
+            "exchange",
+            "interpretation"
+          ],
+          "theme_tags": [
+            "communication"
+          ],
+          "source_theme_tags": [
+            "communication"
+          ],
+          "sign": null,
+          "house": null,
+          "subject_owner": "person_b",
+          "context_mode": "general",
+          "projection_relevance_components": {
+            "structural_strength": 0.85,
+            "profile_salience": 0.92,
+            "context_salience": 1.0
+          }
+        },
+        "structural_strength_score": 0.85,
+        "projection_relevance_score": 0.782,
+        "provenance": {
+          "profile_layer": "orthodox_object_mapping",
+          "source_object_type": "planet_or_point"
+        }
+      },
+      {
+        "id": "projected:orthodox_astrology.v1:cc7aa809ce9ada0002093517",
+        "object_type": "orthodox_relationship_domain",
+        "name": "communication_learning",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "contextualize",
+          "locate",
+          "receive"
+        ],
+        "source_refs": [
+          "canonical:object:synastry:person_b:house:3"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.house.3.communication_learning"
+        ],
+        "context_refs": [
+          "orthodox.relationship.general.v1"
+        ],
+        "attributes": {
+          "house": 3,
+          "subject_owner": "person_b",
+          "semantic_domains": [
+            "communication_learning"
+          ],
+          "theme_tags": [
+            "communication_learning"
+          ],
+          "source_names": [
+            "person_b house 3"
+          ],
+          "context_mode": "general"
+        },
+        "structural_strength_score": 0.7,
+        "projection_relevance_score": 0.8,
+        "provenance": {
+          "profile_layer": "orthodox_house_domain_mapping"
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "id": "projected_relation:orthodox_astrology.v1:92f4ed7ac097cdb0c34a0e38",
+        "relationship_type": "activates_relationship_domain",
+        "source_id": "projected:orthodox_astrology.v1:61cb181977306bf476eedec8",
+        "target_id": "projected:orthodox_astrology.v1:cc7aa809ce9ada0002093517",
+        "source_relationship_refs": [
+          "canonical:relationship:overlay:venus:house3"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.house_overlay.general"
+        ],
+        "context_refs": [
+          "orthodox.relationship.general.v1"
+        ],
+        "operators": [
+          "activate",
+          "connect",
+          "locate"
+        ],
+        "theme_tags": [
+          "communication",
+          "communication_learning",
+          "romance_affection",
+          "values_resources"
+        ],
+        "attributes": {
+          "source_relationship_type": "HOUSE_OVERLAY",
+          "direction": "a_to_b",
+          "source_person": "Person A",
+          "target_person": "Person B",
+          "target_house": 3,
+          "theme_key": "communication|values_resources",
+          "theme_evidence": [
+            {
+              "theme": "communication",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|values_resources"
+            },
+            {
+              "theme": "communication_learning",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "romance_affection",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "values_resources",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "values_resources",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|values_resources"
+            }
+          ],
+          "projection_relevance_components": {
+            "structural_strength": 0.76,
+            "profile_salience": 0.86,
+            "context_salience": 1.0
+          },
+          "context_mode": "general"
+        },
+        "projection_relevance_score": 0.6536,
+        "provenance": {
+          "profile_layer": "orthodox_house_overlay_mapping"
+        }
+      },
+      {
+        "id": "projected_relation:orthodox_astrology.v1:d3cb23226386a55a67d0f7b0",
+        "relationship_type": "supports_and_facilitates",
+        "source_id": "projected:orthodox_astrology.v1:61cb181977306bf476eedec8",
+        "target_id": "projected:orthodox_astrology.v1:79816d0be0b454596a16c048",
+        "source_relationship_refs": [
+          "canonical:relationship:syn:venus:trine:mercury"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.aspect.trine.supports_and_facilitates"
+        ],
+        "context_refs": [
+          "orthodox.relationship.general.v1"
+        ],
+        "operators": [
+          "connect",
+          "facilitate",
+          "flow",
+          "interpret",
+          "support"
+        ],
+        "theme_tags": [
+          "communication",
+          "ease_support",
+          "home_family",
+          "romance_affection",
+          "values_resources"
+        ],
+        "attributes": {
+          "canonical_aspect": "trine",
+          "orb": 0.4,
+          "source_relationship_type": "SYNASTRY_ASPECT",
+          "direction": "a_to_b",
+          "source_person": "Person A",
+          "target_person": "Person B",
+          "source_object_name": "Venus",
+          "target_object_name": "Mercury",
+          "theme_key": "communication|ease_support|home_family",
+          "theme_evidence": [
+            {
+              "theme": "communication",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "communication",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|ease_support|home_family"
+            },
+            {
+              "theme": "ease_support",
+              "origin": "aspect_mapping"
+            },
+            {
+              "theme": "ease_support",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|ease_support|home_family"
+            },
+            {
+              "theme": "home_family",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|ease_support|home_family"
+            },
+            {
+              "theme": "romance_affection",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "values_resources",
+              "origin": "object_mapping"
+            }
+          ],
+          "projection_relevance_components": {
+            "structural_strength": 0.88,
+            "profile_salience": 0.88,
+            "context_salience": 1.0
+          },
+          "context_mode": "general"
+        },
+        "projection_relevance_score": 0.7744,
+        "provenance": {
+          "profile_layer": "orthodox_relationship_mapping"
+        }
+      }
+    ],
+    "indexes": {
+      "object_by_id": {
+        "projected:orthodox_astrology.v1:61cb181977306bf476eedec8": 0,
+        "projected:orthodox_astrology.v1:79816d0be0b454596a16c048": 1,
+        "projected:orthodox_astrology.v1:cc7aa809ce9ada0002093517": 2
+      },
+      "relationship_by_id": {
+        "projected_relation:orthodox_astrology.v1:92f4ed7ac097cdb0c34a0e38": 0,
+        "projected_relation:orthodox_astrology.v1:d3cb23226386a55a67d0f7b0": 1
+      },
+      "projected_objects_by_source_ref": {
+        "synastry:person_a:natal:Venus": [
+          "projected:orthodox_astrology.v1:61cb181977306bf476eedec8"
+        ],
+        "synastry:person_b:house:3": [
+          "projected:orthodox_astrology.v1:cc7aa809ce9ada0002093517"
+        ],
+        "synastry:person_b:natal:Mercury": [
+          "projected:orthodox_astrology.v1:79816d0be0b454596a16c048"
+        ]
+      },
+      "projected_relationships_by_source_ref": {
+        "canonical:relationship:overlay:venus:house3": [
+          "projected_relation:orthodox_astrology.v1:92f4ed7ac097cdb0c34a0e38"
+        ],
+        "canonical:relationship:syn:venus:trine:mercury": [
+          "projected_relation:orthodox_astrology.v1:d3cb23226386a55a67d0f7b0"
+        ]
+      }
+    },
+    "summary": {
+      "object_count": 3,
+      "relationship_count": 2,
+      "mapped_source_object_count": 3,
+      "mapped_source_relationship_count": 2,
+      "unmapped_source_count": 0,
+      "orthodox_theme_counts": {
+        "communication": 2,
+        "communication_learning": 1,
+        "ease_support": 1,
+        "home_family": 1,
+        "romance_affection": 2,
+        "values_resources": 2
+      },
+      "registry_resolved_theme_evidence_count": 5,
+      "projected_house_overlay_count": 1,
+      "context_mode": "general",
+      "supported_object_names": [
+        "ASC",
+        "DSC",
+        "IC",
+        "Jupiter",
+        "MC",
+        "Mars",
+        "Mercury",
+        "Moon",
+        "Neptune",
+        "Pluto",
+        "Saturn",
+        "Sun",
+        "Uranus",
+        "Venus"
+      ],
+      "supported_major_aspects": [
+        "conjunction",
+        "opposition",
+        "sextile",
+        "square",
+        "trine"
+      ],
+      "profile_scope": "core_objects_major_aspects_synastry_overlays_contexts"
+    },
+    "audit": {
+      "profile_id": "orthodox_astrology.v1",
+      "profile_version": "1.0.0",
+      "engine_version": "0.4.0",
+      "request_hash": "16457133c57d2bba3ed1085a",
+      "source_graph_hash": "91cb7b3bd6605fccc34b02e3",
+      "context_hash": "4d12652e662acc0f9d84db92",
+      "coverage": {
+        "source_object_count": 3,
+        "mapped_source_object_count": 3,
+        "unmapped_source_object_count": 0,
+        "source_relationship_count": 2,
+        "mapped_source_relationship_count": 2,
+        "unmapped_source_relationship_count": 0
+      },
+      "mapping_executions": [
+        {
+          "execution_id": "mapping_execution:46ff41bbe1b070e87363e1a4",
+          "mapping_rule_id": "orthodox_astrology.v1.object.mercury.communication_interpretation",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:synastry:person_b:natal:Mercury"
+          ],
+          "context_refs": [
+            "orthodox.relationship.general.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:79816d0be0b454596a16c048"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "canonical_object_supported",
+              "result": true,
+              "value": "Mercury"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.relationship.general.v1"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:af9493bdecf8d55dc64624ef",
+          "mapping_rule_id": "orthodox_astrology.v1.house_overlay.general",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:relationship:overlay:venus:house3"
+          ],
+          "context_refs": [
+            "orthodox.relationship.general.v1"
+          ],
+          "result_refs": [
+            "projected_relation:orthodox_astrology.v1:92f4ed7ac097cdb0c34a0e38"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "house_overlay_supported",
+              "result": true
+            },
+            {
+              "condition": "source_registry_resolved",
+              "result": true,
+              "value": "communication|values_resources"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:d25fa2cbf94d688182ae8a5b",
+          "mapping_rule_id": "orthodox_astrology.v1.object.venus.value_attraction_harmony",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:synastry:person_a:natal:Venus"
+          ],
+          "context_refs": [
+            "orthodox.relationship.general.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:61cb181977306bf476eedec8"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "canonical_object_supported",
+              "result": true,
+              "value": "Venus"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.relationship.general.v1"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:ec8d7f445b453463133ff047",
+          "mapping_rule_id": "orthodox_astrology.v1.house.3.communication_learning",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:synastry:person_b:house:3"
+          ],
+          "context_refs": [
+            "orthodox.relationship.general.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:cc7aa809ce9ada0002093517"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "house_cusp_supported",
+              "result": true,
+              "value": 3
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:fe4bb41a3737b915d402a496",
+          "mapping_rule_id": "orthodox_astrology.v1.aspect.trine.supports_and_facilitates",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:relationship:syn:venus:trine:mercury"
+          ],
+          "context_refs": [
+            "orthodox.relationship.general.v1"
+          ],
+          "result_refs": [
+            "projected_relation:orthodox_astrology.v1:d3cb23226386a55a67d0f7b0"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "major_aspect_supported",
+              "result": true,
+              "value": "trine"
+            },
+            {
+              "condition": "projected_endpoints_available",
+              "result": true
+            },
+            {
+              "condition": "source_registry_resolved",
+              "result": true,
+              "value": "communication|ease_support|home_family"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.relationship.general.v1"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "unmapped_source_refs": [],
+      "fallbacks": [],
+      "diagnostics_ref": "projection_diagnostics"
+    },
+    "diagnostics": {
+      "errors": [],
+      "warnings": [],
+      "infos": [],
+      "unmapped_source_refs": [],
+      "fallbacks": []
+    }
+  },
+  "professional": {
+    "metadata": {
+      "package_type": "projected_semantic_graph",
+      "projection_id": "projection:1e0419149963d5a77d5e19b3",
+      "engine_version": "0.4.0",
+      "profile_id": "orthodox_astrology.v1",
+      "profile_version": "1.0.0",
+      "context_id": "orthodox.relationship.professional.v1",
+      "context_version": "1.0.0"
+    },
+    "source_identity": {
+      "source_chart_id": "natal:person_a",
+      "source_chart_ids": [
+        "natal:person_a",
+        "natal:person_b"
+      ],
+      "sensor_instance_id": "synastry:natal:person_a:natal:person_b"
+    },
+    "source_graph_ref": {
+      "graph_type": "canonical_astrology_graph",
+      "graph_version": "1.3.0",
+      "source_graph_hash": "91cb7b3bd6605fccc34b02e3"
+    },
+    "target_ontology": "orthodox_astrology.v1",
+    "objects": [
+      {
+        "id": "projected:orthodox_astrology.v1:188cd17294ef28835a285934",
+        "object_type": "orthodox_relationship_domain",
+        "name": "information_exchange",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "contextualize",
+          "locate",
+          "receive"
+        ],
+        "source_refs": [
+          "canonical:object:synastry:person_b:house:3"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.house.3.information_exchange"
+        ],
+        "context_refs": [
+          "orthodox.relationship.professional.v1"
+        ],
+        "attributes": {
+          "house": 3,
+          "subject_owner": "person_b",
+          "semantic_domains": [
+            "information_exchange"
+          ],
+          "theme_tags": [
+            "information_exchange"
+          ],
+          "source_names": [
+            "person_b house 3"
+          ],
+          "context_mode": "professional"
+        },
+        "structural_strength_score": 0.7,
+        "projection_relevance_score": 0.8,
+        "provenance": {
+          "profile_layer": "orthodox_house_domain_mapping"
+        }
+      },
+      {
+        "id": "projected:orthodox_astrology.v1:4a9c47d134b77245733bc403",
+        "object_type": "orthodox_astrology_primitive",
+        "name": "professional_communication_coordination",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "compare",
+          "interpret",
+          "represent",
+          "translate"
+        ],
+        "source_refs": [
+          "canonical:object:synastry:person_b:natal:Mercury"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.object.mercury.professional_communication_coordination"
+        ],
+        "context_refs": [
+          "orthodox.relationship.professional.v1"
+        ],
+        "attributes": {
+          "canonical_object_name": "Mercury",
+          "source_names": [
+            "Mercury"
+          ],
+          "semantic_domains": [
+            "communication",
+            "thought",
+            "exchange",
+            "interpretation"
+          ],
+          "theme_tags": [
+            "communication"
+          ],
+          "source_theme_tags": [
+            "communication"
+          ],
+          "sign": null,
+          "house": null,
+          "subject_owner": "person_b",
+          "context_mode": "professional",
+          "projection_relevance_components": {
+            "structural_strength": 0.85,
+            "profile_salience": 0.92,
+            "context_salience": 1.05
+          }
+        },
+        "structural_strength_score": 0.85,
+        "projection_relevance_score": 0.8211,
+        "provenance": {
+          "profile_layer": "orthodox_object_mapping",
+          "source_object_type": "planet_or_point"
+        }
+      },
+      {
+        "id": "projected:orthodox_astrology.v1:edd270b625b094a7c3451fb0",
+        "object_type": "orthodox_astrology_primitive",
+        "name": "values_alignment_diplomacy",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "attract",
+          "bond",
+          "connect",
+          "value"
+        ],
+        "source_refs": [
+          "canonical:object:synastry:person_a:natal:Venus"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.object.venus.values_alignment_diplomacy"
+        ],
+        "context_refs": [
+          "orthodox.relationship.professional.v1"
+        ],
+        "attributes": {
+          "canonical_object_name": "Venus",
+          "source_names": [
+            "Venus"
+          ],
+          "semantic_domains": [
+            "values",
+            "attraction",
+            "harmony",
+            "relationship"
+          ],
+          "theme_tags": [
+            "professional_rapport",
+            "values_alignment_resources"
+          ],
+          "source_theme_tags": [
+            "romance_affection",
+            "values_resources"
+          ],
+          "sign": null,
+          "house": null,
+          "subject_owner": "person_a",
+          "context_mode": "professional",
+          "projection_relevance_components": {
+            "structural_strength": 0.9,
+            "profile_salience": 0.94,
+            "context_salience": 1.05
+          }
+        },
+        "structural_strength_score": 0.9,
+        "projection_relevance_score": 0.8883,
+        "provenance": {
+          "profile_layer": "orthodox_object_mapping",
+          "source_object_type": "planet_or_point"
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "id": "projected_relation:orthodox_astrology.v1:80aeea09c6428641e30dd934",
+        "relationship_type": "professional_supports_and_facilitates",
+        "source_id": "projected:orthodox_astrology.v1:edd270b625b094a7c3451fb0",
+        "target_id": "projected:orthodox_astrology.v1:4a9c47d134b77245733bc403",
+        "source_relationship_refs": [
+          "canonical:relationship:syn:venus:trine:mercury"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.aspect.trine.professional_supports_and_facilitates"
+        ],
+        "context_refs": [
+          "orthodox.relationship.professional.v1"
+        ],
+        "operators": [
+          "connect",
+          "facilitate",
+          "flow",
+          "interpret",
+          "support"
+        ],
+        "theme_tags": [
+          "communication",
+          "ease_support",
+          "professional_rapport",
+          "team_foundation",
+          "values_alignment_resources"
+        ],
+        "attributes": {
+          "canonical_aspect": "trine",
+          "orb": 0.4,
+          "source_relationship_type": "SYNASTRY_ASPECT",
+          "direction": "a_to_b",
+          "source_person": "Person A",
+          "target_person": "Person B",
+          "source_object_name": "Venus",
+          "target_object_name": "Mercury",
+          "theme_key": "communication|ease_support|home_family",
+          "theme_evidence": [
+            {
+              "theme": "communication",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "communication",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|ease_support|home_family"
+            },
+            {
+              "theme": "ease_support",
+              "origin": "aspect_mapping"
+            },
+            {
+              "theme": "ease_support",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|ease_support|home_family"
+            },
+            {
+              "theme": "professional_rapport",
+              "origin": "object_mapping",
+              "source_theme": "romance_affection",
+              "context_transform": "orthodox.relationship.professional.v1"
+            },
+            {
+              "theme": "team_foundation",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|ease_support|home_family",
+              "source_theme": "home_family",
+              "context_transform": "orthodox.relationship.professional.v1"
+            },
+            {
+              "theme": "values_alignment_resources",
+              "origin": "object_mapping",
+              "source_theme": "values_resources",
+              "context_transform": "orthodox.relationship.professional.v1"
+            }
+          ],
+          "projection_relevance_components": {
+            "structural_strength": 0.88,
+            "profile_salience": 0.88,
+            "context_salience": 1.05
+          },
+          "context_mode": "professional"
+        },
+        "projection_relevance_score": 0.81312,
+        "provenance": {
+          "profile_layer": "orthodox_relationship_mapping"
+        }
+      },
+      {
+        "id": "projected_relation:orthodox_astrology.v1:9e699b188e7917dce4d6d72c",
+        "relationship_type": "activates_collaboration_domain",
+        "source_id": "projected:orthodox_astrology.v1:edd270b625b094a7c3451fb0",
+        "target_id": "projected:orthodox_astrology.v1:188cd17294ef28835a285934",
+        "source_relationship_refs": [
+          "canonical:relationship:overlay:venus:house3"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.house_overlay.professional"
+        ],
+        "context_refs": [
+          "orthodox.relationship.professional.v1"
+        ],
+        "operators": [
+          "activate",
+          "connect",
+          "locate"
+        ],
+        "theme_tags": [
+          "communication",
+          "information_exchange",
+          "professional_rapport",
+          "values_alignment_resources"
+        ],
+        "attributes": {
+          "source_relationship_type": "HOUSE_OVERLAY",
+          "direction": "a_to_b",
+          "source_person": "Person A",
+          "target_person": "Person B",
+          "target_house": 3,
+          "theme_key": "communication|values_resources",
+          "theme_evidence": [
+            {
+              "theme": "communication",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|values_resources"
+            },
+            {
+              "theme": "information_exchange",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "professional_rapport",
+              "origin": "object_mapping",
+              "source_theme": "romance_affection",
+              "context_transform": "orthodox.relationship.professional.v1"
+            },
+            {
+              "theme": "values_alignment_resources",
+              "origin": "object_mapping",
+              "source_theme": "values_resources",
+              "context_transform": "orthodox.relationship.professional.v1"
+            },
+            {
+              "theme": "values_alignment_resources",
+              "origin": "source_registry",
+              "source_ref": "theme_registry:communication|values_resources",
+              "source_theme": "values_resources",
+              "context_transform": "orthodox.relationship.professional.v1"
+            }
+          ],
+          "projection_relevance_components": {
+            "structural_strength": 0.76,
+            "profile_salience": 0.86,
+            "context_salience": 1.05
+          },
+          "context_mode": "professional"
+        },
+        "projection_relevance_score": 0.68628,
+        "provenance": {
+          "profile_layer": "orthodox_house_overlay_mapping"
+        }
+      }
+    ],
+    "indexes": {
+      "object_by_id": {
+        "projected:orthodox_astrology.v1:188cd17294ef28835a285934": 0,
+        "projected:orthodox_astrology.v1:4a9c47d134b77245733bc403": 1,
+        "projected:orthodox_astrology.v1:edd270b625b094a7c3451fb0": 2
+      },
+      "relationship_by_id": {
+        "projected_relation:orthodox_astrology.v1:80aeea09c6428641e30dd934": 0,
+        "projected_relation:orthodox_astrology.v1:9e699b188e7917dce4d6d72c": 1
+      },
+      "projected_objects_by_source_ref": {
+        "synastry:person_a:natal:Venus": [
+          "projected:orthodox_astrology.v1:edd270b625b094a7c3451fb0"
+        ],
+        "synastry:person_b:house:3": [
+          "projected:orthodox_astrology.v1:188cd17294ef28835a285934"
+        ],
+        "synastry:person_b:natal:Mercury": [
+          "projected:orthodox_astrology.v1:4a9c47d134b77245733bc403"
+        ]
+      },
+      "projected_relationships_by_source_ref": {
+        "canonical:relationship:overlay:venus:house3": [
+          "projected_relation:orthodox_astrology.v1:9e699b188e7917dce4d6d72c"
+        ],
+        "canonical:relationship:syn:venus:trine:mercury": [
+          "projected_relation:orthodox_astrology.v1:80aeea09c6428641e30dd934"
+        ]
+      }
+    },
+    "summary": {
+      "object_count": 3,
+      "relationship_count": 2,
+      "mapped_source_object_count": 3,
+      "mapped_source_relationship_count": 2,
+      "unmapped_source_count": 0,
+      "orthodox_theme_counts": {
+        "communication": 2,
+        "ease_support": 1,
+        "information_exchange": 1,
+        "professional_rapport": 2,
+        "team_foundation": 1,
+        "values_alignment_resources": 2
+      },
+      "registry_resolved_theme_evidence_count": 5,
+      "projected_house_overlay_count": 1,
+      "context_mode": "professional",
+      "supported_object_names": [
+        "ASC",
+        "DSC",
+        "IC",
+        "Jupiter",
+        "MC",
+        "Mars",
+        "Mercury",
+        "Moon",
+        "Neptune",
+        "Pluto",
+        "Saturn",
+        "Sun",
+        "Uranus",
+        "Venus"
+      ],
+      "supported_major_aspects": [
+        "conjunction",
+        "opposition",
+        "sextile",
+        "square",
+        "trine"
+      ],
+      "profile_scope": "core_objects_major_aspects_synastry_overlays_contexts"
+    },
+    "audit": {
+      "profile_id": "orthodox_astrology.v1",
+      "profile_version": "1.0.0",
+      "engine_version": "0.4.0",
+      "request_hash": "1e0419149963d5a77d5e19b3",
+      "source_graph_hash": "91cb7b3bd6605fccc34b02e3",
+      "context_hash": "12a3963605acfd1878a875ea",
+      "coverage": {
+        "source_object_count": 3,
+        "mapped_source_object_count": 3,
+        "unmapped_source_object_count": 0,
+        "source_relationship_count": 2,
+        "mapped_source_relationship_count": 2,
+        "unmapped_source_relationship_count": 0
+      },
+      "mapping_executions": [
+        {
+          "execution_id": "mapping_execution:17d5b8c0dbb91e50ef5806d2",
+          "mapping_rule_id": "orthodox_astrology.v1.object.mercury.professional_communication_coordination",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:synastry:person_b:natal:Mercury"
+          ],
+          "context_refs": [
+            "orthodox.relationship.professional.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:4a9c47d134b77245733bc403"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "canonical_object_supported",
+              "result": true,
+              "value": "Mercury"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.relationship.professional.v1"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:2367647f8d47e30fb4f832d2",
+          "mapping_rule_id": "orthodox_astrology.v1.aspect.trine.professional_supports_and_facilitates",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:relationship:syn:venus:trine:mercury"
+          ],
+          "context_refs": [
+            "orthodox.relationship.professional.v1"
+          ],
+          "result_refs": [
+            "projected_relation:orthodox_astrology.v1:80aeea09c6428641e30dd934"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "major_aspect_supported",
+              "result": true,
+              "value": "trine"
+            },
+            {
+              "condition": "projected_endpoints_available",
+              "result": true
+            },
+            {
+              "condition": "source_registry_resolved",
+              "result": true,
+              "value": "communication|ease_support|home_family"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.relationship.professional.v1"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:58e14a4ce0b9c23865514101",
+          "mapping_rule_id": "orthodox_astrology.v1.house_overlay.professional",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:relationship:overlay:venus:house3"
+          ],
+          "context_refs": [
+            "orthodox.relationship.professional.v1"
+          ],
+          "result_refs": [
+            "projected_relation:orthodox_astrology.v1:9e699b188e7917dce4d6d72c"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "house_overlay_supported",
+              "result": true
+            },
+            {
+              "condition": "source_registry_resolved",
+              "result": true,
+              "value": "communication|values_resources"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:6e8ac70b746991b1b86ff9fb",
+          "mapping_rule_id": "orthodox_astrology.v1.house.3.information_exchange",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:synastry:person_b:house:3"
+          ],
+          "context_refs": [
+            "orthodox.relationship.professional.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:188cd17294ef28835a285934"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "house_cusp_supported",
+              "result": true,
+              "value": 3
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:fa1a7b1852b50c8fd485fd45",
+          "mapping_rule_id": "orthodox_astrology.v1.object.venus.values_alignment_diplomacy",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:synastry:person_a:natal:Venus"
+          ],
+          "context_refs": [
+            "orthodox.relationship.professional.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:edd270b625b094a7c3451fb0"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "canonical_object_supported",
+              "result": true,
+              "value": "Venus"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.relationship.professional.v1"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "unmapped_source_refs": [],
+      "fallbacks": [],
+      "diagnostics_ref": "projection_diagnostics"
+    },
+    "diagnostics": {
+      "errors": [],
+      "warnings": [],
+      "infos": [],
+      "unmapped_source_refs": [],
+      "fallbacks": []
+    }
+  }
+}

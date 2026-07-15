@@ -1,0 +1,19 @@
+{
+  "context_id": "woofmapped.doghouse.general.v0",
+  "context_version": "0.1.0",
+  "subject_scope": "dog",
+  "relationship_type": null,
+  "age_band": null,
+  "target_domain": "woofmapped_astrology.v0",
+  "application_context": "woofmapped_natal_projection",
+  "audience": "handler_general",
+  "output_intent": "structured_semantic_model",
+  "constraints": {
+    "playful_experimental_projection": true,
+    "veterinary_advice": false,
+    "behavioral_diagnosis": false,
+    "house_mapping_policy": "doghouse"
+  },
+  "parameters": {},
+  "extensions": {}
+}

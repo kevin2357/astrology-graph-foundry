@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Transit Streaming Index v1",
+  "type": "object",
+  "required": [
+    "view_type",
+    "metadata",
+    "period",
+    "candidate_registry",
+    "days",
+    "arcs",
+    "months"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "period": {
+      "type": "object"
+    },
+    "candidate_registry": {
+      "type": "object"
+    },
+    "days": {
+      "type": "array"
+    },
+    "view_type": {
+      "const": "streaming_index"
+    },
+    "arcs": {
+      "type": "array"
+    },
+    "months": {
+      "type": "array"
+    },
+    "activated_target_relationship_registry": {
+      "type": "object"
+    },
+    "arcs_by_target_type": {
+      "type": "array"
+    },
+    "arcs_by_activated_relationship_type": {
+      "type": "array"
+    },
+    "semantic_boundary": {
+      "type": "object"
+    },
+    "canonical_astrology_graph_summary": {
+      "type": "object"
+    },
+    "structural_evidence_summary": {
+      "type": "object"
+    },
+    "projection_view_summaries": {
+      "type": "object"
+    },
+    "projection_views": {
+      "type": "object"
+    },
+    "orthodox_projection_extract": {
+      "type": "object"
+    },
+    "orthodox_relationship_metric_summary": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

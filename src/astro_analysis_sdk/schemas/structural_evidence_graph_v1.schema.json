@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Structural Evidence Graph v1",
+  "type": "object",
+  "required": [
+    "graph_type",
+    "graph_version",
+    "source_graph_type",
+    "source_sensor_id",
+    "projection_status",
+    "evidence_tier_counts",
+    "derivation_family_counts",
+    "independence_group_count",
+    "repeated_operator_families",
+    "activation_groups",
+    "record_independence_group_count",
+    "evidence_family_group_count",
+    "independence_policy",
+    "sensor_instance_id",
+    "source_chart_ids",
+    "source_chart_family_group_count"
+  ],
+  "properties": {
+    "graph_type": {
+      "const": "structural_evidence_graph"
+    },
+    "graph_version": {
+      "const": "1.3.0"
+    },
+    "source_graph_type": {
+      "const": "canonical_astrology_graph"
+    },
+    "source_sensor_id": {
+      "type": "string"
+    },
+    "projection_status": {
+      "const": "pre_projection"
+    },
+    "evidence_tier_counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "derivation_family_counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "independence_group_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "repeated_operator_families": {
+      "type": "array"
+    },
+    "activation_groups": {
+      "type": "array"
+    },
+    "permitted_inferences": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deferred_until_projection": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "record_independence_group_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "evidence_family_group_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "independence_policy": {
+      "type": "object"
+    },
+    "sensor_instance_id": {
+      "type": "string"
+    },
+    "source_chart_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_chart_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "source_chart_family_group_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

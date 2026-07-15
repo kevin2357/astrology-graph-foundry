@@ -1,0 +1,81 @@
+{
+  "projection_python_file_count": 13,
+  "forbidden_import_count": 0,
+  "forbidden_imports": [],
+  "imports": {
+    "src/astro_analysis_sdk/projection/__init__.py": [
+      "contracts",
+      "engine",
+      "ids",
+      "profile",
+      "registry",
+      "validation"
+    ],
+    "src/astro_analysis_sdk/projection/audit.py": [
+      "__future__",
+      "contracts",
+      "ids",
+      "typing"
+    ],
+    "src/astro_analysis_sdk/projection/contracts.py": [
+      "__future__",
+      "dataclasses",
+      "typing"
+    ],
+    "src/astro_analysis_sdk/projection/diagnostics.py": [
+      "__future__",
+      "contracts",
+      "typing"
+    ],
+    "src/astro_analysis_sdk/projection/engine.py": [
+      "__future__",
+      "contracts",
+      "copy",
+      "dataclasses",
+      "diagnostics",
+      "ids",
+      "profile",
+      "registry",
+      "typing",
+      "validation"
+    ],
+    "src/astro_analysis_sdk/projection/ids.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "typing"
+    ],
+    "src/astro_analysis_sdk/projection/io.py": [
+      "__future__",
+      "json",
+      "pathlib",
+      "typing"
+    ],
+    "src/astro_analysis_sdk/projection/profile.py": [
+      "__future__",
+      "contracts",
+      "typing"
+    ],
+    "src/astro_analysis_sdk/projection/profiles/__init__.py": [],
+    "src/astro_analysis_sdk/projection/profiles/demo.py": [
+      "__future__",
+      "contracts",
+      "typing"
+    ],
+    "src/astro_analysis_sdk/projection/registry.py": [
+      "__future__",
+      "importlib",
+      "profile",
+      "typing"
+    ],
+    "src/astro_analysis_sdk/projection/schemas/__init__.py": [],
+    "src/astro_analysis_sdk/projection/validation.py": [
+      "__future__",
+      "importlib.resources",
+      "json",
+      "jsonschema",
+      "referencing",
+      "typing"
+    ]
+  }
+}

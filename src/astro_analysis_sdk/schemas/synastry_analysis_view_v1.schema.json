@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Synastry Analysis View v1",
+  "type": "object",
+  "required": [
+    "metadata",
+    "person_a",
+    "person_b",
+    "object_registries",
+    "top_synastry_aspects",
+    "top_house_overlays"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "view_type"
+      ],
+      "properties": {
+        "view_type": {
+          "const": "synastry_analysis"
+        }
+      },
+      "additionalProperties": true
+    },
+    "person_a": {
+      "type": "object"
+    },
+    "person_b": {
+      "type": "object"
+    },
+    "object_registries": {
+      "type": "object"
+    },
+    "theme_registry": {
+      "type": "object"
+    },
+    "operator_registry": {
+      "type": "object"
+    },
+    "natal_context_hints": {
+      "type": "object"
+    },
+    "top_synastry_aspects": {
+      "type": "array"
+    },
+    "top_house_overlays": {
+      "type": "array"
+    },
+    "composite_summary": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "semantic_boundary": {
+      "type": "object"
+    },
+    "canonical_astrology_graph_summary": {
+      "type": "object"
+    },
+    "structural_evidence_summary": {
+      "type": "object"
+    },
+    "projection_view_summaries": {
+      "type": "object"
+    },
+    "orthodox_projection_extract": {
+      "type": "object"
+    },
+    "orthodox_relationship_metric_summary": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

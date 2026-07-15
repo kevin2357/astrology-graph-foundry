@@ -1,0 +1,1741 @@
+{
+  "renderer_contract": "deterministic_projected_term_renderer.v0",
+  "profiles": [
+    {
+      "profile": "cognitive",
+      "target_ontology": "cognitive_architecture_demo.v0",
+      "subject": "Kevin",
+      "selection_policy": "fixed_reference_set.v1",
+      "items": [
+        {
+          "projected_object_id": "projected:cognitive_architecture_demo.v0:da253e1d5ccac98f36a2abb3",
+          "projected_term": "identity_organization",
+          "raw_composition": {
+            "domain": "shared_risk_deep_integration",
+            "mode": "comparative_balancing_mode",
+            "operator": "identity_organization"
+          },
+          "registry_entry": {
+            "canonical_label": "Identity Organization",
+            "core_operators": [
+              "organize",
+              "prioritize",
+              "stabilize"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "identity organization"
+            ],
+            "long_description": "This term represents the target-ontology function of identity organization. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "identity organization",
+              "possessive_phrase": "the subject's identity organization",
+              "subject_template": "{subject}'s identity organization"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "central_coherence",
+              "identity_priority",
+              "self_model"
+            ],
+            "short_description": "A projected operator describing identity organization.",
+            "term_type": "operator"
+          },
+          "strict_sentence": {
+            "text": "Kevin's identity organization operates through comparative balancing in situations involving shared risk and deep integration.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+              "cognitive_architecture_demo.projected_terms:0.2.0:comparative_balancing_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:shared_risk_deep_integration"
+            ],
+            "semantic_components": {
+              "operator": "identity_organization",
+              "mode": "comparative_balancing_mode",
+              "domain": "shared_risk_deep_integration",
+              "verbs": [
+                "organize",
+                "prioritize",
+                "stabilize"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Kevin's identity organization is organized around organizing, prioritizing, and stabilizing, with an emphasis on comparative balancing, especially in situations involving shared risk and deep integration.",
+            "template_id": "object.natural.subject_mode_domain.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+              "cognitive_architecture_demo.projected_terms:0.2.0:comparative_balancing_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:shared_risk_deep_integration"
+            ],
+            "semantic_components": {
+              "operator": "identity_organization",
+              "mode": "comparative_balancing_mode",
+              "domain": "shared_risk_deep_integration",
+              "verbs": [
+                "organize",
+                "prioritize",
+                "stabilize"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:cognitive_architecture_demo.v0:da253e1d5ccac98f36a2abb3",
+            "central_sentence": {
+              "text": "Kevin's identity organization is organized around organizing, prioritizing, and stabilizing, with an emphasis on comparative balancing, especially in situations involving shared risk and deep integration.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+                "cognitive_architecture_demo.projected_terms:0.2.0:comparative_balancing_mode",
+                "cognitive_architecture_demo.projected_terms:0.2.0:shared_risk_deep_integration"
+              ],
+              "semantic_components": {
+                "operator": "identity_organization",
+                "mode": "comparative_balancing_mode",
+                "domain": "shared_risk_deep_integration",
+                "verbs": [
+                  "organize",
+                  "prioritize",
+                  "stabilize"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Kevin's identity organization runs together with the meaning abstraction.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:co_activates_and_fuses",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:meaning_abstraction"
+                ],
+                "semantic_components": {
+                  "source": "identity_organization",
+                  "relation": "co_activates_and_fuses",
+                  "target": "meaning_abstraction"
+                }
+              },
+              {
+                "text": "Kevin's identity organization runs together with the constraint management.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:co_activates_and_fuses",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:constraint_management"
+                ],
+                "semantic_components": {
+                  "source": "identity_organization",
+                  "relation": "co_activates_and_fuses",
+                  "target": "constraint_management"
+                }
+              },
+              {
+                "text": "Kevin's identity organization creates friction with and forces adaptation in the resource ease convergence.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:resource_ease_convergence"
+                ],
+                "semantic_components": {
+                  "source": "identity_organization",
+                  "relation": "interferes_and_forces_adaptation",
+                  "target": "resource_ease_convergence"
+                }
+              },
+              {
+                "text": "Kevin's identity organization can coordinate with the imagination permeability.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:enables_optional_coordination",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:imagination_permeability"
+                ],
+                "semantic_components": {
+                  "source": "identity_organization",
+                  "relation": "enables_optional_coordination",
+                  "target": "imagination_permeability"
+                }
+              }
+            ],
+            "paragraph": "Kevin's identity organization is organized around organizing, prioritizing, and stabilizing, with an emphasis on comparative balancing, especially in situations involving shared risk and deep integration. Kevin's identity organization runs together with the meaning abstraction. Kevin's identity organization runs together with the constraint management. Kevin's identity organization creates friction with and forces adaptation in the resource ease convergence. Kevin's identity organization can coordinate with the imagination permeability.",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:co_activates_and_fuses",
+              "cognitive_architecture_demo.projected_terms:0.2.0:comparative_balancing_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:constraint_management",
+              "cognitive_architecture_demo.projected_terms:0.2.0:enables_optional_coordination",
+              "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+              "cognitive_architecture_demo.projected_terms:0.2.0:imagination_permeability",
+              "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:meaning_abstraction",
+              "cognitive_architecture_demo.projected_terms:0.2.0:resource_ease_convergence",
+              "cognitive_architecture_demo.projected_terms:0.2.0:shared_risk_deep_integration"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        },
+        {
+          "projected_object_id": "projected:cognitive_architecture_demo.v0:251e403a16217e438460a797",
+          "projected_term": "emotional_regulation",
+          "raw_composition": {
+            "domain": "self_interface_response_initiation",
+            "mode": "associative_permeable_integration_mode",
+            "operator": "emotional_regulation"
+          },
+          "registry_entry": {
+            "canonical_label": "Emotional Regulation",
+            "core_operators": [
+              "regulate",
+              "retain",
+              "signal_need"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "emotional regulation"
+            ],
+            "long_description": "This term represents the target-ontology function of emotional regulation. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "emotional regulation",
+              "possessive_phrase": "the subject's emotional regulation",
+              "subject_template": "{subject}'s emotional regulation"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "affect_regulation",
+              "habit",
+              "safety_memory"
+            ],
+            "short_description": "A projected operator describing emotional regulation.",
+            "term_type": "operator"
+          },
+          "strict_sentence": {
+            "text": "Kevin's emotional regulation operates through associative permeable integration in situations involving self interface and response initiation.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:emotional_regulation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:associative_permeable_integration_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:self_interface_response_initiation"
+            ],
+            "semantic_components": {
+              "operator": "emotional_regulation",
+              "mode": "associative_permeable_integration_mode",
+              "domain": "self_interface_response_initiation",
+              "verbs": [
+                "regulate",
+                "retain",
+                "signal need"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Kevin's emotional regulation is most active in situations involving self interface and response initiation, where it supports regulating, retaining, and signaling need with an emphasis on associative permeable integration.",
+            "template_id": "object.natural.domain_emphasis.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:emotional_regulation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:associative_permeable_integration_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:self_interface_response_initiation"
+            ],
+            "semantic_components": {
+              "operator": "emotional_regulation",
+              "mode": "associative_permeable_integration_mode",
+              "domain": "self_interface_response_initiation",
+              "verbs": [
+                "regulate",
+                "retain",
+                "signal need"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:cognitive_architecture_demo.v0:251e403a16217e438460a797",
+            "central_sentence": {
+              "text": "Kevin's emotional regulation is organized around regulating, retaining, and signaling need, with an emphasis on associative permeable integration, especially in situations involving self interface and response initiation.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "cognitive_architecture_demo.projected_terms:0.2.0:emotional_regulation",
+                "cognitive_architecture_demo.projected_terms:0.2.0:associative_permeable_integration_mode",
+                "cognitive_architecture_demo.projected_terms:0.2.0:self_interface_response_initiation"
+              ],
+              "semantic_components": {
+                "operator": "emotional_regulation",
+                "mode": "associative_permeable_integration_mode",
+                "domain": "self_interface_response_initiation",
+                "verbs": [
+                  "regulate",
+                  "retain",
+                  "signal need"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Kevin's emotional regulation pulls against and alternates with the external trigger interface.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:emotional_regulation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:polarizes_and_alternates",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:external_trigger_interface"
+                ],
+                "semantic_components": {
+                  "source": "emotional_regulation",
+                  "relation": "polarizes_and_alternates",
+                  "target": "external_trigger_interface"
+                }
+              },
+              {
+                "text": "Kevin's emotional regulation creates friction with and forces adaptation in the executive output direction.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:emotional_regulation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:executive_output_direction"
+                ],
+                "semantic_components": {
+                  "source": "emotional_regulation",
+                  "relation": "interferes_and_forces_adaptation",
+                  "target": "executive_output_direction"
+                }
+              },
+              {
+                "text": "Kevin's emotional regulation creates friction with and forces adaptation in the internal foundation.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:emotional_regulation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:internal_foundation"
+                ],
+                "semantic_components": {
+                  "source": "emotional_regulation",
+                  "relation": "interferes_and_forces_adaptation",
+                  "target": "internal_foundation"
+                }
+              },
+              {
+                "text": "Kevin's emotional regulation requires repeated recalibration with the constraint management.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:emotional_regulation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:mismatches_and_requires_recalibration",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:constraint_management"
+                ],
+                "semantic_components": {
+                  "source": "emotional_regulation",
+                  "relation": "mismatches_and_requires_recalibration",
+                  "target": "constraint_management"
+                }
+              }
+            ],
+            "paragraph": "Kevin's emotional regulation is organized around regulating, retaining, and signaling need, with an emphasis on associative permeable integration, especially in situations involving self interface and response initiation. Kevin's emotional regulation pulls against and alternates with the external trigger interface. Kevin's emotional regulation creates friction with and forces adaptation in the executive output direction. Kevin's emotional regulation creates friction with and forces adaptation in the internal foundation. Kevin's emotional regulation requires repeated recalibration with the constraint management.",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:associative_permeable_integration_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:constraint_management",
+              "cognitive_architecture_demo.projected_terms:0.2.0:emotional_regulation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:executive_output_direction",
+              "cognitive_architecture_demo.projected_terms:0.2.0:external_trigger_interface",
+              "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:internal_foundation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:mismatches_and_requires_recalibration",
+              "cognitive_architecture_demo.projected_terms:0.2.0:polarizes_and_alternates",
+              "cognitive_architecture_demo.projected_terms:0.2.0:self_interface_response_initiation"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        },
+        {
+          "projected_object_id": "projected:cognitive_architecture_demo.v0:b8d6b3dac898584a5c85ae5e",
+          "projected_term": "action_selection",
+          "raw_composition": {
+            "domain": "maintenance_routine_error_correction",
+            "mode": "expressive_self_amplification_mode",
+            "operator": "action_selection"
+          },
+          "registry_entry": {
+            "canonical_label": "Action Selection",
+            "core_operators": [
+              "assert",
+              "defend",
+              "mobilize",
+              "select_action"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "action selection"
+            ],
+            "long_description": "This term represents the target-ontology function of action selection. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "action selection",
+              "possessive_phrase": "the subject's action selection",
+              "subject_template": "{subject}'s action selection"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "action_selection",
+              "boundary_response",
+              "effort_allocation"
+            ],
+            "short_description": "A projected operator describing action selection.",
+            "term_type": "operator"
+          },
+          "strict_sentence": {
+            "text": "Kevin's action selection operates through expressive self-amplification in situations involving maintenance routine and error correction.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+              "cognitive_architecture_demo.projected_terms:0.2.0:expressive_self_amplification_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:maintenance_routine_error_correction"
+            ],
+            "semantic_components": {
+              "operator": "action_selection",
+              "mode": "expressive_self_amplification_mode",
+              "domain": "maintenance_routine_error_correction",
+              "verbs": [
+                "assert",
+                "defend",
+                "mobilize",
+                "select action"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Kevin's action selection is organized around asserting, defending, mobilizing, and selecting action, with an emphasis on expressive self-amplification, especially in situations involving maintenance routine and error correction.",
+            "template_id": "object.natural.subject_mode_domain.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+              "cognitive_architecture_demo.projected_terms:0.2.0:expressive_self_amplification_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:maintenance_routine_error_correction"
+            ],
+            "semantic_components": {
+              "operator": "action_selection",
+              "mode": "expressive_self_amplification_mode",
+              "domain": "maintenance_routine_error_correction",
+              "verbs": [
+                "assert",
+                "defend",
+                "mobilize",
+                "select action"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:cognitive_architecture_demo.v0:b8d6b3dac898584a5c85ae5e",
+            "central_sentence": {
+              "text": "Kevin's action selection is organized around asserting, defending, mobilizing, and selecting action, with an emphasis on expressive self-amplification, especially in situations involving maintenance routine and error correction.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+                "cognitive_architecture_demo.projected_terms:0.2.0:expressive_self_amplification_mode",
+                "cognitive_architecture_demo.projected_terms:0.2.0:maintenance_routine_error_correction"
+              ],
+              "semantic_components": {
+                "operator": "action_selection",
+                "mode": "expressive_self_amplification_mode",
+                "domain": "maintenance_routine_error_correction",
+                "verbs": [
+                  "assert",
+                  "defend",
+                  "mobilize",
+                  "select action"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Kevin's action selection runs together with the counterpart model.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:co_activates_and_fuses",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:counterpart_model"
+                ],
+                "semantic_components": {
+                  "source": "action_selection",
+                  "relation": "co_activates_and_fuses",
+                  "target": "counterpart_model"
+                }
+              },
+              {
+                "text": "Kevin's action selection pulls against and alternates with the active interface.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:polarizes_and_alternates",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:active_interface"
+                ],
+                "semantic_components": {
+                  "source": "action_selection",
+                  "relation": "polarizes_and_alternates",
+                  "target": "active_interface"
+                }
+              },
+              {
+                "text": "Kevin's action selection can coordinate with the intensity transformation.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:enables_optional_coordination",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:intensity_transformation"
+                ],
+                "semantic_components": {
+                  "source": "action_selection",
+                  "relation": "enables_optional_coordination",
+                  "target": "intensity_transformation"
+                }
+              },
+              {
+                "text": "Kevin's action selection naturally supports the imagination permeability.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:facilitates_and_automates",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:imagination_permeability"
+                ],
+                "semantic_components": {
+                  "source": "action_selection",
+                  "relation": "facilitates_and_automates",
+                  "target": "imagination_permeability"
+                }
+              }
+            ],
+            "paragraph": "Kevin's action selection is organized around asserting, defending, mobilizing, and selecting action, with an emphasis on expressive self-amplification, especially in situations involving maintenance routine and error correction. Kevin's action selection runs together with the counterpart model. Kevin's action selection pulls against and alternates with the active interface. Kevin's action selection can coordinate with the intensity transformation. Kevin's action selection naturally supports the imagination permeability.",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+              "cognitive_architecture_demo.projected_terms:0.2.0:active_interface",
+              "cognitive_architecture_demo.projected_terms:0.2.0:co_activates_and_fuses",
+              "cognitive_architecture_demo.projected_terms:0.2.0:counterpart_model",
+              "cognitive_architecture_demo.projected_terms:0.2.0:enables_optional_coordination",
+              "cognitive_architecture_demo.projected_terms:0.2.0:expressive_self_amplification_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:facilitates_and_automates",
+              "cognitive_architecture_demo.projected_terms:0.2.0:imagination_permeability",
+              "cognitive_architecture_demo.projected_terms:0.2.0:intensity_transformation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:maintenance_routine_error_correction",
+              "cognitive_architecture_demo.projected_terms:0.2.0:polarizes_and_alternates"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        },
+        {
+          "projected_object_id": "projected:cognitive_architecture_demo.v0:bd033c3de26f09e34c4643b9",
+          "projected_term": "change_adaptation",
+          "raw_composition": {
+            "domain": "abstraction_worldview_long_range_learning",
+            "mode": "deep_search_guarded_transformation_mode",
+            "operator": "change_adaptation"
+          },
+          "registry_entry": {
+            "canonical_label": "Change Adaptation",
+            "core_operators": [
+              "differentiate",
+              "disrupt",
+              "novelize",
+              "update"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "change adaptation"
+            ],
+            "long_description": "This term represents the target-ontology function of change adaptation. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "change adaptation",
+              "possessive_phrase": "the subject's change adaptation",
+              "subject_template": "{subject}'s change adaptation"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "change_adaptation",
+              "model_revision",
+              "novelty_detection"
+            ],
+            "short_description": "A projected operator describing change adaptation.",
+            "term_type": "operator"
+          },
+          "strict_sentence": {
+            "text": "Kevin's change adaptation operates through deep search guarded transformation in situations involving abstraction worldview and long-range learning.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:change_adaptation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:deep_search_guarded_transformation_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:abstraction_worldview_long_range_learning"
+            ],
+            "semantic_components": {
+              "operator": "change_adaptation",
+              "mode": "deep_search_guarded_transformation_mode",
+              "domain": "abstraction_worldview_long_range_learning",
+              "verbs": [
+                "differentiate",
+                "disrupt",
+                "novelize",
+                "update"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Kevin's change adaptation is most active in situations involving abstraction worldview and long-range learning, where it supports differentiating, disrupting, novelizing, and updating with an emphasis on deep search guarded transformation.",
+            "template_id": "object.natural.domain_emphasis.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:change_adaptation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:deep_search_guarded_transformation_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:abstraction_worldview_long_range_learning"
+            ],
+            "semantic_components": {
+              "operator": "change_adaptation",
+              "mode": "deep_search_guarded_transformation_mode",
+              "domain": "abstraction_worldview_long_range_learning",
+              "verbs": [
+                "differentiate",
+                "disrupt",
+                "novelize",
+                "update"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:cognitive_architecture_demo.v0:bd033c3de26f09e34c4643b9",
+            "central_sentence": {
+              "text": "Kevin's change adaptation is organized around differentiating, disrupting, novelizing, and updating, with an emphasis on deep search guarded transformation, especially in situations involving abstraction worldview and long-range learning.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "cognitive_architecture_demo.projected_terms:0.2.0:change_adaptation",
+                "cognitive_architecture_demo.projected_terms:0.2.0:deep_search_guarded_transformation_mode",
+                "cognitive_architecture_demo.projected_terms:0.2.0:abstraction_worldview_long_range_learning"
+              ],
+              "semantic_components": {
+                "operator": "change_adaptation",
+                "mode": "deep_search_guarded_transformation_mode",
+                "domain": "abstraction_worldview_long_range_learning",
+                "verbs": [
+                  "differentiate",
+                  "disrupt",
+                  "novelize",
+                  "update"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Kevin's change adaptation naturally supports the developmental orientation.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:change_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:facilitates_and_automates",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:developmental_orientation"
+                ],
+                "semantic_components": {
+                  "source": "change_adaptation",
+                  "relation": "facilitates_and_automates",
+                  "target": "developmental_orientation"
+                }
+              },
+              {
+                "text": "Kevin's change adaptation creates friction with and forces adaptation in the active interface.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:change_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:active_interface"
+                ],
+                "semantic_components": {
+                  "source": "change_adaptation",
+                  "relation": "interferes_and_forces_adaptation",
+                  "target": "active_interface"
+                }
+              },
+              {
+                "text": "Kevin's change adaptation creates friction with and forces adaptation in the counterpart model.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:change_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:counterpart_model"
+                ],
+                "semantic_components": {
+                  "source": "change_adaptation",
+                  "relation": "interferes_and_forces_adaptation",
+                  "target": "counterpart_model"
+                }
+              },
+              {
+                "text": "Kevin's change adaptation creates friction with and forces adaptation in the action selection.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:change_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:action_selection"
+                ],
+                "semantic_components": {
+                  "source": "change_adaptation",
+                  "relation": "interferes_and_forces_adaptation",
+                  "target": "action_selection"
+                }
+              }
+            ],
+            "paragraph": "Kevin's change adaptation is organized around differentiating, disrupting, novelizing, and updating, with an emphasis on deep search guarded transformation, especially in situations involving abstraction worldview and long-range learning. Kevin's change adaptation naturally supports the developmental orientation. Kevin's change adaptation creates friction with and forces adaptation in the active interface. Kevin's change adaptation creates friction with and forces adaptation in the counterpart model. Kevin's change adaptation creates friction with and forces adaptation in the action selection.",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:abstraction_worldview_long_range_learning",
+              "cognitive_architecture_demo.projected_terms:0.2.0:action_selection",
+              "cognitive_architecture_demo.projected_terms:0.2.0:active_interface",
+              "cognitive_architecture_demo.projected_terms:0.2.0:change_adaptation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:counterpart_model",
+              "cognitive_architecture_demo.projected_terms:0.2.0:deep_search_guarded_transformation_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:developmental_orientation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:facilitates_and_automates",
+              "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        },
+        {
+          "projected_object_id": "projected:cognitive_architecture_demo.v0:268cedd2e5b72e0ab46df8c1",
+          "projected_term": "resource_ease_convergence",
+          "raw_composition": {
+            "domain": "generative_expression_play",
+            "mode": "protective_attachment_mode",
+            "operator": "resource_ease_convergence"
+          },
+          "registry_entry": {
+            "canonical_label": "Resource Ease Convergence",
+            "core_operators": [
+              "converge",
+              "ease",
+              "resource"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "resource ease convergence"
+            ],
+            "long_description": "This term represents the target-ontology function of resource ease convergence. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "resource ease convergence",
+              "possessive_phrase": "the subject's resource ease convergence",
+              "subject_template": "{subject}'s resource ease convergence"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "low_friction_gain",
+              "resource_availability"
+            ],
+            "short_description": "A projected orientation describing resource ease convergence.",
+            "term_type": "orientation"
+          },
+          "strict_sentence": {
+            "text": "Kevin's resource ease convergence operates through protective attachment in situations involving generative expression and play.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:resource_ease_convergence",
+              "cognitive_architecture_demo.projected_terms:0.2.0:protective_attachment_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:generative_expression_play"
+            ],
+            "semantic_components": {
+              "operator": "resource_ease_convergence",
+              "mode": "protective_attachment_mode",
+              "domain": "generative_expression_play",
+              "verbs": [
+                "converge",
+                "ease",
+                "resource"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Kevin's resource ease convergence is organized around converging, easing, and resourcing, with an emphasis on protective attachment, especially in situations involving generative expression and play.",
+            "template_id": "object.natural.subject_mode_domain.v1",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:resource_ease_convergence",
+              "cognitive_architecture_demo.projected_terms:0.2.0:protective_attachment_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:generative_expression_play"
+            ],
+            "semantic_components": {
+              "operator": "resource_ease_convergence",
+              "mode": "protective_attachment_mode",
+              "domain": "generative_expression_play",
+              "verbs": [
+                "converge",
+                "ease",
+                "resource"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:cognitive_architecture_demo.v0:268cedd2e5b72e0ab46df8c1",
+            "central_sentence": {
+              "text": "Kevin's resource ease convergence is organized around converging, easing, and resourcing, with an emphasis on protective attachment, especially in situations involving generative expression and play.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "cognitive_architecture_demo.projected_terms:0.2.0:resource_ease_convergence",
+                "cognitive_architecture_demo.projected_terms:0.2.0:protective_attachment_mode",
+                "cognitive_architecture_demo.projected_terms:0.2.0:generative_expression_play"
+              ],
+              "semantic_components": {
+                "operator": "resource_ease_convergence",
+                "mode": "protective_attachment_mode",
+                "domain": "generative_expression_play",
+                "verbs": [
+                  "converge",
+                  "ease",
+                  "resource"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Kevin's resource ease convergence creates friction with and forces adaptation in the meaning abstraction.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:resource_ease_convergence",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:meaning_abstraction"
+                ],
+                "semantic_components": {
+                  "source": "resource_ease_convergence",
+                  "relation": "interferes_and_forces_adaptation",
+                  "target": "meaning_abstraction"
+                }
+              },
+              {
+                "text": "Kevin's resource ease convergence creates friction with and forces adaptation in the identity organization.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "cognitive_architecture_demo.projected_terms:0.2.0:resource_ease_convergence",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+                  "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization"
+                ],
+                "semantic_components": {
+                  "source": "resource_ease_convergence",
+                  "relation": "interferes_and_forces_adaptation",
+                  "target": "identity_organization"
+                }
+              }
+            ],
+            "paragraph": "Kevin's resource ease convergence is organized around converging, easing, and resourcing, with an emphasis on protective attachment, especially in situations involving generative expression and play. Kevin's resource ease convergence creates friction with and forces adaptation in the meaning abstraction. Kevin's resource ease convergence creates friction with and forces adaptation in the identity organization.",
+            "source_term_refs": [
+              "cognitive_architecture_demo.projected_terms:0.2.0:generative_expression_play",
+              "cognitive_architecture_demo.projected_terms:0.2.0:identity_organization",
+              "cognitive_architecture_demo.projected_terms:0.2.0:interferes_and_forces_adaptation",
+              "cognitive_architecture_demo.projected_terms:0.2.0:meaning_abstraction",
+              "cognitive_architecture_demo.projected_terms:0.2.0:protective_attachment_mode",
+              "cognitive_architecture_demo.projected_terms:0.2.0:resource_ease_convergence"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "profile": "woofmapped",
+      "target_ontology": "woofmapped_astrology.v0",
+      "subject": "Nivek",
+      "selection_policy": "fixed_reference_set.v1",
+      "items": [
+        {
+          "projected_object_id": "projected:woofmapped_astrology.v0:9ed0808954708e96ebf82976",
+          "projected_term": "pack_role_identity",
+          "raw_composition": {
+            "domain": "doghouse_8_deep_trust_vulnerability",
+            "mode": "social_harmony_maintenance_mode",
+            "operator": "pack_role_identity"
+          },
+          "registry_entry": {
+            "canonical_label": "Pack Role Identity",
+            "core_operators": [
+              "coordinate_whole_dog",
+              "express_pack_role",
+              "vitalize"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "pack role identity"
+            ],
+            "long_description": "This term represents the target-ontology function of pack role identity. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "pack role identity",
+              "possessive_phrase": "the subject's pack role identity",
+              "subject_template": "{subject}'s pack role identity"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "pack_identity",
+              "vitality",
+              "whole_dog_coordination"
+            ],
+            "short_description": "A projected operator describing pack role identity.",
+            "term_type": "operator"
+          },
+          "strict_sentence": {
+            "text": "Nivek's pack role identity operates through social harmony maintenance in Doghouse 8 contexts involving deep trust and vulnerability.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:pack_role_identity",
+              "woofmapped_astrology.projected_terms:0.1.0:social_harmony_maintenance_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_8_deep_trust_vulnerability"
+            ],
+            "semantic_components": {
+              "operator": "pack_role_identity",
+              "mode": "social_harmony_maintenance_mode",
+              "domain": "doghouse_8_deep_trust_vulnerability",
+              "verbs": [
+                "coordinate whole dog",
+                "express pack role",
+                "vitalize"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Nivek's pack role identity is organized around coordinating whole dog, expressing pack role, and vitalizing, with an emphasis on social harmony maintenance, especially in Doghouse 8 contexts involving deep trust and vulnerability.",
+            "template_id": "object.natural.subject_mode_domain.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:pack_role_identity",
+              "woofmapped_astrology.projected_terms:0.1.0:social_harmony_maintenance_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_8_deep_trust_vulnerability"
+            ],
+            "semantic_components": {
+              "operator": "pack_role_identity",
+              "mode": "social_harmony_maintenance_mode",
+              "domain": "doghouse_8_deep_trust_vulnerability",
+              "verbs": [
+                "coordinate whole dog",
+                "express pack role",
+                "vitalize"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:woofmapped_astrology.v0:9ed0808954708e96ebf82976",
+            "central_sentence": {
+              "text": "Nivek's pack role identity is organized around coordinating whole dog, expressing pack role, and vitalizing, with an emphasis on social harmony maintenance, especially in Doghouse 8 contexts involving deep trust and vulnerability.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "woofmapped_astrology.projected_terms:0.1.0:pack_role_identity",
+                "woofmapped_astrology.projected_terms:0.1.0:social_harmony_maintenance_mode",
+                "woofmapped_astrology.projected_terms:0.1.0:doghouse_8_deep_trust_vulnerability"
+              ],
+              "semantic_components": {
+                "operator": "pack_role_identity",
+                "mode": "social_harmony_maintenance_mode",
+                "domain": "doghouse_8_deep_trust_vulnerability",
+                "verbs": [
+                  "coordinate whole dog",
+                  "express pack role",
+                  "vitalize"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Nivek's pack role identity runs together with the adventure optimism.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:pack_role_identity",
+                  "woofmapped_astrology.projected_terms:0.1.0:subsystems_run_together",
+                  "woofmapped_astrology.projected_terms:0.1.0:adventure_optimism"
+                ],
+                "semantic_components": {
+                  "source": "pack_role_identity",
+                  "relation": "subsystems_run_together",
+                  "target": "adventure_optimism"
+                }
+              },
+              {
+                "text": "Nivek's pack role identity runs together with the training rule structure.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:pack_role_identity",
+                  "woofmapped_astrology.projected_terms:0.1.0:subsystems_run_together",
+                  "woofmapped_astrology.projected_terms:0.1.0:training_rule_structure"
+                ],
+                "semantic_components": {
+                  "source": "pack_role_identity",
+                  "relation": "subsystems_run_together",
+                  "target": "training_rule_structure"
+                }
+              },
+              {
+                "text": "Nivek's pack role identity creates drive conflict with the easy good thing channel.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:pack_role_identity",
+                  "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+                  "woofmapped_astrology.projected_terms:0.1.0:easy_good_thing_channel"
+                ],
+                "semantic_components": {
+                  "source": "pack_role_identity",
+                  "relation": "drive_conflict_requires_outlet",
+                  "target": "easy_good_thing_channel"
+                }
+              },
+              {
+                "text": "Nivek's pack role identity can be deliberately coordinated with the atmosphere dream permeability.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:pack_role_identity",
+                  "woofmapped_astrology.projected_terms:0.1.0:trainable_usable_channel",
+                  "woofmapped_astrology.projected_terms:0.1.0:atmosphere_dream_permeability"
+                ],
+                "semantic_components": {
+                  "source": "pack_role_identity",
+                  "relation": "trainable_usable_channel",
+                  "target": "atmosphere_dream_permeability"
+                }
+              }
+            ],
+            "paragraph": "Nivek's pack role identity is organized around coordinating whole dog, expressing pack role, and vitalizing, with an emphasis on social harmony maintenance, especially in Doghouse 8 contexts involving deep trust and vulnerability. Nivek's pack role identity runs together with the adventure optimism. Nivek's pack role identity runs together with the training rule structure. Nivek's pack role identity creates drive conflict with the easy good thing channel. Nivek's pack role identity can be deliberately coordinated with the atmosphere dream permeability.",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:adventure_optimism",
+              "woofmapped_astrology.projected_terms:0.1.0:atmosphere_dream_permeability",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_8_deep_trust_vulnerability",
+              "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+              "woofmapped_astrology.projected_terms:0.1.0:easy_good_thing_channel",
+              "woofmapped_astrology.projected_terms:0.1.0:pack_role_identity",
+              "woofmapped_astrology.projected_terms:0.1.0:social_harmony_maintenance_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:subsystems_run_together",
+              "woofmapped_astrology.projected_terms:0.1.0:trainable_usable_channel",
+              "woofmapped_astrology.projected_terms:0.1.0:training_rule_structure"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        },
+        {
+          "projected_object_id": "projected:woofmapped_astrology.v0:09e64c8e4b15c3195241fbb5",
+          "projected_term": "scent_signal_interpretation",
+          "raw_composition": {
+            "domain": "doghouse_8_deep_trust_vulnerability",
+            "mode": "obsessive_investigation_mode",
+            "operator": "scent_signal_interpretation"
+          },
+          "registry_entry": {
+            "canonical_label": "Scent Signal Interpretation",
+            "core_operators": [
+              "decode_cue",
+              "interpret_scent",
+              "predict_routine",
+              "signal"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "scent signal interpretation"
+            ],
+            "long_description": "This term represents the target-ontology function of scent signal interpretation. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "scent signal interpretation",
+              "possessive_phrase": "the subject's scent signal interpretation",
+              "subject_template": "{subject}'s scent signal interpretation"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "cue_processing",
+              "routine_prediction",
+              "scent_ecology"
+            ],
+            "short_description": "A projected operator describing scent signal interpretation.",
+            "term_type": "operator"
+          },
+          "strict_sentence": {
+            "text": "Nivek's scent signal interpretation operates through obsessive investigation in Doghouse 8 contexts involving deep trust and vulnerability.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:scent_signal_interpretation",
+              "woofmapped_astrology.projected_terms:0.1.0:obsessive_investigation_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_8_deep_trust_vulnerability"
+            ],
+            "semantic_components": {
+              "operator": "scent_signal_interpretation",
+              "mode": "obsessive_investigation_mode",
+              "domain": "doghouse_8_deep_trust_vulnerability",
+              "verbs": [
+                "decode cue",
+                "interpret scent",
+                "predict routine",
+                "signal"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Nivek's scent signal interpretation is most active in Doghouse 8 contexts involving deep trust and vulnerability, where it supports decoding cue, interpreting scent, predicting routine, and signaling with an emphasis on obsessive investigation.",
+            "template_id": "object.natural.domain_emphasis.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:scent_signal_interpretation",
+              "woofmapped_astrology.projected_terms:0.1.0:obsessive_investigation_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_8_deep_trust_vulnerability"
+            ],
+            "semantic_components": {
+              "operator": "scent_signal_interpretation",
+              "mode": "obsessive_investigation_mode",
+              "domain": "doghouse_8_deep_trust_vulnerability",
+              "verbs": [
+                "decode cue",
+                "interpret scent",
+                "predict routine",
+                "signal"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:woofmapped_astrology.v0:09e64c8e4b15c3195241fbb5",
+            "central_sentence": {
+              "text": "Nivek's scent signal interpretation is organized around decoding cue, interpreting scent, predicting routine, and signaling, with an emphasis on obsessive investigation, especially in Doghouse 8 contexts involving deep trust and vulnerability.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "woofmapped_astrology.projected_terms:0.1.0:scent_signal_interpretation",
+                "woofmapped_astrology.projected_terms:0.1.0:obsessive_investigation_mode",
+                "woofmapped_astrology.projected_terms:0.1.0:doghouse_8_deep_trust_vulnerability"
+              ],
+              "semantic_components": {
+                "operator": "scent_signal_interpretation",
+                "mode": "obsessive_investigation_mode",
+                "domain": "doghouse_8_deep_trust_vulnerability",
+                "verbs": [
+                  "decode cue",
+                  "interpret scent",
+                  "predict routine",
+                  "signal"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Nivek's scent signal interpretation creates drive conflict with the training development vector.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:scent_signal_interpretation",
+                  "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+                  "woofmapped_astrology.projected_terms:0.1.0:training_development_vector"
+                ],
+                "semantic_components": {
+                  "source": "scent_signal_interpretation",
+                  "relation": "drive_conflict_requires_outlet",
+                  "target": "training_development_vector"
+                }
+              },
+              {
+                "text": "Nivek's scent signal interpretation maintains a subtle influence on the bonding preference.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:scent_signal_interpretation",
+                  "woofmapped_astrology.projected_terms:0.1.0:subtle_adjacent_nudge",
+                  "woofmapped_astrology.projected_terms:0.1.0:bonding_preference"
+                ],
+                "semantic_components": {
+                  "source": "scent_signal_interpretation",
+                  "relation": "subtle_adjacent_nudge",
+                  "target": "bonding_preference"
+                }
+              }
+            ],
+            "paragraph": "Nivek's scent signal interpretation is organized around decoding cue, interpreting scent, predicting routine, and signaling, with an emphasis on obsessive investigation, especially in Doghouse 8 contexts involving deep trust and vulnerability. Nivek's scent signal interpretation creates drive conflict with the training development vector. Nivek's scent signal interpretation maintains a subtle influence on the bonding preference.",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:bonding_preference",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_8_deep_trust_vulnerability",
+              "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+              "woofmapped_astrology.projected_terms:0.1.0:obsessive_investigation_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:scent_signal_interpretation",
+              "woofmapped_astrology.projected_terms:0.1.0:subtle_adjacent_nudge",
+              "woofmapped_astrology.projected_terms:0.1.0:training_development_vector"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        },
+        {
+          "projected_object_id": "projected:woofmapped_astrology.v0:ce8601c1a253e841c9f2e059",
+          "projected_term": "comfort_safety_regulation",
+          "raw_composition": {
+            "domain": "doghouse_1_body_temperament_presence",
+            "mode": "emotional_sponge_dream_dog_mode",
+            "operator": "comfort_safety_regulation"
+          },
+          "registry_entry": {
+            "canonical_label": "Comfort Safety Regulation",
+            "core_operators": [
+              "regulate_body_state",
+              "retain_comfort_memory",
+              "seek_safety"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "comfort safety regulation"
+            ],
+            "long_description": "This term represents the target-ontology function of comfort safety regulation. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "comfort safety regulation",
+              "possessive_phrase": "the subject's comfort safety regulation",
+              "subject_template": "{subject}'s comfort safety regulation"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "attachment",
+              "body_state",
+              "comfort",
+              "safety"
+            ],
+            "short_description": "A projected operator describing comfort safety regulation.",
+            "term_type": "operator"
+          },
+          "strict_sentence": {
+            "text": "Nivek's comfort safety regulation operates through emotional sponge dream-dog in Doghouse 1 contexts involving body temperament and presence.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:comfort_safety_regulation",
+              "woofmapped_astrology.projected_terms:0.1.0:emotional_sponge_dream_dog_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_1_body_temperament_presence"
+            ],
+            "semantic_components": {
+              "operator": "comfort_safety_regulation",
+              "mode": "emotional_sponge_dream_dog_mode",
+              "domain": "doghouse_1_body_temperament_presence",
+              "verbs": [
+                "regulate body state",
+                "retain comfort memory",
+                "seek safety"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Nivek's comfort safety regulation is organized around regulating body state, retaining comfort memory, and seeking safety, with an emphasis on emotional sponge dream-dog, especially in Doghouse 1 contexts involving body temperament and presence.",
+            "template_id": "object.natural.subject_mode_domain.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:comfort_safety_regulation",
+              "woofmapped_astrology.projected_terms:0.1.0:emotional_sponge_dream_dog_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_1_body_temperament_presence"
+            ],
+            "semantic_components": {
+              "operator": "comfort_safety_regulation",
+              "mode": "emotional_sponge_dream_dog_mode",
+              "domain": "doghouse_1_body_temperament_presence",
+              "verbs": [
+                "regulate body state",
+                "retain comfort memory",
+                "seek safety"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:woofmapped_astrology.v0:ce8601c1a253e841c9f2e059",
+            "central_sentence": {
+              "text": "Nivek's comfort safety regulation is organized around regulating body state, retaining comfort memory, and seeking safety, with an emphasis on emotional sponge dream-dog, especially in Doghouse 1 contexts involving body temperament and presence.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "woofmapped_astrology.projected_terms:0.1.0:comfort_safety_regulation",
+                "woofmapped_astrology.projected_terms:0.1.0:emotional_sponge_dream_dog_mode",
+                "woofmapped_astrology.projected_terms:0.1.0:doghouse_1_body_temperament_presence"
+              ],
+              "semantic_components": {
+                "operator": "comfort_safety_regulation",
+                "mode": "emotional_sponge_dream_dog_mode",
+                "domain": "doghouse_1_body_temperament_presence",
+                "verbs": [
+                  "regulate body state",
+                  "retain comfort memory",
+                  "seek safety"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Nivek's comfort safety regulation pulls against the unexpected encounter trigger.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:comfort_safety_regulation",
+                  "woofmapped_astrology.projected_terms:0.1.0:drives_face_off",
+                  "woofmapped_astrology.projected_terms:0.1.0:unexpected_encounter_trigger"
+                ],
+                "semantic_components": {
+                  "source": "comfort_safety_regulation",
+                  "relation": "drives_face_off",
+                  "target": "unexpected_encounter_trigger"
+                }
+              },
+              {
+                "text": "Nivek's comfort safety regulation creates drive conflict with the visible pack function.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:comfort_safety_regulation",
+                  "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+                  "woofmapped_astrology.projected_terms:0.1.0:visible_pack_function"
+                ],
+                "semantic_components": {
+                  "source": "comfort_safety_regulation",
+                  "relation": "drive_conflict_requires_outlet",
+                  "target": "visible_pack_function"
+                }
+              },
+              {
+                "text": "Nivek's comfort safety regulation creates drive conflict with the safe den baseline.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:comfort_safety_regulation",
+                  "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+                  "woofmapped_astrology.projected_terms:0.1.0:safe_den_baseline"
+                ],
+                "semantic_components": {
+                  "source": "comfort_safety_regulation",
+                  "relation": "drive_conflict_requires_outlet",
+                  "target": "safe_den_baseline"
+                }
+              },
+              {
+                "text": "Nivek's comfort safety regulation requires repeated adjustment with the training rule structure.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:comfort_safety_regulation",
+                  "woofmapped_astrology.projected_terms:0.1.0:awkward_system_recalibration",
+                  "woofmapped_astrology.projected_terms:0.1.0:training_rule_structure"
+                ],
+                "semantic_components": {
+                  "source": "comfort_safety_regulation",
+                  "relation": "awkward_system_recalibration",
+                  "target": "training_rule_structure"
+                }
+              }
+            ],
+            "paragraph": "Nivek's comfort safety regulation is organized around regulating body state, retaining comfort memory, and seeking safety, with an emphasis on emotional sponge dream-dog, especially in Doghouse 1 contexts involving body temperament and presence. Nivek's comfort safety regulation pulls against the unexpected encounter trigger. Nivek's comfort safety regulation creates drive conflict with the visible pack function. Nivek's comfort safety regulation creates drive conflict with the safe den baseline. Nivek's comfort safety regulation requires repeated adjustment with the training rule structure.",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:awkward_system_recalibration",
+              "woofmapped_astrology.projected_terms:0.1.0:comfort_safety_regulation",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_1_body_temperament_presence",
+              "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+              "woofmapped_astrology.projected_terms:0.1.0:drives_face_off",
+              "woofmapped_astrology.projected_terms:0.1.0:emotional_sponge_dream_dog_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:safe_den_baseline",
+              "woofmapped_astrology.projected_terms:0.1.0:training_rule_structure",
+              "woofmapped_astrology.projected_terms:0.1.0:unexpected_encounter_trigger",
+              "woofmapped_astrology.projected_terms:0.1.0:visible_pack_function"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        },
+        {
+          "projected_object_id": "projected:woofmapped_astrology.v0:8c6e276d5f77dba46d0fb7a6",
+          "projected_term": "chase_play_defense_drive",
+          "raw_composition": {
+            "domain": "doghouse_6_training_routine_care",
+            "mode": "attention_seeking_display_mode",
+            "operator": "chase_play_defense_drive"
+          },
+          "registry_entry": {
+            "canonical_label": "Chase Play Defense Drive",
+            "core_operators": [
+              "assert",
+              "chase",
+              "defend",
+              "execute",
+              "play_attack"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "chase play defense drive"
+            ],
+            "long_description": "This term represents the target-ontology function of chase play defense drive. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "chase play defense drive",
+              "possessive_phrase": "the subject's chase play defense drive",
+              "subject_template": "{subject}'s chase play defense drive"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "defense",
+              "immediate_action",
+              "play",
+              "pursuit"
+            ],
+            "short_description": "A projected operator describing chase play defense drive.",
+            "term_type": "operator"
+          },
+          "strict_sentence": {
+            "text": "Nivek's chase play defense drive operates through attention-seeking display in Doghouse 6 contexts involving training routine and care.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:chase_play_defense_drive",
+              "woofmapped_astrology.projected_terms:0.1.0:attention_seeking_display_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_6_training_routine_care"
+            ],
+            "semantic_components": {
+              "operator": "chase_play_defense_drive",
+              "mode": "attention_seeking_display_mode",
+              "domain": "doghouse_6_training_routine_care",
+              "verbs": [
+                "assert",
+                "chase",
+                "defend",
+                "execute"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Nivek's chase play defense drive is most active in Doghouse 6 contexts involving training routine and care, where it supports asserting, chasing, defending, and executing with an emphasis on attention-seeking display.",
+            "template_id": "object.natural.domain_emphasis.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:chase_play_defense_drive",
+              "woofmapped_astrology.projected_terms:0.1.0:attention_seeking_display_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_6_training_routine_care"
+            ],
+            "semantic_components": {
+              "operator": "chase_play_defense_drive",
+              "mode": "attention_seeking_display_mode",
+              "domain": "doghouse_6_training_routine_care",
+              "verbs": [
+                "assert",
+                "chase",
+                "defend",
+                "execute"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:woofmapped_astrology.v0:8c6e276d5f77dba46d0fb7a6",
+            "central_sentence": {
+              "text": "Nivek's chase play defense drive is organized around asserting, chasing, defending, and executing, with an emphasis on attention-seeking display, especially in Doghouse 6 contexts involving training routine and care.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "woofmapped_astrology.projected_terms:0.1.0:chase_play_defense_drive",
+                "woofmapped_astrology.projected_terms:0.1.0:attention_seeking_display_mode",
+                "woofmapped_astrology.projected_terms:0.1.0:doghouse_6_training_routine_care"
+              ],
+              "semantic_components": {
+                "operator": "chase_play_defense_drive",
+                "mode": "attention_seeking_display_mode",
+                "domain": "doghouse_6_training_routine_care",
+                "verbs": [
+                  "assert",
+                  "chase",
+                  "defend",
+                  "execute"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Nivek's chase play defense drive runs together with the primary companion interface.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:chase_play_defense_drive",
+                  "woofmapped_astrology.projected_terms:0.1.0:subsystems_run_together",
+                  "woofmapped_astrology.projected_terms:0.1.0:primary_companion_interface"
+                ],
+                "semantic_components": {
+                  "source": "chase_play_defense_drive",
+                  "relation": "subsystems_run_together",
+                  "target": "primary_companion_interface"
+                }
+              },
+              {
+                "text": "Nivek's chase play defense drive pulls against the behavioral doorway.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:chase_play_defense_drive",
+                  "woofmapped_astrology.projected_terms:0.1.0:drives_face_off",
+                  "woofmapped_astrology.projected_terms:0.1.0:behavioral_doorway"
+                ],
+                "semantic_components": {
+                  "source": "chase_play_defense_drive",
+                  "relation": "drives_face_off",
+                  "target": "behavioral_doorway"
+                }
+              },
+              {
+                "text": "Nivek's chase play defense drive can be deliberately coordinated with the primal trust intensity.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:chase_play_defense_drive",
+                  "woofmapped_astrology.projected_terms:0.1.0:trainable_usable_channel",
+                  "woofmapped_astrology.projected_terms:0.1.0:primal_trust_intensity"
+                ],
+                "semantic_components": {
+                  "source": "chase_play_defense_drive",
+                  "relation": "trainable_usable_channel",
+                  "target": "primal_trust_intensity"
+                }
+              },
+              {
+                "text": "Nivek's chase play defense drive naturally supports the atmosphere dream permeability.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:chase_play_defense_drive",
+                  "woofmapped_astrology.projected_terms:0.1.0:natural_behavioral_channel",
+                  "woofmapped_astrology.projected_terms:0.1.0:atmosphere_dream_permeability"
+                ],
+                "semantic_components": {
+                  "source": "chase_play_defense_drive",
+                  "relation": "natural_behavioral_channel",
+                  "target": "atmosphere_dream_permeability"
+                }
+              }
+            ],
+            "paragraph": "Nivek's chase play defense drive is organized around asserting, chasing, defending, and executing, with an emphasis on attention-seeking display, especially in Doghouse 6 contexts involving training routine and care. Nivek's chase play defense drive runs together with the primary companion interface. Nivek's chase play defense drive pulls against the behavioral doorway. Nivek's chase play defense drive can be deliberately coordinated with the primal trust intensity. Nivek's chase play defense drive naturally supports the atmosphere dream permeability.",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:atmosphere_dream_permeability",
+              "woofmapped_astrology.projected_terms:0.1.0:attention_seeking_display_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:behavioral_doorway",
+              "woofmapped_astrology.projected_terms:0.1.0:chase_play_defense_drive",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_6_training_routine_care",
+              "woofmapped_astrology.projected_terms:0.1.0:drives_face_off",
+              "woofmapped_astrology.projected_terms:0.1.0:natural_behavioral_channel",
+              "woofmapped_astrology.projected_terms:0.1.0:primal_trust_intensity",
+              "woofmapped_astrology.projected_terms:0.1.0:primary_companion_interface",
+              "woofmapped_astrology.projected_terms:0.1.0:subsystems_run_together",
+              "woofmapped_astrology.projected_terms:0.1.0:trainable_usable_channel"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        },
+        {
+          "projected_object_id": "projected:woofmapped_astrology.v0:fda6500491742eb2c61d142b",
+          "projected_term": "training_development_vector",
+          "raw_composition": {
+            "domain": "doghouse_6_training_routine_care",
+            "mode": "pack_security_focus_mode",
+            "operator": "training_development_vector"
+          },
+          "registry_entry": {
+            "canonical_label": "Training Development Vector",
+            "core_operators": [
+              "develop",
+              "learn_toward",
+              "practice"
+            ],
+            "extensions": {
+              "authorship": "profile_level",
+              "prescriptive": false
+            },
+            "friendly_labels": [
+              "training development vector"
+            ],
+            "long_description": "This term represents the target-ontology function of training development vector. It should be read as an active subsystem or interface whose core verbs are preserved by the projection profile.",
+            "output_guidance": {
+              "composition_template": "{subject_phrase} operates {mode_phrase} {domain_phrase}.",
+              "noun_phrase": "training development vector",
+              "possessive_phrase": "the subject's training development vector",
+              "subject_template": "{subject}'s training development vector"
+            },
+            "related_terms": [],
+            "semantic_facets": [
+              "growth_direction",
+              "training_path"
+            ],
+            "short_description": "A projected orientation describing training development vector.",
+            "term_type": "orientation"
+          },
+          "strict_sentence": {
+            "text": "Nivek's training development vector operates through pack security focus in Doghouse 6 contexts involving training routine and care.",
+            "template_id": "object.technical.explicit_composition.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:training_development_vector",
+              "woofmapped_astrology.projected_terms:0.1.0:pack_security_focus_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_6_training_routine_care"
+            ],
+            "semantic_components": {
+              "operator": "training_development_vector",
+              "mode": "pack_security_focus_mode",
+              "domain": "doghouse_6_training_routine_care",
+              "verbs": [
+                "develop",
+                "learn toward",
+                "practice"
+              ]
+            }
+          },
+          "natural_sentence": {
+            "text": "Nivek's training development vector is organized around developing, learning toward, and practicing, with an emphasis on pack security focus, especially in Doghouse 6 contexts involving training routine and care.",
+            "template_id": "object.natural.subject_mode_domain.v1",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:training_development_vector",
+              "woofmapped_astrology.projected_terms:0.1.0:pack_security_focus_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_6_training_routine_care"
+            ],
+            "semantic_components": {
+              "operator": "training_development_vector",
+              "mode": "pack_security_focus_mode",
+              "domain": "doghouse_6_training_routine_care",
+              "verbs": [
+                "develop",
+                "learn toward",
+                "practice"
+              ]
+            }
+          },
+          "local_narrative": {
+            "object_id": "projected:woofmapped_astrology.v0:fda6500491742eb2c61d142b",
+            "central_sentence": {
+              "text": "Nivek's training development vector is organized around developing, learning toward, and practicing, with an emphasis on pack security focus, especially in Doghouse 6 contexts involving training routine and care.",
+              "template_id": "object.natural.subject_mode_domain.v1",
+              "source_term_refs": [
+                "woofmapped_astrology.projected_terms:0.1.0:training_development_vector",
+                "woofmapped_astrology.projected_terms:0.1.0:pack_security_focus_mode",
+                "woofmapped_astrology.projected_terms:0.1.0:doghouse_6_training_routine_care"
+              ],
+              "semantic_components": {
+                "operator": "training_development_vector",
+                "mode": "pack_security_focus_mode",
+                "domain": "doghouse_6_training_routine_care",
+                "verbs": [
+                  "develop",
+                  "learn toward",
+                  "practice"
+                ]
+              }
+            },
+            "relationship_sentences": [
+              {
+                "text": "Nivek's training development vector naturally supports the novelty zoomie response.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:training_development_vector",
+                  "woofmapped_astrology.projected_terms:0.1.0:natural_behavioral_channel",
+                  "woofmapped_astrology.projected_terms:0.1.0:novelty_zoomie_response"
+                ],
+                "semantic_components": {
+                  "source": "training_development_vector",
+                  "relation": "natural_behavioral_channel",
+                  "target": "novelty_zoomie_response"
+                }
+              },
+              {
+                "text": "Nivek's training development vector creates drive conflict with the scent signal interpretation.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:training_development_vector",
+                  "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+                  "woofmapped_astrology.projected_terms:0.1.0:scent_signal_interpretation"
+                ],
+                "semantic_components": {
+                  "source": "training_development_vector",
+                  "relation": "drive_conflict_requires_outlet",
+                  "target": "scent_signal_interpretation"
+                }
+              },
+              {
+                "text": "Nivek's training development vector creates drive conflict with the primal trust intensity.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:training_development_vector",
+                  "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+                  "woofmapped_astrology.projected_terms:0.1.0:primal_trust_intensity"
+                ],
+                "semantic_components": {
+                  "source": "training_development_vector",
+                  "relation": "drive_conflict_requires_outlet",
+                  "target": "primal_trust_intensity"
+                }
+              },
+              {
+                "text": "Nivek's training development vector naturally supports the bonding preference.",
+                "template_id": "relationship.natural.active.v1",
+                "source_term_refs": [
+                  "woofmapped_astrology.projected_terms:0.1.0:training_development_vector",
+                  "woofmapped_astrology.projected_terms:0.1.0:natural_behavioral_channel",
+                  "woofmapped_astrology.projected_terms:0.1.0:bonding_preference"
+                ],
+                "semantic_components": {
+                  "source": "training_development_vector",
+                  "relation": "natural_behavioral_channel",
+                  "target": "bonding_preference"
+                }
+              }
+            ],
+            "paragraph": "Nivek's training development vector is organized around developing, learning toward, and practicing, with an emphasis on pack security focus, especially in Doghouse 6 contexts involving training routine and care. Nivek's training development vector naturally supports the novelty zoomie response. Nivek's training development vector creates drive conflict with the scent signal interpretation. Nivek's training development vector creates drive conflict with the primal trust intensity. Nivek's training development vector naturally supports the bonding preference.",
+            "source_term_refs": [
+              "woofmapped_astrology.projected_terms:0.1.0:bonding_preference",
+              "woofmapped_astrology.projected_terms:0.1.0:doghouse_6_training_routine_care",
+              "woofmapped_astrology.projected_terms:0.1.0:drive_conflict_requires_outlet",
+              "woofmapped_astrology.projected_terms:0.1.0:natural_behavioral_channel",
+              "woofmapped_astrology.projected_terms:0.1.0:novelty_zoomie_response",
+              "woofmapped_astrology.projected_terms:0.1.0:pack_security_focus_mode",
+              "woofmapped_astrology.projected_terms:0.1.0:primal_trust_intensity",
+              "woofmapped_astrology.projected_terms:0.1.0:scent_signal_interpretation",
+              "woofmapped_astrology.projected_terms:0.1.0:training_development_vector"
+            ],
+            "template_ids": [
+              "object.natural.subject_mode_domain.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1",
+              "relationship.natural.active.v1"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

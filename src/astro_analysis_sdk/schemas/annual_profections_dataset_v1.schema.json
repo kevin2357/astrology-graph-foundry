@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Annual Profections Dataset v2",
+  "type": "object",
+  "required": [
+    "metadata",
+    "target",
+    "profection",
+    "canonical_astrology_graph",
+    "structural_evidence_graph",
+    "projection_views",
+    "semantic_boundary"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "pipeline_version",
+        "analysis_type",
+        "created_at",
+        "target_chart_id",
+        "target_chart_type",
+        "semantic_scope",
+        "target_date"
+      ],
+      "properties": {
+        "analysis_type": {
+          "const": "annual_profections_dataset"
+        }
+      },
+      "additionalProperties": true
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "chart_identity",
+        "reference_event"
+      ],
+      "additionalProperties": true
+    },
+    "profection": {
+      "type": "object",
+      "required": [
+        "completed_years",
+        "activated_house",
+        "reference_date",
+        "target_date",
+        "method",
+        "interpretation_note"
+      ],
+      "additionalProperties": true
+    },
+    "canonical_astrology_graph": {
+      "$ref": "canonical_astrology_graph_v1.schema.json"
+    },
+    "structural_evidence_graph": {
+      "$ref": "structural_evidence_graph_v1.schema.json"
+    },
+    "projection_views": {
+      "type": "object",
+      "required": [
+        "orthodox_astrology.v1"
+      ],
+      "properties": {
+        "orthodox_astrology.v1": {
+          "$ref": "orthodox_astrology_projection_view_v1.schema.json"
+        }
+      }
+    },
+    "semantic_boundary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

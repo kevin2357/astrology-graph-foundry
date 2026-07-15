@@ -1,0 +1,64 @@
+{
+  "context": {
+    "age_band": null,
+    "application_context": "general_interpretation",
+    "audience": "adult_general",
+    "constraints": {},
+    "context_id": "orthodox.general.v1",
+    "context_version": "1.0.0",
+    "extensions": {},
+    "output_intent": "structured_semantic_model",
+    "parameters": {},
+    "relationship_type": null,
+    "subject_scope": "individual",
+    "target_domain": "orthodox_astrology"
+  },
+  "options": {
+    "include_audit": true,
+    "include_diagnostics": true,
+    "retain_unmapped_sources": true
+  },
+  "profile_id": "orthodox_astrology.v1",
+  "profile_version": "1.0.0",
+  "request_id": "projection_request:89efa9b1923eee0e3d2eaa53",
+  "source_graph": {
+    "graph_type": "canonical_astrology_graph",
+    "graph_version": "1.3.0",
+    "objects": [],
+    "projection_status": "pre_projection",
+    "relationships": [],
+    "sensor_instance_id": "natal:fixture",
+    "source_chart_ids": [
+      "natal:fixture"
+    ],
+    "source_sensor_id": "natal:fixture"
+  },
+  "source_identity": {
+    "sensor_instance_id": "natal:fixture",
+    "source_chart_id": "natal:fixture",
+    "source_chart_ids": [
+      "natal:fixture"
+    ]
+  },
+  "source_registries": {},
+  "structural_evidence": {
+    "activation_groups": [],
+    "derivation_family_counts": {},
+    "evidence_family_group_count": 0,
+    "evidence_tier_counts": {},
+    "graph_type": "structural_evidence_graph",
+    "graph_version": "1.3.0",
+    "independence_group_count": 0,
+    "independence_policy": {},
+    "projection_status": "pre_projection",
+    "record_independence_group_count": 0,
+    "repeated_operator_families": [],
+    "sensor_instance_id": "natal:fixture",
+    "source_chart_family_group_count": 0,
+    "source_chart_ids": [
+      "natal:fixture"
+    ],
+    "source_graph_type": "canonical_astrology_graph",
+    "source_sensor_id": "natal:fixture"
+  }
+}

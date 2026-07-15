@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Natal Dataset v1",
+  "type": "object",
+  "required": [
+    "metadata",
+    "person",
+    "natal",
+    "transit_climate",
+    "transitable_chart",
+    "canonical_astrology_graph",
+    "structural_evidence_graph",
+    "projection_views",
+    "semantic_boundary"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "analysis_type",
+        "created_at",
+        "person",
+        "provider"
+      ]
+    },
+    "person": {
+      "type": "object"
+    },
+    "natal": {
+      "type": "object",
+      "required": [
+        "houses",
+        "angles",
+        "bodies",
+        "semantic_graph"
+      ],
+      "properties": {
+        "semantic_graph": {
+          "$ref": "chart_semantic_graph_v1.schema.json"
+        },
+        "houses": {
+          "type": "object"
+        },
+        "angles": {
+          "type": "object"
+        },
+        "bodies": {
+          "type": "object"
+        },
+        "lots": {
+          "type": "object"
+        },
+        "fixed_stars": {
+          "type": "array"
+        },
+        "declination_aspects": {
+          "type": "array"
+        },
+        "calculation_warnings": {
+          "type": "object"
+        },
+        "calculation_options": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "transit_climate": {
+      "type": "object"
+    },
+    "transitable_chart": {
+      "$ref": "transitable_chart_v1.schema.json"
+    },
+    "canonical_astrology_graph": {
+      "$ref": "canonical_astrology_graph_v1.schema.json"
+    },
+    "structural_evidence_graph": {
+      "$ref": "structural_evidence_graph_v1.schema.json"
+    },
+    "projection_views": {
+      "type": "object",
+      "required": [
+        "orthodox_astrology.v1"
+      ],
+      "properties": {
+        "orthodox_astrology.v1": {
+          "$ref": "orthodox_astrology_projection_view_v1.schema.json"
+        }
+      }
+    },
+    "semantic_boundary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,1926 @@
+{
+  "orthodox": {
+    "metadata": {
+      "package_type": "projected_semantic_graph",
+      "projection_id": "projection:6fd503b7a3e76b10b7655847",
+      "engine_version": "0.4.0",
+      "profile_id": "orthodox_astrology.v1",
+      "profile_version": "1.0.0",
+      "context_id": "orthodox.general.v1",
+      "context_version": "1.0.0",
+      "source_dataset_analysis_type": "natal_dataset"
+    },
+    "source_identity": {
+      "source_chart_id": "natal:cross_profile_fixture",
+      "source_chart_ids": [
+        "natal:cross_profile_fixture"
+      ],
+      "sensor_instance_id": "natal:cross_profile_fixture"
+    },
+    "source_graph_ref": {
+      "graph_type": "canonical_astrology_graph",
+      "graph_version": "1.3.0",
+      "source_graph_hash": "2d656e65d9eb7be8d51cef46"
+    },
+    "target_ontology": "orthodox_astrology.v1",
+    "objects": [
+      {
+        "id": "projected:orthodox_astrology.v1:023bdde8bf0cce04e9482cb9",
+        "object_type": "orthodox_astrology_primitive",
+        "name": "identity_interface",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "enter",
+          "interface",
+          "present"
+        ],
+        "source_refs": [
+          "canonical:object:natal:ASC"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.object.asc.identity_interface"
+        ],
+        "context_refs": [
+          "orthodox.general.v1"
+        ],
+        "attributes": {
+          "canonical_object_name": "ASC",
+          "source_names": [
+            "ASC"
+          ],
+          "semantic_domains": [
+            "presentation",
+            "interface",
+            "approach"
+          ],
+          "theme_tags": [
+            "identity_visibility"
+          ],
+          "source_theme_tags": [
+            "identity_visibility"
+          ],
+          "sign": "Aquarius",
+          "house": 1,
+          "subject_owner": null,
+          "context_mode": "general",
+          "projection_relevance_components": {
+            "structural_strength": 0.95,
+            "profile_salience": 0.98,
+            "context_salience": 1.0
+          }
+        },
+        "structural_strength_score": 0.95,
+        "projection_relevance_score": 0.931,
+        "provenance": {
+          "profile_layer": "orthodox_object_mapping",
+          "source_object_type": "angle"
+        }
+      },
+      {
+        "id": "projected:orthodox_astrology.v1:03d75d4c4dcf3fd59ef7e652",
+        "object_type": "orthodox_relationship_domain",
+        "name": "shared_resources_depth",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "contextualize",
+          "locate",
+          "receive"
+        ],
+        "source_refs": [
+          "canonical:object:house:8"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.house.8.shared_resources_depth"
+        ],
+        "context_refs": [
+          "orthodox.general.v1"
+        ],
+        "attributes": {
+          "house": 8,
+          "subject_owner": null,
+          "semantic_domains": [
+            "shared_resources_depth"
+          ],
+          "theme_tags": [
+            "shared_resources_depth"
+          ],
+          "source_names": [
+            "House 8"
+          ],
+          "context_mode": "general"
+        },
+        "structural_strength_score": 0.7,
+        "projection_relevance_score": 0.8,
+        "provenance": {
+          "profile_layer": "orthodox_house_domain_mapping"
+        }
+      },
+      {
+        "id": "projected:orthodox_astrology.v1:149c85459b3771f023f10d95",
+        "object_type": "orthodox_astrology_primitive",
+        "name": "action_assertion_drive",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "act",
+          "assert",
+          "defend",
+          "initiate"
+        ],
+        "source_refs": [
+          "canonical:object:natal:Mars"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.object.mars.action_assertion_drive"
+        ],
+        "context_refs": [
+          "orthodox.general.v1"
+        ],
+        "attributes": {
+          "canonical_object_name": "Mars",
+          "source_names": [
+            "Mars"
+          ],
+          "semantic_domains": [
+            "action",
+            "assertion",
+            "desire",
+            "conflict"
+          ],
+          "theme_tags": [
+            "conflict_drive"
+          ],
+          "source_theme_tags": [
+            "conflict_drive"
+          ],
+          "sign": "Leo",
+          "house": 6,
+          "subject_owner": null,
+          "context_mode": "general",
+          "projection_relevance_components": {
+            "structural_strength": 0.8,
+            "profile_salience": 0.94,
+            "context_salience": 1.0
+          }
+        },
+        "structural_strength_score": 0.8,
+        "projection_relevance_score": 0.752,
+        "provenance": {
+          "profile_layer": "orthodox_object_mapping",
+          "source_object_type": "planet_or_point"
+        }
+      },
+      {
+        "id": "projected:orthodox_astrology.v1:88a88fcbdb23633905918085",
+        "object_type": "orthodox_astrology_primitive",
+        "name": "value_attraction_harmony",
+        "target_ontology": "orthodox_astrology.v1",
+        "operators": [
+          "attract",
+          "bond",
+          "connect",
+          "value"
+        ],
+        "source_refs": [
+          "canonical:object:natal:Venus"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.object.venus.value_attraction_harmony"
+        ],
+        "context_refs": [
+          "orthodox.general.v1"
+        ],
+        "attributes": {
+          "canonical_object_name": "Venus",
+          "source_names": [
+            "Venus"
+          ],
+          "semantic_domains": [
+            "values",
+            "attraction",
+            "harmony",
+            "relationship"
+          ],
+          "theme_tags": [
+            "romance_affection",
+            "values_resources"
+          ],
+          "source_theme_tags": [
+            "romance_affection",
+            "values_resources"
+          ],
+          "sign": "Scorpio",
+          "house": 8,
+          "subject_owner": null,
+          "context_mode": "general",
+          "projection_relevance_components": {
+            "structural_strength": 0.9,
+            "profile_salience": 0.94,
+            "context_salience": 1.0
+          }
+        },
+        "structural_strength_score": 0.9,
+        "projection_relevance_score": 0.846,
+        "provenance": {
+          "profile_layer": "orthodox_object_mapping",
+          "source_object_type": "planet_or_point"
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "id": "projected_relation:orthodox_astrology.v1:4721d722a5ccd096a6c19be8",
+        "relationship_type": "pressures_and_develops",
+        "source_id": "projected:orthodox_astrology.v1:149c85459b3771f023f10d95",
+        "target_id": "projected:orthodox_astrology.v1:88a88fcbdb23633905918085",
+        "source_relationship_refs": [
+          "canonical:relationship:aspect:Mars:square:Venus"
+        ],
+        "mapping_rule_refs": [
+          "orthodox_astrology.v1.aspect.square.pressures_and_develops"
+        ],
+        "context_refs": [
+          "orthodox.general.v1"
+        ],
+        "operators": [
+          "activate",
+          "develop",
+          "stress"
+        ],
+        "theme_tags": [
+          "conflict_drive",
+          "growth_edge",
+          "romance_affection",
+          "values_resources"
+        ],
+        "attributes": {
+          "canonical_aspect": "square",
+          "orb": null,
+          "source_relationship_type": "ASPECT",
+          "direction": null,
+          "source_person": null,
+          "target_person": null,
+          "source_object_name": "Mars",
+          "target_object_name": "Venus",
+          "theme_key": null,
+          "theme_evidence": [
+            {
+              "theme": "conflict_drive",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "growth_edge",
+              "origin": "aspect_mapping"
+            },
+            {
+              "theme": "romance_affection",
+              "origin": "object_mapping"
+            },
+            {
+              "theme": "values_resources",
+              "origin": "object_mapping"
+            }
+          ],
+          "projection_relevance_components": {
+            "structural_strength": 0.75,
+            "profile_salience": 0.98,
+            "context_salience": 1.0
+          },
+          "context_mode": "general"
+        },
+        "projection_relevance_score": 0.735,
+        "provenance": {
+          "profile_layer": "orthodox_relationship_mapping"
+        }
+      }
+    ],
+    "indexes": {
+      "object_by_id": {
+        "projected:orthodox_astrology.v1:023bdde8bf0cce04e9482cb9": 0,
+        "projected:orthodox_astrology.v1:03d75d4c4dcf3fd59ef7e652": 1,
+        "projected:orthodox_astrology.v1:149c85459b3771f023f10d95": 2,
+        "projected:orthodox_astrology.v1:88a88fcbdb23633905918085": 3
+      },
+      "relationship_by_id": {
+        "projected_relation:orthodox_astrology.v1:4721d722a5ccd096a6c19be8": 0
+      },
+      "projected_objects_by_source_ref": {
+        "house:8": [
+          "projected:orthodox_astrology.v1:03d75d4c4dcf3fd59ef7e652"
+        ],
+        "natal:ASC": [
+          "projected:orthodox_astrology.v1:023bdde8bf0cce04e9482cb9"
+        ],
+        "natal:Mars": [
+          "projected:orthodox_astrology.v1:149c85459b3771f023f10d95"
+        ],
+        "natal:Venus": [
+          "projected:orthodox_astrology.v1:88a88fcbdb23633905918085"
+        ]
+      },
+      "projected_relationships_by_source_ref": {
+        "canonical:relationship:aspect:Mars:square:Venus": [
+          "projected_relation:orthodox_astrology.v1:4721d722a5ccd096a6c19be8"
+        ]
+      }
+    },
+    "summary": {
+      "object_count": 4,
+      "relationship_count": 1,
+      "mapped_source_object_count": 4,
+      "mapped_source_relationship_count": 1,
+      "unmapped_source_count": 1,
+      "orthodox_theme_counts": {
+        "conflict_drive": 1,
+        "growth_edge": 1,
+        "romance_affection": 1,
+        "values_resources": 1
+      },
+      "registry_resolved_theme_evidence_count": 0,
+      "projected_house_overlay_count": 0,
+      "context_mode": "general",
+      "supported_object_names": [
+        "ASC",
+        "DSC",
+        "IC",
+        "Jupiter",
+        "MC",
+        "Mars",
+        "Mercury",
+        "Moon",
+        "Neptune",
+        "Pluto",
+        "Saturn",
+        "Sun",
+        "Uranus",
+        "Venus"
+      ],
+      "supported_major_aspects": [
+        "conjunction",
+        "opposition",
+        "sextile",
+        "square",
+        "trine"
+      ],
+      "profile_scope": "core_objects_major_aspects_synastry_overlays_contexts"
+    },
+    "audit": {
+      "profile_id": "orthodox_astrology.v1",
+      "profile_version": "1.0.0",
+      "engine_version": "0.4.0",
+      "request_hash": "6fd503b7a3e76b10b7655847",
+      "source_graph_hash": "2d656e65d9eb7be8d51cef46",
+      "context_hash": "c4659caad369720df50f03ea",
+      "coverage": {
+        "source_object_count": 4,
+        "mapped_source_object_count": 4,
+        "unmapped_source_object_count": 0,
+        "source_relationship_count": 2,
+        "mapped_source_relationship_count": 1,
+        "unmapped_source_relationship_count": 1
+      },
+      "mapping_executions": [
+        {
+          "execution_id": "mapping_execution:2d26310ec17e6dac090dcf2d",
+          "mapping_rule_id": "orthodox_astrology.v1.object.mars.action_assertion_drive",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:natal:Mars"
+          ],
+          "context_refs": [
+            "orthodox.general.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:149c85459b3771f023f10d95"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "canonical_object_supported",
+              "result": true,
+              "value": "Mars"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.general.v1"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:aaf495c2ac7b1738b236b076",
+          "mapping_rule_id": "orthodox_astrology.v1.aspect.square.pressures_and_develops",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:relationship:aspect:Mars:square:Venus"
+          ],
+          "context_refs": [
+            "orthodox.general.v1"
+          ],
+          "result_refs": [
+            "projected_relation:orthodox_astrology.v1:4721d722a5ccd096a6c19be8"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "major_aspect_supported",
+              "result": true,
+              "value": "square"
+            },
+            {
+              "condition": "projected_endpoints_available",
+              "result": true
+            },
+            {
+              "condition": "source_registry_resolved",
+              "result": false,
+              "value": null
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.general.v1"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:b893f25c7e312ce567283b63",
+          "mapping_rule_id": "orthodox_astrology.v1.object.asc.identity_interface",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:natal:ASC"
+          ],
+          "context_refs": [
+            "orthodox.general.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:023bdde8bf0cce04e9482cb9"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "canonical_object_supported",
+              "result": true,
+              "value": "ASC"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.general.v1"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:f54619f8d109dbfd1126fc22",
+          "mapping_rule_id": "orthodox_astrology.v1.object.venus.value_attraction_harmony",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:natal:Venus"
+          ],
+          "context_refs": [
+            "orthodox.general.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:88a88fcbdb23633905918085"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "canonical_object_supported",
+              "result": true,
+              "value": "Venus"
+            },
+            {
+              "condition": "context_mode",
+              "result": true,
+              "value": "orthodox.general.v1"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:fe1cacb108026608209f5ff8",
+          "mapping_rule_id": "orthodox_astrology.v1.house.8.shared_resources_depth",
+          "mapping_rule_version": "1.0.0",
+          "source_refs": [
+            "canonical:object:house:8"
+          ],
+          "context_refs": [
+            "orthodox.general.v1"
+          ],
+          "result_refs": [
+            "projected:orthodox_astrology.v1:03d75d4c4dcf3fd59ef7e652"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "house_cusp_supported",
+              "result": true,
+              "value": 8
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "unmapped_source_refs": [
+        "canonical:relationship:aspect:Venus:quincunx:ASC"
+      ],
+      "fallbacks": [],
+      "diagnostics_ref": "projection_diagnostics"
+    },
+    "diagnostics": {
+      "errors": [],
+      "warnings": [],
+      "infos": [
+        {
+          "code": "projection.source_unmapped",
+          "message": "No mapping applied to relationship source",
+          "details": {
+            "source_ref": "canonical:relationship:aspect:Venus:quincunx:ASC",
+            "policy": "diagnostic"
+          }
+        }
+      ],
+      "unmapped_source_refs": [
+        "canonical:relationship:aspect:Venus:quincunx:ASC"
+      ],
+      "fallbacks": []
+    }
+  },
+  "cognitive": {
+    "metadata": {
+      "package_type": "projected_semantic_graph",
+      "projection_id": "projection:4e753502534bc956236b6613",
+      "engine_version": "0.4.0",
+      "profile_id": "cognitive_architecture_demo.v0",
+      "profile_version": "0.2.0",
+      "context_id": "cognitive_architecture.general.v0",
+      "context_version": "0.2.0",
+      "source_dataset_analysis_type": "natal_dataset"
+    },
+    "source_identity": {
+      "source_chart_id": "natal:cross_profile_fixture",
+      "source_chart_ids": [
+        "natal:cross_profile_fixture"
+      ],
+      "sensor_instance_id": "natal:cross_profile_fixture"
+    },
+    "source_graph_ref": {
+      "graph_type": "canonical_astrology_graph",
+      "graph_version": "1.3.0",
+      "source_graph_hash": "2d656e65d9eb7be8d51cef46"
+    },
+    "target_ontology": "cognitive_architecture_demo.v0",
+    "objects": [
+      {
+        "id": "projected:cognitive_architecture_demo.v0:1dbaf52203484f883e629026",
+        "object_type": "cognitive_interface_primitive",
+        "name": "active_interface",
+        "target_ontology": "cognitive_architecture_demo.v0",
+        "operators": [
+          "initiate_response",
+          "interface",
+          "present"
+        ],
+        "source_refs": [
+          "canonical:object:natal:ASC"
+        ],
+        "mapping_rule_refs": [
+          "cognitive_architecture_demo.v0.object.asc.active_interface"
+        ],
+        "context_refs": [
+          "cognitive_architecture.general.v0"
+        ],
+        "attributes": {
+          "canonical_object_name": "ASC",
+          "source_names": [
+            "ASC"
+          ],
+          "cognitive_domains": [
+            "first_response_policy",
+            "system_boundary"
+          ],
+          "source_sign": "Aquarius",
+          "projected_mode": "system_revision_differentiation_mode",
+          "source_house": 1,
+          "projected_domain": "self_interface_response_initiation",
+          "projection_composition": {
+            "operator": "active_interface",
+            "mode": "system_revision_differentiation_mode",
+            "domain": "self_interface_response_initiation"
+          },
+          "projection_relevance_components": {
+            "structural_strength": 0.95,
+            "profile_salience": 0.98,
+            "context_salience": 1.0
+          },
+          "demo_guardrails": [
+            "experimental",
+            "not_clinical",
+            "not_empirically_validated",
+            "not_diagnostic"
+          ]
+        },
+        "structural_strength_score": 0.95,
+        "projection_relevance_score": 0.931,
+        "provenance": {
+          "profile_layer": "cognitive_object_mapping",
+          "source_object_type": "angle"
+        }
+      },
+      {
+        "id": "projected:cognitive_architecture_demo.v0:5a9e173de5ab0a4250c4b9cb",
+        "object_type": "cognitive_process_primitive",
+        "name": "valuation_preference",
+        "target_ontology": "cognitive_architecture_demo.v0",
+        "operators": [
+          "evaluate",
+          "harmonize",
+          "prefer",
+          "value",
+          "weight"
+        ],
+        "source_refs": [
+          "canonical:object:natal:Venus"
+        ],
+        "mapping_rule_refs": [
+          "cognitive_architecture_demo.v0.object.venus.valuation_preference"
+        ],
+        "context_refs": [
+          "cognitive_architecture.general.v0"
+        ],
+        "attributes": {
+          "canonical_object_name": "Venus",
+          "source_names": [
+            "Venus"
+          ],
+          "cognitive_domains": [
+            "preference_weighting",
+            "value_assignment",
+            "affiliative_tuning"
+          ],
+          "source_sign": "Scorpio",
+          "projected_mode": "deep_search_guarded_transformation_mode",
+          "source_house": 8,
+          "projected_domain": "shared_risk_deep_integration",
+          "projection_composition": {
+            "operator": "valuation_preference",
+            "mode": "deep_search_guarded_transformation_mode",
+            "domain": "shared_risk_deep_integration"
+          },
+          "projection_relevance_components": {
+            "structural_strength": 0.9,
+            "profile_salience": 0.92,
+            "context_salience": 1.0
+          },
+          "demo_guardrails": [
+            "experimental",
+            "not_clinical",
+            "not_empirically_validated",
+            "not_diagnostic"
+          ]
+        },
+        "structural_strength_score": 0.9,
+        "projection_relevance_score": 0.828,
+        "provenance": {
+          "profile_layer": "cognitive_object_mapping",
+          "source_object_type": "planet_or_point"
+        }
+      },
+      {
+        "id": "projected:cognitive_architecture_demo.v0:a4d15b75df239a87f53190c3",
+        "object_type": "cognitive_domain_primitive",
+        "name": "shared_risk_deep_integration",
+        "target_ontology": "cognitive_architecture_demo.v0",
+        "operators": [
+          "constrain_domain",
+          "contextualize",
+          "locate"
+        ],
+        "source_refs": [
+          "canonical:object:house:8"
+        ],
+        "mapping_rule_refs": [
+          "cognitive_architecture_demo.v0.house.8.shared_risk_deep_integration"
+        ],
+        "context_refs": [
+          "cognitive_architecture.general.v0"
+        ],
+        "attributes": {
+          "source_house": 8,
+          "projected_domain": "shared_risk_deep_integration",
+          "source_names": [
+            "House 8"
+          ],
+          "demo_guardrails": [
+            "experimental",
+            "not_clinical",
+            "not_empirically_validated",
+            "not_diagnostic"
+          ]
+        },
+        "structural_strength_score": 0.7,
+        "projection_relevance_score": 0.72,
+        "provenance": {
+          "profile_layer": "cognitive_domain_mapping"
+        }
+      },
+      {
+        "id": "projected:cognitive_architecture_demo.v0:b8d6b3dac898584a5c85ae5e",
+        "object_type": "cognitive_process_primitive",
+        "name": "action_selection",
+        "target_ontology": "cognitive_architecture_demo.v0",
+        "operators": [
+          "act",
+          "assert",
+          "defend",
+          "mobilize",
+          "select_action"
+        ],
+        "source_refs": [
+          "canonical:object:natal:Mars"
+        ],
+        "mapping_rule_refs": [
+          "cognitive_architecture_demo.v0.object.mars.action_selection"
+        ],
+        "context_refs": [
+          "cognitive_architecture.general.v0"
+        ],
+        "attributes": {
+          "canonical_object_name": "Mars",
+          "source_names": [
+            "Mars"
+          ],
+          "cognitive_domains": [
+            "action_selection",
+            "effort_allocation",
+            "boundary_response"
+          ],
+          "source_sign": "Leo",
+          "projected_mode": "expressive_self_amplification_mode",
+          "source_house": 6,
+          "projected_domain": "maintenance_routine_error_correction",
+          "projection_composition": {
+            "operator": "action_selection",
+            "mode": "expressive_self_amplification_mode",
+            "domain": "maintenance_routine_error_correction"
+          },
+          "projection_relevance_components": {
+            "structural_strength": 0.8,
+            "profile_salience": 0.94,
+            "context_salience": 1.0
+          },
+          "demo_guardrails": [
+            "experimental",
+            "not_clinical",
+            "not_empirically_validated",
+            "not_diagnostic"
+          ]
+        },
+        "structural_strength_score": 0.8,
+        "projection_relevance_score": 0.752,
+        "provenance": {
+          "profile_layer": "cognitive_object_mapping",
+          "source_object_type": "planet_or_point"
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "id": "projected_relation:cognitive_architecture_demo.v0:9e62ca7118f3fb0e34454a69",
+        "relationship_type": "mismatches_and_requires_recalibration",
+        "source_id": "projected:cognitive_architecture_demo.v0:5a9e173de5ab0a4250c4b9cb",
+        "target_id": "projected:cognitive_architecture_demo.v0:1dbaf52203484f883e629026",
+        "source_relationship_refs": [
+          "canonical:relationship:aspect:Venus:quincunx:ASC"
+        ],
+        "mapping_rule_refs": [
+          "cognitive_architecture_demo.v0.aspect.quincunx.mismatches_and_requires_recalibration"
+        ],
+        "context_refs": [
+          "cognitive_architecture.general.v0"
+        ],
+        "operators": [
+          "adapt_repeatedly",
+          "misalign",
+          "recalibrate"
+        ],
+        "theme_tags": [
+          "active_interface",
+          "recurrent_recalibration",
+          "valuation_preference"
+        ],
+        "attributes": {
+          "canonical_aspect": "quincunx",
+          "orb": null,
+          "source_process": "valuation_preference",
+          "target_process": "active_interface",
+          "source_mode": "deep_search_guarded_transformation_mode",
+          "target_mode": "system_revision_differentiation_mode",
+          "source_domain": "shared_risk_deep_integration",
+          "target_domain": "self_interface_response_initiation",
+          "interaction_mode": "recurrent_recalibration",
+          "projection_relevance_components": {
+            "structural_strength": 0.62,
+            "profile_salience": 0.74,
+            "context_salience": 1.0
+          },
+          "projection_first_reasoning": {
+            "source_mapping": "valuation_preference",
+            "relationship_mapping": "mismatches_and_requires_recalibration",
+            "target_mapping": "active_interface",
+            "source_mode": "deep_search_guarded_transformation_mode",
+            "target_mode": "system_revision_differentiation_mode"
+          },
+          "demo_guardrails": [
+            "experimental",
+            "not_clinical",
+            "not_empirically_validated",
+            "not_diagnostic"
+          ]
+        },
+        "projection_relevance_score": 0.4588,
+        "provenance": {
+          "profile_layer": "cognitive_relationship_mapping"
+        }
+      },
+      {
+        "id": "projected_relation:cognitive_architecture_demo.v0:b04f58984e5aecc7b1da4fed",
+        "relationship_type": "interferes_and_forces_adaptation",
+        "source_id": "projected:cognitive_architecture_demo.v0:b8d6b3dac898584a5c85ae5e",
+        "target_id": "projected:cognitive_architecture_demo.v0:5a9e173de5ab0a4250c4b9cb",
+        "source_relationship_refs": [
+          "canonical:relationship:aspect:Mars:square:Venus"
+        ],
+        "mapping_rule_refs": [
+          "cognitive_architecture_demo.v0.aspect.square.interferes_and_forces_adaptation"
+        ],
+        "context_refs": [
+          "cognitive_architecture.general.v0"
+        ],
+        "operators": [
+          "force_adaptation",
+          "interfere",
+          "pressure",
+          "stress"
+        ],
+        "theme_tags": [
+          "action_selection",
+          "frictional_coordination",
+          "valuation_preference"
+        ],
+        "attributes": {
+          "canonical_aspect": "square",
+          "orb": null,
+          "source_process": "action_selection",
+          "target_process": "valuation_preference",
+          "source_mode": "expressive_self_amplification_mode",
+          "target_mode": "deep_search_guarded_transformation_mode",
+          "source_domain": "maintenance_routine_error_correction",
+          "target_domain": "shared_risk_deep_integration",
+          "interaction_mode": "frictional_coordination",
+          "projection_relevance_components": {
+            "structural_strength": 0.75,
+            "profile_salience": 0.98,
+            "context_salience": 1.0
+          },
+          "projection_first_reasoning": {
+            "source_mapping": "action_selection",
+            "relationship_mapping": "interferes_and_forces_adaptation",
+            "target_mapping": "valuation_preference",
+            "source_mode": "expressive_self_amplification_mode",
+            "target_mode": "deep_search_guarded_transformation_mode"
+          },
+          "demo_guardrails": [
+            "experimental",
+            "not_clinical",
+            "not_empirically_validated",
+            "not_diagnostic"
+          ]
+        },
+        "projection_relevance_score": 0.735,
+        "provenance": {
+          "profile_layer": "cognitive_relationship_mapping"
+        }
+      }
+    ],
+    "indexes": {
+      "object_by_id": {
+        "projected:cognitive_architecture_demo.v0:1dbaf52203484f883e629026": 0,
+        "projected:cognitive_architecture_demo.v0:5a9e173de5ab0a4250c4b9cb": 1,
+        "projected:cognitive_architecture_demo.v0:a4d15b75df239a87f53190c3": 2,
+        "projected:cognitive_architecture_demo.v0:b8d6b3dac898584a5c85ae5e": 3
+      },
+      "relationship_by_id": {
+        "projected_relation:cognitive_architecture_demo.v0:9e62ca7118f3fb0e34454a69": 0,
+        "projected_relation:cognitive_architecture_demo.v0:b04f58984e5aecc7b1da4fed": 1
+      },
+      "projected_objects_by_source_ref": {
+        "house:8": [
+          "projected:cognitive_architecture_demo.v0:a4d15b75df239a87f53190c3"
+        ],
+        "natal:ASC": [
+          "projected:cognitive_architecture_demo.v0:1dbaf52203484f883e629026"
+        ],
+        "natal:Mars": [
+          "projected:cognitive_architecture_demo.v0:b8d6b3dac898584a5c85ae5e"
+        ],
+        "natal:Venus": [
+          "projected:cognitive_architecture_demo.v0:5a9e173de5ab0a4250c4b9cb"
+        ]
+      },
+      "projected_relationships_by_source_ref": {
+        "canonical:relationship:aspect:Mars:square:Venus": [
+          "projected_relation:cognitive_architecture_demo.v0:b04f58984e5aecc7b1da4fed"
+        ],
+        "canonical:relationship:aspect:Venus:quincunx:ASC": [
+          "projected_relation:cognitive_architecture_demo.v0:9e62ca7118f3fb0e34454a69"
+        ]
+      }
+    },
+    "summary": {
+      "object_count": 4,
+      "relationship_count": 2,
+      "mapped_source_object_count": 4,
+      "mapped_source_relationship_count": 2,
+      "unmapped_source_count": 0,
+      "profile_scope": "expanded_natal_operator_mode_domain_interface_and_sdk_aspects",
+      "experimental_demo": true,
+      "validated_psychological_model": false,
+      "diagnostic_use_permitted": false,
+      "supported_object_names": [
+        "ASC",
+        "DSC",
+        "IC",
+        "Jupiter",
+        "MC",
+        "Mars",
+        "Mercury",
+        "Moon",
+        "Neptune",
+        "North Node",
+        "Part of Fortune",
+        "Pluto",
+        "Saturn",
+        "South Node",
+        "Sun",
+        "Uranus",
+        "Venus",
+        "Vertex"
+      ],
+      "supported_sign_modes": {
+        "Aquarius": "system_revision_differentiation_mode",
+        "Aries": "initiation_mode",
+        "Cancer": "protective_attachment_mode",
+        "Capricorn": "hierarchical_goal_constraint_mode",
+        "Gemini": "differentiation_exchange_mode",
+        "Leo": "expressive_self_amplification_mode",
+        "Libra": "comparative_balancing_mode",
+        "Pisces": "associative_permeable_integration_mode",
+        "Sagittarius": "abstraction_exploration_mode",
+        "Scorpio": "deep_search_guarded_transformation_mode",
+        "Taurus": "stabilization_persistence_mode",
+        "Virgo": "error_correction_refinement_mode"
+      },
+      "supported_house_domains": {
+        "1": "self_interface_response_initiation",
+        "2": "resource_valuation_stability",
+        "3": "local_information_exchange",
+        "4": "foundational_memory_internal_base",
+        "5": "generative_expression_play",
+        "6": "maintenance_routine_error_correction",
+        "7": "dyadic_modeling_counterpart_interaction",
+        "8": "shared_risk_deep_integration",
+        "9": "abstraction_worldview_long_range_learning",
+        "10": "executive_direction_public_output",
+        "11": "network_coordination_future_modeling",
+        "12": "latent_processing_hidden_state_integration"
+      },
+      "supported_aspects": [
+        "conjunction",
+        "opposition",
+        "quincunx",
+        "semisextile",
+        "sextile",
+        "square",
+        "trine"
+      ],
+      "interaction_mode_counts": {
+        "frictional_coordination": 1,
+        "recurrent_recalibration": 1
+      },
+      "projected_mode_counts": {
+        "deep_search_guarded_transformation_mode": 1,
+        "expressive_self_amplification_mode": 1,
+        "system_revision_differentiation_mode": 1
+      },
+      "projected_domain_counts": {
+        "maintenance_routine_error_correction": 1,
+        "self_interface_response_initiation": 1,
+        "shared_risk_deep_integration": 2
+      }
+    },
+    "audit": {
+      "profile_id": "cognitive_architecture_demo.v0",
+      "profile_version": "0.2.0",
+      "engine_version": "0.4.0",
+      "request_hash": "4e753502534bc956236b6613",
+      "source_graph_hash": "2d656e65d9eb7be8d51cef46",
+      "context_hash": "f04fd711bb53954e7d61e90d",
+      "coverage": {
+        "source_object_count": 4,
+        "mapped_source_object_count": 4,
+        "unmapped_source_object_count": 0,
+        "source_relationship_count": 2,
+        "mapped_source_relationship_count": 2,
+        "unmapped_source_relationship_count": 0
+      },
+      "mapping_executions": [
+        {
+          "execution_id": "mapping_execution:15c8c00604e0ec743c02a85c",
+          "mapping_rule_id": "cognitive_architecture_demo.v0.house.8.shared_risk_deep_integration",
+          "mapping_rule_version": "0.2.0",
+          "source_refs": [
+            "canonical:object:house:8"
+          ],
+          "context_refs": [
+            "cognitive_architecture.general.v0"
+          ],
+          "result_refs": [
+            "projected:cognitive_architecture_demo.v0:a4d15b75df239a87f53190c3"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "house_domain_supported",
+              "result": true,
+              "value": 8
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:330d46a9cb92af3dd0005535",
+          "mapping_rule_id": "cognitive_architecture_demo.v0.aspect.quincunx.mismatches_and_requires_recalibration",
+          "mapping_rule_version": "0.2.0",
+          "source_refs": [
+            "canonical:relationship:aspect:Venus:quincunx:ASC"
+          ],
+          "context_refs": [
+            "cognitive_architecture.general.v0"
+          ],
+          "result_refs": [
+            "projected_relation:cognitive_architecture_demo.v0:9e62ca7118f3fb0e34454a69"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "sdk_aspect_supported",
+              "result": true,
+              "value": "quincunx"
+            },
+            {
+              "condition": "projected_endpoints_available",
+              "result": true
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:712c1d9869b919e28ecd324a",
+          "mapping_rule_id": "cognitive_architecture_demo.v0.object.mars.action_selection",
+          "mapping_rule_version": "0.2.0",
+          "source_refs": [
+            "canonical:object:natal:Mars"
+          ],
+          "context_refs": [
+            "cognitive_architecture.general.v0"
+          ],
+          "result_refs": [
+            "projected:cognitive_architecture_demo.v0:b8d6b3dac898584a5c85ae5e"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "natal_object_supported",
+              "result": true,
+              "value": "Mars"
+            },
+            {
+              "condition": "sign_mode_resolved",
+              "result": true,
+              "value": "Leo"
+            },
+            {
+              "condition": "house_domain_resolved",
+              "result": true,
+              "value": 6
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:8bbcb33020c4303c27f75898",
+          "mapping_rule_id": "cognitive_architecture_demo.v0.object.asc.active_interface",
+          "mapping_rule_version": "0.2.0",
+          "source_refs": [
+            "canonical:object:natal:ASC"
+          ],
+          "context_refs": [
+            "cognitive_architecture.general.v0"
+          ],
+          "result_refs": [
+            "projected:cognitive_architecture_demo.v0:1dbaf52203484f883e629026"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "natal_object_supported",
+              "result": true,
+              "value": "ASC"
+            },
+            {
+              "condition": "sign_mode_resolved",
+              "result": true,
+              "value": "Aquarius"
+            },
+            {
+              "condition": "house_domain_resolved",
+              "result": true,
+              "value": 1
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:d1536e4ffab52821fd7a83be",
+          "mapping_rule_id": "cognitive_architecture_demo.v0.object.venus.valuation_preference",
+          "mapping_rule_version": "0.2.0",
+          "source_refs": [
+            "canonical:object:natal:Venus"
+          ],
+          "context_refs": [
+            "cognitive_architecture.general.v0"
+          ],
+          "result_refs": [
+            "projected:cognitive_architecture_demo.v0:5a9e173de5ab0a4250c4b9cb"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "natal_object_supported",
+              "result": true,
+              "value": "Venus"
+            },
+            {
+              "condition": "sign_mode_resolved",
+              "result": true,
+              "value": "Scorpio"
+            },
+            {
+              "condition": "house_domain_resolved",
+              "result": true,
+              "value": 8
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:e1931c2276095e164f7780a3",
+          "mapping_rule_id": "cognitive_architecture_demo.v0.aspect.square.interferes_and_forces_adaptation",
+          "mapping_rule_version": "0.2.0",
+          "source_refs": [
+            "canonical:relationship:aspect:Mars:square:Venus"
+          ],
+          "context_refs": [
+            "cognitive_architecture.general.v0"
+          ],
+          "result_refs": [
+            "projected_relation:cognitive_architecture_demo.v0:b04f58984e5aecc7b1da4fed"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "sdk_aspect_supported",
+              "result": true,
+              "value": "square"
+            },
+            {
+              "condition": "projected_endpoints_available",
+              "result": true
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "unmapped_source_refs": [],
+      "fallbacks": [],
+      "diagnostics_ref": "projection_diagnostics"
+    },
+    "diagnostics": {
+      "errors": [],
+      "warnings": [],
+      "infos": [],
+      "unmapped_source_refs": [],
+      "fallbacks": []
+    }
+  },
+  "woofmapped": {
+    "metadata": {
+      "package_type": "projected_semantic_graph",
+      "projection_id": "projection:a5c1b164f36c2990d8b455b2",
+      "engine_version": "0.4.0",
+      "profile_id": "woofmapped_astrology.v0",
+      "profile_version": "0.1.0",
+      "context_id": "woofmapped.doghouse.general.v0",
+      "context_version": "0.1.0",
+      "source_dataset_analysis_type": "natal_dataset"
+    },
+    "source_identity": {
+      "source_chart_id": "natal:cross_profile_fixture",
+      "source_chart_ids": [
+        "natal:cross_profile_fixture"
+      ],
+      "sensor_instance_id": "natal:cross_profile_fixture"
+    },
+    "source_graph_ref": {
+      "graph_type": "canonical_astrology_graph",
+      "graph_version": "1.3.0",
+      "source_graph_hash": "2d656e65d9eb7be8d51cef46"
+    },
+    "target_ontology": "woofmapped_astrology.v0",
+    "objects": [
+      {
+        "id": "projected:woofmapped_astrology.v0:1e00add8d2984603f60b3709",
+        "object_type": "woofmapped_interface",
+        "name": "behavioral_doorway",
+        "target_ontology": "woofmapped_astrology.v0",
+        "operators": [
+          "first_respond",
+          "meet_world",
+          "present"
+        ],
+        "source_refs": [
+          "canonical:object:natal:ASC"
+        ],
+        "mapping_rule_refs": [
+          "woofmapped_astrology.v0.object.asc.behavioral_doorway"
+        ],
+        "context_refs": [
+          "woofmapped.doghouse.general.v0"
+        ],
+        "attributes": {
+          "canonical_object_name": "ASC",
+          "source_names": [
+            "ASC"
+          ],
+          "canine_domains": [
+            "first_impression",
+            "visible_temperament",
+            "doorway_behavior"
+          ],
+          "source_sign": "Aquarius",
+          "projected_mode": "pattern_breaking_oddball_mode",
+          "source_house": 1,
+          "doghouse_number": 1,
+          "projected_domain": "doghouse_1_body_temperament_presence",
+          "house_mapping_policy": "doghouse",
+          "projection_composition": {
+            "operator": "behavioral_doorway",
+            "mode": "pattern_breaking_oddball_mode",
+            "domain": "doghouse_1_body_temperament_presence"
+          },
+          "projection_relevance_components": {
+            "structural_strength": 0.95,
+            "profile_salience": 0.98,
+            "context_salience": 1.0
+          },
+          "guardrails": [
+            "playful_experimental_projection",
+            "not_veterinary_advice",
+            "not_behavioral_diagnosis",
+            "not_empirically_validated"
+          ]
+        },
+        "structural_strength_score": 0.95,
+        "projection_relevance_score": 0.931,
+        "provenance": {
+          "profile_layer": "woofmapped_object_mapping",
+          "source_object_type": "angle",
+          "operator_preservation_policy": "preserve_core_verb_change_species_domain"
+        }
+      },
+      {
+        "id": "projected:woofmapped_astrology.v0:8c6e276d5f77dba46d0fb7a6",
+        "object_type": "woofmapped_operator",
+        "name": "chase_play_defense_drive",
+        "target_ontology": "woofmapped_astrology.v0",
+        "operators": [
+          "act",
+          "assert",
+          "chase",
+          "defend",
+          "execute",
+          "play_attack"
+        ],
+        "source_refs": [
+          "canonical:object:natal:Mars"
+        ],
+        "mapping_rule_refs": [
+          "woofmapped_astrology.v0.object.mars.chase_play_defense_drive"
+        ],
+        "context_refs": [
+          "woofmapped.doghouse.general.v0"
+        ],
+        "attributes": {
+          "canonical_object_name": "Mars",
+          "source_names": [
+            "Mars"
+          ],
+          "canine_domains": [
+            "pursuit",
+            "play",
+            "immediate_action",
+            "defense"
+          ],
+          "source_sign": "Leo",
+          "projected_mode": "attention_seeking_display_mode",
+          "source_house": 6,
+          "doghouse_number": 6,
+          "projected_domain": "doghouse_6_training_routine_care",
+          "house_mapping_policy": "doghouse",
+          "projection_composition": {
+            "operator": "chase_play_defense_drive",
+            "mode": "attention_seeking_display_mode",
+            "domain": "doghouse_6_training_routine_care"
+          },
+          "projection_relevance_components": {
+            "structural_strength": 0.8,
+            "profile_salience": 0.96,
+            "context_salience": 1.0
+          },
+          "guardrails": [
+            "playful_experimental_projection",
+            "not_veterinary_advice",
+            "not_behavioral_diagnosis",
+            "not_empirically_validated"
+          ]
+        },
+        "structural_strength_score": 0.8,
+        "projection_relevance_score": 0.768,
+        "provenance": {
+          "profile_layer": "woofmapped_object_mapping",
+          "source_object_type": "planet_or_point",
+          "operator_preservation_policy": "preserve_core_verb_change_species_domain"
+        }
+      },
+      {
+        "id": "projected:woofmapped_astrology.v0:a0aad38c162a87103c89310f",
+        "object_type": "woofmapped_doghouse_domain",
+        "name": "doghouse_8_deep_trust_vulnerability",
+        "target_ontology": "woofmapped_astrology.v0",
+        "operators": [
+          "contextualize",
+          "locate_behavior",
+          "organize_dog_life"
+        ],
+        "source_refs": [
+          "canonical:object:house:8"
+        ],
+        "mapping_rule_refs": [
+          "woofmapped_astrology.v0.doghouse.8.doghouse_8_deep_trust_vulnerability"
+        ],
+        "context_refs": [
+          "woofmapped.doghouse.general.v0"
+        ],
+        "attributes": {
+          "source_house": 8,
+          "doghouse_number": 8,
+          "projected_domain": "doghouse_8_deep_trust_vulnerability",
+          "house_mapping_policy": "doghouse",
+          "source_names": [
+            "House 8"
+          ],
+          "guardrails": [
+            "playful_experimental_projection",
+            "not_veterinary_advice",
+            "not_behavioral_diagnosis",
+            "not_empirically_validated"
+          ]
+        },
+        "structural_strength_score": 0.7,
+        "projection_relevance_score": 0.76,
+        "provenance": {
+          "profile_layer": "woofmapped_doghouse_mapping"
+        }
+      },
+      {
+        "id": "projected:woofmapped_astrology.v0:e598e072c38eecaa2a722586",
+        "object_type": "woofmapped_operator",
+        "name": "bonding_preference",
+        "target_ontology": "woofmapped_astrology.v0",
+        "operators": [
+          "affiliate",
+          "bond",
+          "enjoy",
+          "prefer",
+          "value"
+        ],
+        "source_refs": [
+          "canonical:object:natal:Venus"
+        ],
+        "mapping_rule_refs": [
+          "woofmapped_astrology.v0.object.venus.bonding_preference"
+        ],
+        "context_refs": [
+          "woofmapped.doghouse.general.v0"
+        ],
+        "attributes": {
+          "canonical_object_name": "Venus",
+          "source_names": [
+            "Venus"
+          ],
+          "canine_domains": [
+            "favorite_humans",
+            "treats",
+            "toys",
+            "affection_style"
+          ],
+          "source_sign": "Scorpio",
+          "projected_mode": "obsessive_investigation_mode",
+          "source_house": 8,
+          "doghouse_number": 8,
+          "projected_domain": "doghouse_8_deep_trust_vulnerability",
+          "house_mapping_policy": "doghouse",
+          "projection_composition": {
+            "operator": "bonding_preference",
+            "mode": "obsessive_investigation_mode",
+            "domain": "doghouse_8_deep_trust_vulnerability"
+          },
+          "projection_relevance_components": {
+            "structural_strength": 0.9,
+            "profile_salience": 0.94,
+            "context_salience": 1.0
+          },
+          "guardrails": [
+            "playful_experimental_projection",
+            "not_veterinary_advice",
+            "not_behavioral_diagnosis",
+            "not_empirically_validated"
+          ]
+        },
+        "structural_strength_score": 0.9,
+        "projection_relevance_score": 0.846,
+        "provenance": {
+          "profile_layer": "woofmapped_object_mapping",
+          "source_object_type": "planet_or_point",
+          "operator_preservation_policy": "preserve_core_verb_change_species_domain"
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "id": "projected_relation:woofmapped_astrology.v0:12b46b2481d95c59943b8f74",
+        "relationship_type": "drive_conflict_requires_outlet",
+        "source_id": "projected:woofmapped_astrology.v0:8c6e276d5f77dba46d0fb7a6",
+        "target_id": "projected:woofmapped_astrology.v0:e598e072c38eecaa2a722586",
+        "source_relationship_refs": [
+          "canonical:relationship:aspect:Mars:square:Venus"
+        ],
+        "mapping_rule_refs": [
+          "woofmapped_astrology.v0.aspect.square.drive_conflict_requires_outlet"
+        ],
+        "context_refs": [
+          "woofmapped.doghouse.general.v0"
+        ],
+        "operators": [
+          "activate",
+          "frustrate",
+          "require_training_or_outlet",
+          "stress"
+        ],
+        "theme_tags": [
+          "behavioral_friction",
+          "bonding_preference",
+          "chase_play_defense_drive"
+        ],
+        "attributes": {
+          "canonical_aspect": "square",
+          "orb": null,
+          "source_canine_subsystem": "chase_play_defense_drive",
+          "target_canine_subsystem": "bonding_preference",
+          "source_mode": "attention_seeking_display_mode",
+          "target_mode": "obsessive_investigation_mode",
+          "source_doghouse": "doghouse_6_training_routine_care",
+          "target_doghouse": "doghouse_8_deep_trust_vulnerability",
+          "interaction_mode": "behavioral_friction",
+          "projection_relevance_components": {
+            "structural_strength": 0.75,
+            "profile_salience": 0.98,
+            "context_salience": 1.0
+          },
+          "projection_first_reasoning": {
+            "source_mapping": "chase_play_defense_drive",
+            "source_mode": "attention_seeking_display_mode",
+            "relationship_mapping": "drive_conflict_requires_outlet",
+            "target_mapping": "bonding_preference",
+            "target_mode": "obsessive_investigation_mode"
+          },
+          "guardrails": [
+            "playful_experimental_projection",
+            "not_veterinary_advice",
+            "not_behavioral_diagnosis",
+            "not_empirically_validated"
+          ]
+        },
+        "projection_relevance_score": 0.735,
+        "provenance": {
+          "profile_layer": "woofmapped_relationship_mapping",
+          "operator_preservation_policy": "relationship_geometry_preserved"
+        }
+      },
+      {
+        "id": "projected_relation:woofmapped_astrology.v0:e7645f19677b4f2b78bf4536",
+        "relationship_type": "awkward_system_recalibration",
+        "source_id": "projected:woofmapped_astrology.v0:e598e072c38eecaa2a722586",
+        "target_id": "projected:woofmapped_astrology.v0:1e00add8d2984603f60b3709",
+        "source_relationship_refs": [
+          "canonical:relationship:aspect:Venus:quincunx:ASC"
+        ],
+        "mapping_rule_refs": [
+          "woofmapped_astrology.v0.aspect.quincunx.awkward_system_recalibration"
+        ],
+        "context_refs": [
+          "woofmapped.doghouse.general.v0"
+        ],
+        "operators": [
+          "manage",
+          "misfit",
+          "recalibrate"
+        ],
+        "theme_tags": [
+          "behavioral_doorway",
+          "bonding_preference",
+          "odd_behavior_needing_adjustment"
+        ],
+        "attributes": {
+          "canonical_aspect": "quincunx",
+          "orb": null,
+          "source_canine_subsystem": "bonding_preference",
+          "target_canine_subsystem": "behavioral_doorway",
+          "source_mode": "obsessive_investigation_mode",
+          "target_mode": "pattern_breaking_oddball_mode",
+          "source_doghouse": "doghouse_8_deep_trust_vulnerability",
+          "target_doghouse": "doghouse_1_body_temperament_presence",
+          "interaction_mode": "odd_behavior_needing_adjustment",
+          "projection_relevance_components": {
+            "structural_strength": 0.62,
+            "profile_salience": 0.74,
+            "context_salience": 1.0
+          },
+          "projection_first_reasoning": {
+            "source_mapping": "bonding_preference",
+            "source_mode": "obsessive_investigation_mode",
+            "relationship_mapping": "awkward_system_recalibration",
+            "target_mapping": "behavioral_doorway",
+            "target_mode": "pattern_breaking_oddball_mode"
+          },
+          "guardrails": [
+            "playful_experimental_projection",
+            "not_veterinary_advice",
+            "not_behavioral_diagnosis",
+            "not_empirically_validated"
+          ]
+        },
+        "projection_relevance_score": 0.4588,
+        "provenance": {
+          "profile_layer": "woofmapped_relationship_mapping",
+          "operator_preservation_policy": "relationship_geometry_preserved"
+        }
+      }
+    ],
+    "indexes": {
+      "object_by_id": {
+        "projected:woofmapped_astrology.v0:1e00add8d2984603f60b3709": 0,
+        "projected:woofmapped_astrology.v0:8c6e276d5f77dba46d0fb7a6": 1,
+        "projected:woofmapped_astrology.v0:a0aad38c162a87103c89310f": 2,
+        "projected:woofmapped_astrology.v0:e598e072c38eecaa2a722586": 3
+      },
+      "relationship_by_id": {
+        "projected_relation:woofmapped_astrology.v0:12b46b2481d95c59943b8f74": 0,
+        "projected_relation:woofmapped_astrology.v0:e7645f19677b4f2b78bf4536": 1
+      },
+      "projected_objects_by_source_ref": {
+        "house:8": [
+          "projected:woofmapped_astrology.v0:a0aad38c162a87103c89310f"
+        ],
+        "natal:ASC": [
+          "projected:woofmapped_astrology.v0:1e00add8d2984603f60b3709"
+        ],
+        "natal:Mars": [
+          "projected:woofmapped_astrology.v0:8c6e276d5f77dba46d0fb7a6"
+        ],
+        "natal:Venus": [
+          "projected:woofmapped_astrology.v0:e598e072c38eecaa2a722586"
+        ]
+      },
+      "projected_relationships_by_source_ref": {
+        "canonical:relationship:aspect:Mars:square:Venus": [
+          "projected_relation:woofmapped_astrology.v0:12b46b2481d95c59943b8f74"
+        ],
+        "canonical:relationship:aspect:Venus:quincunx:ASC": [
+          "projected_relation:woofmapped_astrology.v0:e7645f19677b4f2b78bf4536"
+        ]
+      }
+    },
+    "summary": {
+      "object_count": 4,
+      "relationship_count": 2,
+      "mapped_source_object_count": 4,
+      "mapped_source_relationship_count": 2,
+      "unmapped_source_count": 0,
+      "profile_scope": "natal_operators_sign_modes_doghouses_angles_and_sdk_aspects",
+      "playful_experimental_projection": true,
+      "veterinary_advice": false,
+      "behavioral_diagnosis_permitted": false,
+      "house_mapping_policy": "doghouse",
+      "supported_object_names": [
+        "ASC",
+        "DSC",
+        "IC",
+        "Jupiter",
+        "MC",
+        "Mars",
+        "Mercury",
+        "Moon",
+        "Neptune",
+        "North Node",
+        "Part of Fortune",
+        "Pluto",
+        "Saturn",
+        "South Node",
+        "Sun",
+        "Uranus",
+        "Venus",
+        "Vertex"
+      ],
+      "supported_sign_modes": {
+        "Aquarius": "pattern_breaking_oddball_mode",
+        "Aries": "immediate_chase_mode",
+        "Cancer": "pack_security_focus_mode",
+        "Capricorn": "working_dog_seriousness_mode",
+        "Gemini": "information_sniffing_mode",
+        "Leo": "attention_seeking_display_mode",
+        "Libra": "social_harmony_maintenance_mode",
+        "Pisces": "emotional_sponge_dream_dog_mode",
+        "Sagittarius": "adventure_dog_mode",
+        "Scorpio": "obsessive_investigation_mode",
+        "Taurus": "nap_spot_loyalty_mode",
+        "Virgo": "patrol_inspection_mode"
+      },
+      "supported_doghouses": {
+        "1": "doghouse_1_body_temperament_presence",
+        "2": "doghouse_2_food_toys_bones_resources",
+        "3": "doghouse_3_smells_barks_cues_local_data",
+        "4": "doghouse_4_den_home_base_safety",
+        "5": "doghouse_5_play_zoomies_tricks",
+        "6": "doghouse_6_training_routine_care",
+        "7": "doghouse_7_favorite_human_primary_bond",
+        "8": "doghouse_8_deep_trust_vulnerability",
+        "9": "doghouse_9_adventure_territory",
+        "10": "doghouse_10_visible_pack_role",
+        "11": "doghouse_11_social_pack_network",
+        "12": "doghouse_12_deep_instinct_hidden_fear"
+      },
+      "supported_aspects": [
+        "conjunction",
+        "opposition",
+        "quincunx",
+        "semisextile",
+        "sextile",
+        "square",
+        "trine"
+      ],
+      "interaction_mode_counts": {
+        "behavioral_friction": 1,
+        "odd_behavior_needing_adjustment": 1
+      },
+      "projected_mode_counts": {
+        "attention_seeking_display_mode": 1,
+        "obsessive_investigation_mode": 1,
+        "pattern_breaking_oddball_mode": 1
+      },
+      "projected_doghouse_counts": {
+        "doghouse_1_body_temperament_presence": 1,
+        "doghouse_6_training_routine_care": 1,
+        "doghouse_8_deep_trust_vulnerability": 2
+      }
+    },
+    "audit": {
+      "profile_id": "woofmapped_astrology.v0",
+      "profile_version": "0.1.0",
+      "engine_version": "0.4.0",
+      "request_hash": "a5c1b164f36c2990d8b455b2",
+      "source_graph_hash": "2d656e65d9eb7be8d51cef46",
+      "context_hash": "e0d61f6b369af6da1513c9e1",
+      "coverage": {
+        "source_object_count": 4,
+        "mapped_source_object_count": 4,
+        "unmapped_source_object_count": 0,
+        "source_relationship_count": 2,
+        "mapped_source_relationship_count": 2,
+        "unmapped_source_relationship_count": 0
+      },
+      "mapping_executions": [
+        {
+          "execution_id": "mapping_execution:15eb347ed9b9ec7d4ff3cbb5",
+          "mapping_rule_id": "woofmapped_astrology.v0.doghouse.8.doghouse_8_deep_trust_vulnerability",
+          "mapping_rule_version": "0.1.0",
+          "source_refs": [
+            "canonical:object:house:8"
+          ],
+          "context_refs": [
+            "woofmapped.doghouse.general.v0"
+          ],
+          "result_refs": [
+            "projected:woofmapped_astrology.v0:a0aad38c162a87103c89310f"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "doghouse_domain_supported",
+              "result": true,
+              "value": 8
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:4c7bda914f6015a2bece4dcb",
+          "mapping_rule_id": "woofmapped_astrology.v0.aspect.square.drive_conflict_requires_outlet",
+          "mapping_rule_version": "0.1.0",
+          "source_refs": [
+            "canonical:relationship:aspect:Mars:square:Venus"
+          ],
+          "context_refs": [
+            "woofmapped.doghouse.general.v0"
+          ],
+          "result_refs": [
+            "projected_relation:woofmapped_astrology.v0:12b46b2481d95c59943b8f74"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "sdk_aspect_supported",
+              "result": true,
+              "value": "square"
+            },
+            {
+              "condition": "projected_endpoints_available",
+              "result": true
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:6c74af46c8130b3b1e23e0d4",
+          "mapping_rule_id": "woofmapped_astrology.v0.object.asc.behavioral_doorway",
+          "mapping_rule_version": "0.1.0",
+          "source_refs": [
+            "canonical:object:natal:ASC"
+          ],
+          "context_refs": [
+            "woofmapped.doghouse.general.v0"
+          ],
+          "result_refs": [
+            "projected:woofmapped_astrology.v0:1e00add8d2984603f60b3709"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "woofmapped_object_supported",
+              "result": true,
+              "value": "ASC"
+            },
+            {
+              "condition": "sign_mode_resolved",
+              "result": true,
+              "value": "Aquarius"
+            },
+            {
+              "condition": "doghouse_domain_resolved",
+              "result": true,
+              "value": 1
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:83c185b2da85c104a574e0ff",
+          "mapping_rule_id": "woofmapped_astrology.v0.object.venus.bonding_preference",
+          "mapping_rule_version": "0.1.0",
+          "source_refs": [
+            "canonical:object:natal:Venus"
+          ],
+          "context_refs": [
+            "woofmapped.doghouse.general.v0"
+          ],
+          "result_refs": [
+            "projected:woofmapped_astrology.v0:e598e072c38eecaa2a722586"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "woofmapped_object_supported",
+              "result": true,
+              "value": "Venus"
+            },
+            {
+              "condition": "sign_mode_resolved",
+              "result": true,
+              "value": "Scorpio"
+            },
+            {
+              "condition": "doghouse_domain_resolved",
+              "result": true,
+              "value": 8
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:b0f7b519d0e87760638cd03c",
+          "mapping_rule_id": "woofmapped_astrology.v0.object.mars.chase_play_defense_drive",
+          "mapping_rule_version": "0.1.0",
+          "source_refs": [
+            "canonical:object:natal:Mars"
+          ],
+          "context_refs": [
+            "woofmapped.doghouse.general.v0"
+          ],
+          "result_refs": [
+            "projected:woofmapped_astrology.v0:8c6e276d5f77dba46d0fb7a6"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "woofmapped_object_supported",
+              "result": true,
+              "value": "Mars"
+            },
+            {
+              "condition": "sign_mode_resolved",
+              "result": true,
+              "value": "Leo"
+            },
+            {
+              "condition": "doghouse_domain_resolved",
+              "result": true,
+              "value": 6
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "execution_id": "mapping_execution:f57a1df6a1352322e007d84b",
+          "mapping_rule_id": "woofmapped_astrology.v0.aspect.quincunx.awkward_system_recalibration",
+          "mapping_rule_version": "0.1.0",
+          "source_refs": [
+            "canonical:relationship:aspect:Venus:quincunx:ASC"
+          ],
+          "context_refs": [
+            "woofmapped.doghouse.general.v0"
+          ],
+          "result_refs": [
+            "projected_relation:woofmapped_astrology.v0:e7645f19677b4f2b78bf4536"
+          ],
+          "status": "applied",
+          "conditions_evaluated": [
+            {
+              "condition": "sdk_aspect_supported",
+              "result": true,
+              "value": "quincunx"
+            },
+            {
+              "condition": "projected_endpoints_available",
+              "result": true
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "unmapped_source_refs": [],
+      "fallbacks": [],
+      "diagnostics_ref": "projection_diagnostics"
+    },
+    "diagnostics": {
+      "errors": [],
+      "warnings": [],
+      "infos": [],
+      "unmapped_source_refs": [],
+      "fallbacks": []
+    }
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chart Semantic Graph v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "graph_type",
+    "objects",
+    "relationships",
+    "indexes",
+    "summary",
+    "relationship_type_ontology"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "graph_type": {
+      "const": "natal_chart_semantic_graph"
+    },
+    "relationship_type_ontology": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "source_key",
+          "object_type",
+          "facts",
+          "transit_target",
+          "theme_tags",
+          "semantic_operator_hints"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "source_key": {
+            "type": "string"
+          },
+          "object_type": {
+            "type": "string",
+            "enum": [
+              "planet_or_point",
+              "angle",
+              "angle_point",
+              "calculated_point",
+              "lot",
+              "fixed_star",
+              "dignity_state",
+              "declination_position",
+              "antiscia_point",
+              "contra_antiscia_point",
+              "harmonic_point",
+              "sect_state",
+              "asteroid"
+            ]
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "pretty": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sign": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "house": {},
+          "facts": {
+            "type": "object"
+          },
+          "transit_target": {
+            "type": "boolean"
+          },
+          "theme_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "semantic_operator_hints": {
+            "type": "array"
+          },
+          "orthodox_astrology_theme_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_operator_hints": {
+            "type": "array"
+          },
+          "evidence_metadata": {
+            "$ref": "evidence_provenance_v1.schema.json"
+          },
+          "structural_strength_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "orthodox_astrology_relevance_score": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "relationship_type",
+          "source_id",
+          "source_name",
+          "theme_tags",
+          "semantic_operator_hints"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "relationship_type": {
+            "type": "string",
+            "enum": [
+              "ASPECT",
+              "ANTISCIA",
+              "CONTRA_ANTISCIA",
+              "DECLINATION_PARALLEL",
+              "DECLINATION_CONTRAPARALLEL",
+              "HARMONIC_PROJECTION",
+              "TRANSIT_ACTIVATION",
+              "HAS_DIGNITY",
+              "HAS_DECLINATION",
+              "HAS_ANTISCIA_POINT",
+              "HAS_CONTRA_ANTISCIA_POINT",
+              "HAS_HARMONIC_POINT",
+              "HAS_SECT",
+              "LOT_DERIVED_FROM",
+              "FIXED_STAR_CONJUNCTION",
+              "ACTIVATES_NATAL_RELATIONSHIP",
+              "COMPOSITE_ASPECT",
+              "SYNASTRY_ASPECT",
+              "HOUSE_OVERLAY",
+              "LUNATION_ACTIVATION",
+              "LUNAR_RETURN_OF",
+              "ANNUAL_PROFECTION_OF"
+            ]
+          },
+          "legacy_relationship_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "source_name": {
+            "type": "string"
+          },
+          "target_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "target_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "target_longitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "aspect": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "orb": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "theme_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "semantic_operator_hints": {
+            "type": "array"
+          },
+          "orthodox_astrology_theme_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_operator_hints": {
+            "type": "array"
+          },
+          "evidence_metadata": {
+            "$ref": "evidence_provenance_v1.schema.json"
+          },
+          "structural_strength_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "orthodox_astrology_relevance_score": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "indexes": {
+      "type": "object"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "graph_layer": {
+      "type": "string"
+    },
+    "projection_profile": {
+      "type": "string"
+    },
+    "dual_write_status": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
