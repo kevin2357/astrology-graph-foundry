@@ -385,14 +385,14 @@
                     "null"
                   ]
                 },
-                "strength": {
-                  "type": [
-                    "number",
-                    "null"
-                  ]
-                },
                 "activator_state": {
                   "type": "object"
+                },
+                "strength_label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
                 }
               },
               "additionalProperties": true

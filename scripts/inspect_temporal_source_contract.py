@@ -66,6 +66,15 @@ def main() -> None:
         1 for row in activations if int(row.get("observation_count") or 0) == 1
     )
     warning_count = int((temporal.get("summary") or {}).get("warning_count") or 0)
+    strength_label_distribution: dict[str, int] = {}
+    for activation in activations:
+        for state in activation.get("observation_states") or []:
+            label = state.get("strength_label")
+            if label is None:
+                continue
+            key = str(label)
+            strength_label_distribution[key] = strength_label_distribution.get(key, 0) + 1
+
     normalization_diagnostics: list[dict[str, Any]] = []
     if activations and single_observation_count == len(activations):
         normalization_diagnostics.append(
@@ -124,6 +133,10 @@ def main() -> None:
             if row.get("exact_at")
             and (row.get("exactness") or {}).get("status") != "sampled_exact"
         ],
+        "observation_strength_labels": {
+            key: strength_label_distribution[key]
+            for key in sorted(strength_label_distribution)
+        },
         "normalization_health": {
             "single_observation_activation_count": single_observation_count,
             "multi_observation_activation_count": len(activations) - single_observation_count,

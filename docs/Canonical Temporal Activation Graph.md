@@ -308,3 +308,37 @@ These are source-contract improvements and remain separate from target-domain se
 ## 0.4.1 observation-join correction
 
 Full Transit daily rows do not normally materialize `candidate_id`. Exporters must reproduce the Transit pipeline's candidate identity algorithm or join by the normalized `(transiting body, aspect, target)` signature. A healthy arc-first export should ordinarily contain at least some multi-observation activations and should not emit `activation_arc_without_observations` for every arc.
+
+
+## 0.4.2 observation strength labels and contract freeze
+
+Transit source rows expose aspect tightness as categorical labels such as:
+
+```text
+tight
+very tight
+partile / extremely tight
+exact / ultra-partile
+```
+
+Canonical temporal observation states preserve this value as:
+
+```json
+{
+  "strength_label": "very tight"
+}
+```
+
+The field is intentionally named `strength_label`, not `strength`, because it is a categorical descriptor rather than a numeric measurement. Numeric temporal geometry remains represented through fields such as `orb`, `distance`, and `relevance_score`.
+
+The temporal inspector reports the distribution of observed strength labels as a corpus-level sanity check.
+
+With the 0.4.1 real-observation join correction and this 0.4.2 schema correction, Foundry stages A and B are considered stable for the initial Semantic Projection Core Stage C implementation:
+
+```text
+A. canonical_temporal_activation_graph.v1     stable
+B. temporal_projection_source_bundle.v1       stable
+C. projected_temporal_activation_graph.v1     downstream next step
+```
+
+“Stable” means the initial cross-repository contract is suitable for implementation and integration. It does not preclude later versioned improvements such as solved exact-event timestamps, station-aware grouping, or richer source indexes.

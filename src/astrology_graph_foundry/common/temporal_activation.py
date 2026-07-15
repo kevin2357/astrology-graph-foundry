@@ -255,7 +255,7 @@ def _phase_states(rows: list[dict[str, Any]], exact_threshold: float) -> list[di
             "distance": row.get("distance"),
             "rank": row.get("rank"),
             "relevance_score": row.get("relevance_score"),
-            "strength": row.get("strength"),
+            "strength_label": row.get("strength"),
         }
         positions = row.get("positions") or {}
         body = str(row.get("transit_body") or "")

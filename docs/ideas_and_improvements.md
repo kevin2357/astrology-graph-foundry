@@ -732,7 +732,8 @@ Future work:
 
 ## Canonical temporal graph follow-ups
 
-- replace conservative observation-gap pass segmentation with solved exact-event grouping;
+- validate conservative observation-gap pass segmentation against the Transit pipeline's candidate-retention/ranking policy, especially when isolated one-state follow-up passes appear after multi-day gaps;
+- replace conservative observation-gap pass segmentation with solved exact-event and station-aware grouping when the source pipeline can provide it;
 - represent station boundaries and direction changes explicitly;
 - add canonical timing contracts for ingresses, stations, return events, eclipses, and lunations;
 - support compact external observation-state registries for very long ranges;

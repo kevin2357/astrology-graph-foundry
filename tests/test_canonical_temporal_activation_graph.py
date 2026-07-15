@@ -28,7 +28,7 @@ def _candidate(date: str, orb: float, *, retrograde: bool = False) -> dict:
         "orb": orb,
         "distance": 90 + orb,
         "relevance_score": 0.88,
-        "strength": 0.75,
+        "strength": "very tight",
         "positions": {
             "Mars": {
                 "longitude": 120.0,
@@ -145,6 +145,11 @@ def test_full_transit_export_is_arc_first_directional_and_deterministic():
         "sampled_exact",
         "separating_observed",
     ]
+    assert all(
+        state["strength_label"] == "very tight"
+        for state in direct["observation_states"]
+    )
+    assert all("strength" not in state for state in direct["observation_states"])
 
 
 
@@ -166,6 +171,30 @@ def test_full_transit_daily_candidates_without_materialized_candidate_ids_join_a
     assert [
         activation["observation_count"] for activation in result["activations"]
     ] == [4, 3]
+
+@pytest.mark.parametrize(
+    "label",
+    [
+        "tight",
+        "very tight",
+        "partile / extremely tight",
+        "exact / ultra-partile",
+    ],
+)
+def test_temporal_observation_strength_labels_are_preserved_as_labels(label: str):
+    package = _package()
+    for day in package["daily_windows"]:
+        day["candidates"][0]["strength"] = label
+
+    result = extract_canonical_temporal_activation_graph(package)
+
+    labels = {
+        state["strength_label"]
+        for activation in result["activations"]
+        for state in activation["observation_states"]
+    }
+    assert labels == {label}
+
 
 def test_analysis_view_is_rejected_as_incomplete_source_contract():
     package = {

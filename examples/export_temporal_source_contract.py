@@ -46,6 +46,13 @@ def fixture() -> dict:
                         "rank": 1,
                         "orb": orb,
                         "relevance_score": 0.88,
+                        "strength": (
+                            "exact / ultra-partile"
+                            if orb <= 0.01
+                            else "partile / extremely tight"
+                            if orb <= 0.5
+                            else "very tight"
+                        ),
                     }
                 ],
             }

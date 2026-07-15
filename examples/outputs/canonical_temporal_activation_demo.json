@@ -39,7 +39,7 @@
           "rank": 1,
           "relevance_score": 0.88,
           "state_id": "temporal_state:e21f527eae117c117b92",
-          "strength": null
+          "strength_label": "very tight"
         },
         {
           "activator_state": {
@@ -58,7 +58,7 @@
           "rank": 1,
           "relevance_score": 0.88,
           "state_id": "temporal_state:52fb67e5a4f09bdd8765",
-          "strength": null
+          "strength_label": "partile / extremely tight"
         },
         {
           "activator_state": {
@@ -77,7 +77,7 @@
           "rank": 1,
           "relevance_score": 0.88,
           "state_id": "temporal_state:2a37381c842283fa30e0",
-          "strength": null
+          "strength_label": "exact / ultra-partile"
         },
         {
           "activator_state": {
@@ -96,13 +96,14 @@
           "rank": 1,
           "relevance_score": 0.88,
           "state_id": "temporal_state:ce9979441b0986febf77",
-          "strength": null
+          "strength_label": "partile / extremely tight"
         }
       ],
       "pass_index": 1,
       "provenance": {
         "max_observation_gap_days": 2,
         "normalization_policy": "arc_first_with_observation_segmentation.v1",
+        "observation_join_policy": "candidate_id_exact",
         "source_analysis_type": "transit_range_dataset",
         "source_arc_id": "arc:tc:Mars:square:natal_Venus",
         "source_candidate_id": "tc:Mars:square:natal_Venus",
@@ -164,7 +165,7 @@
           "rank": 1,
           "relevance_score": 0.88,
           "state_id": "temporal_state:dfbbce5f6a7120dafc0f",
-          "strength": null
+          "strength_label": "partile / extremely tight"
         },
         {
           "activator_state": {
@@ -183,7 +184,7 @@
           "rank": 1,
           "relevance_score": 0.88,
           "state_id": "temporal_state:238d990e68a184b20755",
-          "strength": null
+          "strength_label": "partile / extremely tight"
         },
         {
           "activator_state": {
@@ -202,13 +203,14 @@
           "rank": 1,
           "relevance_score": 0.88,
           "state_id": "temporal_state:c40ae439f7d77404359d",
-          "strength": null
+          "strength_label": "very tight"
         }
       ],
       "pass_index": 2,
       "provenance": {
         "max_observation_gap_days": 2,
         "normalization_policy": "arc_first_with_observation_segmentation.v1",
+        "observation_join_policy": "candidate_id_exact",
         "source_analysis_type": "transit_range_dataset",
         "source_arc_id": "arc:tc:Mars:square:natal_Venus",
         "source_candidate_id": "tc:Mars:square:natal_Venus",

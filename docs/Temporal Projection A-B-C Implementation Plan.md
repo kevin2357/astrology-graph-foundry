@@ -6,7 +6,7 @@ This is the official cross-repository plan approved after Chunk 2 extraction.
 
 ## A — Foundry temporal source contract
 
-**Implemented in Foundry 0.4.0**
+**Implemented and stabilized in Foundry 0.4.2**
 
 Deliverables:
 
@@ -21,7 +21,7 @@ Deliverables:
 
 ## B — Foundry Transit normalization adapter
 
-**Implemented in Foundry 0.4.0**
+**Implemented and stabilized in Foundry 0.4.2**
 
 Deliverables:
 
@@ -98,3 +98,22 @@ Foundry exports facts.
 Core projects those facts.
 
 Neither repository should silently imitate the other's responsibility.
+
+
+## Foundry A/B freeze point
+
+Foundry 0.4.2 is the initial freeze point for the source-side temporal handoff.
+
+The freeze includes:
+
+- real dated observation series joined to activation arcs;
+- directional activator and target identity;
+- deterministic sequence and pass IDs;
+- sampled applying/closest/exact/separating states;
+- motion preservation;
+- categorical `strength_label` semantics;
+- schema-valid canonical graph and source bundle;
+- inspector normalization-health diagnostics;
+- deterministic embedded-graph identity.
+
+Future changes that alter these contracts materially should use explicit schema/version evolution rather than silently changing `v1` semantics.

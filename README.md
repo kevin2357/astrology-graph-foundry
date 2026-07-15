@@ -49,7 +49,7 @@ Transit packages can now be normalized into the projection-neutral:
 canonical_temporal_activation_graph.v1
 ```
 
-The contract represents one temporal activation process as a directional arc with dated states, orb, motion, pass identity, exactness limitations, and provenance.
+The contract represents one temporal activation process as a directional arc with dated states, orb, motion, pass identity, exactness limitations, categorical strength labels, and provenance. The Foundry-side A/B temporal source boundary is stabilized as of version 0.4.2 for downstream temporal projection work.
 
 ```bat
 astro-package export-temporal-graph ^
