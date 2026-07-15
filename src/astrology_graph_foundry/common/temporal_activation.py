@@ -179,13 +179,35 @@ def _arc_rows(package: dict[str, Any], materialization: str) -> list[dict[str, A
 
 
 def _candidate_id(row: dict[str, Any]) -> str:
+    """Return the canonical Transit candidate identifier.
+
+    Full Transit daily candidates do not materialize ``candidate_id``.  Their
+    parent pipeline uses case-preserving body/aspect tokens and only normalizes
+    spaces/colons in the target token.  Temporal export must reproduce that
+    algorithm exactly so daily observations join the summarized arc rows.
+    """
+
     explicit = row.get("candidate_id")
     if explicit:
         return str(explicit)
-    transit_body = _slug(row.get("transit_body"))
-    aspect = _slug(row.get("aspect"))
-    target = _slug(row.get("target_id") or row.get("target"))
+    transit_body = str(row.get("transit_body") or "unknown").replace(" ", "_")
+    aspect = str(row.get("aspect") or "unknown").replace(" ", "_")
+    target = (
+        str(row.get("target_id") or row.get("target") or "unknown")
+        .replace(" ", "_")
+        .replace(":", "_")
+    )
     return f"tc:{transit_body}:{aspect}:{target}"
+
+
+def _candidate_signature(row: dict[str, Any]) -> tuple[str, str, str]:
+    """Return a tolerant semantic join key for older/materialized packages."""
+
+    return (
+        _slug(row.get("transit_body")),
+        _slug(row.get("aspect")),
+        _slug(row.get("target_id") or row.get("target")),
+    )
 
 
 def _split_contiguous(
@@ -324,8 +346,10 @@ def extract_canonical_temporal_activation_graph(
         else _streaming_day_rows(package)
     )
     rows_by_candidate: dict[str, list[dict[str, Any]]] = {}
+    rows_by_signature: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
     for row in day_rows:
         rows_by_candidate.setdefault(_candidate_id(row), []).append(row)
+        rows_by_signature.setdefault(_candidate_signature(row), []).append(row)
 
     target_identity = _target_identity(package)
     source_period = _period(package)
@@ -343,7 +367,13 @@ def extract_canonical_temporal_activation_graph(
     ):
         candidate_id = _candidate_id(arc)
         observations = rows_by_candidate.get(candidate_id, [])
+        observation_join_policy = "candidate_id_exact"
         if not observations:
+            observations = rows_by_signature.get(_candidate_signature(arc), [])
+            if observations:
+                observation_join_policy = "semantic_signature_fallback"
+        if not observations:
+            observation_join_policy = "arc_summary_fallback"
             warnings.append(
                 {
                     "code": "activation_arc_without_observations",
@@ -440,6 +470,7 @@ def extract_canonical_temporal_activation_graph(
                     "source_arc_id": arc.get("arc_id"),
                     "source_candidate_id": candidate_id,
                     "normalization_policy": "arc_first_with_observation_segmentation.v1",
+                    "observation_join_policy": observation_join_policy,
                     "max_observation_gap_days": options.max_observation_gap_days,
                 },
             }

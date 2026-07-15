@@ -1,4 +1,4 @@
-from astro_analysis_sdk.common.graph_compiler import GraphCompiler
+from astrology_graph_foundry.common.graph_compiler import GraphCompiler
 
 
 def sample_natal():

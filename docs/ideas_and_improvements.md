@@ -33,7 +33,7 @@ Add full-package include modes for large research-grade outputs so consumers can
 
 ## Expanded how-to / user guide
 
-Create a much richer `how_to_use_sdk.md` or companion guide that functions as the project handbook. It should cover project philosophy, standards, style, package design goals, output descriptions, pipeline descriptions, output types (`analysis`, `streaming_index`, `full`), schema-reading guidance, file-reading guidance, and small toy reference implementations for reading schemas/files.
+Create a much richer `How to Use Astrology Graph Foundry.md` or companion guide that functions as the project handbook. It should cover project philosophy, standards, style, package design goals, output descriptions, pipeline descriptions, output types (`analysis`, `streaming_index`, `full`), schema-reading guidance, file-reading guidance, and small toy reference implementations for reading schemas/files.
 
 The guide should include examples for calling each pipeline and output type using fictional people and locations in all supported invocation styles: non-installed CLI via `python -m`, installed CLI, and Python import usage from another project that imports or submodules this SDK.
 

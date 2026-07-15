@@ -3,10 +3,10 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Any
 
-from astro_analysis_sdk.common.geometry import deg_to_sign
-from astro_analysis_sdk.common.constants import SIGN_RULERS_TRADITIONAL
-from astro_analysis_sdk.common.transitable_chart import from_package
-from astro_analysis_sdk.common.semantic_layers import finalize_package_semantic_boundary
+from astrology_graph_foundry.common.geometry import deg_to_sign
+from astrology_graph_foundry.common.constants import SIGN_RULERS_TRADITIONAL
+from astrology_graph_foundry.common.transitable_chart import from_package
+from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
 
 SCHEMA_VERSION = "2.0.0"
 PIPELINE_VERSION = "annual_profections_pipeline_v2.0.0_transitable_chart"

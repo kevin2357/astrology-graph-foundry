@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 
-from astro_analysis_sdk import project_dataset
+from astrology_graph_foundry import project_dataset
 from semantic_projection import ProjectionContext
 
 

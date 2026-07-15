@@ -4,9 +4,9 @@ import hashlib
 import json
 from pathlib import Path
 
-from astro_analysis_sdk.common.io import read_json
+from astrology_graph_foundry.common.io import read_json
 from semantic_projection.contracts import ProjectionContext
-from astro_analysis_sdk.projection_adapter import project_dataset, projection_materialization_view
+from astrology_graph_foundry.projection_adapter import project_dataset, projection_materialization_view
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = ROOT / "scripts" / "outputs" / "chunk27_projection_qa" / "determinism"

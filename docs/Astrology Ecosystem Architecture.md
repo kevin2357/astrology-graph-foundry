@@ -78,7 +78,7 @@ A full relationship report can consume natal A/B, synastry, composite, and Davis
 
 Potential future repo boundaries:
 
-- `astro-analysis-sdk`: canonical packages;
+- `astrology-graph-foundry`: canonical packages;
 - `astro-projection`: projection contexts, primitive mappings, target schemas;
 - `astro-report-blueprints`: report schemas and compilers;
 - `astro-publishing`: layout/PDF/web rendering;

@@ -6,8 +6,8 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
-from astro_analysis_sdk.common.temporal_activation import TemporalExportOptions
-from astro_analysis_sdk.temporal_projection_adapter import (
+from astrology_graph_foundry.common.temporal_activation import TemporalExportOptions
+from astrology_graph_foundry.temporal_projection_adapter import (
     build_temporal_projection_source_bundle,
 )
 
@@ -133,7 +133,7 @@ def test_temporal_projection_source_bundle_preserves_all_source_layers():
 def test_temporal_projection_source_bundle_schema_validates():
     result = build_temporal_projection_source_bundle(_package())
     schema_root = (
-        Path(__file__).parents[1] / "src" / "astro_analysis_sdk" / "schemas"
+        Path(__file__).parents[1] / "src" / "astrology_graph_foundry" / "schemas"
     )
     schema = json.loads(
         (schema_root / "temporal_projection_source_bundle_v1.schema.json").read_text(

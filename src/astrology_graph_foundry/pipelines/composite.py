@@ -6,16 +6,16 @@ from datetime import datetime, timezone
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from astro_analysis_sdk.common.aspects import all_aspects
-from astro_analysis_sdk.common.chart_graph import build_chart_graph
-from astro_analysis_sdk.common.transitable_chart import descriptor_for_package
-from astro_analysis_sdk.common.semantic_layers import finalize_package_semantic_boundary
-from astro_analysis_sdk.common.geometry import deg_to_sign, format_zodiac, house_for_lon, midpoint
-from astro_analysis_sdk.common.io import read_json
-from astro_analysis_sdk.common.themes import operator_hints, theme_tags
-from astro_analysis_sdk.ephemeris.models import BirthData, ProviderConfig
-from astro_analysis_sdk.ephemeris.providers import create_provider
-from astro_analysis_sdk.pipelines.natal import build as build_natal
+from astrology_graph_foundry.common.aspects import all_aspects
+from astrology_graph_foundry.common.chart_graph import build_chart_graph
+from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
+from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
+from astrology_graph_foundry.common.geometry import deg_to_sign, format_zodiac, house_for_lon, midpoint
+from astrology_graph_foundry.common.io import read_json
+from astrology_graph_foundry.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
+from astrology_graph_foundry.ephemeris.providers import create_provider
+from astrology_graph_foundry.pipelines.natal import build as build_natal
 
 SCHEMA_VERSION = "1.1.0"
 PIPELINE_VERSION = "composite_pipeline_v1.0.0"

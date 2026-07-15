@@ -18,7 +18,7 @@ def resolve_return_location(
 
     The policy is intentionally mandatory.  A caller must explicitly choose
     either the TransitableChart reference location or an explicit lived/event
-    location; the SDK does not silently choose between those interpretive
+    location; the Foundry does not silently choose between those interpretive
     policies.
     """
     if return_location_policy not in VALID_RETURN_LOCATION_POLICIES:

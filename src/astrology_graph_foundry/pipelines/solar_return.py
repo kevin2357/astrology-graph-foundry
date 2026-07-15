@@ -4,10 +4,10 @@ from datetime import datetime, timezone
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from astro_analysis_sdk.common.transitable_chart import from_package
-from astro_analysis_sdk.common.semantic_layers import finalize_package_semantic_boundary
-from astro_analysis_sdk.common.return_location import resolve_return_location
-from astro_analysis_sdk.pipelines.return_charts import cast_return_chart, find_longitude_return, require_swe
+from astrology_graph_foundry.common.transitable_chart import from_package
+from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
+from astrology_graph_foundry.common.return_location import resolve_return_location
+from astrology_graph_foundry.pipelines.return_charts import cast_return_chart, find_longitude_return, require_swe
 
 SCHEMA_VERSION = "2.0.0"
 PIPELINE_VERSION = "solar_return_pipeline_v2.0.0_transitable_chart"

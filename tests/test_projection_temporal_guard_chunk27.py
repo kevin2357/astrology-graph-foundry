@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from astro_analysis_sdk.projection_adapter import (
+from astrology_graph_foundry.projection_adapter import (
     TemporalProjectionNotImplementedError,
     project_dataset,
     reject_unsupported_temporal_projection,

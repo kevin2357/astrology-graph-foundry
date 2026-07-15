@@ -4,11 +4,11 @@ import logging
 from pathlib import Path
 from typing import Any, Iterable
 from zoneinfo import ZoneInfo
-from astro_analysis_sdk.common.aspects import all_aspects
-from astro_analysis_sdk.common.chart_graph import build_chart_graph
-from astro_analysis_sdk.common.graph_compiler import GraphCompiler
-from astro_analysis_sdk.common.io import load_global, load_person, write_jsonl
-from astro_analysis_sdk.common.transitable_chart import TransitableChart, from_package as transitable_chart_from_package
+from astrology_graph_foundry.common.aspects import all_aspects
+from astrology_graph_foundry.common.chart_graph import build_chart_graph
+from astrology_graph_foundry.common.graph_compiler import GraphCompiler
+from astrology_graph_foundry.common.io import load_global, load_person, write_jsonl
+from astrology_graph_foundry.common.transitable_chart import TransitableChart, from_package as transitable_chart_from_package
 from .live_natal import active_body_map, build_live_natal_chart, datetime_to_jd_ut, safe_planet_position
 from .models import BirthData, DailySnapshot, ProviderConfig
 
@@ -62,7 +62,7 @@ class LiveSwissEphemerisProvider(EphemerisProvider):
             logger.info("Computing live natal chart for %s", birth_data.name)
             self.dataset = {"metadata": {"analysis_type": "natal_dataset", "person": birth_data.name}, "person": {"person": birth_data.name, "birth_local": birth_data.birth_local, "birth_timezone": birth_data.birth_timezone, "birth_lat": birth_data.birth_lat, "birth_lon": birth_data.birth_lon, "birth_location_label": birth_data.birth_location_label}, "natal": build_live_natal_chart(birth_data, config)}
         elif target_dataset is not None:
-            from astro_analysis_sdk.common.io import read_json
+            from astrology_graph_foundry.common.io import read_json
             logger.info("Loading existing TransitableChart target package: %s", target_dataset if not isinstance(target_dataset, dict) else "<dict>")
             self.dataset = read_json(target_dataset) if not isinstance(target_dataset, dict) else target_dataset
         else:

@@ -3,10 +3,10 @@ from __future__ import annotations
 import argparse
 import logging
 
-from astro_analysis_sdk.common.io import write_json
-from astro_analysis_sdk.common.logging_config import configure_logging
-from astro_analysis_sdk.ephemeris.models import BirthData, ProviderConfig
-from astro_analysis_sdk.ephemeris.providers import LiveSwissEphemerisProvider
+from astrology_graph_foundry.common.io import write_json
+from astrology_graph_foundry.common.logging_config import configure_logging
+from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
+from astrology_graph_foundry.ephemeris.providers import LiveSwissEphemerisProvider
 
 logger = logging.getLogger(__name__)
 

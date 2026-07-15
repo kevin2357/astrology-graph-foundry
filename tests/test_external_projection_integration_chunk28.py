@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 import semantic_projection
-from astro_analysis_sdk import project_dataset
+from astrology_graph_foundry import project_dataset
 from semantic_projection import ProjectionContext
 
 
@@ -51,4 +51,4 @@ def test_foundry_uses_external_semantic_projection_package():
     assert len(result["relationships"]) == 1
     assert json.dumps(package, sort_keys=True) == before
     assert "semantic_projection" in Path(semantic_projection.__file__).parts
-    assert not (Path(__file__).parents[1] / "src" / "astro_analysis_sdk" / "projection").exists()
+    assert not (Path(__file__).parents[1] / "src" / "astrology_graph_foundry" / "projection").exists()

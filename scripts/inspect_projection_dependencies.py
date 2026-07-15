@@ -5,10 +5,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-PACKAGE = ROOT / "src" / "astro_analysis_sdk" / "projection"
+PACKAGE = ROOT / "src" / "astrology_graph_foundry" / "projection"
 FORBIDDEN_PREFIXES = (
-    "astro_analysis_sdk.pipelines",
-    "astro_analysis_sdk.ephemeris",
+    "astrology_graph_foundry.pipelines",
+    "astrology_graph_foundry.ephemeris",
     "swisseph",
     "pyswisseph",
 )

@@ -10,7 +10,7 @@ logging stay in one place.
 
 from typing import Any
 
-from astro_analysis_sdk.pipelines import transit_period
+from astrology_graph_foundry.pipelines import transit_period
 
 SCHEMA_VERSION = transit_period.SCHEMA_VERSION
 PIPELINE_VERSION = "transit_pipeline_v3_transitable_chart"

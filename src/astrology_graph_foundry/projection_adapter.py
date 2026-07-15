@@ -326,7 +326,7 @@ def default_projection_context(
     *,
     profile_id: str = "orthodox_astrology.v1",
 ) -> ProjectionContext:
-    """Build a conservative profile-aware context for a saved SDK package."""
+    """Build a conservative profile-aware context for a saved Foundry package."""
     metadata = package.get("metadata") or {}
     analysis_type = str(metadata.get("analysis_type") or "")
     is_relationship = any(
@@ -403,7 +403,7 @@ def project_dataset(
     options: ProjectionOptions | dict[str, Any] | None = None,
     registry: ProjectionProfileRegistry | None = None,
 ) -> dict[str, Any]:
-    """Project any saved SDK package exposing the canonical boundary.
+    """Project any saved Foundry package exposing the canonical boundary.
 
     This API performs no ephemeris or chart calculation. It consumes the
     package's existing canonical and structural graphs and optional registries.
@@ -419,7 +419,7 @@ def project_dataset(
     if not source_graph:
         raise ValueError(
             "Source dataset does not contain canonical_astrology_graph. "
-            "Use a full SDK package rather than an analysis/streaming view."
+            "Use a full Foundry package rather than an analysis/streaming view."
         )
 
     if context is None:
@@ -478,7 +478,7 @@ def projection_materialization_view(
     projected: dict[str, Any],
     mode: str,
 ) -> dict[str, Any]:
-    """SDK compatibility wrapper over generic materialization policy."""
+    """Foundry compatibility wrapper over generic materialization policy."""
     return materialize_projected_graph(projected, mode=mode)
 
 
@@ -528,7 +528,7 @@ def project_synastry_package(
 ) -> dict[str, Any]:
     """Project a saved Synastry package through the real orthodox profile.
 
-    This is an SDK adapter. The generic projection engine remains unaware of
+    This is a Foundry adapter. The generic projection engine remains unaware of
     Synastry package layout.
     """
     graph = package.get("canonical_astrology_graph") or {}

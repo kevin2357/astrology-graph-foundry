@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 
-from astro_analysis_sdk.projection_adapter import project_synastry_package
+from astrology_graph_foundry.projection_adapter import project_synastry_package
 
 
 package = {

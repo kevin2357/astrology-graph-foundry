@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from copy import deepcopy
 
-from astro_analysis_sdk.projection_adapter import (
+from astrology_graph_foundry.projection_adapter import (
     project_synastry_package,
     projected_analysis_rows,
 )

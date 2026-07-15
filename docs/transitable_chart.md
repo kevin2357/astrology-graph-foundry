@@ -56,7 +56,7 @@ Composite support is exposed by the interface in this release, while the first v
 The transit command now accepts `--target-dataset`; `--natal-dataset` is no longer part of the transit CLI.
 
 ```bat
-python -m astro_analysis_sdk.cli transit ^
+python -m astrology_graph_foundry.cli transit ^
   --provider live ^
   --target-dataset outputs\kevin_bre_test\kevin_bre_davison.json ^
   --start 2026-01-01 ^

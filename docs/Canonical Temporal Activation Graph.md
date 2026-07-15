@@ -13,7 +13,7 @@ canonical_temporal_activation_graph.v1
 Schema:
 
 ```text
-src/astro_analysis_sdk/schemas/canonical_temporal_activation_graph_v1.schema.json
+src/astrology_graph_foundry/schemas/canonical_temporal_activation_graph_v1.schema.json
 ```
 
 The contract is the Foundry-owned, projection-neutral representation of timing facts. It is designed for future consumption by Semantic Projection Core's reserved:
@@ -235,7 +235,7 @@ It is not yet an executable Core request.
 ## Python API
 
 ```python
-from astro_analysis_sdk import (
+from astrology_graph_foundry import (
     TemporalExportOptions,
     extract_canonical_temporal_activation_graph,
     build_temporal_projection_source_bundle,
@@ -304,3 +304,7 @@ Future enhancements include:
 - canonical multi-activation pattern primitives.
 
 These are source-contract improvements and remain separate from target-domain semantic projection.
+
+## 0.4.1 observation-join correction
+
+Full Transit daily rows do not normally materialize `candidate_id`. Exporters must reproduce the Transit pipeline's candidate identity algorithm or join by the normalized `(transiting body, aspect, target)` signature. A healthy arc-first export should ordinarily contain at least some multi-observation activations and should not emit `activation_arc_without_observations` for every arc.

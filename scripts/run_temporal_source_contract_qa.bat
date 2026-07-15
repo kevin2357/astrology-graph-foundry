@@ -13,13 +13,13 @@ if not exist "%SOURCE%" (
 if not exist "%OUT_DIR%" mkdir "%OUT_DIR%"
 
 echo [1/4] Export canonical temporal activation graph
-python -m astro_analysis_sdk.cli export-temporal-graph ^
+python -m astrology_graph_foundry.cli export-temporal-graph ^
   --source-dataset "%SOURCE%" ^
   --out "%OUT_DIR%\kevin_2026-01_canonical_temporal.json"
 if errorlevel 1 exit /b 1
 
 echo [2/4] Export temporal projection source bundle
-python -m astro_analysis_sdk.cli export-temporal-projection-source ^
+python -m astrology_graph_foundry.cli export-temporal-projection-source ^
   --source-dataset "%SOURCE%" ^
   --out "%OUT_DIR%\kevin_2026-01_temporal_projection_source.json"
 if errorlevel 1 exit /b 1

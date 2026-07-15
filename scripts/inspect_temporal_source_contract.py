@@ -24,7 +24,7 @@ def _compact_hash(value: Any) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("artifact")
-    parser.add_argument("--schema-root", default="src/astro_analysis_sdk/schemas")
+    parser.add_argument("--schema-root", default="src/astrology_graph_foundry/schemas")
     parser.add_argument("--out")
     args = parser.parse_args()
 
@@ -62,6 +62,34 @@ def main() -> None:
         else data.get("temporal_source_graph") or {}
     )
     activations = temporal.get("activations") or []
+    single_observation_count = sum(
+        1 for row in activations if int(row.get("observation_count") or 0) == 1
+    )
+    warning_count = int((temporal.get("summary") or {}).get("warning_count") or 0)
+    normalization_diagnostics: list[dict[str, Any]] = []
+    if activations and single_observation_count == len(activations):
+        normalization_diagnostics.append(
+            {
+                "severity": "error",
+                "code": "temporal_normalization_degenerated_to_single_observation_events",
+                "message": (
+                    "Every activation contains exactly one observation state; "
+                    "the source observation series may not have joined to arc rows."
+                ),
+            }
+        )
+    if activations and warning_count == len(activations):
+        normalization_diagnostics.append(
+            {
+                "severity": "error",
+                "code": "every_activation_uses_arc_summary_fallback",
+                "message": (
+                    "Every activation emitted an observation-join warning; inspect "
+                    "candidate identity and source-shape normalization."
+                ),
+            }
+        )
+
     result = {
         "artifact": str(artifact_path),
         "package_type": package_type,
@@ -96,6 +124,12 @@ def main() -> None:
             if row.get("exact_at")
             and (row.get("exactness") or {}).get("status") != "sampled_exact"
         ],
+        "normalization_health": {
+            "single_observation_activation_count": single_observation_count,
+            "multi_observation_activation_count": len(activations) - single_observation_count,
+            "warning_count": warning_count,
+            "diagnostics": normalization_diagnostics,
+        },
     }
     rendered = json.dumps(result, indent=2, sort_keys=True)
     if args.out:

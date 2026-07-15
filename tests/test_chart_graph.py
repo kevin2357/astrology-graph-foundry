@@ -1,4 +1,4 @@
-from astro_analysis_sdk.common.chart_graph import build_chart_graph
+from astrology_graph_foundry.common.chart_graph import build_chart_graph
 
 
 def test_chart_graph_includes_lots_as_transit_targets():

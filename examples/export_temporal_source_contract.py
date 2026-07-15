@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from astro_analysis_sdk import (
+from astrology_graph_foundry import (
     build_temporal_projection_source_bundle,
     extract_canonical_temporal_activation_graph,
 )

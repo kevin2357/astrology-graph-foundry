@@ -1,5 +1,5 @@
-from astro_analysis_sdk.common.chart_graph import normalize_relationship_list
-from astro_analysis_sdk.common.transitable_chart import descriptor_for_package, from_package
+from astrology_graph_foundry.common.chart_graph import normalize_relationship_list
+from astrology_graph_foundry.common.transitable_chart import descriptor_for_package, from_package
 
 
 def _chart(label="Chart"):

@@ -1,10 +1,10 @@
 import json
 from pathlib import Path
 
-from astro_analysis_sdk.pipelines import annual_profections
+from astrology_graph_foundry.pipelines import annual_profections
 
 
-SCHEMA_DIR = Path(__file__).parents[1] / "src" / "astro_analysis_sdk" / "schemas"
+SCHEMA_DIR = Path(__file__).parents[1] / "src" / "astrology_graph_foundry" / "schemas"
 
 
 def _target(chart_type="natal"):

@@ -18,7 +18,7 @@ from copy import deepcopy
 from hashlib import sha1
 from typing import Any
 
-from astro_analysis_sdk.common.themes import theme_tags
+from astrology_graph_foundry.common.themes import theme_tags
 
 CANONICAL_GRAPH_VERSION = "1.3.0"
 STRUCTURAL_EVIDENCE_VERSION = "1.3.0"

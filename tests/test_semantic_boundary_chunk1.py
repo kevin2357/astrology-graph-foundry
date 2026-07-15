@@ -1,14 +1,14 @@
 import json
 from pathlib import Path
 
-from astro_analysis_sdk.common.semantic_layers import (
+from astrology_graph_foundry.common.semantic_layers import (
     ORTHODOX_PROFILE_ID,
     finalize_package_semantic_boundary,
     structural_strength_score,
 )
 
 
-SCHEMA_DIR = Path(__file__).parents[1] / "src" / "astro_analysis_sdk" / "schemas"
+SCHEMA_DIR = Path(__file__).parents[1] / "src" / "astrology_graph_foundry" / "schemas"
 
 
 def sample_graph():
@@ -461,7 +461,7 @@ def test_chunk14_final_materialization_is_idempotent():
     assert "report_materials" not in second
 
 def test_chunk15_orthodox_row_adapter_keeps_canonical_clean():
-    from astro_analysis_sdk.common.semantic_layers import orthodox_row_annotation
+    from astrology_graph_foundry.common.semantic_layers import orthodox_row_annotation
     row = {
         "id": "rel:1",
         "source_name": "Mars",
@@ -476,7 +476,7 @@ def test_chunk15_orthodox_row_adapter_keeps_canonical_clean():
 
 
 def test_chunk15_analysis_view_omits_full_projection_view():
-    from astro_analysis_sdk.pipelines.natal import analysis_view
+    from astrology_graph_foundry.pipelines.natal import analysis_view
     package = finalize_package_semantic_boundary({
         "metadata": {"analysis_type": "natal_dataset", "person": "Example"},
         "person": "Example",

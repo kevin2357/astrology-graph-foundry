@@ -4,12 +4,12 @@ import logging
 from datetime import datetime
 from typing import Any
 
-from astro_analysis_sdk.common.themes import operator_hints, theme_tags
-from astro_analysis_sdk.common.chart_graph import build_chart_graph
-from astro_analysis_sdk.ephemeris.models import BirthData, ProviderConfig
-from astro_analysis_sdk.ephemeris.providers import create_provider
-from astro_analysis_sdk.common.transitable_chart import descriptor_for_package
-from astro_analysis_sdk.common.semantic_layers import (
+from astrology_graph_foundry.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.common.chart_graph import build_chart_graph
+from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
+from astrology_graph_foundry.ephemeris.providers import create_provider
+from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
+from astrology_graph_foundry.common.semantic_layers import (
     canonical_graph_from_package,
     finalize_package_semantic_boundary,
     finalize_view_semantic_boundary,

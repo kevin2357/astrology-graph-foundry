@@ -1,4 +1,4 @@
-from astro_analysis_sdk.common.transitable_chart import descriptor_for_package, from_package
+from astrology_graph_foundry.common.transitable_chart import descriptor_for_package, from_package
 
 
 def chart(label="Chart"):

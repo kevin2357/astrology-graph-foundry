@@ -4,18 +4,18 @@ import argparse
 import logging
 from pathlib import Path
 
-from astro_analysis_sdk.common.io import read_json, write_json
-from astro_analysis_sdk.common.logging_config import configure_logging
-from astro_analysis_sdk.common.temporal_activation import (
+from astrology_graph_foundry.common.io import read_json, write_json
+from astrology_graph_foundry.common.logging_config import configure_logging
+from astrology_graph_foundry.common.temporal_activation import (
     TemporalExportOptions,
     TemporalSourceContractError,
     extract_canonical_temporal_activation_graph,
 )
-from astro_analysis_sdk.ephemeris.generate_daily_ephemeris import build_ephemeris_objects
-from astro_analysis_sdk.ephemeris.models import BirthData
-from astro_analysis_sdk.pipelines import annual_profections, composite, davison, eclipse_lunation, lunar_return, natal, progressed, solar_arc, solar_return, synastry, timeline, transit
-from astro_analysis_sdk.temporal_projection_adapter import build_temporal_projection_source_bundle
-from astro_analysis_sdk.projection_adapter import (
+from astrology_graph_foundry.ephemeris.generate_daily_ephemeris import build_ephemeris_objects
+from astrology_graph_foundry.ephemeris.models import BirthData
+from astrology_graph_foundry.pipelines import annual_profections, composite, davison, eclipse_lunation, lunar_return, natal, progressed, solar_arc, solar_return, synastry, timeline, transit
+from astrology_graph_foundry.temporal_projection_adapter import build_temporal_projection_source_bundle
+from astrology_graph_foundry.projection_adapter import (
     enforce_unmapped_threshold,
     project_dataset,
     projection_materialization_view,
@@ -245,7 +245,7 @@ def main() -> None:
 
     p = sub.add_parser(
         "project",
-        help="Project an existing full SDK dataset without recalculating astrology.",
+        help="Project an existing full Foundry dataset without recalculating astrology.",
     )
     p.add_argument("--source-dataset", required=True)
     p.add_argument(

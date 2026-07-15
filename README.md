@@ -105,7 +105,7 @@ python -m pip install -e ..\semantic-projection-core
 The Python import package remains:
 
 ```python
-astro_analysis_sdk
+astrology_graph_foundry
 ```
 
 ## CLI
@@ -119,7 +119,7 @@ astro-package --help
 Legacy module invocation remains available:
 
 ```bat
-python -m astro_analysis_sdk.cli --help
+python -m astrology_graph_foundry.cli --help
 ```
 
 ## Documentation
@@ -127,7 +127,7 @@ python -m astro_analysis_sdk.cli --help
 Start with:
 
 - `docs/architecture.md`
-- `docs/SDK Developer Manual.md`
+- `docs/Astrology Graph Foundry Developer Manual.md`
 - `docs/package_types.md`
 - `docs/timing_pipelines.md`
 - `docs/Pre-Projection Semantic Boundary.md`

@@ -13,7 +13,7 @@ The bundle intentionally contains no target-domain projected meanings.
 from hashlib import sha256
 from typing import Any
 
-from astro_analysis_sdk.common.temporal_activation import (
+from astrology_graph_foundry.common.temporal_activation import (
     TemporalExportOptions,
     extract_canonical_temporal_activation_graph,
 )

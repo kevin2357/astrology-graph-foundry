@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "astrology-graph-foundry"
-version = "0.4.0"
+version = "0.4.1"
 description = "Ephemeris-backed canonical astrology graph and structural-evidence package foundry."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,14 +16,14 @@ dev = ["pytest>=8", "jsonschema>=4", "ruff>=0.5"]
 full = ["pyswisseph>=2.10", "pytest>=8", "jsonschema>=4", "ruff>=0.5"]
 
 [project.scripts]
-astro-package = "astro_analysis_sdk.cli:main"
-generate-daily-ephemeris = "astro_analysis_sdk.ephemeris.generate_daily_ephemeris:main"
+astro-package = "astrology_graph_foundry.cli:main"
+generate-daily-ephemeris = "astrology_graph_foundry.ephemeris.generate_daily_ephemeris:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-astro_analysis_sdk = ["schemas/*.json"]
+astrology_graph_foundry = ["schemas/*.json"]
 
 [tool.ruff]
 line-length = 140

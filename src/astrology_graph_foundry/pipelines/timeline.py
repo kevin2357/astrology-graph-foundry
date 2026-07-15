@@ -1,9 +1,9 @@
 from __future__ import annotations
 import logging
 from datetime import datetime
-from astro_analysis_sdk.ephemeris.models import ProviderConfig
-from astro_analysis_sdk.ephemeris.providers import create_provider
-from astro_analysis_sdk.pipelines.transit_period import build_from_provider
+from astrology_graph_foundry.ephemeris.models import ProviderConfig
+from astrology_graph_foundry.ephemeris.providers import create_provider
+from astrology_graph_foundry.pipelines.transit_period import build_from_provider
 
 logger = logging.getLogger(__name__)
 def build(*, person_a_provider: str="cached", person_a_jsonl: str | None=None, person_a_natal_dataset: str | None=None, person_b_provider: str | None=None, person_b_jsonl: str | None=None, person_b_natal_dataset: str | None=None, start: str, end: str, snapshot_timezone: str="America/Denver", snapshot_time: str="12:00", ephe_path: str="."):

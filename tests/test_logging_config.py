@@ -1,4 +1,4 @@
-from astro_analysis_sdk.common.logging_config import configure_logging
+from astrology_graph_foundry.common.logging_config import configure_logging
 
 
 def test_configure_logging_fallback(tmp_path, monkeypatch):

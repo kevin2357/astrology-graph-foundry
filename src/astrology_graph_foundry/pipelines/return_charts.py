@@ -4,11 +4,11 @@ from datetime import datetime, timedelta
 from typing import Any, Callable
 from zoneinfo import ZoneInfo
 
-from astro_analysis_sdk.common.geometry import angular_distance, normalize
-from astro_analysis_sdk.ephemeris.live_natal import datetime_to_jd_ut, planet_position, build_live_natal_chart
-from astro_analysis_sdk.ephemeris.models import BirthData, ProviderConfig
-from astro_analysis_sdk.pipelines.natal import build as build_natal
-from astro_analysis_sdk.common.chart_graph import build_chart_graph
+from astrology_graph_foundry.common.geometry import angular_distance, normalize
+from astrology_graph_foundry.ephemeris.live_natal import datetime_to_jd_ut, planet_position, build_live_natal_chart
+from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
+from astrology_graph_foundry.pipelines.natal import build as build_natal
+from astrology_graph_foundry.common.chart_graph import build_chart_graph
 
 
 def require_swe(ephe_path: str):

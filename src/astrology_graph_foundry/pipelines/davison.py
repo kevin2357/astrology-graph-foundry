@@ -4,10 +4,10 @@ from datetime import datetime, timezone
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from astro_analysis_sdk.common.io import read_json
-from astro_analysis_sdk.pipelines.natal import build as build_natal
-from astro_analysis_sdk.common.transitable_chart import descriptor_for_package
-from astro_analysis_sdk.common.semantic_layers import finalize_package_semantic_boundary
+from astrology_graph_foundry.common.io import read_json
+from astrology_graph_foundry.pipelines.natal import build as build_natal
+from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
+from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
 
 SCHEMA_VERSION = "1.0.0"
 PIPELINE_VERSION = "davison_pipeline_v1.0.0"

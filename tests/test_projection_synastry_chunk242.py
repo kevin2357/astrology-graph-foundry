@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from astro_analysis_sdk.projection_adapter import (
+from astrology_graph_foundry.projection_adapter import (
     canonical_subset_for_relationship_ids,
     select_projection_representative_rows,
     summarize_unmapped_families,

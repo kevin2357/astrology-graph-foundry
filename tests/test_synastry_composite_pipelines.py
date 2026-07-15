@@ -1,4 +1,4 @@
-from astro_analysis_sdk.pipelines import composite, synastry
+from astrology_graph_foundry.pipelines import composite, synastry
 
 
 def natal(name, sun, moon, asc):

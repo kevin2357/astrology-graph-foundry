@@ -10,8 +10,8 @@ transit engine without pretending every chart is natal.
 from dataclasses import dataclass
 from typing import Any, Protocol, runtime_checkable
 
-from astro_analysis_sdk.common.chart_graph import build_chart_graph
-from astro_analysis_sdk.common.io import read_json
+from astrology_graph_foundry.common.chart_graph import build_chart_graph
+from astrology_graph_foundry.common.io import read_json
 
 TRANSITABLE_CHART_VERSION = "transitable_chart_v1.0.0"
 

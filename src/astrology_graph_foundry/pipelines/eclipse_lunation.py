@@ -4,14 +4,14 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from astro_analysis_sdk.common.aspects import find_aspect
-from astro_analysis_sdk.common.geometry import angular_distance, format_zodiac, normalize
-from astro_analysis_sdk.common.graph_compiler import GraphCompiler
-from astro_analysis_sdk.common.themes import theme_tags
-from astro_analysis_sdk.common.transitable_chart import from_package
-from astro_analysis_sdk.common.semantic_layers import finalize_package_semantic_boundary
-from astro_analysis_sdk.ephemeris.live_natal import datetime_to_jd_ut, planet_position
-from astro_analysis_sdk.pipelines.return_charts import require_swe
+from astrology_graph_foundry.common.aspects import find_aspect
+from astrology_graph_foundry.common.geometry import angular_distance, format_zodiac, normalize
+from astrology_graph_foundry.common.graph_compiler import GraphCompiler
+from astrology_graph_foundry.common.themes import theme_tags
+from astrology_graph_foundry.common.transitable_chart import from_package
+from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
+from astrology_graph_foundry.ephemeris.live_natal import datetime_to_jd_ut, planet_position
+from astrology_graph_foundry.pipelines.return_charts import require_swe
 
 SCHEMA_VERSION = "2.0.0"
 PIPELINE_VERSION = "eclipse_lunation_pipeline_v2.0.0_transitable_chart"

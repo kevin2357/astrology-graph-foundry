@@ -1,8 +1,8 @@
 import pytest
 
-from astro_analysis_sdk.common.return_location import resolve_return_location
-from astro_analysis_sdk.common.transitable_chart import from_package
-from astro_analysis_sdk.pipelines import annual_profections
+from astrology_graph_foundry.common.return_location import resolve_return_location
+from astrology_graph_foundry.common.transitable_chart import from_package
+from astrology_graph_foundry.pipelines import annual_profections
 
 
 def _natal_package():

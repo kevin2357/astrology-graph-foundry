@@ -5,9 +5,9 @@ from collections import defaultdict
 from datetime import datetime
 from typing import Any
 
-from astro_analysis_sdk.common.graph_compiler import GraphCompiler
-from astro_analysis_sdk.common.themes import operator_hints, theme_tags
-from astro_analysis_sdk.common.semantic_layers import (
+from astrology_graph_foundry.common.graph_compiler import GraphCompiler
+from astrology_graph_foundry.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.common.semantic_layers import (
     canonical_graph_from_package,
     finalize_package_semantic_boundary,
     finalize_view_semantic_boundary,
@@ -16,8 +16,8 @@ from astro_analysis_sdk.common.semantic_layers import (
     orthodox_report_materials_from_package,
     orthodox_row_annotation,
 )
-from astro_analysis_sdk.ephemeris.models import ProviderConfig
-from astro_analysis_sdk.ephemeris.providers import EphemerisProvider, create_provider
+from astrology_graph_foundry.ephemeris.models import ProviderConfig
+from astrology_graph_foundry.ephemeris.providers import EphemerisProvider, create_provider
 
 SCHEMA_VERSION = "2.0.0"
 PIPELINE_VERSION = "transit_period_pipeline_v2.0.0_transitable_chart"

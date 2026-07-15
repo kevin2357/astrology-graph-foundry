@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from astro_analysis_sdk import (
+from astrology_graph_foundry import (
     enforce_unmapped_threshold,
     project_dataset,
     projection_summary_view,
@@ -114,7 +114,7 @@ def test_cli_projects_saved_dataset_and_writes_summary(tmp_path: Path):
         [
             sys.executable,
             "-m",
-            "astro_analysis_sdk.cli",
+            "astrology_graph_foundry.cli",
             "project",
             "--source-dataset",
             str(source),
@@ -144,7 +144,7 @@ def test_cli_unknown_profile_errors_clearly(tmp_path: Path):
         [
             sys.executable,
             "-m",
-            "astro_analysis_sdk.cli",
+            "astrology_graph_foundry.cli",
             "project",
             "--source-dataset",
             str(source),
@@ -172,7 +172,7 @@ def test_cli_invalid_context_errors_clearly(tmp_path: Path):
         [
             sys.executable,
             "-m",
-            "astro_analysis_sdk.cli",
+            "astrology_graph_foundry.cli",
             "project",
             "--source-dataset",
             str(source),

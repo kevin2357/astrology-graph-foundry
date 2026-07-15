@@ -1,4 +1,4 @@
-from astro_analysis_sdk.pipelines import annual_profections, progressed, solar_arc, transit
+from astrology_graph_foundry.pipelines import annual_profections, progressed, solar_arc, transit
 
 
 def sample_natal():

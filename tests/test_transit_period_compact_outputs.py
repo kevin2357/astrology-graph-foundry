@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 
-from astro_analysis_sdk.pipelines import transit_period
+from astrology_graph_foundry.pipelines import transit_period
 
 
 def sample_natal():

@@ -4,10 +4,10 @@ import hashlib
 import logging
 from typing import Any
 
-from astro_analysis_sdk.common.aspects import find_aspect, relevance_score
-from astro_analysis_sdk.common.geometry import deg_to_sign, format_zodiac, normalize, house_for_lon
-from astro_analysis_sdk.common.io import clean_body_name
-from astro_analysis_sdk.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.common.aspects import find_aspect, relevance_score
+from astrology_graph_foundry.common.geometry import deg_to_sign, format_zodiac, normalize, house_for_lon
+from astrology_graph_foundry.common.io import clean_body_name
+from astrology_graph_foundry.common.themes import operator_hints, theme_tags
 
 GRAPH_SCHEMA_VERSION = "1.2.0"
 

@@ -5,12 +5,12 @@ from collections import defaultdict
 from datetime import datetime
 from typing import Any
 
-from astro_analysis_sdk.common.aspects import find_aspect, relevance_score
-from astro_analysis_sdk.common.chart_graph import build_chart_graph, normalize_relationship_types
-from astro_analysis_sdk.common.geometry import house_for_lon
-from astro_analysis_sdk.common.graph_compiler import GraphCompiler, TransitTarget
-from astro_analysis_sdk.common.themes import operator_hints, theme_tags
-from astro_analysis_sdk.projection_adapter import (
+from astrology_graph_foundry.common.aspects import find_aspect, relevance_score
+from astrology_graph_foundry.common.chart_graph import build_chart_graph, normalize_relationship_types
+from astrology_graph_foundry.common.geometry import house_for_lon
+from astrology_graph_foundry.common.graph_compiler import GraphCompiler, TransitTarget
+from astrology_graph_foundry.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.projection_adapter import (
     canonical_subset_for_relationship_ids,
     project_synastry_package,
     projected_analysis_rows,
@@ -19,7 +19,7 @@ from astro_analysis_sdk.projection_adapter import (
     summarize_unmapped_families,
 )
 
-from astro_analysis_sdk.common.semantic_layers import (
+from astrology_graph_foundry.common.semantic_layers import (
     canonical_graph_from_package,
     finalize_package_semantic_boundary,
     finalize_view_semantic_boundary,
@@ -28,8 +28,8 @@ from astro_analysis_sdk.common.semantic_layers import (
     orthodox_report_materials_from_package,
     orthodox_row_annotation,
 )
-from astro_analysis_sdk.pipelines.composite import build_from_datasets as build_composite_from_datasets
-from astro_analysis_sdk.pipelines.composite import resolve_pair_inputs
+from astrology_graph_foundry.pipelines.composite import build_from_datasets as build_composite_from_datasets
+from astrology_graph_foundry.pipelines.composite import resolve_pair_inputs
 
 SCHEMA_VERSION = "1.2.0"
 PIPELINE_VERSION = "synastry_pipeline_v1.1.0"

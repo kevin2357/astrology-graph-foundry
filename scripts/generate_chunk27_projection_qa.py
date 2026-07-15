@@ -6,9 +6,9 @@ from pathlib import Path
 from time import perf_counter
 from typing import Any
 
-from astro_analysis_sdk.common.io import read_json
+from astrology_graph_foundry.common.io import read_json
 from semantic_projection.contracts import ProjectionContext
-from astro_analysis_sdk.projection_adapter import (
+from astrology_graph_foundry.projection_adapter import (
     project_dataset,
     projection_materialization_view,
 )

@@ -1,7 +1,7 @@
 from __future__ import annotations
 from datetime import datetime
-from astro_analysis_sdk.common.chart_graph import build_chart_graph
-from astro_analysis_sdk.common.io import read_json
+from astrology_graph_foundry.common.chart_graph import build_chart_graph
+from astrology_graph_foundry.common.io import read_json
 
 
 def build(*, natal_dataset: str | None = None, natal: dict | None = None, **kwargs):

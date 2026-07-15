@@ -18,7 +18,7 @@ _DEFAULT_CONFIG = {
             "class": "logging.FileHandler",
             "level": "DEBUG",
             "formatter": "standard",
-            "filename": "astrology_analysis_sdk.log",
+            "filename": "astrology_graph_foundry.log",
             "mode": "a",
             "encoding": "utf-8",
         },
@@ -37,11 +37,11 @@ def _candidate_config_paths(explicit_path: str | Path | None = None) -> list[Pat
     paths: list[Path] = []
     if explicit_path:
         paths.append(Path(explicit_path))
-    env_path = os.environ.get("ASTRO_SDK_LOG_CONFIG")
+    env_path = os.environ.get("ASTROLOGY_FOUNDRY_LOG_CONFIG")
     if env_path:
         paths.append(Path(env_path))
     paths.append(Path.cwd() / "logging.json")
-    # package root when running from an editable src layout: src/astro_analysis_sdk/common -> repo root is parents[3]
+    # package root when running from an editable src layout: src/astrology_graph_foundry/common -> repo root is parents[3]
     try:
         paths.append(Path(__file__).resolve().parents[3] / "logging.json")
     except IndexError:
@@ -49,12 +49,12 @@ def _candidate_config_paths(explicit_path: str | Path | None = None) -> list[Pat
     return paths
 
 
-def configure_logging(config_path: str | Path | None = None, *, default_log_file: str = "astrology_analysis_sdk.log") -> Path | None:
-    """Configure SDK logging once.
+def configure_logging(config_path: str | Path | None = None, *, default_log_file: str = "astrology_graph_foundry.log") -> Path | None:
+    """Configure Astrology Graph Foundry logging once.
 
     Search order:
     1. explicit `config_path`
-    2. `ASTRO_SDK_LOG_CONFIG`
+    2. `ASTROLOGY_FOUNDRY_LOG_CONFIG`
     3. `./logging.json`
     4. repository/package-root `logging.json`
 

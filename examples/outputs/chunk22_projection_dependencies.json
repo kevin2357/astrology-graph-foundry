@@ -3,7 +3,7 @@
   "forbidden_import_count": 0,
   "forbidden_imports": [],
   "imports": {
-    "src/astro_analysis_sdk/projection/__init__.py": [
+    "src/astrology_graph_foundry/projection/__init__.py": [
       "contracts",
       "engine",
       "ids",
@@ -11,23 +11,23 @@
       "registry",
       "validation"
     ],
-    "src/astro_analysis_sdk/projection/audit.py": [
+    "src/astrology_graph_foundry/projection/audit.py": [
       "__future__",
       "contracts",
       "ids",
       "typing"
     ],
-    "src/astro_analysis_sdk/projection/contracts.py": [
+    "src/astrology_graph_foundry/projection/contracts.py": [
       "__future__",
       "dataclasses",
       "typing"
     ],
-    "src/astro_analysis_sdk/projection/diagnostics.py": [
+    "src/astrology_graph_foundry/projection/diagnostics.py": [
       "__future__",
       "contracts",
       "typing"
     ],
-    "src/astro_analysis_sdk/projection/engine.py": [
+    "src/astrology_graph_foundry/projection/engine.py": [
       "__future__",
       "contracts",
       "copy",
@@ -39,37 +39,37 @@
       "typing",
       "validation"
     ],
-    "src/astro_analysis_sdk/projection/ids.py": [
+    "src/astrology_graph_foundry/projection/ids.py": [
       "__future__",
       "hashlib",
       "json",
       "typing"
     ],
-    "src/astro_analysis_sdk/projection/io.py": [
+    "src/astrology_graph_foundry/projection/io.py": [
       "__future__",
       "json",
       "pathlib",
       "typing"
     ],
-    "src/astro_analysis_sdk/projection/profile.py": [
+    "src/astrology_graph_foundry/projection/profile.py": [
       "__future__",
       "contracts",
       "typing"
     ],
-    "src/astro_analysis_sdk/projection/profiles/__init__.py": [],
-    "src/astro_analysis_sdk/projection/profiles/demo.py": [
+    "src/astrology_graph_foundry/projection/profiles/__init__.py": [],
+    "src/astrology_graph_foundry/projection/profiles/demo.py": [
       "__future__",
       "contracts",
       "typing"
     ],
-    "src/astro_analysis_sdk/projection/registry.py": [
+    "src/astrology_graph_foundry/projection/registry.py": [
       "__future__",
       "importlib",
       "profile",
       "typing"
     ],
-    "src/astro_analysis_sdk/projection/schemas/__init__.py": [],
-    "src/astro_analysis_sdk/projection/validation.py": [
+    "src/astrology_graph_foundry/projection/schemas/__init__.py": [],
+    "src/astrology_graph_foundry/projection/validation.py": [
       "__future__",
       "importlib.resources",
       "json",

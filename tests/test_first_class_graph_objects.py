@@ -1,4 +1,4 @@
-from astro_analysis_sdk.common.chart_graph import (
+from astrology_graph_foundry.common.chart_graph import (
     REL_HAS_DIGNITY,
     REL_HAS_HARMONIC_POINT,
     REL_TRANSIT_ACTIVATION,

@@ -4,16 +4,16 @@ import logging
 from dataclasses import dataclass
 from typing import Any
 
-from astro_analysis_sdk.common.aspects import find_aspect, relevance_score
-from astro_analysis_sdk.common.chart_graph import (
+from astrology_graph_foundry.common.aspects import find_aspect, relevance_score
+from astrology_graph_foundry.common.chart_graph import (
     REL_TRANSIT_ACTIVATION,
     build_chart_graph,
     normalize_relationship_types,
     relationship_summaries_for_object,
     transit_targets_from_graph,
 )
-from astro_analysis_sdk.common.geometry import house_for_lon
-from astro_analysis_sdk.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.common.geometry import house_for_lon
+from astrology_graph_foundry.common.themes import operator_hints, theme_tags
 
 logger = logging.getLogger(__name__)
 

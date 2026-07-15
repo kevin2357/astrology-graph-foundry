@@ -3,9 +3,9 @@ import logging
 from datetime import datetime
 from typing import Any
 from zoneinfo import ZoneInfo
-from astro_analysis_sdk.common.aspects import all_aspects
-from astro_analysis_sdk.common.constants import SIGN_RULERS_MODERN, SIGN_RULERS_TRADITIONAL
-from astro_analysis_sdk.common.geometry import decimal_to_dms, format_zodiac, house_for_lon, normalize, deg_to_sign
+from astrology_graph_foundry.common.aspects import all_aspects
+from astrology_graph_foundry.common.constants import SIGN_RULERS_MODERN, SIGN_RULERS_TRADITIONAL
+from astrology_graph_foundry.common.geometry import decimal_to_dms, format_zodiac, house_for_lon, normalize, deg_to_sign
 from .models import BirthData, ProviderConfig
 
 logger = logging.getLogger(__name__)
@@ -95,7 +95,7 @@ def house_rulers(cusps: list[float], modern: bool = False) -> dict[int, dict[str
     return out
 
 def dignity_for(body: str, sign: str, day_birth: bool) -> dict[str, Any]:
-    from astro_analysis_sdk.common.constants import SIGNS
+    from astrology_graph_foundry.common.constants import SIGNS
     opposite = SIGNS[(SIGNS.index(sign) + 6) % 12]
     elem = ELEMENTS.get(sign)
     trip = TRIPLICITIES.get(elem, {})

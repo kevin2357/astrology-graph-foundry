@@ -11,7 +11,7 @@
       "class": "logging.FileHandler",
       "level": "DEBUG",
       "formatter": "standard",
-      "filename": "astrology_analysis_sdk.log",
+      "filename": "astrology_graph_foundry.log",
       "mode": "a",
       "encoding": "utf-8"
     },

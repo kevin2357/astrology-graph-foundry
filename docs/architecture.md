@@ -230,7 +230,7 @@ canonical source row
 
 ## Chunk 2.1 projection-contract boundary
 
-The repository now contains an extraction-ready `astro_analysis_sdk.projection` package. Its contracts accept canonical and structural plain-data inputs and have no dependency on chart pipelines or ephemeris providers. Projection semantics and engine execution remain downstream work.
+The repository now contains an extraction-ready `astrology_graph_foundry.projection` package. Its contracts accept canonical and structural plain-data inputs and have no dependency on chart pipelines or ephemeris providers. Projection semantics and engine execution remain downstream work.
 
 ## Chunk 2.2 executable projection boundary
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from astro_analysis_sdk.projection_adapter import (
+from astrology_graph_foundry.projection_adapter import (
     projection_coverage_for_rows,
     select_projection_representative_rows,
     summarize_unmapped_families,

@@ -11,7 +11,7 @@ Both pipelines accept two standard natal packages as their preferred input. They
 The synastry command now follows the same default-output pattern as `transit`.
 
 ```bat
-python -m astro_analysis_sdk.cli synastry ^
+python -m astrology_graph_foundry.cli synastry ^
   --person-a-natal-dataset kevin_natal_dataset.json ^
   --person-b-natal-dataset bre_natal_dataset.json ^
   --out kevin_bre_synastry_dataset.json
@@ -25,7 +25,7 @@ By default this writes two compact views:
 The full research matrix is opt-in:
 
 ```bat
-python -m astro_analysis_sdk.cli synastry ^
+python -m astrology_graph_foundry.cli synastry ^
   --person-a-natal-dataset kevin_natal_dataset.json ^
   --person-b-natal-dataset bre_natal_dataset.json ^
   --out-full kevin_bre_synastry_dataset.full.json
@@ -34,7 +34,7 @@ python -m astro_analysis_sdk.cli synastry ^
 You can also explicitly request individual views:
 
 ```bat
-python -m astro_analysis_sdk.cli synastry ^
+python -m astrology_graph_foundry.cli synastry ^
   --person-a-natal-dataset kevin_natal_dataset.json ^
   --person-b-natal-dataset bre_natal_dataset.json ^
   --out-analysis kevin_bre.analysis.json ^

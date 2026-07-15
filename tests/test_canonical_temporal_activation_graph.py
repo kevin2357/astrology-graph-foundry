@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
-from astro_analysis_sdk.common.temporal_activation import (
+from astrology_graph_foundry.common.temporal_activation import (
     TemporalExportOptions,
     TemporalSourceContractError,
     extract_canonical_temporal_activation_graph,
@@ -147,6 +147,26 @@ def test_full_transit_export_is_arc_first_directional_and_deterministic():
     ]
 
 
+
+def test_full_transit_daily_candidates_without_materialized_candidate_ids_join_arc_rows():
+    package = _package()
+    for day in package["daily_windows"]:
+        day["candidates"][0].pop("candidate_id", None)
+
+    result = extract_canonical_temporal_activation_graph(package)
+
+    assert result["summary"]["activation_count"] == 2
+    assert result["summary"]["observation_state_count"] == 7
+    assert result["summary"]["warning_count"] == 0
+    assert all(
+        activation["provenance"]["observation_join_policy"]
+        == "candidate_id_exact"
+        for activation in result["activations"]
+    )
+    assert [
+        activation["observation_count"] for activation in result["activations"]
+    ] == [4, 3]
+
 def test_analysis_view_is_rejected_as_incomplete_source_contract():
     package = {
         "view_type": "analysis",
@@ -158,7 +178,7 @@ def test_analysis_view_is_rejected_as_incomplete_source_contract():
 
 
 def test_schema_validates_exported_fixture():
-    root = Path(__file__).parents[1] / "src" / "astro_analysis_sdk" / "schemas"
+    root = Path(__file__).parents[1] / "src" / "astrology_graph_foundry" / "schemas"
     schema = json.loads(
         (root / "canonical_temporal_activation_graph_v1.schema.json").read_text(
             encoding="utf-8"
