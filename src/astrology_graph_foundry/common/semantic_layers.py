@@ -17,6 +17,7 @@ from collections import Counter, defaultdict
 from copy import deepcopy
 from hashlib import sha1
 from typing import Any
+import re
 
 from astrology_graph_foundry.common.themes import theme_tags
 
@@ -48,6 +49,154 @@ MAJOR_ASPECTS = {"conjunction", "opposition", "square", "trine", "sextile"}
 def _stable_token(*parts: Any) -> str:
     payload = "|".join(str(part if part is not None else "") for part in parts)
     return sha1(payload.encode("utf-8")).hexdigest()[:16]
+
+
+def _safe_scope_token(value: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", "_", str(value or "").strip().lower()).strip("_") or "chart"
+
+
+def _scoped_source_object_id(object_id: str, source_chart_id: str) -> str:
+    """Return a globally chart-scoped canonical object identifier.
+
+    Legacy canonical graphs used local IDs such as ``natal:Moon``. Those IDs
+    collide when multiple charts are projected into a shared downstream graph.
+    The canonical boundary now scopes every object beneath the authoritative
+    source chart ID, e.g. ``natal:kevin:Moon``.
+    """
+    raw = str(object_id)
+    scope = str(source_chart_id).rstrip(":")
+    if raw == scope or raw.startswith(scope + ":"):
+        return raw
+    if scope.startswith("natal:") and raw.startswith("natal:"):
+        return f"{scope}:{raw[len('natal:'):]}"
+    return f"{scope}:{raw}"
+
+
+def _canonical_relationship_id(rel: dict[str, Any]) -> str:
+    return "rel:{}:{}".format(
+        str(rel.get("relationship_type") or "unknown").lower(),
+        _stable_token(
+            rel.get("relationship_type"),
+            rel.get("source_id"),
+            rel.get("target_id"),
+            rel.get("target_longitude"),
+            rel.get("aspect"),
+            rel.get("harmonic"),
+            rel.get("type"),
+        ),
+    )
+
+
+def _rebuild_graph_indexes(graph: dict[str, Any]) -> None:
+    objects = graph.get("objects", []) or []
+    relationships = graph.get("relationships", []) or []
+    by_object: dict[str, list[int]] = {str(obj.get("id")): [] for obj in objects}
+    for index, rel in enumerate(relationships):
+        source_id = str(rel.get("source_id") or "")
+        target_id = str(rel.get("target_id") or "")
+        if source_id in by_object:
+            by_object[source_id].append(index)
+        if target_id in by_object:
+            by_object[target_id].append(index)
+    graph["indexes"] = {
+        "objects_by_id": {str(obj.get("id")): i for i, obj in enumerate(objects)},
+        "objects_by_source_key": {
+            str(obj.get("source_key")): str(obj.get("id"))
+            for obj in objects
+            if obj.get("source_key") is not None
+        },
+        "relationships_by_type": {
+            rel_type: [
+                i for i, rel in enumerate(relationships)
+                if str(rel.get("relationship_type")) == rel_type
+            ]
+            for rel_type in sorted({
+                str(rel.get("relationship_type"))
+                for rel in relationships
+                if rel.get("relationship_type") is not None
+            })
+        },
+        "relationships_by_object_id": by_object,
+    }
+
+
+def _scope_graph_ids_in_place(
+    graph: dict[str, Any],
+    source_chart_id: str | None,
+) -> dict[str, str]:
+    """Scope graph object/relationship IDs and return an old→new ref map."""
+    if not source_chart_id:
+        return {}
+
+    ref_map: dict[str, str] = {}
+    objects = graph.get("objects", []) or []
+    # Synthetic and externally supplied graphs may already define globally
+    # meaningful IDs (for example ``synastry:person_a:...`` or ``obj:mars``).
+    # Apply this legacy migration only to Foundry chart graphs that still use
+    # the historical local ``natal:<object>`` namespace.
+    if not any(str(obj.get("id") or "").startswith("natal:") for obj in objects):
+        return {}
+    for obj in objects:
+        old_id = str(obj.get("id") or "")
+        if not old_id:
+            continue
+        new_id = _scoped_source_object_id(old_id, source_chart_id)
+        if new_id != old_id:
+            ref_map[old_id] = new_id
+            obj["id"] = new_id
+
+    def replace_local(value: Any) -> Any:
+        if isinstance(value, str):
+            return ref_map.get(value, value)
+        if isinstance(value, list):
+            return [replace_local(item) for item in value]
+        if isinstance(value, dict):
+            return {
+                ref_map.get(str(key), str(key)): replace_local(item)
+                for key, item in value.items()
+            }
+        return value
+
+    for obj in objects:
+        for key, value in list(obj.items()):
+            if key != "id":
+                obj[key] = replace_local(value)
+
+    relationships = graph.get("relationships", []) or []
+    old_relationship_ids: list[tuple[str, dict[str, Any]]] = []
+    for rel in relationships:
+        old_relationship_ids.append((str(rel.get("id") or ""), rel))
+        for key, value in list(rel.items()):
+            if key != "id":
+                rel[key] = replace_local(value)
+        rel["id"] = _canonical_relationship_id(rel)
+
+    for old_id, rel in old_relationship_ids:
+        new_id = str(rel.get("id") or "")
+        if old_id and new_id and old_id != new_id:
+            ref_map[old_id] = new_id
+
+    _rebuild_graph_indexes(graph)
+    graph.setdefault("identity_policy", {})["object_id_scope"] = "source_chart_id"
+    graph["identity_policy"]["relationship_id_scope"] = "scoped_endpoints"
+    return ref_map
+
+
+def _rewrite_exact_refs(value: Any, ref_map: dict[str, str]) -> Any:
+    """Recursively rewrite exact ID values and registry keys in a package."""
+    if not ref_map:
+        return value
+    if isinstance(value, str):
+        return ref_map.get(value, value)
+    if isinstance(value, list):
+        return [_rewrite_exact_refs(item, ref_map) for item in value]
+    if isinstance(value, dict):
+        rewritten: dict[str, Any] = {}
+        for key, item in value.items():
+            new_key = ref_map.get(str(key), str(key))
+            rewritten[new_key] = _rewrite_exact_refs(item, ref_map)
+        return rewritten
+    return value
 
 
 def _slug(value: Any) -> str:
@@ -450,6 +599,7 @@ def canonicalize_graph(graph: dict[str, Any], *, sensor_id: str, source_chart_id
     canonical["source_chart_ids"] = list(source_chart_ids or [])
     canonical["source_chart_id"] = str((source_chart_ids or [None])[0]) if source_chart_ids else None
     canonical["projection_status"] = "pre_projection"
+    _scope_graph_ids_in_place(canonical, canonical.get("source_chart_id"))
 
     objects = canonical.get("objects", []) or []
     for obj in objects:
@@ -1093,9 +1243,18 @@ def finalize_package_semantic_boundary(package: dict[str, Any]) -> dict[str, Any
     metadata["dual_write_legacy_semantics"] = False
 
     canonical: dict[str, Any] | None = None
+    canonical_ref_map: dict[str, str] = {}
     if existing_canonical is not None:
         canonical = existing_canonical
+        canonical_ref_map = _scope_graph_ids_in_place(
+            canonical,
+            str(identity["source_chart_id"] or ""),
+        )
     elif graph is not None:
+        canonical_ref_map = _scope_graph_ids_in_place(
+            graph,
+            str(identity["source_chart_id"] or ""),
+        )
         _dual_annotate_graph(graph, sensor_id, source_chart_ids)
         canonical = canonicalize_graph(
             graph,
@@ -1104,6 +1263,10 @@ def finalize_package_semantic_boundary(package: dict[str, Any]) -> dict[str, Any
         )
     elif synthetic_graph is not None:
         canonical = synthetic_graph
+        canonical_ref_map = _scope_graph_ids_in_place(
+            canonical,
+            str(identity["source_chart_id"] or ""),
+        )
         canonical["graph_layer"] = "canonical_source_graph"
         objects = canonical.get("objects", []) or []
         for obj in objects:
@@ -1141,6 +1304,11 @@ def finalize_package_semantic_boundary(package: dict[str, Any]) -> dict[str, Any
                 rel["operator_hints"] = deepcopy(rel["source_operator_hints"])
 
     if canonical is not None:
+        if canonical_ref_map:
+            rewritten = _rewrite_exact_refs(package, canonical_ref_map)
+            package.clear()
+            package.update(rewritten)
+            canonical = package.get("canonical_astrology_graph") or canonical
         package["canonical_astrology_graph"] = canonical
         package["structural_evidence_graph"] = structural_evidence_from_graph(
             canonical,

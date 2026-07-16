@@ -15,6 +15,8 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 os.environ["ASTROLOGY_FOUNDRY_LOG_FILE"] = str(OUTPUT_DIR / "foundry.log")
 
 from astrology_graph_foundry.common.io import read_json, write_json  # noqa: E402
+from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary  # noqa: E402
+from copy import deepcopy
 from astrology_graph_foundry.pipelines import transit  # noqa: E402
 from astrology_graph_foundry.temporal_projection_adapter import (  # noqa: E402
     build_temporal_projection_source_bundle,
@@ -97,8 +99,57 @@ def main() -> int:
         "kevin_2026-01-01_to_2026-02-01_transit.full.json",
     )
     natal_path = _fixture("natal.full.json", "kevin_natal_dataset.json")
+    try:
+        ashley_natal_path = _fixture(
+            "natal.ashley.full.json",
+            "ashley_natal_dataset.json",
+        )
+    except FileNotFoundError:
+        ashley_natal_path = None
     full = read_json(full_path)
     natal = read_json(natal_path)
+
+    scoped_natal = finalize_package_semantic_boundary(deepcopy(natal))
+    scoped_graph = scoped_natal.get("canonical_astrology_graph") or {}
+    scoped_chart_id = str(scoped_graph.get("source_chart_id") or "")
+    scoped_object_ids = [
+        str(obj.get("id") or "") for obj in (scoped_graph.get("objects") or [])
+    ]
+    summary["canonical_identity"] = {
+        "source_chart_id": scoped_chart_id,
+        "object_count": len(scoped_object_ids),
+        "all_object_ids_chart_scoped": bool(scoped_chart_id)
+        and all(
+            object_id == scoped_chart_id or object_id.startswith(scoped_chart_id + ":")
+            for object_id in scoped_object_ids
+        ),
+        "legacy_unscoped_natal_ids": [
+            object_id
+            for object_id in scoped_object_ids
+            if object_id.startswith("natal:")
+            and not object_id.startswith(scoped_chart_id + ":")
+        ],
+        "identity_policy": scoped_graph.get("identity_policy") or {},
+        "cross_chart_collision_check": None,
+    }
+    if ashley_natal_path is not None:
+        ashley_package = finalize_package_semantic_boundary(
+            deepcopy(read_json(ashley_natal_path))
+        )
+        ashley_graph = ashley_package.get("canonical_astrology_graph") or {}
+        ashley_ids = {
+            str(obj.get("id") or "")
+            for obj in (ashley_graph.get("objects") or [])
+        }
+        kevin_ids = set(scoped_object_ids)
+        collisions = sorted(kevin_ids & ashley_ids)
+        summary["canonical_identity"]["cross_chart_collision_check"] = {
+            "second_source_chart_id": ashley_graph.get("source_chart_id"),
+            "second_object_count": len(ashley_ids),
+            "collision_count": len(collisions),
+            "collision_samples": collisions[:10],
+            "passed": not collisions,
+        }
 
     standard = transit.streaming_index(full, profile="standard")
     write_json(OUTPUT_DIR / "transit.standard.json", standard)
@@ -176,6 +227,12 @@ def main() -> int:
 
     checks = [
         summary["pytest"]["exit_code"] == 0,
+        summary["canonical_identity"]["all_object_ids_chart_scoped"],
+        not summary["canonical_identity"]["legacy_unscoped_natal_ids"],
+        (
+            summary["canonical_identity"]["cross_chart_collision_check"] is None
+            or summary["canonical_identity"]["cross_chart_collision_check"]["passed"]
+        ),
         game_health["period_complete"],
         game_health["candidate_registry_count"] > 0,
         game_health["contact_count"] > 0,
