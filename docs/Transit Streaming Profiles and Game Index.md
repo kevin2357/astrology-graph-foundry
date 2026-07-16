@@ -74,3 +74,7 @@ sky = round_state["daily_sky"]
 ## Compression
 
 JSON structure reduction provides the largest semantic-size savings. Optional deterministic gzip transport compression then reduces repeated keys and registry references further. Consumers may use `gzip.open(..., "rt")` or Foundry's `read_json`, which transparently reads `.json.gz` files.
+
+## Downstream integration correction
+
+See `Downstream Integration Regression Fixes.md` for the complete static-graph authority, standard-index rematerialization, gameplay target-policy, and legacy daily-sky rules.

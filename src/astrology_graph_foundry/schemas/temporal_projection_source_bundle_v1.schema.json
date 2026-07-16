@@ -57,7 +57,13 @@
       "type": "object"
     },
     "static_source_graph": {
-      "type": "object"
+      "type": "object",
+      "minProperties": 1,
+      "required": [
+        "graph_type",
+        "objects",
+        "relationships"
+      ]
     },
     "structural_evidence": {
       "type": "object"

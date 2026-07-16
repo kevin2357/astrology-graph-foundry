@@ -342,3 +342,7 @@ C. projected_temporal_activation_graph.v1     downstream next step
 ```
 
 “Stable” means the initial cross-repository contract is suitable for implementation and integration. It does not preclude later versioned improvements such as solved exact-event timestamps, station-aware grouping, or richer source indexes.
+
+## Downstream integration correction
+
+See `Downstream Integration Regression Fixes.md` for the complete static-graph authority, standard-index rematerialization, gameplay target-policy, and legacy daily-sky rules.

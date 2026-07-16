@@ -117,3 +117,7 @@ The freeze includes:
 - deterministic embedded-graph identity.
 
 Future changes that alter these contracts materially should use explicit schema/version evolution rather than silently changing `v1` semantics.
+
+## Downstream integration correction
+
+See `Downstream Integration Regression Fixes.md` for the complete static-graph authority, standard-index rematerialization, gameplay target-policy, and legacy daily-sky rules.

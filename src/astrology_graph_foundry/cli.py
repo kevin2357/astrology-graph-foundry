@@ -165,6 +165,13 @@ def main() -> None:
         help="Materialize standard, compact, or game streaming views from an existing full Transit package.",
     )
     p.add_argument("--source-dataset", required=True)
+    p.add_argument(
+        "--full-transit-dataset",
+        help=(
+            "Optional full Transit package used to restore daily sky positions when "
+            "materializing from a legacy standard streaming index that did not embed them."
+        ),
+    )
     p.add_argument("--streaming-profile", choices=["standard", "compact", "game"], default="standard")
     p.add_argument("--transit-target-set", choices=["core", "expanded", "all", "gameplay"])
     p.add_argument("--compression", choices=["none", "gzip"], default="none")
@@ -281,6 +288,19 @@ def main() -> None:
         ),
     )
     p.add_argument("--source-dataset", required=True)
+    p.add_argument(
+        "--target-dataset",
+        help=(
+            "Full natal, composite, or Davison package supplying the authoritative "
+            "canonical target graph when the Transit artifact is a compact/streaming view."
+        ),
+    )
+    p.add_argument(
+        "--transit-target-set",
+        choices=["core", "expanded", "all", "gameplay"],
+        default="all",
+        help="Explicit source-selection policy for temporal activations.",
+    )
     p.add_argument("--out", required=True)
     p.add_argument("--max-observation-gap-days", type=int, default=2)
     p.add_argument("--sampled-exact-orb", type=float, default=0.01)
@@ -403,16 +423,19 @@ def main() -> None:
             args.out,
         )
         source_package = read_json(args.source_dataset)
+        target_package = read_json(args.target_dataset) if args.target_dataset else None
         try:
             bundle = build_temporal_projection_source_bundle(
                 source_package,
+                target_package=target_package,
+                target_set=args.transit_target_set,
                 options=TemporalExportOptions(
                     max_observation_gap_days=args.max_observation_gap_days,
                     sampled_exact_orb=args.sampled_exact_orb,
                     include_observation_states=not args.omit_observation_states,
                 ),
             )
-        except TemporalSourceContractError as exc:
+        except (TemporalSourceContractError, ValueError) as exc:
             raise SystemExit(f"Temporal projection source export failed: {exc}") from exc
         write_json(args.out, bundle)
         logger.info("Command complete: wrote %s", args.out)
@@ -627,10 +650,12 @@ def main() -> None:
         output_path = Path(args.out)
         if args.compression == "gzip" and output_path.suffix != ".gz":
             output_path = output_path.with_name(output_path.name + ".gz")
+        full_source = read_json(args.full_transit_dataset) if args.full_transit_dataset else None
         view = transit.streaming_index(
             source,
             profile=args.streaming_profile,
             target_set=args.transit_target_set,
+            daily_sky_source=full_source,
         )
         write_json(output_path, view)
         print(f"Wrote {output_path}")

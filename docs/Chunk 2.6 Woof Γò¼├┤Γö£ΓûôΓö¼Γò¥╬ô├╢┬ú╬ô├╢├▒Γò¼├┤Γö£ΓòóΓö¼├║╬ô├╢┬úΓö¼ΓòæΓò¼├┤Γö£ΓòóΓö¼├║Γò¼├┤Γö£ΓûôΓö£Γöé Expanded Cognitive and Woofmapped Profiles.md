@@ -423,11 +423,3 @@ The implementation uses Doghouses. Future profile contracts may represent house 
 A profile can be funny without becoming structurally sloppy.
 
 The Woofmapped vocabulary is playful, but the output remains deterministic, typed, auditable, source-referenced, and operator-preserving.
-
-## Chunk 2.6.woof.1 stabilization
-
-The cognitive and Woofmapped profiles now prefer True Node and Part of Fortune, excluding Mean Node and the Fortune alias through explicit source-selection policy. Excluded objects and dependent relationships are reported separately from mapping failures.
-
-Both profiles now ship projected term registries with composition guidance, and each projection embeds its used-term subset.
-
-Woofmapped contexts must explicitly select `house_mapping_policy=doghouse`; no silent house-policy default is accepted by the profile.

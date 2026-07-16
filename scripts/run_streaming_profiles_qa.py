@@ -155,7 +155,6 @@ def main() -> int:
     )
     write_json(OUTPUT_DIR / "artifact_profile.json", profile_results)
     write_json(OUTPUT_DIR / "qa_summary.json", summary)
-    print(json.dumps(summary, indent=2, sort_keys=True))
     return 0 if summary["passed"] else 1
 
 

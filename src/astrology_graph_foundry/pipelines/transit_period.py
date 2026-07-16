@@ -60,6 +60,72 @@ def _target_set_accepts(candidate: dict[str, Any], target_set: str) -> bool:
     raise ValueError(f"Unknown transit target set: {target_set!r}")
 
 
+
+def _materializable_days(package: dict[str, Any], daily_sky_source: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    """Return full-like daily rows from full or standard streaming Transit artifacts."""
+    sky_by_date = {
+        str(day.get("date")): day
+        for day in ((daily_sky_source or {}).get("daily_windows", []) or [])
+    }
+    if package.get("daily_windows"):
+        return [dict(day) for day in package.get("daily_windows", []) or []]
+
+    if package.get("days"):
+        registry = package.get("candidate_registry") or {}
+        rows: list[dict[str, Any]] = []
+        for day in package.get("days", []) or []:
+            candidates: list[dict[str, Any]] = []
+            for mutable in day.get("candidate_refs", []) or []:
+                candidate_id = str(mutable.get("candidate_id") or "")
+                static = dict(registry.get(candidate_id) or {})
+                candidates.append({**static, **mutable})
+            daily_sky = day.get("daily_sky") or {}
+            sky_day = sky_by_date.get(str(day.get("date"))) or {}
+            rows.append(
+                {
+                    "date": day.get("date"),
+                    "transit_datetime": day.get("transit_datetime"),
+                    "candidates": candidates,
+                    "positions": (
+                        day.get("positions")
+                        or daily_sky.get("positions")
+                        or sky_day.get("positions")
+                        or {}
+                    ),
+                    "daily_sky": daily_sky,
+                }
+            )
+        return rows
+
+    if package.get("days_by_date"):
+        registry = package.get("candidate_registry") or {}
+        rows = []
+        for date, day in sorted((package.get("days_by_date") or {}).items()):
+            candidates = []
+            for mutable in day.get("contacts", []) or []:
+                candidate_id = str(mutable.get("candidate_id") or "")
+                static = dict(registry.get(candidate_id) or {})
+                candidates.append({**static, **mutable})
+            daily_sky = day.get("daily_sky") or {}
+            rows.append(
+                {
+                    "date": date,
+                    "transit_datetime": day.get("transit_datetime"),
+                    "candidates": candidates,
+                    "positions": daily_sky.get("positions") or {},
+                    "daily_sky": daily_sky,
+                }
+            )
+        return rows
+
+    return []
+
+
+def transit_candidate_matches_target_set(candidate: dict[str, Any], target_set: str) -> bool:
+    """Public, auditable target-set policy used by materializers and exporters."""
+    return _target_set_accepts(candidate, target_set)
+
+
 def _target_cusps(package: dict[str, Any]) -> list[float]:
     chart = ((package.get("target") or {}).get("chart") or {})
     houses = chart.get("houses") or {}
@@ -452,6 +518,7 @@ def _streaming_index(
     *,
     profile: str = "standard",
     target_set: str | None = None,
+    daily_sky_source: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if profile not in STREAMING_PROFILES:
         raise ValueError(f"Unknown streaming profile {profile!r}; expected one of {STREAMING_PROFILES}")
@@ -460,7 +527,7 @@ def _streaming_index(
     if target_set not in TRANSIT_TARGET_SETS:
         raise ValueError(f"Unknown transit target set {target_set!r}; expected one of {TRANSIT_TARGET_SETS}")
 
-    days = package.get("daily_windows", []) or []
+    days = _materializable_days(package, daily_sky_source=daily_sky_source)
     logger.info(
         "Creating streaming index: profile=%s target_set=%s days=%d arcs=%d",
         profile,
@@ -480,7 +547,13 @@ def _streaming_index(
             "canonical_graph_summary": canonical_graph_from_package(package).get("summary", {}),
             "candidate_registry": registry,
             "activated_target_relationship_registry": _orthodox_relationship_registry(package.get("activated_target_relationship_registry", {})),
-            "days": [_day_ref(day, candidate_limit=25, registry_refs_only=True) for day in days],
+            "days": [
+                {
+                    **_day_ref(day, candidate_limit=25, registry_refs_only=True),
+                    "daily_sky": _daily_sky_record(day, package),
+                }
+                for day in days
+            ],
             "arcs": [_arc_ref(arc, registry_refs_only=True) for arc in package["transit_arcs"]],
             "arcs_by_target_type": package["target_type_metrics"],
             "arcs_by_activated_relationship_type": package["activated_relationship_type_metrics"],
@@ -504,7 +577,10 @@ def _streaming_index(
             "contacts": [_compact_activation_ref(c) for c in candidates],
         }
         if profile == "game":
-            day_row["daily_sky"] = _daily_sky_record(day, package)
+            generated_sky = _daily_sky_record(day, package)
+            if not generated_sky.get("positions") and day.get("daily_sky"):
+                generated_sky = dict(day.get("daily_sky") or {})
+            day_row["daily_sky"] = generated_sky
         days_by_date[str(day["date"])] = day_row
 
     registry: dict[str, dict[str, Any]] = {}
@@ -524,6 +600,11 @@ def _streaming_index(
                 "the game applies final mechanics thresholds."
                 if profile == "game"
                 else None
+            ),
+            "daily_sky_source": (
+                "embedded_standard_or_full"
+                if any((day.get("daily_sky") or {}).get("positions") or day.get("positions") for day in days)
+                else "unavailable_in_source"
             ),
         },
         "period": package["period"],
@@ -703,6 +784,7 @@ def streaming_index(
     *,
     profile: str = "standard",
     target_set: str | None = None,
+    daily_sky_source: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Materialize a deterministic date-indexed Transit view.
 
@@ -712,7 +794,12 @@ def streaming_index(
     - game: gameplay target set, daily sky state, and active contacts only.
     """
     return finalize_view_semantic_boundary(
-        _streaming_index(package, profile=profile, target_set=target_set),
+        _streaming_index(
+            package,
+            profile=profile,
+            target_set=target_set,
+            daily_sky_source=daily_sky_source,
+        ),
         package,
     )
 

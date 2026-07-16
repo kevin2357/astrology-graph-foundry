@@ -69,7 +69,13 @@ def streaming_index(
     *,
     profile: str = "standard",
     target_set: str | None = None,
+    daily_sky_source: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    view = transit_period.streaming_index(package, profile=profile, target_set=target_set)
+    view = transit_period.streaming_index(
+        package,
+        profile=profile,
+        target_set=target_set,
+        daily_sky_source=daily_sky_source,
+    )
     view["metadata"] = {**view.get("metadata", {}), "public_pipeline_name": "transit"}
     return view
