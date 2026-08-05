@@ -19,6 +19,7 @@ from hashlib import sha1
 from typing import Any
 import re
 
+from astrology_graph_foundry.common.identity import resolve_explicit_source_chart_id
 from astrology_graph_foundry.common.themes import theme_tags
 
 CANONICAL_GRAPH_VERSION = "1.3.0"
@@ -55,6 +56,10 @@ def _safe_scope_token(value: Any) -> str:
     return re.sub(r"[^a-z0-9]+", "_", str(value or "").strip().lower()).strip("_") or "chart"
 
 
+def _scope_prefix(source_chart_id: str) -> str:
+    return source_chart_id if source_chart_id.endswith(":") else source_chart_id + ":"
+
+
 def _scoped_source_object_id(object_id: str, source_chart_id: str) -> str:
     """Return a globally chart-scoped canonical object identifier.
 
@@ -64,12 +69,13 @@ def _scoped_source_object_id(object_id: str, source_chart_id: str) -> str:
     source chart ID, e.g. ``natal:kevin:Moon``.
     """
     raw = str(object_id)
-    scope = str(source_chart_id).rstrip(":")
-    if raw == scope or raw.startswith(scope + ":"):
+    scope = str(source_chart_id)
+    prefix = _scope_prefix(scope)
+    if raw == scope or raw.startswith(prefix):
         return raw
     if scope.startswith("natal:") and raw.startswith("natal:"):
-        return f"{scope}:{raw[len('natal:'):]}"
-    return f"{scope}:{raw}"
+        return f"{prefix}{raw[len('natal:'):]}"
+    return f"{prefix}{raw}"
 
 
 def _canonical_relationship_id(rel: dict[str, Any]) -> str:
@@ -130,20 +136,46 @@ def _scope_graph_ids_in_place(
 
     ref_map: dict[str, str] = {}
     objects = graph.get("objects", []) or []
+    previous_source_chart_id = str(
+        graph.get("source_chart_id")
+        or (graph.get("identity_policy") or {}).get("source_chart_id")
+        or ""
+    )
+    previous_scope_prefix = (
+        _scope_prefix(previous_source_chart_id) if previous_source_chart_id else ""
+    )
     # Synthetic and externally supplied graphs may already define globally
     # meaningful IDs (for example ``synastry:person_a:...`` or ``obj:mars``).
     # Apply this legacy migration only to Foundry chart graphs that still use
     # the historical local ``natal:<object>`` namespace.
-    if not any(str(obj.get("id") or "").startswith("natal:") for obj in objects):
+    has_legacy_natal_ids = any(
+        str(obj.get("id") or "").startswith("natal:") for obj in objects
+    )
+    has_previous_scope = bool(previous_source_chart_id) and any(
+        str(obj.get("id") or "") == previous_source_chart_id
+        or str(obj.get("id") or "").startswith(previous_scope_prefix)
+        for obj in objects
+    )
+    if not (has_legacy_natal_ids or has_previous_scope):
         return {}
     for obj in objects:
         old_id = str(obj.get("id") or "")
         if not old_id:
             continue
-        new_id = _scoped_source_object_id(old_id, source_chart_id)
+        if has_previous_scope and old_id == previous_source_chart_id:
+            new_id = str(source_chart_id)
+        elif has_previous_scope and old_id.startswith(previous_scope_prefix):
+            suffix = old_id[len(previous_scope_prefix):]
+            new_id = f"{_scope_prefix(str(source_chart_id))}{suffix}"
+        else:
+            new_id = _scoped_source_object_id(old_id, source_chart_id)
         if new_id != old_id:
             ref_map[old_id] = new_id
             obj["id"] = new_id
+
+    exact_source_chart_id = str(source_chart_id)
+    if previous_source_chart_id and previous_source_chart_id != exact_source_chart_id:
+        ref_map[previous_source_chart_id] = exact_source_chart_id
 
     def replace_local(value: Any) -> Any:
         if isinstance(value, str):
@@ -179,6 +211,7 @@ def _scope_graph_ids_in_place(
     _rebuild_graph_indexes(graph)
     graph.setdefault("identity_policy", {})["object_id_scope"] = "source_chart_id"
     graph["identity_policy"]["relationship_id_scope"] = "scoped_endpoints"
+    graph["identity_policy"]["source_chart_id"] = exact_source_chart_id
     return ref_map
 
 
@@ -197,6 +230,57 @@ def _rewrite_exact_refs(value: Any, ref_map: dict[str, str]) -> Any:
             rewritten[new_key] = _rewrite_exact_refs(item, ref_map)
         return rewritten
     return value
+
+
+def _refresh_rescoped_identity_provenance(
+    value: Any,
+    *,
+    previous_source_chart_id: str,
+    source_chart_id: str,
+    previous_sensor_id: str,
+    sensor_id: str,
+) -> None:
+    """Refresh generated identity provenance after an intentional Natal rescope."""
+    if isinstance(value, list):
+        for item in value:
+            _refresh_rescoped_identity_provenance(
+                item,
+                previous_source_chart_id=previous_source_chart_id,
+                source_chart_id=source_chart_id,
+                previous_sensor_id=previous_sensor_id,
+                sensor_id=sensor_id,
+            )
+        return
+    if not isinstance(value, dict):
+        return
+
+    if value.get("source_chart_id") == previous_source_chart_id:
+        value["source_chart_id"] = source_chart_id
+    if value.get("source_chart_ids") == [previous_source_chart_id]:
+        value["source_chart_ids"] = [source_chart_id]
+    for field in ("source_sensor_id", "sensor_instance_id"):
+        if value.get(field) == previous_sensor_id:
+            value[field] = sensor_id
+
+    old_family_prefix = f"{_source_scope_token([previous_source_chart_id])}:"
+    new_family_prefix = f"{_source_scope_token([source_chart_id])}:"
+    for field in ("record_independence_group", "evidence_family_group", "independence_group"):
+        current = value.get(field)
+        if isinstance(current, str) and current.startswith(previous_sensor_id + ":"):
+            value[field] = sensor_id + current[len(previous_sensor_id):]
+    current_family = value.get("source_chart_family_group")
+    if isinstance(current_family, str) and current_family.startswith(old_family_prefix):
+        value["source_chart_family_group"] = new_family_prefix + current_family[len(old_family_prefix):]
+
+    for child in value.values():
+        if isinstance(child, (dict, list)):
+            _refresh_rescoped_identity_provenance(
+                child,
+                previous_source_chart_id=previous_source_chart_id,
+                source_chart_id=source_chart_id,
+                previous_sensor_id=previous_sensor_id,
+                sensor_id=sensor_id,
+            )
 
 
 def _slug(value: Any) -> str:
@@ -261,6 +345,19 @@ def _semantic_identity(package: dict[str, Any]) -> dict[str, Any]:
     target = package.get("target") if isinstance(package.get("target"), dict) else {}
     target_identity = (target.get("chart_identity") or {}) if isinstance(target, dict) else {}
 
+    natal = package.get("natal") if isinstance(package.get("natal"), dict) else {}
+    person = package.get("person") if isinstance(package.get("person"), dict) else {}
+    natal_source_chart_id = resolve_explicit_source_chart_id(
+        (
+            ("transitable_chart.chart_identity.chart_id", transitable_identity.get("chart_id")),
+            ("metadata.source_chart_id", metadata.get("source_chart_id")),
+            ("metadata.target_chart_id", metadata.get("target_chart_id")),
+            ("metadata.chart_id", metadata.get("chart_id")),
+            ("person.source_chart_id", person.get("source_chart_id")),
+            ("natal.source_chart_id", natal.get("source_chart_id")),
+        )
+    ) if analysis_type == "natal_dataset" else None
+
     direct_chart_id = (
         transitable_identity.get("chart_id")
         or metadata.get("target_chart_id")
@@ -295,6 +392,8 @@ def _semantic_identity(package: dict[str, Any]) -> dict[str, Any]:
         ]
     elif relationship_source_id:
         source_chart_ids = [relationship_source_id]
+    elif natal_source_chart_id:
+        source_chart_ids = [natal_source_chart_id]
     elif direct_chart_id:
         source_chart_ids = [str(direct_chart_id)]
     elif analysis_type == "natal_dataset":
@@ -339,7 +438,7 @@ def _semantic_identity(package: dict[str, Any]) -> dict[str, Any]:
         "source_chart_id": primary,
         "source_chart_ids": source_chart_ids,
         "sensor_instance_id": sensor_instance_id,
-        "identity_version": "semantic_sensor_identity_v1.0.0",
+        "identity_version": "semantic_sensor_identity_v1.1.0",
     }
 
 
@@ -1188,6 +1287,12 @@ def finalize_package_semantic_boundary(package: dict[str, Any]) -> dict[str, Any
     source_chart_ids = list(identity["source_chart_ids"])
 
     existing_canonical = package.get("canonical_astrology_graph")
+    previous_canonical_source_chart_id = str(
+        (existing_canonical or {}).get("source_chart_id") or ""
+    )
+    previous_canonical_sensor_id = str(
+        (existing_canonical or {}).get("sensor_instance_id") or previous_canonical_source_chart_id
+    )
     graph = None if existing_canonical else _find_graph(package)
     synthetic_graph = (
         None
@@ -1309,6 +1414,23 @@ def finalize_package_semantic_boundary(package: dict[str, Any]) -> dict[str, Any
             package.clear()
             package.update(rewritten)
             canonical = package.get("canonical_astrology_graph") or canonical
+        if (
+            previous_canonical_source_chart_id
+            and previous_canonical_source_chart_id != identity["source_chart_id"]
+        ):
+            _refresh_rescoped_identity_provenance(
+                package,
+                previous_source_chart_id=previous_canonical_source_chart_id,
+                source_chart_id=str(identity["source_chart_id"]),
+                previous_sensor_id=previous_canonical_sensor_id,
+                sensor_id=sensor_id,
+            )
+        canonical["source_chart_id"] = identity["source_chart_id"]
+        canonical["source_chart_ids"] = source_chart_ids
+        canonical["sensor_instance_id"] = sensor_id
+        canonical.setdefault("identity_policy", {})["source_chart_id"] = identity["source_chart_id"]
+        _dual_annotate_graph(canonical, sensor_id, source_chart_ids)
+        _rebuild_graph_indexes(canonical)
         package["canonical_astrology_graph"] = canonical
         package["structural_evidence_graph"] = structural_evidence_from_graph(
             canonical,
@@ -1333,6 +1455,44 @@ def finalize_package_semantic_boundary(package: dict[str, Any]) -> dict[str, Any
         "materialization_policy": "full_canonical_projection_v1",
     }
     return package
+
+
+def rescope_natal_package_source_chart_id(
+    package: dict[str, Any],
+    source_chart_id: str,
+) -> dict[str, Any]:
+    """Deliberately migrate a finalized Natal package to a new chart identity."""
+    metadata = package.get("metadata") if isinstance(package.get("metadata"), dict) else {}
+    if str(metadata.get("analysis_type") or "") != "natal_dataset":
+        raise ValueError("Source chart identity rescoping currently supports Natal packages only")
+
+    # Validate the existing carrier set before modifying it, so this helper
+    # never conceals a pre-existing identity conflict.
+    _semantic_identity(package)
+    new_source_chart_id = resolve_explicit_source_chart_id(
+        (("source_chart_id", source_chart_id),)
+    )
+    assert new_source_chart_id is not None
+
+    package.setdefault("metadata", {})["source_chart_id"] = new_source_chart_id
+    for alias in ("target_chart_id", "chart_id"):
+        if alias in package["metadata"]:
+            package["metadata"][alias] = new_source_chart_id
+
+    for field in ("person", "natal"):
+        value = package.get(field)
+        if isinstance(value, dict):
+            value["source_chart_id"] = new_source_chart_id
+
+    transitable_identity = (
+        (package.get("transitable_chart") or {}).get("chart_identity")
+        if isinstance(package.get("transitable_chart"), dict)
+        else None
+    )
+    if isinstance(transitable_identity, dict):
+        transitable_identity["chart_id"] = new_source_chart_id
+
+    return finalize_package_semantic_boundary(package)
 
 
 def finalize_view_semantic_boundary(

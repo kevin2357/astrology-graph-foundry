@@ -79,3 +79,32 @@ This log is append-only during execution. Planning entries do not represent comp
 - Reviewed the implementation diff for accidental product semantics, calculation/projection identity conflation, unrelated formatting, and relationship-identity changes; none were introduced.
 - Final whitespace and `git diff --check` validation completed after this entry and are reported in the handoff.
 - Slice 2 is paused for human approval. No Slice 2 files are staged or committed.
+
+## 2026-08-05 — Slice 2 Approval and Commit
+
+- Human approved Slice 2 and authorized commit/continuation.
+- Committed the public input, schemas, tests, and evidence as `91729f1` (`Add explicit source chart identity input`).
+- Began Slice 3 from that clean named boundary.
+
+## 2026-08-05 — Slice 3 Natal Finalization and Migration
+
+- Added conflict-aware explicit identity resolution for Natal carriers. Equal values are accepted; distinct values fail closed with carrier names and values.
+- Incremented the emitted semantic identity policy from `semantic_sensor_identity_v1.0.0` to `semantic_sensor_identity_v1.1.0`.
+- Extended graph scoping to remember the exact previous source identity and derive local suffixes during an intentional rescope, avoiding prefix stacking.
+- Corrected delimiter handling so a valid identity ending in `:` remains byte-for-byte stable while object IDs receive exactly one separator.
+- Added `rescope_natal_package_source_chart_id` as the explicit Natal-only A-to-B migration operation. It validates the old state, synchronizes carriers, finalizes, and rebuilds derived layers.
+- Found and addressed a deeper migration risk: generated provenance family strings embed safe chart/sensor tokens and are not exact references. Added targeted provenance refresh so old identity-derived family tokens cannot survive an otherwise complete rescope.
+- Canonical graphs now refresh top-level source/sensor identity, row evidence, identity policy, indexes, and structural evidence on every finalization.
+- Added regression coverage for same-name collision avoidance, display rename stability, full A-to-B migration, stale reference elimination, carrier conflict, equal duplicate carriers, idempotence, and trailing-delimiter preservation.
+- Added compact machine-readable scenario evidence in `results/identity-migration-fixtures.json`.
+- Focused identity/input run: 30 passed. Expanded scoping/semantic-boundary run after provenance refresh: 27 passed.
+
+## 2026-08-05 — Slice 3 Gate Ready for Review
+
+- Targeted Ruff validation for the identity module and changed identity tests passed.
+- Final full regression suite: 149 passed in 4.29 seconds.
+- Machine-readable migration evidence parsed successfully as JSON.
+- Reviewed the implementation diff for prefix stacking, silent precedence, stale exact references, stale generated provenance, display-name coupling, projection-context leakage, and relationship-chart scope expansion.
+- Relationship identity behavior was not redesigned; it remains isolated to Slice 4.
+- Final whitespace and `git diff --check` validation completed after this entry and are reported in the handoff.
+- Slice 3 is paused for human approval. No Slice 3 files are staged or committed.

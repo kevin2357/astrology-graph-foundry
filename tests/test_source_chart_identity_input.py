@@ -33,6 +33,7 @@ def _birth_data(**overrides):
         "natal:scout",
         "AstroWoof:dog:123e4567-e89b-12d3-a456-426614174000",
         "tenant/example.chart_1",
+        "namespace:",
         "A",
         "a" * 200,
     ],

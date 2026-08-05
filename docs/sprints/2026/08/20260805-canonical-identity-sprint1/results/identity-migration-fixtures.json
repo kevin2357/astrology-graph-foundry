@@ -1,0 +1,48 @@
+{
+  "artifact_type": "agf_identity_migration_gate",
+  "artifact_version": "1.0.0",
+  "identity_policy_version": "semantic_sensor_identity_v1.1.0",
+  "cases": [
+    {
+      "case_id": "same_name_distinct_explicit_ids",
+      "display_names": ["Scout", "Scout"],
+      "source_chart_ids": ["astrowoof:dog:A", "astrowoof:dog:B"],
+      "expected": "disjoint_canonical_object_and_relationship_identity"
+    },
+    {
+      "case_id": "rename_stable_explicit_id",
+      "display_names": ["Scout", "Scout Renamed"],
+      "source_chart_ids": ["astrowoof:dog:A", "astrowoof:dog:A"],
+      "expected": "identical_canonical_object_and_relationship_ids"
+    },
+    {
+      "case_id": "explicit_rescope",
+      "source_chart_ids": ["astrowoof:dog:A", "astrowoof:dog:B"],
+      "expected": "all_scoped_ids_exact_references_indexes_and_generated_provenance_migrated"
+    },
+    {
+      "case_id": "conflicting_carriers",
+      "carriers": {
+        "metadata.source_chart_id": "astrowoof:dog:A",
+        "natal.source_chart_id": "astrowoof:dog:B"
+      },
+      "expected": "fail_closed"
+    },
+    {
+      "case_id": "equal_duplicate_carriers",
+      "source_chart_id": "astrowoof:dog:A",
+      "carrier_count": 3,
+      "expected": "accepted"
+    },
+    {
+      "case_id": "trailing_namespace_delimiter",
+      "source_chart_id": "tenant:",
+      "expected": "identity_preserved_without_double_separator"
+    },
+    {
+      "case_id": "legacy_fallback",
+      "display_name": "Scout",
+      "expected_source_chart_id": "natal:scout"
+    }
+  ]
+}
