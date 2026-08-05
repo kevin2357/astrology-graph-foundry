@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUT_DIR = ROOT / "outputs" / "fixture_test_files"
+INPUT_DIR = ROOT / "tests" / "fixtures" / "qa_inputs"
 OUTPUT_DIR = ROOT / "outputs" / "fixture_outputs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 os.environ["ASTROLOGY_FOUNDRY_LOG_FILE"] = str(OUTPUT_DIR / "foundry.log")
@@ -23,16 +23,11 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _find_fixture(preferred: str, fallback: str) -> Path:
-    candidate = INPUT_DIR / preferred
+def _find_fixture(name: str) -> Path:
+    candidate = INPUT_DIR / name
     if candidate.exists():
         return candidate
-    fallback_path = ROOT / "scripts" / "outputs" / "kevin_bre_test" / fallback
-    if fallback_path.exists():
-        return fallback_path
-    raise FileNotFoundError(
-        f"Missing fixture {candidate}. Also checked historical fallback {fallback_path}."
-    )
+    raise FileNotFoundError(f"Missing canonical QA fixture {candidate}.")
 
 
 def _run_pytest() -> dict[str, Any]:
@@ -75,10 +70,7 @@ def main() -> int:
     summary: dict[str, Any] = {"qa_contract": "foundry_one_command_qa.v1"}
     summary["pytest"] = _run_pytest()
 
-    transit_path = _find_fixture(
-        "transit.full.json",
-        "kevin_2026-01-01_to_2026-02-01_transit.full.json",
-    )
+    transit_path = _find_fixture("transit.full.json")
     package = read_json(transit_path)
     summary["fixture"] = str(transit_path.relative_to(ROOT))
 
@@ -131,7 +123,7 @@ def main() -> int:
     summary["negative_test"] = negative
 
     try:
-        solar_path = _find_fixture("solar_return.full.json", "kevin_2026_solar_return.json")
+        solar_path = _find_fixture("solar_return.full.json")
         solar_package = read_json(solar_path)
         solar_view = solar_return.analysis_view(solar_package)
         write_json(OUTPUT_DIR / "solar_return.analysis.json", solar_view)

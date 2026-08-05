@@ -1,5 +1,0 @@
-{
-  "exception_type": "ValueError",
-  "message": "Temporal projection source export requires a nonempty canonical target graph. Supply a full natal, composite, or Davison package via --target-dataset when the Transit artifact does not embed canonical_astrology_graph.",
-  "passed": true
-}

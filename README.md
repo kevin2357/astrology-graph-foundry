@@ -196,4 +196,4 @@ Transit streaming/index artifacts support `standard`, `compact`, and `game` rete
 
 ## One-command QA
 
-Place canonical fixtures in `outputs/fixture_test_files` and run `scripts\run_streaming_profiles_qa.bat`. All generated artifacts and logs are written to `outputs/fixture_outputs`.
+Place canonical fixtures in `tests/fixtures/qa_inputs` and run `scripts\run_streaming_profiles_qa.bat`. All generated artifacts and logs are written to `outputs/fixture_outputs`.

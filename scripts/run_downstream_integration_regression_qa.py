@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUT_DIR = ROOT / "outputs" / "fixture_test_files"
+INPUT_DIR = ROOT / "tests" / "fixtures" / "qa_inputs"
 OUTPUT_DIR = ROOT / "outputs" / "fixture_outputs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 os.environ["ASTROLOGY_FOUNDRY_LOG_FILE"] = str(OUTPUT_DIR / "foundry.log")
@@ -27,17 +27,11 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _fixture(preferred: str, fallback: str) -> Path:
-    candidate = INPUT_DIR / preferred
+def _fixture(name: str) -> Path:
+    candidate = INPUT_DIR / name
     if candidate.exists():
         return candidate
-    fallback_path = ROOT / "outputs" / "kevin_bre_test" / fallback
-    if fallback_path.exists():
-        return fallback_path
-    fallback_path = ROOT / "scripts" / "outputs" / "kevin_bre_test" / fallback
-    if fallback_path.exists():
-        return fallback_path
-    raise FileNotFoundError(f"Missing fixture {preferred}; checked canonical and historical locations.")
+    raise FileNotFoundError(f"Missing canonical QA fixture {candidate}.")
 
 
 def _pytest() -> dict[str, Any]:
@@ -94,16 +88,10 @@ def main() -> int:
         "pytest": _pytest(),
     }
 
-    full_path = _fixture(
-        "transit.full.json",
-        "kevin_2026-01-01_to_2026-02-01_transit.full.json",
-    )
-    natal_path = _fixture("natal.full.json", "kevin_natal_dataset.json")
+    full_path = _fixture("transit.standard.json")
+    natal_path = _fixture("natal.full.json")
     try:
-        ashley_natal_path = _fixture(
-            "natal.ashley.full.json",
-            "ashley_natal_dataset.json",
-        )
+        ashley_natal_path = _fixture("natal.ashley.full.json")
     except FileNotFoundError:
         ashley_natal_path = None
     full = read_json(full_path)
@@ -151,7 +139,11 @@ def main() -> int:
             "passed": not collisions,
         }
 
-    standard = transit.streaming_index(full, profile="standard")
+    standard = (
+        full
+        if full.get("view_type") == "streaming_index"
+        else transit.streaming_index(full, profile="standard")
+    )
     write_json(OUTPUT_DIR / "transit.standard.json", standard)
 
     game1 = transit.streaming_index(standard, profile="game", target_set="gameplay")
