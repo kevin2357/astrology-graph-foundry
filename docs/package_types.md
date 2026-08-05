@@ -25,13 +25,14 @@ Full package schemas remain separate. Consumers should validate against the sche
 
 ## Semantic-boundary fields
 
-During the Chunk 1 inspection cycle, major packages dual-write:
+Major full packages use:
 
-- `semantic_graph` — legacy graph with orthodox annotations;
-- `canonical_astrology_graph` — pre-projection graph;
-- `structural_evidence_graph` — conservative aggregation;
-- `projection_views.orthodox_astrology.v1` — orthodox themes, claim candidates, and report consumer view;
-- `semantic_boundary` — migration metadata.
+- `canonical_astrology_graph` — authoritative pre-projection source graph;
+- `structural_evidence_graph` — conservative aggregation and evidence lineage;
+- `projection_views.orthodox_astrology.v1` — explicitly namespaced orthodox themes, claim candidates, and report-facing material;
+- `semantic_boundary` — materialization and boundary metadata.
+
+The former top-level `semantic_graph`, `theme_metrics`, `relationship_metrics`, `evidence_graph`, and `report_materials` aliases are no longer part of finalized full packages. Legacy fallback remains only for consuming raw or pre-boundary historical inputs.
 
 Compact analysis/index views contain summaries rather than always repeating the full canonical graph.
 

@@ -127,4 +127,4 @@ Orthodox astrology is the first explicit profile, not an implicit universal inte
 
 ## Projection layer implementation begins
 
-Chunk 2.1 introduces the internal extraction-ready projection contract package. It is intentionally located in the SDK only during development; contract ownership transfers to the independent Semantic Projection Layer project in Chunk 2.8.
+Projection contracts and execution now belong to the independent Semantic Projection Core repository. Foundry retains only source-package adapters and integration boundaries.

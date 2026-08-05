@@ -86,7 +86,7 @@ Semantic Projection Core 0.10.0 provides the production temporal route from this
 See:
 
 - `docs/Canonical Temporal Activation Graph.md`
-- `docs/Temporal Projection A-B-C Implementation Plan.md`
+- `docs/compatibility.md`
 
 ## Practical compact and long-window helpers
 
@@ -170,11 +170,11 @@ python -m astrology_graph_foundry.cli --help
 
 Start with:
 
+- `docs/README.md`
 - `docs/architecture.md`
 - `docs/Astrology Graph Foundry Developer Manual.md`
 - `docs/package_types.md`
 - `docs/timing_pipelines.md`
-- `docs/Pre-Projection Semantic Boundary.md`
 - `docs/Semantic Projection Integration.md`
 - `docs/Canonical Temporal Activation Graph.md`
 

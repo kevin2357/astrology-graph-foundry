@@ -99,7 +99,7 @@ Three downstream layers should remain conceptually separate:
 
 A magazine-style report should not be generated directly from raw chart facts. It should consume structured report material produced from semantic packages.
 
-See `Report Blueprint Specification.md` and `Projection Layer Architecture.md`.
+See `Report Blueprint Specification.md`, `Semantic Projection Integration.md`, and the current Semantic Projection Core documentation.
 
 ## Pass 2: downstream architecture and ecosystem boundary
 
@@ -121,7 +121,7 @@ The following companion documents define those downstream-facing boundaries:
 
 - `Astrology Ecosystem Architecture.md`
 - `Semantic Graph Philosophy.md`
-- `Projection Layer Architecture.md`
+- `Semantic Projection Integration.md`
 - `Report Blueprint Specification.md`
 - `Multi-Pipeline Semantic Synthesis.md`
 - `Consumer Cookbook.md`
@@ -168,7 +168,11 @@ The common timing interface now extends beyond transits and solar returns. Lunar
 
 Compact analysis and streaming/indexed outputs also have dedicated schemas, strengthening their status as stable consumer contracts rather than incidental projections of full packages.
 
-## Chunk 1 semantic-boundary architecture
+## Historical architecture milestones
+
+The following sections summarize completed migration milestones. They explain why the current boundary exists but are not a forward implementation plan. Detailed records live under `docs/history/`.
+
+### Chunk 1 semantic-boundary architecture
 
 The SDK now exposes:
 

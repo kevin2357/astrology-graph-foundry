@@ -77,4 +77,4 @@ JSON structure reduction provides the largest semantic-size savings. Optional de
 
 ## Downstream integration correction
 
-See `Downstream Integration Regression Fixes.md` for the complete static-graph authority, standard-index rematerialization, gameplay target-policy, and legacy daily-sky rules.
+See the historical [Downstream Integration Regression Fixes](history/foundry-development/Downstream%20Integration%20Regression%20Fixes.md) record for the static-graph authority, standard-index rematerialization, gameplay target-policy, and legacy daily-sky corrections.

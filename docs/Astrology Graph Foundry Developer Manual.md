@@ -220,7 +220,7 @@ Projection context should be first-class. A relationship package can be read as 
 
 The source graph stays stable. Projection changes the target vocabulary.
 
-See `Projection Layer Architecture.md`.
+See `Semantic Projection Integration.md` and the current Semantic Projection Core documentation.
 
 ## 9. Evidence integration
 
@@ -239,12 +239,14 @@ See `Multi-Pipeline Semantic Synthesis.md`.
 
 ## 10. Documentation map
 
+- `README.md`: authoritative documentation index and status map.
+- `compatibility.md`: Foundry/SPC and contract-version expectations.
 - `How to Use Astrology Graph Foundry.md`: practical quick-start.
 - `Astrology Graph Foundry Developer Manual.md`: this handbook.
 - `architecture.md`: SDK-level architecture.
 - `Astrology Ecosystem Architecture.md`: whole ecosystem.
 - `Semantic Graph Philosophy.md`: why graphs/evidence/provenance matter.
-- `Projection Layer Architecture.md`: context-aware target-domain projection.
+- `Semantic Projection Integration.md`: current Foundry-to-SPC handoff.
 - `Report Blueprint Specification.md`: standard report formats and `report_view`.
 - `Multi-Pipeline Semantic Synthesis.md`: long-term evidence integration / research layer.
 - `Consumer Cookbook.md`: concrete downstream package-combination examples.
@@ -320,9 +322,9 @@ Use:
 - `canonical_astrology_graph` for projection-ready source structure;
 - `structural_evidence_graph` for conservative pre-projection aggregation;
 - `projection_views["orthodox_astrology.v1"]` for conventional astrology themes and claim candidates;
-- legacy `semantic_graph`, `theme_metrics`, `evidence_graph`, and `report_materials` only during the current dual-write review cycle.
+- legacy `semantic_graph`, `theme_metrics`, `evidence_graph`, and `report_materials` only when ingesting historical pre-boundary inputs.
 
-A later generic projection engine should consume the canonical graph and preserve lineage from projected concepts back through mapping rules to canonical objects and computed chart facts.
+Semantic Projection Core consumes the canonical graph and preserves lineage from projected concepts through mapping rules to canonical objects and computed chart facts.
 
 ## Evidence-family grouping
 
