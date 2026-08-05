@@ -1,0 +1,37 @@
+{
+  "artifact_type": "agf_spc_identity_compatibility",
+  "artifact_version": "1.0.0",
+  "agf": {
+    "distribution_version_during_sprint": "0.5.0",
+    "installation_mode": "editable_candidate_source",
+    "canonical_graph_version": "1.3.0",
+    "semantic_identity_policy": "semantic_sensor_identity_v1.1.0"
+  },
+  "spc": {
+    "distribution": "semantic-projection-core",
+    "version": "0.10.0",
+    "wheel_sha256": "60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150",
+    "editable": false,
+    "release_compatibility_contract": "semantic_projection.release_compatibility.v1",
+    "compatibility_resource_sha256": "6559d842bb514beb21ff1a12abac56205e1c440a8b5ac59cf9f1f3dadab6182f",
+    "runtime_package_sha256": "209be10ee879312293d7955f76dc7d9c0ade2dcb4e3a2fead11d424483f80611",
+    "runtime_resource_count": 101,
+    "semantic_resource_sha256": "74ba2450c20e4b8c636ba2ffcb0a8b6db8ae3e0964f552cfdfbf78bde1145afd",
+    "semantic_resource_count": 44,
+    "schema_sha256": "559ca31adc4e718b247defc90044ecb0cb5ca113d76ddc5581fe3955449e6963",
+    "schema_count": 21,
+    "runtime_smoke_status": "ok"
+  },
+  "qualification": {
+    "python": "3.12.13",
+    "exact_artifact_identity_tests_passed": 53,
+    "full_agf_regression_tests_passed": 156,
+    "explicit_source_identity_preserved": true,
+    "projection_context_excluded_from_source_identity": true,
+    "projection_context_changes_projection_identity": true,
+    "saved_package_round_trip_idempotent": true,
+    "legacy_name_fallback_regression_passed": true,
+    "temporal_target_identity_regression_passed": true
+  },
+  "scope_note": "AGF was tested from the candidate source checkout while SPC was installed from the exact qualified wheel. Installed AGF wheel qualification belongs to release Sprint 2."
+}

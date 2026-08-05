@@ -1,5 +1,6 @@
 from copy import deepcopy
 
+from astrology_graph_foundry.common.io import read_json, write_json
 from astrology_graph_foundry.common.semantic_layers import (
     finalize_package_semantic_boundary,
     rescope_natal_package_source_chart_id,
@@ -219,3 +220,27 @@ def test_trailing_namespace_delimiter_is_preserved_without_double_separator():
     assert graph["source_chart_id"] == "tenant:"
     assert all(obj["id"].startswith("tenant:") for obj in graph["objects"])
     assert all(not obj["id"].startswith("tenant::") for obj in graph["objects"])
+
+
+def test_explicit_identity_survives_saved_package_round_trip(tmp_path):
+    source_chart_id = "astrowoof:dog:round-trip"
+    package = finalize_package_semantic_boundary(
+        _explicit_package("Scout", source_chart_id)
+    )
+    path = tmp_path / "natal.json"
+
+    write_json(path, package)
+    reloaded = read_json(path)
+    before_refinalization = deepcopy(reloaded)
+    finalized = finalize_package_semantic_boundary(reloaded)
+
+    assert finalized == before_refinalization
+    assert finalized["metadata"]["source_chart_id"] == source_chart_id
+    assert finalized["canonical_astrology_graph"]["source_chart_id"] == source_chart_id
+    assert all(
+        row["evidence_metadata"]["source_chart_ids"] == [source_chart_id]
+        for row in [
+            *finalized["canonical_astrology_graph"]["objects"],
+            *finalized["canonical_astrology_graph"]["relationships"],
+        ]
+    )

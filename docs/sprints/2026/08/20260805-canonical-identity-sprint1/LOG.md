@@ -137,3 +137,31 @@ This log is append-only during execution. Planning entries do not represent comp
 - Reviewed the diff for participant-order behavior, name dependence, calculation/subject identity conflation, temporal target drift, and projection-context leakage.
 - Final whitespace and `git diff --check` validation completed after this entry and are reported in the handoff.
 - Slice 4 is paused for human approval. No Slice 4 files are staged or committed.
+
+## 2026-08-05 — Slice 4 Approval and Commit
+
+- Human approved Slice 4 and authorized commit/continuation.
+- Committed relationship/temporal identity behavior, tests, and evidence as `c37f960` (`Define relationship and temporal identity contracts`).
+- Began Slice 5 from that clean named boundary.
+
+## 2026-08-05 — Slice 5 Migration and Downstream Boundary QA
+
+- Independently verified the qualified SPC 0.10.0 wheel SHA-256 as `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`.
+- Added projection coverage proving exact explicit AGF source identity survives while different downstream contexts change projection/context identity.
+- The first assertion expected a nonexistent top-level SPC `projection_identity`; inspection identified the public fields as `metadata.projection_id` and runtime context `content_sha256`. Corrected the test and retained the finding.
+- Added saved-package JSON round-trip and re-finalization idempotence coverage.
+- Initial `C:\tmp` environment creation was denied. A clean ignored environment under AGF `outputs` was used instead.
+- Installed SPC from the exact wheel with `editable=false`; installed the current AGF candidate editable, as installed AGF wheel qualification belongs to Sprint 2.
+- SPC installed runtime smoke returned `ok` and wrote a complete temporary release manifest.
+- Exact-wheel boundary suite: 53 passed in 3.22 seconds.
+- A full-suite command issued from `outputs` discovered no tests; it was rerun from the repository root rather than treated as evidence.
+- Full AGF regression suite: 156 passed in 5.39 seconds.
+- Compact runtime/artifact evidence recorded in `results/cross-repository-compatibility.json`; bulky environment and manifest cleanup follows before the gate closes.
+
+## 2026-08-05 — Slice 5 Gate Ready for Review
+
+- Removed the ignored workspace qualification environment and full temporary SPC runtime manifest after preserving compact hashes.
+- Removed the earlier partial `C:\tmp\agf-sprint1-slice5` environment and any corresponding temporary manifest.
+- No wheel, expanded manifest, virtual environment, cache, or generated package was retained in sprint documentation.
+- Final targeted lint, JSON, whitespace, diff, and repository-status checks completed after this entry and are reported in the handoff.
+- Slice 5 is paused for human approval. No Slice 5 files are staged or committed.

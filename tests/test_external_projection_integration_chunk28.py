@@ -4,8 +4,9 @@ import json
 from pathlib import Path
 
 import semantic_projection
-from astrology_graph_foundry import project_dataset
 from semantic_projection import ProjectionContext
+
+from astrology_graph_foundry import project_dataset
 
 
 def package_fixture() -> dict:
@@ -90,3 +91,58 @@ def test_profile_source_selection_excludes_aliases_without_counting_mapping_fail
     assert coverage["relationships"]["excluded_by_source_selection_policy_count"] == 2
     assert coverage["objects"]["eligible_but_unmapped_count"] == 0
     assert coverage["relationships"]["eligible_but_unmapped_count"] == 0
+
+
+def test_explicit_source_chart_identity_survives_projection_without_context_contamination():
+    package = package_fixture()
+    source_chart_id = "astrowoof:dog:ABC-123"
+    package["metadata"].update(
+        {
+            "source_chart_id": source_chart_id,
+            "source_chart_ids": [source_chart_id],
+            "sensor_instance_id": source_chart_id,
+        }
+    )
+    package["canonical_astrology_graph"].update(
+        {
+            "source_chart_id": source_chart_id,
+            "source_chart_ids": [source_chart_id],
+            "sensor_instance_id": source_chart_id,
+        }
+    )
+    contexts = (
+        ProjectionContext(
+            context_id="cognitive_architecture.general.v0",
+            context_version="0.2.0",
+            subject_scope="individual",
+            target_domain="cognitive_architecture_demo.v0",
+            application_context="general",
+        ),
+        ProjectionContext(
+            context_id="cognitive_architecture.general.v0",
+            context_version="0.2.0",
+            subject_scope="individual",
+            target_domain="cognitive_architecture_demo.v0",
+            application_context="alternate",
+        ),
+    )
+
+    projected = [
+        project_dataset(
+            package,
+            profile_id="cognitive_architecture_demo.v0",
+            profile_version="0.2.0",
+            context=context,
+        )
+        for context in contexts
+    ]
+
+    for result in projected:
+        assert result["source_identity"]["source_chart_id"] == source_chart_id
+        assert result["source_identity"]["source_chart_ids"] == [source_chart_id]
+        assert result["source_identity"]["sensor_instance_id"] == source_chart_id
+    assert projected[0]["metadata"]["projection_id"] != projected[1]["metadata"]["projection_id"]
+    assert (
+        projected[0]["metadata"]["runtime_identity"]["context"]["content_sha256"]
+        != projected[1]["metadata"]["runtime_identity"]["context"]["content_sha256"]
+    )
