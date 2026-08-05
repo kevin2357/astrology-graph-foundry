@@ -73,6 +73,7 @@ def build(
     birth_lat: float | None = None,
     birth_lon: float | None = None,
     birth_location_label: str = "",
+    source_chart_id: str | None = None,
     start: str | None = None,
     end: str | None = None,
     snapshot_timezone: str = "America/Denver",
@@ -105,6 +106,7 @@ def build(
             birth_lat=float(birth_lat),
             birth_lon=float(birth_lon),
             birth_location_label=birth_location_label,
+            source_chart_id=source_chart_id,
         )
 
     ep = create_provider(
@@ -150,12 +152,14 @@ def build(
     ]
 
     logger.info("Natal package complete person=%s graph_objects=%d graph_relationships=%d long_transits=%d", ep.person_metadata().get("person"), len(graph.get("objects", [])), len(graph.get("relationships", [])), len(long_transits))
+    provider_chart_id = ep.person_metadata().get("target_chart_id") or ep.person_metadata().get("source_chart_id")
     package = {
         "metadata": {
             "schema_version": SCHEMA_VERSION,
             "analysis_type": "natal_dataset",
             "created_at": datetime.now().isoformat(timespec="seconds"),
             "person": ep.person_metadata().get("person"),
+            **({"source_chart_id": provider_chart_id} if provider_chart_id else {}),
             "provider": ep.person_metadata().get("provider"),
             "start_date": start,
             "end_date": end,

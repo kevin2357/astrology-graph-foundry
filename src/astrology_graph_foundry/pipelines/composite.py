@@ -85,6 +85,7 @@ def _dataset_from_live(prefix: str, kwargs: dict[str, Any]) -> dict[str, Any] | 
             birth_lat=float(birth_lat),
             birth_lon=float(birth_lon),
             birth_location_label=kwargs.get(f"{prefix}_birth_location_label", ""),
+            source_chart_id=kwargs.get(f"{prefix}_source_chart_id"),
             snapshot_timezone=kwargs.get("snapshot_timezone", "America/Denver"),
             snapshot_time=kwargs.get("snapshot_time", "12:00"),
             ephe_path=kwargs.get("ephe_path", "."),

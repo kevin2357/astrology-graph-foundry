@@ -52,3 +52,30 @@ This log is append-only during execution. Planning entries do not represent comp
 - Confirmed that the gate contains a carrier/consumer matrix, validation and conflict rules, before/after behavioral expectations, schema/version impact, migration threat model, and required test matrix.
 - Final repository validation completed after this entry; results are reported in the gate handoff.
 - Slice 1 is paused for human approval. No files are staged and no commit has been created.
+
+## 2026-08-05 — Slice 1 Approval and Commit
+
+- Human approved the Slice 1 contract and authorized commit/continuation.
+- Committed the sprint plans, initial logs, and Slice 1 decision as `96d134d` (`Plan canonical identity and immutable release sprints`).
+- Began Slice 2 from that named boundary.
+
+## 2026-08-05 — Slice 2 Public Boundary Implementation
+
+- Added centralized `source_chart_id` validation and an optional final field on `BirthData`.
+- Added the identity argument to live Natal Python/CLI/provider paths, standalone ephemeris generation, shared pair inputs, and guided Natal/Synastry tools.
+- Serialized explicit identity through live provider metadata/person/chart payloads and taught `TransitableChart` to recognize explicit source metadata.
+- Added matching optional schema constraints to birth data, canonical graph identity, and TransitableChart identity.
+- Added focused tests for accepted/rejected values, exact preservation, schema behavior, CLI discovery, pair forwarding, and mocked end-to-end live Natal serialization.
+- Initial focused identity run: 18 passed. Identity plus workflow run: 31 passed. Final focused run after end-to-end coverage: 23 passed.
+- Full regression suite at the broad-contract gate: 141 passed in 3.67 seconds.
+- `compileall` passed.
+- Repository-wide Ruff exposed 116 pre-existing findings across legacy files. No bulk formatting was performed. The slice uses targeted lint for newly created code/tests and records the baseline debt rather than expanding scope.
+- Slice 2 deliberately leaves multi-carrier conflict detection, identity-policy versioning, and complete reference migration to Slice 3.
+
+## 2026-08-05 — Slice 2 Gate Ready for Review
+
+- Targeted Ruff validation for the new identity module and tests passed.
+- Final full regression suite after all Slice 2 tests were present: 142 passed in 3.82 seconds.
+- Reviewed the implementation diff for accidental product semantics, calculation/projection identity conflation, unrelated formatting, and relationship-identity changes; none were introduced.
+- Final whitespace and `git diff --check` validation completed after this entry and are reported in the handoff.
+- Slice 2 is paused for human approval. No Slice 2 files are staged or committed.

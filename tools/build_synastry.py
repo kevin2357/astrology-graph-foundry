@@ -18,6 +18,7 @@ def _add_birth_args(parser: argparse.ArgumentParser, prefix: str) -> None:
     parser.add_argument(f"--{prefix}-birth-lat", type=float)
     parser.add_argument(f"--{prefix}-birth-lon", type=float)
     parser.add_argument(f"--{prefix}-birth-location-label", default="")
+    parser.add_argument(f"--{prefix}-source-chart-id")
 
 
 def main(argv: list[str] | None = None) -> int:

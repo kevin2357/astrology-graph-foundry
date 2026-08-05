@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from typing import Any, Protocol, runtime_checkable
 
 from astrology_graph_foundry.common.chart_graph import build_chart_graph
+from astrology_graph_foundry.common.identity import validate_source_chart_id
 from astrology_graph_foundry.common.io import read_json
 
 TRANSITABLE_CHART_VERSION = "transitable_chart_v1.0.0"
@@ -146,9 +147,13 @@ def from_package(package_or_path: str | dict[str, Any]) -> TransitableChart:
     label = str(chart.get("person") or meta.get("person") or f"{chart_type.title()} chart")
     if chart_type in {"composite", "davison"}:
         label = str(chart.get("person") or f"{chart_type.title()}: {meta.get('person_a', 'A')} + {meta.get('person_b', 'B')}")
-    chart_id = str(
+    explicit_chart_id = (
         (package.get("transitable_chart") or {}).get("chart_identity", {}).get("chart_id")
-        or f"{chart_type}:{label.lower().replace(' ', '_')}"
+        or meta.get("source_chart_id")
+        or chart.get("source_chart_id")
+    )
+    chart_id = validate_source_chart_id(explicit_chart_id, field_name="chart_identity.chart_id") or (
+        f"{chart_type}:{label.lower().replace(' ', '_')}"
     )
     construction = dict((package.get("transitable_chart") or {}).get("construction") or {})
     if not construction:

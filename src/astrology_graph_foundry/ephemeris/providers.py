@@ -62,7 +62,23 @@ class LiveSwissEphemerisProvider(EphemerisProvider):
         self.swe = swe; self.config = config; self.swe.set_ephe_path(config.ephe_path)
         if birth_data is not None:
             logger.info("Computing live natal chart for %s", birth_data.name)
-            self.dataset = {"metadata": {"analysis_type": "natal_dataset", "person": birth_data.name}, "person": {"person": birth_data.name, "birth_local": birth_data.birth_local, "birth_timezone": birth_data.birth_timezone, "birth_lat": birth_data.birth_lat, "birth_lon": birth_data.birth_lon, "birth_location_label": birth_data.birth_location_label}, "natal": build_live_natal_chart(birth_data, config)}
+            self.dataset = {
+                "metadata": {
+                    "analysis_type": "natal_dataset",
+                    "person": birth_data.name,
+                    **({"source_chart_id": birth_data.source_chart_id} if birth_data.source_chart_id else {}),
+                },
+                "person": {
+                    "person": birth_data.name,
+                    "birth_local": birth_data.birth_local,
+                    "birth_timezone": birth_data.birth_timezone,
+                    "birth_lat": birth_data.birth_lat,
+                    "birth_lon": birth_data.birth_lon,
+                    "birth_location_label": birth_data.birth_location_label,
+                    **({"source_chart_id": birth_data.source_chart_id} if birth_data.source_chart_id else {}),
+                },
+                "natal": build_live_natal_chart(birth_data, config),
+            }
         elif target_dataset is not None:
             from astrology_graph_foundry.common.io import read_json
             logger.info("Loading existing TransitableChart target package: %s", target_dataset if not isinstance(target_dataset, dict) else "<dict>")

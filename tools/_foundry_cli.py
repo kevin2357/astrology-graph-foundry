@@ -132,6 +132,7 @@ def append_live_birth_arguments(command: list[str], args: Any, prefix: str = "")
         ("birth-lat", "birth_lat"),
         ("birth-lon", "birth_lon"),
         ("birth-location-label", "birth_location_label"),
+        ("source-chart-id", "source_chart_id"),
     )
     required_fields = {"name", "birth_local", "birth_timezone", "birth_lat", "birth_lon"}
     for flag_name, attr_name in fields:

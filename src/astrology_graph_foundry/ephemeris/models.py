@@ -2,6 +2,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from astrology_graph_foundry.common.identity import validate_source_chart_id
+
 @dataclass(frozen=True)
 class BirthData:
     name: str
@@ -10,6 +12,10 @@ class BirthData:
     birth_lat: float
     birth_lon: float
     birth_location_label: str = ""
+    source_chart_id: str | None = None
+
+    def __post_init__(self) -> None:
+        validate_source_chart_id(self.source_chart_id)
 
 @dataclass(frozen=True)
 class DailySnapshot:

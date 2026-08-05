@@ -68,6 +68,7 @@ def add_provider_args(p: argparse.ArgumentParser, *, include_natal_dataset: bool
     p.add_argument("--birth-lat", type=float)
     p.add_argument("--birth-lon", type=float)
     p.add_argument("--birth-location-label", default="")
+    p.add_argument("--source-chart-id")
     p.add_argument("--snapshot-time", default="12:00")
     p.add_argument("--timezone", default="America/Denver")
     p.add_argument("--ephe-path", default=".")
@@ -85,6 +86,7 @@ def add_pair_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--person-a-birth-lat", type=float)
     p.add_argument("--person-a-birth-lon", type=float)
     p.add_argument("--person-a-birth-location-label", default="")
+    p.add_argument("--person-a-source-chart-id")
     p.add_argument("--person-b-provider", choices=["cached", "live"], default="live")
     p.add_argument("--person-b-jsonl")
     p.add_argument("--person-b-natal-dataset")
@@ -94,6 +96,7 @@ def add_pair_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--person-b-birth-lat", type=float)
     p.add_argument("--person-b-birth-lon", type=float)
     p.add_argument("--person-b-birth-location-label", default="")
+    p.add_argument("--person-b-source-chart-id")
     p.add_argument("--snapshot-time", default="12:00")
     p.add_argument("--timezone", default="America/Denver")
     p.add_argument("--ephe-path", default=".")
@@ -528,6 +531,7 @@ def main() -> None:
                 birth_lat=args.birth_lat,
                 birth_lon=args.birth_lon,
                 birth_location_label=args.birth_location_label,
+                source_chart_id=args.source_chart_id,
             )
         logger.info("Generating ephemeris objects provider=%s natal_dataset=%s start=%s end=%s", args.provider, args.natal_dataset, args.start, args.end)
         ep = build_ephemeris_objects(
@@ -566,6 +570,7 @@ def main() -> None:
             birth_lat=args.birth_lat,
             birth_lon=args.birth_lon,
             birth_location_label=args.birth_location_label,
+            source_chart_id=args.source_chart_id,
             start=args.start,
             end=args.end,
             snapshot_timezone=args.timezone,
@@ -672,6 +677,7 @@ def main() -> None:
             person_a_birth_lat=args.person_a_birth_lat,
             person_a_birth_lon=args.person_a_birth_lon,
             person_a_birth_location_label=args.person_a_birth_location_label,
+            person_a_source_chart_id=args.person_a_source_chart_id,
             person_b_provider=args.person_b_provider,
             person_b_jsonl=args.person_b_jsonl,
             person_b_natal_dataset=args.person_b_natal_dataset,
@@ -681,6 +687,7 @@ def main() -> None:
             person_b_birth_lat=args.person_b_birth_lat,
             person_b_birth_lon=args.person_b_birth_lon,
             person_b_birth_location_label=args.person_b_birth_location_label,
+            person_b_source_chart_id=args.person_b_source_chart_id,
             snapshot_timezone=args.timezone,
             snapshot_time=args.snapshot_time,
             ephe_path=args.ephe_path,
@@ -743,6 +750,7 @@ def main() -> None:
             person_a_birth_lat=args.person_a_birth_lat,
             person_a_birth_lon=args.person_a_birth_lon,
             person_a_birth_location_label=args.person_a_birth_location_label,
+            person_a_source_chart_id=args.person_a_source_chart_id,
             person_b_provider=args.person_b_provider,
             person_b_jsonl=args.person_b_jsonl,
             person_b_natal_dataset=args.person_b_natal_dataset,
@@ -752,6 +760,7 @@ def main() -> None:
             person_b_birth_lat=args.person_b_birth_lat,
             person_b_birth_lon=args.person_b_birth_lon,
             person_b_birth_location_label=args.person_b_birth_location_label,
+            person_b_source_chart_id=args.person_b_source_chart_id,
             snapshot_timezone=args.timezone,
             snapshot_time=args.snapshot_time,
             ephe_path=args.ephe_path,

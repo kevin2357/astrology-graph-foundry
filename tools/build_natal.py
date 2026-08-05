@@ -22,6 +22,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--birth-lat", type=float)
     parser.add_argument("--birth-lon", type=float)
     parser.add_argument("--birth-location-label", default="")
+    parser.add_argument("--source-chart-id")
     parser.add_argument("--ephe-path", default=".")
     parser.add_argument("--house-system", default="P")
     parser.add_argument("--out-dir")

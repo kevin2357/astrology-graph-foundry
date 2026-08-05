@@ -46,6 +46,7 @@ def main() -> None:
     parser.add_argument("--birth-lat", type=float)
     parser.add_argument("--birth-lon", type=float)
     parser.add_argument("--birth-location-label", default="")
+    parser.add_argument("--source-chart-id")
     parser.add_argument("--start")
     parser.add_argument("--end")
     parser.add_argument("--snapshot-time", default="12:00")
@@ -70,6 +71,7 @@ def main() -> None:
             birth_lat=args.birth_lat,
             birth_lon=args.birth_lon,
             birth_location_label=args.birth_location_label,
+            source_chart_id=args.source_chart_id,
         )
 
     provider = build_ephemeris_objects(
