@@ -18,6 +18,8 @@ semantics, schemas, and implementation.
 - [Developer Manual](Astrology%20Graph%20Foundry%20Developer%20Manual.md) — implementation and consumer guidance.
 - [Package Types](package_types.md) — current pipeline and materialization status.
 - [Compatibility](compatibility.md) — Foundry/SPC, graph, temporal, and profile-version expectations.
+- [Runtime and Contract Inventory](Runtime%20and%20Contract%20Inventory.md) — installed modes, public contracts, guarantees, and failures.
+- [AstroWoof API Worker Handoff](AstroWoof%20API%20Worker%20Handoff.md) — release-candidate artifact lock and worker integration boundary.
 - [Ideas and Improvements](ideas_and_improvements.md) — active Foundry-owned roadmap.
 
 ## Calculation and package guides

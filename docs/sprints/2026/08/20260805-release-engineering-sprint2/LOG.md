@@ -175,3 +175,31 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - No temporary environment, generated chart, downloaded provider, build artifact,
   or ephemeris data was created or retained in this slice.
 - Slice 3 is paused for human approval. No files are staged or committed.
+
+## 2026-08-05 - Slice 3 Approval and Commit
+
+- Human approved Slice 3 and authorized continuation.
+- Committed the calculation provenance contract as `7f522cf` (`Add calculation provenance contract`).
+- Began Slice 4 from that clean named boundary.
+
+## 2026-08-05 - Slice 4 Stable Runtime and Consumer Contracts
+
+- Replaced stale AGF 0.5.x/open-ended SPC compatibility guidance with the 0.6.0 candidate, bounded 0.10.x library compatibility, and exact published SPC 0.10.0 artifact hash for production handoff.
+- Defined saved, projection, and live runtime modes, including the important distinction between live dependency availability and qualified provider/data reproducibility.
+- Added an installed-runtime contract inventory covering public commands, schemas, canonical graph/identity/provenance versions, completeness policy, and failure ownership.
+- Added an AGF-owned AstroWoof worker handoff with unresolved AGF/live placeholders, explicit `source_chart_id`, provenance retention, cache inputs, outputs, startup assertions, and retry/terminal boundaries.
+- Read-only API review found its proposed worker contract still records AGF 0.5.0, name-derived identity, and missing unified provenance. The API repository was not modified; its owner must later reconcile against the AGF release handoff.
+- Read-only SPC release evidence confirmed published SPC 0.10.0 SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150` and the canonical graph/structural evidence/source identity/registry intake boundary.
+- Extended doctor with distribution/runtime alignment, exact supported SPC release line, installed resource-manifest identity, calculation contract versions, and stable required-mode failure codes.
+- Development `--require-mode projection` assertion passed on CPython 3.12.13/Windows with AGF 0.6.0, SPC distribution/engine 0.10.0, and 34 packaged schemas. Swiss was absent as expected. This is not substituted for later wheel-only evidence.
+- Focused consumer suite passed: 42 tests.
+
+## 2026-08-05 - Slice 4 Gate Ready for Review
+
+- Full regression suite passed: 175 tests in 4.28 seconds.
+- Targeted Ruff passed for the changed runtime and test files after correcting import-only lint findings.
+- Checked 51 relative Markdown links across the repository README and current/history docs; none were broken.
+- Parsed retained startup JSON evidence, ran `git diff --check`, and reviewed the complete runtime, tests, compatibility, handoff, sprint report, and evidence diff.
+- Confirmed no API, SPC, SBE, or project repository was modified and no production code changed identity or calculation behavior.
+- No environment, wheel, downloaded dependency, generated chart, or provider data was created in this slice.
+- Slice 4 is paused for human approval. No files are staged or committed.

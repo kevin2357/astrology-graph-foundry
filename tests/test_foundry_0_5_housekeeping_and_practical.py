@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-import json
-from pathlib import Path
-
-from astrology_graph_foundry.doctor import build_doctor_report, render_doctor_report
+from astrology_graph_foundry.doctor import (
+    build_doctor_report,
+    render_doctor_report,
+    required_mode_failures,
+)
 from astrology_graph_foundry.pipelines import eclipse_lunation, solar_return
 
 
@@ -15,6 +16,30 @@ def test_doctor_report_is_structured_and_renderable():
     assert "version_metadata_matches_engine" in report["semantic_projection_core"]
     assert "live_ephemeris_calculation" in report["capabilities"]
     assert "Astrology Graph Foundry doctor" in render_doctor_report(report)
+    assert report["runtime_resources"]["resource_count"] >= 34
+    assert len(report["runtime_resources"]["manifest_sha256"]) == 64
+    assert report["calculation_contracts"]["profile"] == "agf.calculation_profile.v1.0.0"
+    assert report["semantic_projection_core"]["supported_release_line"] == "0.10.x"
+
+
+def test_doctor_required_mode_failure_codes_are_stable():
+    report = build_doctor_report()
+    report["foundry"]["version_metadata_matches_runtime"] = True
+    report["runtime_resources"]["resource_count"] = 34
+    report["semantic_projection_core"].update(
+        available=True,
+        version_metadata_matches_engine=True,
+        compatible_with_foundry=True,
+    )
+    report["swiss_ephemeris"]["available"] = True
+    assert required_mode_failures(report, "saved") == []
+    assert required_mode_failures(report, "projection") == []
+    assert required_mode_failures(report, "live") == []
+
+    report["semantic_projection_core"]["compatible_with_foundry"] = False
+    assert required_mode_failures(report, "projection") == ["spc_incompatible"]
+    report["swiss_ephemeris"]["available"] = False
+    assert required_mode_failures(report, "live") == ["pyswisseph_missing"]
 
 
 def test_eclipse_classification_is_explicit_about_precision():

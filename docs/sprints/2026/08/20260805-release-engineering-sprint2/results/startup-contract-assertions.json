@@ -1,0 +1,29 @@
+{
+  "evidence_type": "agf.slice4.startup_contract_assertions.v1",
+  "candidate": {
+    "distribution": "astrology-graph-foundry",
+    "version": "0.6.0",
+    "wheel_sha256": null
+  },
+  "development_runtime_check": {
+    "python": "3.12.13",
+    "platform": "Windows 11",
+    "required_mode": "projection",
+    "ready": true,
+    "failure_codes": [],
+    "resource_count": 34,
+    "runtime_manifest_sha256": "e81daa3613c8d6eedc6319226121a10dd220435f004133a6872885de58cf0e80",
+    "spc_distribution_version": "0.10.0",
+    "spc_engine_version": "0.10.0",
+    "live_dependency_available": false,
+    "scope": "editable development runtime; installed-wheel qualification remains Slices 5 and 6"
+  },
+  "stable_failure_codes": [
+    "foundry_version_mismatch",
+    "packaged_resources_missing",
+    "spc_missing",
+    "spc_version_mismatch",
+    "spc_incompatible",
+    "pyswisseph_missing"
+  ]
+}

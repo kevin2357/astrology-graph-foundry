@@ -4,14 +4,28 @@
 
 | Component | Current Foundry expectation |
 |---|---|
-| Astrology Graph Foundry | 0.5.x |
-| Semantic Projection Core | 0.10.0 or newer compatible release |
+| Astrology Graph Foundry | 0.6.0 release candidate; use an exact qualified wheel/hash in production |
+| Semantic Projection Core | library compatibility range `>=0.10.0,<0.11`; production artifact is exactly 0.10.0 |
 | Python | 3.10 or newer |
-| Swiss Ephemeris | Optional; required only for live calculation |
+| Swiss Ephemeris | Optional `>=2.10,<2.11`; required only for live calculation |
 
-Foundry declares `semantic-projection-core>=0.10.0`. Repeatable production workflows should additionally pin a tested SPC release rather than relying on an unconstrained newest version.
+Foundry's library metadata permits the SPC 0.10 release line. The release handoff pins SPC 0.10.0 wheel SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`. This digest must be independently reverified during release qualification.
 
-Use `astro-package doctor --json` to compare installed distribution versions with imported engine versions. A mismatch commonly means an editable dependency was changed without being reinstalled.
+Use `astro-package doctor --json` to compare installed distribution versions with imported engine versions. Worker startup may assert `astro-package doctor --require-mode saved|projection|live --json`; failure exits with status 2 and stable failure codes. `live` proves dependency availability only, not that a Swiss Ephemeris data set has been release-qualified.
+
+## Runtime modes
+
+| Mode | Required runtime | Guarantee and limitation |
+|---|---|---|
+| Saved | AGF and its packaged schemas | Reads, validates, adapts, and transforms existing packages; cached input does not recreate original calculation provenance. |
+| Projection | Saved mode plus compatible SPC | Projects canonical/static or supported temporal handoffs. Production additionally requires the exact qualified SPC wheel/hash and pinned projection resources. |
+| Live | AGF plus pyswisseph and qualified ephemeris data | Calculates charts. Availability is distinct from production qualification of Python, platform, wrapper, library, and data hashes. |
+
+AGF emits complete packages or raises an error. It does not advertise a partial-but-valid Natal artifact contract. `calculation_warnings` may describe deliberately skipped optional objects; warnings do not turn a structurally incomplete package into success.
+
+Validation and incompatibility errors are terminal for the same request/configuration. Missing packages, corrupt resources, unsupported contract versions, and provider/data incompatibility are deployment/configuration failures. Transient filesystem or provider infrastructure failures may be retried only after the orchestration owner classifies them; AGF does not make a universal retry promise.
+
+See [Runtime and Contract Inventory](Runtime%20and%20Contract%20Inventory.md) for the release-facing schema inventory and [AstroWoof API Worker Handoff](AstroWoof%20API%20Worker%20Handoff.md) for the candidate integration boundary.
 
 ## Static projection boundary
 

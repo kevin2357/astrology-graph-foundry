@@ -17,7 +17,12 @@ from astrology_graph_foundry.common.temporal_activation import (
     TemporalSourceContractError,
     extract_canonical_temporal_activation_graph,
 )
-from astrology_graph_foundry.doctor import build_doctor_report, render_doctor_report
+from astrology_graph_foundry.doctor import (
+    REQUIRED_MODES,
+    build_doctor_report,
+    render_doctor_report,
+    required_mode_failures,
+)
 from astrology_graph_foundry.ephemeris.generate_daily_ephemeris import build_ephemeris_objects
 from astrology_graph_foundry.ephemeris.models import BirthData
 from astrology_graph_foundry.pipelines import (
@@ -133,6 +138,11 @@ def main() -> None:
         help="Inspect installation health and report graph/projection/live-calculation capabilities.",
     )
     p.add_argument("--json", action="store_true", help="Emit the doctor report as JSON.")
+    p.add_argument(
+        "--require-mode",
+        choices=REQUIRED_MODES,
+        help="Exit nonzero unless the installed runtime is ready for this mode.",
+    )
 
     p = sub.add_parser(
         "runtime-manifest",
@@ -405,10 +415,21 @@ def main() -> None:
 
     if args.cmd == "doctor":
         report = build_doctor_report()
+        failures = required_mode_failures(report, args.require_mode) if args.require_mode else []
+        if args.require_mode:
+            report["required_mode_assertion"] = {
+                "mode": args.require_mode,
+                "ready": not failures,
+                "failure_codes": failures,
+            }
         if args.json:
             print(json.dumps(report, indent=2, sort_keys=True))
         else:
             print(render_doctor_report(report))
+            if failures:
+                print("\nRequired-mode failures: " + ", ".join(failures))
+        if failures:
+            raise SystemExit(2)
         return
 
     if args.cmd == "runtime-manifest":
