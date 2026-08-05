@@ -8,6 +8,11 @@ from astrology_graph_foundry.common.io import read_json
 from astrology_graph_foundry.pipelines.natal import build as build_natal
 from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
 from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
+from astrology_graph_foundry.common.identity import (
+    RELATIONSHIP_CHART_IDENTITY_VERSION,
+    derive_relationship_source_chart_id,
+    source_chart_id_from_natal_package,
+)
 
 SCHEMA_VERSION = "1.0.0"
 PIPELINE_VERSION = "davison_pipeline_v1.0.0"
@@ -38,9 +43,14 @@ def build(*, person_a_natal_dataset: str | dict[str, Any], person_b_natal_datase
     lon = (float(a["birth_lon"]) + float(b["birth_lon"])) / 2.0
     name_a = a_ds.get("metadata", {}).get("person") or a.get("person") or "A"
     name_b = b_ds.get("metadata", {}).get("person") or b.get("person") or "B"
-    chart = build_natal(provider="live", name=f"Davison: {name_a} + {name_b}", birth_local=mid_utc.replace(tzinfo=None).isoformat(timespec="seconds"), birth_timezone="UTC", birth_lat=lat, birth_lon=lon, birth_location_label="Davison midpoint", ephe_path=ephe_path, house_system=house_system)
+    participant_source_chart_ids = [
+        source_chart_id_from_natal_package(a_ds, fallback_name=name_a),
+        source_chart_id_from_natal_package(b_ds, fallback_name=name_b),
+    ]
+    source_chart_id = derive_relationship_source_chart_id("davison", participant_source_chart_ids)
+    chart = build_natal(provider="live", name=f"Davison: {name_a} + {name_b}", birth_local=mid_utc.replace(tzinfo=None).isoformat(timespec="seconds"), birth_timezone="UTC", birth_lat=lat, birth_lon=lon, birth_location_label="Davison midpoint", source_chart_id=source_chart_id, ephe_path=ephe_path, house_system=house_system)
     package = {
-        "metadata": {"schema_version": SCHEMA_VERSION, "pipeline_version": PIPELINE_VERSION, "analysis_type": "davison_relationship_dataset", "created_at": datetime.now().isoformat(timespec="seconds"), "person_a": name_a, "person_b": name_b},
+        "metadata": {"schema_version": SCHEMA_VERSION, "pipeline_version": PIPELINE_VERSION, "analysis_type": "davison_relationship_dataset", "created_at": datetime.now().isoformat(timespec="seconds"), "person_a": name_a, "person_b": name_b, "source_chart_id": source_chart_id, "participant_source_chart_ids": participant_source_chart_ids, "relationship_chart_identity_version": RELATIONSHIP_CHART_IDENTITY_VERSION},
         "davison_event": {"midpoint_utc": mid_utc.isoformat(), "midpoint_lat": lat, "midpoint_lon": lon, "method": "midpoint in time and space between births; chart cast as a real event"},
         "davison_chart": chart.get("natal", chart),
         "semantic_graph": chart.get("natal", {}).get("semantic_graph"),

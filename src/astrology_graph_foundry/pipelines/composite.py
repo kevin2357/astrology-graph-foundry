@@ -12,6 +12,11 @@ from astrology_graph_foundry.common.transitable_chart import descriptor_for_pack
 from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
 from astrology_graph_foundry.common.geometry import deg_to_sign, format_zodiac, house_for_lon, midpoint
 from astrology_graph_foundry.common.io import read_json
+from astrology_graph_foundry.common.identity import (
+    RELATIONSHIP_CHART_IDENTITY_VERSION,
+    derive_relationship_source_chart_id,
+    source_chart_id_from_natal_package,
+)
 from astrology_graph_foundry.common.themes import operator_hints, theme_tags
 from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
 from astrology_graph_foundry.ephemeris.providers import create_provider
@@ -224,6 +229,11 @@ def build_from_datasets(person_a_dataset: dict[str, Any], person_b_dataset: dict
     logger.info("Building composite dataset for %s + %s", name_a, name_b)
     natal_a = _natal_from_dataset(person_a_dataset)
     natal_b = _natal_from_dataset(person_b_dataset)
+    participant_source_chart_ids = [
+        source_chart_id_from_natal_package(person_a_dataset, fallback_name=name_a),
+        source_chart_id_from_natal_package(person_b_dataset, fallback_name=name_b),
+    ]
+    source_chart_id = derive_relationship_source_chart_id("composite", participant_source_chart_ids)
     bodies = _composite_bodies(natal_a, natal_b)
     houses = _composite_houses(natal_a, natal_b)
     cusps = [houses[str(i)]["lon"] for i in range(1, 13) if str(i) in houses]
@@ -266,6 +276,9 @@ def build_from_datasets(person_a_dataset: dict[str, Any], person_b_dataset: dict
             "created_at": datetime.now().isoformat(timespec="seconds"),
             "person_a": name_a,
             "person_b": name_b,
+            "source_chart_id": source_chart_id,
+            "participant_source_chart_ids": participant_source_chart_ids,
+            "relationship_chart_identity_version": RELATIONSHIP_CHART_IDENTITY_VERSION,
             "composite_method": "midpoint_longitude",
         },
         "person_a": {"metadata": person_a_dataset.get("metadata", {}), "natal_summary": natal_a.get("semantic_graph", {}).get("summary", {})},

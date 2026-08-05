@@ -1,9 +1,15 @@
+from copy import deepcopy
+
+from astrology_graph_foundry.common.identity import derive_relationship_source_chart_id
 from astrology_graph_foundry.pipelines import composite, synastry
 
 
-def natal(name, sun, moon, asc):
+def natal(name, sun, moon, asc, source_chart_id=None):
+    metadata = {"person": name}
+    if source_chart_id:
+        metadata["source_chart_id"] = source_chart_id
     return {
-        "metadata": {"person": name},
+        "metadata": metadata,
         "person": {"person": name},
         "natal": {
             "person": name,
@@ -71,3 +77,46 @@ def test_synastry_analysis_and_streaming_views_are_compact():
     assert "contact_id" in top_ref
     assert "theme_tags" not in top_ref
     assert top_ref["contact_id"] in streaming["contact_registry"]
+
+
+def test_composite_identity_uses_participant_chart_ids_not_display_names():
+    first_a = natal("Scout", 10.0, 70.0, 0.0, "astrowoof:dog:A")
+    first_b = natal("Buddy", 20.0, 80.0, 10.0, "astrowoof:dog:B")
+    renamed_a = deepcopy(first_a)
+    renamed_b = deepcopy(first_b)
+    renamed_a["metadata"]["person"] = "Scout Renamed"
+    renamed_b["metadata"]["person"] = "Buddy Renamed"
+
+    first = composite.build_from_datasets(first_a, first_b)
+    renamed = composite.build_from_datasets(renamed_a, renamed_b)
+    reversed_pair = composite.build_from_datasets(first_b, first_a)
+
+    expected = derive_relationship_source_chart_id(
+        "composite", ["astrowoof:dog:A", "astrowoof:dog:B"]
+    )
+    assert first["metadata"]["source_chart_id"] == expected
+    assert renamed["metadata"]["source_chart_id"] == expected
+    assert reversed_pair["metadata"]["source_chart_id"] == expected
+    assert first["transitable_chart"]["chart_identity"]["chart_id"] == expected
+    assert first["canonical_astrology_graph"]["source_chart_id"] == expected
+
+
+def test_same_named_participants_remain_distinct_in_synastry_source_identity():
+    a = natal("Scout", 10.0, 70.0, 0.0, "astrowoof:dog:A")
+    b = natal("Scout", 10.2, 130.0, 180.0, "astrowoof:dog:B")
+
+    package = synastry.build_from_datasets(a, b, include_composite=False)
+
+    assert package["metadata"]["source_chart_ids"] == ["astrowoof:dog:A", "astrowoof:dog:B"]
+    assert package["metadata"]["sensor_instance_id"] == "synastry:astrowoof:dog:A:astrowoof:dog:B"
+
+
+def test_relationship_identity_derivation_is_technique_specific_and_order_independent():
+    participants = ["astrowoof:dog:A", "astrowoof:dog:B"]
+    composite_id = derive_relationship_source_chart_id("composite", participants)
+    davison_id = derive_relationship_source_chart_id("davison", reversed(participants))
+
+    assert composite_id == derive_relationship_source_chart_id("composite", reversed(participants))
+    assert composite_id.startswith("composite:")
+    assert davison_id.startswith("davison:")
+    assert composite_id.split(":", 1)[1] != davison_id.split(":", 1)[1]

@@ -107,6 +107,26 @@ def test_transitable_descriptor_uses_explicit_metadata_identity_without_slugging
     assert descriptor["chart_identity"]["label"] == "Scout's Display Name"
 
 
+def test_transitable_descriptor_rejects_conflicting_identity_carriers():
+    package = {
+        "metadata": {
+            "analysis_type": "natal_dataset",
+            "person": "Scout",
+            "source_chart_id": "astrowoof:dog:A",
+        },
+        "natal": {
+            "person": "Scout",
+            "source_chart_id": "astrowoof:dog:B",
+            "bodies": {},
+            "houses": {},
+            "angles": {},
+        },
+    }
+
+    with pytest.raises(ValueError, match="Conflicting explicit source chart identities"):
+        descriptor_for_package(package)
+
+
 @pytest.mark.parametrize(
     ("command", "expected_flag"),
     [

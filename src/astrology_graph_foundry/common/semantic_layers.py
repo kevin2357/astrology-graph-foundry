@@ -295,11 +295,13 @@ def _chart_id_from_person_metadata(value: dict[str, Any] | None, fallback: str) 
     value = value or {}
     transitable = value.get("transitable_chart") or {}
     chart_identity = transitable.get("chart_identity") or {}
-    explicit = (
-        chart_identity.get("chart_id")
-        or value.get("source_chart_id")
-        or value.get("target_chart_id")
-        or value.get("chart_id")
+    explicit = resolve_explicit_source_chart_id(
+        (
+            ("transitable_chart.chart_identity.chart_id", chart_identity.get("chart_id")),
+            ("source_chart_id", value.get("source_chart_id")),
+            ("target_chart_id", value.get("target_chart_id")),
+            ("chart_id", value.get("chart_id")),
+        )
     )
     if explicit:
         return str(explicit)
@@ -358,11 +360,14 @@ def _semantic_identity(package: dict[str, Any]) -> dict[str, Any]:
         )
     ) if analysis_type == "natal_dataset" else None
 
-    direct_chart_id = (
-        transitable_identity.get("chart_id")
-        or metadata.get("target_chart_id")
-        or target_identity.get("chart_id")
-        or (target.get("chart_id") if isinstance(target, dict) else None)
+    direct_chart_id = resolve_explicit_source_chart_id(
+        (
+            ("transitable_chart.chart_identity.chart_id", transitable_identity.get("chart_id")),
+            ("metadata.source_chart_id", metadata.get("source_chart_id")),
+            ("metadata.target_chart_id", metadata.get("target_chart_id")),
+            ("target.chart_identity.chart_id", target_identity.get("chart_id")),
+            ("target.chart_id", target.get("chart_id") if isinstance(target, dict) else None),
+        )
     )
     chart_type_hint = (
         transitable_identity.get("chart_type")
@@ -390,12 +395,12 @@ def _semantic_identity(package: dict[str, Any]) -> dict[str, Any]:
             _chart_id_from_person_metadata(person_a_meta, metadata.get("person_a") or "person_a"),
             _chart_id_from_person_metadata(person_b_meta, metadata.get("person_b") or "person_b"),
         ]
-    elif relationship_source_id:
-        source_chart_ids = [relationship_source_id]
     elif natal_source_chart_id:
         source_chart_ids = [natal_source_chart_id]
     elif direct_chart_id:
         source_chart_ids = [str(direct_chart_id)]
+    elif relationship_source_id:
+        source_chart_ids = [relationship_source_id]
     elif analysis_type == "natal_dataset":
         source_chart_ids = [f"natal:{_slug(metadata.get('person') or (package.get('natal') or {}).get('person') or 'natal_chart')}"]
     elif analysis_type == "composite_dataset":

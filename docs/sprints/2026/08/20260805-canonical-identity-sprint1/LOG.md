@@ -108,3 +108,32 @@ This log is append-only during execution. Planning entries do not represent comp
 - Relationship identity behavior was not redesigned; it remains isolated to Slice 4.
 - Final whitespace and `git diff --check` validation completed after this entry and are reported in the handoff.
 - Slice 3 is paused for human approval. No Slice 3 files are staged or committed.
+
+## 2026-08-05 — Slice 3 Approval and Commit
+
+- Human approved Slice 3 and authorized commit/continuation.
+- Committed conflict-aware finalization, safe Natal rescoping, regression tests, and evidence as `1b0e37c` (`Make natal identity finalization conflict safe`).
+- Began Slice 4 from that clean named boundary.
+
+## 2026-08-05 — Slice 4 Relationship and Temporal Compatibility
+
+- Added `relationship_chart_identity_v1.0.0` and deterministic, order-independent Composite/Davison source IDs derived from chart type plus sorted participant canonical chart IDs.
+- Explicitly excluded display names, geometry, timestamps, paths, product metadata, and projection context from relationship identity derivation.
+- Composite now records its derived source ID, ordered participant source IDs, and identity-policy version before TransitableChart/finalization.
+- Davison uses the same participant-derived policy in its own namespace and supplies the derived source ID to its internal midpoint-event Natal calculation.
+- Synastry retains ordered participant source IDs and directional sensor identity. Nested identity carriers now reject disagreement.
+- Direct target identity resolution for timing packages now validates carriers and rejects conflicts.
+- TransitableChart descriptor construction now checks descriptor, metadata, chart, and canonical graph identity carriers for agreement.
+- Preserved existing temporal technique/time/location sensor derivation and downstream projection-context ownership.
+- Focused relationship/temporal run: 37 passed. Focused source/Transitable/relationship run after descriptor conflict coverage: 34 passed.
+- Full regression suite before the last focused descriptor test: 153 passed in 4.45 seconds.
+
+## 2026-08-05 — Slice 4 Gate Ready for Review
+
+- Moved participant Natal identity extraction into the shared identity module so Davison does not depend on a private Composite helper.
+- Final focused relationship/source/temporal suite: 51 passed in 1.78 seconds.
+- Final full regression suite: 154 passed in 3.97 seconds.
+- Targeted Ruff validation for the shared identity module and changed relationship/source tests passed.
+- Reviewed the diff for participant-order behavior, name dependence, calculation/subject identity conflation, temporal target drift, and projection-context leakage.
+- Final whitespace and `git diff --check` validation completed after this entry and are reported in the handoff.
+- Slice 4 is paused for human approval. No Slice 4 files are staged or committed.

@@ -323,6 +323,30 @@ def test_chunk12_timing_sensor_uses_chart_and_time_window():
     assert result["metadata"]["sensor_instance_id"] == "transit:natal:kevin:2026-01-01:2027-07-01"
 
 
+def test_timing_identity_carriers_must_agree():
+    package = {
+        "metadata": {
+            "analysis_type": "transit_range_dataset",
+            "target_chart_id": "natal:kevin",
+        },
+        "target": {
+            "chart_identity": {"chart_id": "natal:someone_else"},
+        },
+        "period": {"start_date": "2026-01-01", "end_date": "2026-01-02"},
+    }
+
+    try:
+        finalize_package_semantic_boundary(package)
+    except ValueError as exc:
+        message = str(exc)
+    else:
+        raise AssertionError("Expected conflicting temporal target identities to fail")
+
+    assert "Conflicting explicit source chart identities" in message
+    assert "metadata.target_chart_id" in message
+    assert "target.chart_identity.chart_id" in message
+
+
 def test_chunk12_source_chart_family_links_same_chart_across_sensors():
     natal = {
         "metadata": {"analysis_type": "natal_dataset", "person": "Kevin"},
