@@ -27,6 +27,7 @@ Astrology Graph Foundry calculates astrology packages and compiles canonical sou
 - [Timing Pipelines](timing_pipelines.md)
 - [TransitableChart Interface](transitable_chart.md)
 - [Logging](logging.md)
+- [Workflow Tools](../tools/README.md)
 
 ## Canonical and cross-repository contracts
 

@@ -166,6 +166,8 @@ Legacy module invocation remains available:
 python -m astrology_graph_foundry.cli --help
 ```
 
+For guided common workflows with the same underlying CLI behavior, see `tools/README.md`. The `build_natal.py`, `build_transit.py`, `build_synastry.py`, and `build_temporal_source.py` tools support interactive prompting, unattended flags, and command-preview dry runs.
+
 ## Documentation
 
 Start with:
