@@ -1,4 +1,4 @@
-__version__ = "0.6.0"
+from ._version import __version__
 
 
 from .common.temporal_activation import (

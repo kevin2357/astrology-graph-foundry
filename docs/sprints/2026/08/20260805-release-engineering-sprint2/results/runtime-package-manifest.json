@@ -1,0 +1,301 @@
+{
+  "distribution": "astrology-graph-foundry",
+  "manifest_type": "astrology_graph_foundry_runtime_package_manifest.v1",
+  "package": "astrology_graph_foundry",
+  "package_version": "0.6.0",
+  "resource_count": 33,
+  "resources": [
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/analysis_package_base_v1.schema.json",
+      "schema_id": null,
+      "sha256": "c01f4c58fccee996eda3ad49be612c4d48666cca1480bab16eeca9dcce55c574",
+      "size_bytes": 397,
+      "title": "Analysis Package Base v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/annual_profections_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "f4e8647819a102e86e4d28aa1c247216ab7006c2ee3440dcba906d0ca063a33d",
+      "size_bytes": 1746,
+      "title": "Annual Profections Dataset v2"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/birth_data_v1.schema.json",
+      "schema_id": null,
+      "sha256": "b22cc3ecca021e833fb650d0ea4d6e3e1ea78338e436708853f5746ed3c94de8",
+      "size_bytes": 739,
+      "title": "Birth Data v1"
+    },
+    {
+      "declared_versions": {
+        "graph_version": [
+          "1.3.0"
+        ]
+      },
+      "path": "astrology_graph_foundry/schemas/canonical_astrology_graph_v1.schema.json",
+      "schema_id": null,
+      "sha256": "0e3ec855b5d402014d0dee23fa87705360cdf542291af47570225609c667fc76",
+      "size_bytes": 2743,
+      "title": "Canonical Astrology Graph v1"
+    },
+    {
+      "declared_versions": {
+        "contract_version": [
+          "1.0.0"
+        ]
+      },
+      "path": "astrology_graph_foundry/schemas/canonical_temporal_activation_graph_v1.schema.json",
+      "schema_id": "canonical_temporal_activation_graph_v1.schema.json",
+      "sha256": "ff37a35a33b5e34b4fe5d128d843394d7495724e80ed58422f6e8ee3221a7b48",
+      "size_bytes": 10279,
+      "title": "Canonical Temporal Activation Graph v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/chart_semantic_graph_v1.schema.json",
+      "schema_id": null,
+      "sha256": "0b789a5823de5a25e6ead407a33480b00ed7221a0ccbb1e2e7e82f947c54e11b",
+      "size_bytes": 6254,
+      "title": "Chart Semantic Graph v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/composite_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "3b2396c826b675e53b82fa1f16f86369ced518f13a1ba3bac6ca2f30f7c1f416",
+      "size_bytes": 2214,
+      "title": "Composite Dataset v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/davison_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "f2d4037d773824bd54926d2bf7bd423b6b85f291feda942429759ce35c5247f4",
+      "size_bytes": 1435,
+      "title": "davison_relationship_dataset"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/eclipse_lunation_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "09a432200c9d56fba50413fabdec9ce610b6d4db8a0f4acd0fb9adf05cf5bd67",
+      "size_bytes": 2629,
+      "title": "Eclipse/Lunation Dataset v2"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/ephemeris_provider_v1.schema.json",
+      "schema_id": null,
+      "sha256": "008993c35e6df163f717ba919b05243291e74f24c7ac3ba39ee05ef6a9aed039",
+      "size_bytes": 176,
+      "title": "Ephemeris Provider Output v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/evidence_provenance_v1.schema.json",
+      "schema_id": null,
+      "sha256": "fd6af3ed4371c5fad0241c323800f8544d2bd8e778b9b7fe75d56bd1ab917c22",
+      "size_bytes": 1956,
+      "title": "Evidence Provenance Metadata v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/graph_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "c802c42ad89c1a4461838c548279e0468794d88b2005d88174ea29dff82065a0",
+      "size_bytes": 415,
+      "title": "Graph Dataset v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/lunar_return_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "1689cb41829a69ceae939f7d02a45e4575ea86fc24a20fe189f40a07ea03ad6f",
+      "size_bytes": 3152,
+      "title": "Lunar Return Dataset v2"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/natal_analysis_view_v1.schema.json",
+      "schema_id": null,
+      "sha256": "652a921d48df7eeb6a278c6183a1474e79fd4f61812543625d1bfc5dcdd357c3",
+      "size_bytes": 1307,
+      "title": "Natal Analysis View v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/natal_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "da2331c54473370858de653069f964562b8e8ade61e7e4db8cfb757faa3321e8",
+      "size_bytes": 2103,
+      "title": "Natal Dataset v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/orthodox_astrology_projection_view_v1.schema.json",
+      "schema_id": null,
+      "sha256": "73d359fb9d7e26d44111a4311de4fdfa49e6041d50d413bc8d185df29b7f2fd7",
+      "size_bytes": 1663,
+      "title": "Orthodox Astrology Projection View v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/progressed_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "ce926d6643ae6b9af893b7f5641628eb3f84678300779141b73c9548c32ef402",
+      "size_bytes": 455,
+      "title": "Progressed Dataset v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/semantic_boundary_bundle_v1.schema.json",
+      "schema_id": null,
+      "sha256": "d3b23eb4d80e7a90e910011121858492b654fe93dddd25a6d0f3d59014bb5589",
+      "size_bytes": 673,
+      "title": "Semantic Boundary Bundle v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/solar_arc_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "8c7269f38f373608737f695a40742c78e1317ae5ac7cb36c83240e8f72ea149c",
+      "size_bytes": 728,
+      "title": "solar_arc_dataset"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/solar_return_analysis_view_v1.schema.json",
+      "schema_id": "https://example.local/schemas/solar_return_analysis_view_v1.schema.json",
+      "sha256": "7385ba0ef177f7498a9ea18361348d1f221296ebc053f8b1cf53f5b7c03aaac8",
+      "size_bytes": 1392,
+      "title": "Solar Return Analysis View v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/solar_return_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "67046f54cf5d4ebfabc16751b258a9ffb4dbd77bab983ff50fab8bf4ed58b5d8",
+      "size_bytes": 2440,
+      "title": "Solar Return Dataset v2"
+    },
+    {
+      "declared_versions": {
+        "graph_version": [
+          "1.3.0"
+        ]
+      },
+      "path": "astrology_graph_foundry/schemas/structural_evidence_graph_v1.schema.json",
+      "schema_id": null,
+      "sha256": "4915639123bd79e052c1855efeeccfed322ef992ad09b3af59ed68de06d6f2ce",
+      "size_bytes": 2315,
+      "title": "Structural Evidence Graph v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/synastry_analysis_view_v1.schema.json",
+      "schema_id": null,
+      "sha256": "1848409b16aa1aa6e53fca837214b4d21c5c60652862fbb387c82e43826b8542",
+      "size_bytes": 1495,
+      "title": "Synastry Analysis View v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/synastry_relationship_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "cde5df3a9f28d83fe815dcd89c2a40c03b6b25c9dca29df3a3d0b6d5c76fec1b",
+      "size_bytes": 3164,
+      "title": "Synastry Relationship Dataset v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/synastry_streaming_index_v1.schema.json",
+      "schema_id": null,
+      "sha256": "460c38d8cc8fbef1e7135003c0dafa946e4856ac904625e569ebd0642f879e6f",
+      "size_bytes": 1577,
+      "title": "Synastry Streaming Index v1"
+    },
+    {
+      "declared_versions": {
+        "contract_version": [
+          "1.0.0"
+        ]
+      },
+      "path": "astrology_graph_foundry/schemas/temporal_projection_source_bundle_v1.schema.json",
+      "schema_id": "temporal_projection_source_bundle_v1.schema.json",
+      "sha256": "262668d60b1c7255cfe85b64bd10408773e5bfdca7a715bf54ef38e95e3ecbf5",
+      "size_bytes": 2119,
+      "title": "Temporal Projection Source Bundle v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/timeline_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "c914a8f33c73bc82281e8667319019afd2b5ba8cad3469863da404cce7577434",
+      "size_bytes": 437,
+      "title": "Timeline Dataset v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/transit_analysis_view_v1.schema.json",
+      "schema_id": null,
+      "sha256": "470339dcfbb36720598bc2a4ba4944faffb4f3f9ce552562718850f8544b08ca",
+      "size_bytes": 1153,
+      "title": "Transit Analysis View v1"
+    },
+    {
+      "declared_versions": {
+        "schema_version": [
+          "2.0.0"
+        ]
+      },
+      "path": "astrology_graph_foundry/schemas/transit_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "9eef4297e15a4ffd54f341dea1639d14e653da642a811157be8bb02850953b87",
+      "size_bytes": 2728,
+      "title": "Unified TransitableChart transit dataset"
+    },
+    {
+      "declared_versions": {
+        "schema_version": [
+          "2.0.0"
+        ]
+      },
+      "path": "astrology_graph_foundry/schemas/transit_period_dataset_v1.schema.json",
+      "schema_id": null,
+      "sha256": "9eef4297e15a4ffd54f341dea1639d14e653da642a811157be8bb02850953b87",
+      "size_bytes": 2728,
+      "title": "Unified TransitableChart transit dataset"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/transit_streaming_index_v1.schema.json",
+      "schema_id": null,
+      "sha256": "7ff31e48f068c56742066327587197d9abd749aca062c050e1b3ed93db5c419d",
+      "size_bytes": 1358,
+      "title": "Transit Streaming Index v1"
+    },
+    {
+      "declared_versions": {},
+      "path": "astrology_graph_foundry/schemas/transit_streaming_index_v2.schema.json",
+      "schema_id": null,
+      "sha256": "fd21486083aa5b1d5fb1595fd83bdbb234ca4d1d099d55af831e8305bcab3be1",
+      "size_bytes": 1880,
+      "title": "Transit Streaming Index v2"
+    },
+    {
+      "declared_versions": {
+        "interface_version": [
+          "transitable_chart_v1.0.0"
+        ]
+      },
+      "path": "astrology_graph_foundry/schemas/transitable_chart_v1.schema.json",
+      "schema_id": "transitable_chart_v1.schema.json",
+      "sha256": "96be915e0519307a096c1b9cb74c2c67b9d0a1c25ec62fa1a12a2558b8367e99",
+      "size_bytes": 2679,
+      "title": "TransitableChart descriptor"
+    }
+  ]
+}

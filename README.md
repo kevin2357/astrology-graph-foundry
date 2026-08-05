@@ -32,6 +32,16 @@ astro-package doctor --json
 
 The command distinguishes saved-package/projection workflows from optional live Swiss Ephemeris calculation support.
 
+Inspect the installed schema/resource inventory and its SHA-256 identities with:
+
+```bat
+astro-package runtime-manifest
+```
+
+Use `--out runtime-package-manifest.json` to retain the machine-readable report.
+The command reads package resources through the installed distribution and does
+not depend on a source-checkout path.
+
 ## Current capabilities
 
 Implemented pipelines include:

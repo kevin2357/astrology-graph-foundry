@@ -3,8 +3,8 @@ from __future__ import annotations
 import argparse
 import logging
 
+from astrology_graph_foundry import __version__
 from astrology_graph_foundry.common.io import write_json
-from astrology_graph_foundry.common.logging_config import configure_logging
 from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
 from astrology_graph_foundry.ephemeris.providers import LiveSwissEphemerisProvider
 
@@ -39,6 +39,7 @@ def build_ephemeris_objects(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate normalized natal/transit ephemeris data.")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument("--natal-dataset")
     parser.add_argument("--name")
     parser.add_argument("--birth-local")
@@ -101,5 +102,15 @@ def main() -> None:
     if not args.persist_jsonl and not args.persist_json:
         print("Provider initialized. No files written because no --persist-jsonl or --persist-json was supplied.")
 
+
+def cli_entry() -> None:
+    """Console entry point with a concise missing-live-dependency failure."""
+
+    try:
+        main()
+    except ImportError as exc:
+        raise SystemExit(f"ERROR: {exc}") from None
+
+
 if __name__ == "__main__":
-    main()
+    cli_entry()

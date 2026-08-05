@@ -1,29 +1,44 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools==83.0.0", "wheel==0.47.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "astrology-graph-foundry"
-version = "0.6.0"
+dynamic = ["version"]
 description = "Ephemeris-backed canonical astrology graph and structural-evidence package foundry."
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["semantic-projection-core>=0.10.0"]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Kevin Tankersley"}]
+dependencies = ["semantic-projection-core>=0.10.0,<0.11"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Repository = "https://github.com/kevin2357/astrology-graph-foundry"
 
 [project.optional-dependencies]
-live = ["pyswisseph>=2.10"]
+live = ["pyswisseph>=2.10,<2.11"]
 dev = ["pytest>=8", "jsonschema>=4", "ruff>=0.5"]
-full = ["pyswisseph>=2.10", "pytest>=8", "jsonschema>=4", "ruff>=0.5"]
+full = ["pyswisseph>=2.10,<2.11", "pytest>=8", "jsonschema>=4", "ruff>=0.5"]
 
 [project.scripts]
-astro-package = "astrology_graph_foundry.cli:main"
-generate-daily-ephemeris = "astrology_graph_foundry.ephemeris.generate_daily_ephemeris:main"
+astro-package = "astrology_graph_foundry.cli:cli_entry"
+generate-daily-ephemeris = "astrology_graph_foundry.ephemeris.generate_daily_ephemeris:cli_entry"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
 astrology_graph_foundry = ["schemas/*.json"]
+
+[tool.setuptools.dynamic]
+version = {attr = "astrology_graph_foundry._version.__version__"}
 
 [tool.ruff]
 line-length = 140

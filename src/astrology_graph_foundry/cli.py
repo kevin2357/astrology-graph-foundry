@@ -5,26 +5,42 @@ import json
 import logging
 from pathlib import Path
 
+from semantic_projection.engine import ProjectionExecutionError
+from semantic_projection.registry import ProjectionProfileRegistryError
+from semantic_projection.validation import ProjectionValidationError
+
+from astrology_graph_foundry import __version__
 from astrology_graph_foundry.common.io import read_json, write_json
-from astrology_graph_foundry.doctor import build_doctor_report, render_doctor_report
 from astrology_graph_foundry.common.logging_config import configure_logging
 from astrology_graph_foundry.common.temporal_activation import (
     TemporalExportOptions,
     TemporalSourceContractError,
     extract_canonical_temporal_activation_graph,
 )
+from astrology_graph_foundry.doctor import build_doctor_report, render_doctor_report
 from astrology_graph_foundry.ephemeris.generate_daily_ephemeris import build_ephemeris_objects
 from astrology_graph_foundry.ephemeris.models import BirthData
-from astrology_graph_foundry.pipelines import annual_profections, composite, davison, eclipse_lunation, lunar_return, natal, progressed, solar_arc, solar_return, synastry, timeline, transit
-from astrology_graph_foundry.temporal_projection_adapter import build_temporal_projection_source_bundle
+from astrology_graph_foundry.pipelines import (
+    annual_profections,
+    composite,
+    davison,
+    eclipse_lunation,
+    lunar_return,
+    natal,
+    progressed,
+    solar_arc,
+    solar_return,
+    synastry,
+    timeline,
+    transit,
+)
 from astrology_graph_foundry.projection_adapter import (
     enforce_unmapped_threshold,
     project_dataset,
     projection_materialization_view,
 )
-from semantic_projection.engine import ProjectionExecutionError
-from semantic_projection.registry import ProjectionProfileRegistryError
-from semantic_projection.validation import ProjectionValidationError
+from astrology_graph_foundry.resources import build_runtime_package_manifest
+from astrology_graph_foundry.temporal_projection_adapter import build_temporal_projection_source_bundle
 
 logger = logging.getLogger(__name__)
 
@@ -109,6 +125,7 @@ def main() -> None:
     configure_logging()
     logger.info("astro-package CLI starting")
     parser = argparse.ArgumentParser(prog="astro-package")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser(
@@ -116,6 +133,12 @@ def main() -> None:
         help="Inspect installation health and report graph/projection/live-calculation capabilities.",
     )
     p.add_argument("--json", action="store_true", help="Emit the doctor report as JSON.")
+
+    p = sub.add_parser(
+        "runtime-manifest",
+        help="Report installed schema resources, contract declarations, and SHA-256 identities.",
+    )
+    p.add_argument("--out", help="Write the JSON manifest to this path instead of stdout.")
 
     p = sub.add_parser("generate-ephemeris")
     add_provider_args(p)
@@ -386,6 +409,15 @@ def main() -> None:
             print(json.dumps(report, indent=2, sort_keys=True))
         else:
             print(render_doctor_report(report))
+        return
+
+    if args.cmd == "runtime-manifest":
+        manifest = build_runtime_package_manifest()
+        if args.out:
+            write_json(args.out, manifest)
+            print(f"Wrote {args.out}")
+        else:
+            print(json.dumps(manifest, indent=2, sort_keys=True))
         return
 
     if args.cmd == "solar-return-analysis":
@@ -821,5 +853,15 @@ def main() -> None:
     logger.info("Command complete: wrote %s", out)
     print(f"Wrote {out}")
 
+
+def cli_entry() -> None:
+    """Console entry point with concise optional-dependency failures."""
+
+    try:
+        main()
+    except ImportError as exc:
+        raise SystemExit(f"ERROR: {exc}") from None
+
+
 if __name__ == "__main__":
-    main()
+    cli_entry()

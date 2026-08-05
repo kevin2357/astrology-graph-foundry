@@ -1,0 +1,56 @@
+{
+  "evidence_type": "agf_installed_smoke.v1",
+  "candidate": {
+    "wheel": "astrology_graph_foundry-0.6.0-py3-none-any.whl",
+    "sha256_nonrelease": "87f8df63ce0ff6ce1f35830c846a36e5f8c32a6e51984573fc5123b94a342de6",
+    "version": "0.6.0",
+    "source_commit": "8757398 plus uncommitted Slice 2 changes"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-x86_64",
+    "working_directory_outside_source_checkout": true,
+    "import_origin": "C:\\tmp\\agf-sprint2-slice2-final\\venv\\Lib\\site-packages\\astrology_graph_foundry\\__init__.py",
+    "editable_install": false,
+    "swiss_ephemeris_present": false
+  },
+  "dependencies": {
+    "semantic_projection_core_version": "0.10.0",
+    "semantic_projection_core_wheel_sha256": "60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150",
+    "jsonschema_version": "4.26.0",
+    "dependency_check": "pass"
+  },
+  "cli": {
+    "astro-package": {
+      "version": "astro-package 0.6.0",
+      "help": "pass"
+    },
+    "generate-daily-ephemeris": {
+      "version": "generate-daily-ephemeris 0.6.0",
+      "help": "pass"
+    },
+    "runtime_manifest": {
+      "resource_count": 33,
+      "result": "pass"
+    },
+    "doctor": {
+      "agf_versions": "0.6.0/0.6.0",
+      "spc_versions": "0.10.0/0.10.0",
+      "swiss_available": false
+    },
+    "missing_live_dependency": {
+      "astro-package": {
+        "exit_code": 1,
+        "concise_error": true
+      },
+      "generate-daily-ephemeris": {
+        "exit_code": 1,
+        "concise_error": true
+      }
+    }
+  },
+  "cleanup": {
+    "temporary_environment_removed": true,
+    "wheels_removed": true
+  }
+}

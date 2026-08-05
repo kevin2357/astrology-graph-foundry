@@ -72,3 +72,53 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - Verified every temporary wheel/download directory was removed. No wheel, sdist,
   build tree, environment, cache, or ephemeris data was retained.
 - Slice 1 is paused for human approval. No files are staged or committed.
+
+## 2026-08-05 — Slice 1 Approval and Commit
+
+- Human approved Slice 1 and authorized continuation.
+- Committed the audit and evidence as `8757398` (`Audit AGF release readiness`).
+- Began Slice 2 from that clean named boundary.
+
+## 2026-08-05 — Slice 2 Installable Package Boundary
+
+- Single-sourced version 0.6.0 in `_version.py` and changed setuptools metadata
+  to derive the distribution version from it.
+- Pinned the build backend versions and added explicit package license, author,
+  repository, and Python-version metadata.
+- Bounded general SPC compatibility to 0.10.x and the optional Swiss dependency
+  to 2.10.x; exact production artifacts remain an outer-manifest responsibility.
+- Added installed-safe schema access and a deterministic runtime package manifest
+  with path, size, SHA-256, descriptive schema metadata, and declared versions.
+- Added `astro-package runtime-manifest`, `--version` to both console scripts, and
+  concise console failures when optional live calculation lacks pyswisseph.
+- Refreshed the external editable development install from stale 0.5.0 metadata
+  to 0.6.0. This changed no repository files.
+- Focused initial resource/version tests exposed only the expected stale external
+  distribution metadata; after reinstall, focused tests passed.
+- First wheel-only qualification intentionally installed the two top-level wheels
+  with `--no-deps` and exposed absent `jsonschema`. SPC correctly declares that
+  dependency; corrected the harness to install SPC's declared closure.
+- Second clean smoke passed version/help, doctor, resource manifest, site-packages
+  import origin, no-Swiss mode, and `pip check`.
+- Added console wrappers and reran a final clean smoke. Both live entry paths now
+  fail concisely without a traceback when pyswisseph is absent.
+- Final nonrelease smoke wheel SHA-256:
+  `87f8df63ce0ff6ce1f35830c846a36e5f8c32a6e51984573fc5123b94a342de6`.
+  Exact SPC wheel SHA-256 remained
+  `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`.
+- Captured compact installed-smoke evidence and the complete 33-resource runtime
+  manifest, then removed every temporary environment and wheel.
+- Focused tests: 8 passed. Full regression suite: 164 passed in 4.93 seconds.
+- Targeted Ruff passed for every changed Python file.
+
+## 2026-08-05 — Slice 2 Gate Ready for Review
+
+- Reviewed the complete runtime, packaging, test, documentation, and evidence
+  diff. No identity semantics, calculation behavior, or schema bytes changed.
+- Recomputed the runtime manifest from current package resources and confirmed it
+  exactly equals the retained installed evidence.
+- Parsed both JSON evidence files and checked all tracked and untracked Slice 2
+  files for whitespace errors. `git diff --check` passed.
+- Verified the final qualification environment and all intermediate environments,
+  wheels, and downloads were removed.
+- Slice 2 is paused for human approval. No files are staged or committed.
