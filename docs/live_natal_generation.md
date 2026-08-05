@@ -15,7 +15,7 @@ astro-package natal --provider cached --person-jsonl reverse_read_ephems\kevin_2
 Compute the natal chart from scratch using Swiss Ephemeris and output the standard natal dataset directly:
 
 ```bash
-astro-package natal --provider live --name Kevin --birth-local 1981-10-10T16:15:00 --birth-timezone America/Denver --birth-lat 39.7392 --birth-lon -104.9903 --birth-location-label "Denver, Colorado" --ephe-path . --out kevin_natal_dataset.json
+astro-package natal --provider live --name Kevin --source-chart-id example:chart:kevin --birth-local 1981-10-10T16:15:00 --birth-timezone America/Denver --birth-lat 39.7392 --birth-lon -104.9903 --birth-location-label "Denver, Colorado" --ephe-path . --out kevin_natal_dataset.json
 ```
 
 ## Live mode with transit climate

@@ -165,3 +165,59 @@ This log is append-only during execution. Planning entries do not represent comp
 - No wheel, expanded manifest, virtual environment, cache, or generated package was retained in sprint documentation.
 - Final targeted lint, JSON, whitespace, diff, and repository-status checks completed after this entry and are reported in the handoff.
 - Slice 5 is paused for human approval. No Slice 5 files are staged or committed.
+
+## 2026-08-05 — Slice 5 Approval and Commit
+
+- Human approved Slice 5 and authorized commit/continuation.
+- Committed migration and exact-SPC boundary qualification as `9b111ca`
+  (`Qualify identity boundary with SPC 0.10`).
+- Began Slice 6 from that clean named boundary.
+
+## 2026-08-05 — Slice 6 Documentation and Contract Closure
+
+- Selected package version 0.6.0: the optional Natal field is additive and
+  legacy packages remain readable, but identity is a material public contract
+  and newly generated Composite/Davison identity changes.
+- Retained canonical graph schema 1.3.0 because required graph topology did not
+  change. Recorded semantic identity policy 1.1.0 and relationship identity
+  policy 1.0.0 as the operative contract versions.
+- Expanded AGF's authoritative identity documentation and added a migration
+  guide covering production use, legacy fallback, regeneration, explicit
+  whole-package rescoping, and downstream lineage.
+- Updated root, live-Natal, helper-tool, developer, and documentation-index
+  guidance. Updated the doctor version assertion with the package version.
+- Reconciled AstroWoof integration, canonical Natal, birth-data, and open-question
+  documents. Product database identity remains API-owned; only the opaque AGF
+  boundary and migration behavior are settled here.
+- Initial `python -m pytest` could not run because `python` is absent from the
+  sandbox PATH. The established bundled Python executable was used thereafter.
+- Version bump exposed one expected doctor assertion still pinned to 0.5.0;
+  updated it to 0.6.0 and retained the regression check.
+- Full AGF regression suite: 156 passed in 5.10 seconds.
+- Doctor source metadata reports package 0.6.0; installed distribution metadata
+  remains 0.5.0 because no candidate wheel/reinstall occurs in Sprint 1. This is
+  explicit Sprint 2 installed-runtime work.
+- The first helper dry run was denied while creating `C:\tmp`; rerunning against
+  the existing repository directory succeeded and wrote no output artifact.
+- Helper dry run preserved explicit `source_chart_id` in the delegated CLI.
+- Parsed all 33 packaged JSON Schema resources successfully.
+- Initial all-repository link scanning found only historical `sandbox:` links in
+  archived chat logs. Current-document validation then passed for 79 Markdown
+  files across AGF and astrowoof-project, excluding historical material.
+
+## 2026-08-05 — Slice 6 Gate Ready for Review
+
+- Reviewed both repository diffs and confirmed the project edits describe the
+  candidate as implemented but not yet published; no production artifact/hash is
+  claimed before Sprint 2.
+- Confirmed current nonhistorical documentation no longer states that ordinary
+  live Natal cannot accept explicit identity.
+- `git diff --check` passed in AGF and astrowoof-project.
+- A narrow Ruff check surfaced four pre-existing style findings in files touched
+  only for version assertions: import ordering and `__all__` ordering in package
+  `__init__`, plus two unused imports in the housekeeping test. They are unrelated
+  to this slice, do not affect execution, and were not expanded into cleanup.
+- AGF remains unstaged and ahead of origin by the five approved Sprint 1 commits.
+  AstroWoof project has only the four intended unstaged contract-document edits.
+- Slice 6 and the consolidated Sprint 1 exit gate are paused for human approval.
+  No Slice 6 files are staged or committed.

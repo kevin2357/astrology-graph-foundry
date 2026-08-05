@@ -338,6 +338,18 @@ Synastry canonical graphs resolve compact operator registries but deliberately d
 
 Use `source_chart_id` to identify the chart/entity and `sensor_instance_id` to identify one pipeline result. Do not use analysis type alone as a globally meaningful sensor ID.
 
+For production Natal generation, require the caller to supply the optional
+`source_chart_id` input. Foundry preserves a valid value exactly and scopes all
+canonical IDs and references beneath it. A display-name change is descriptive
+only when explicit identity is stable. The deterministic name-derived fallback
+exists for legacy and exploratory compatibility, not durable joins.
+
+Do not silently select among conflicting explicit identity carriers. Use
+`rescope_natal_package_source_chart_id` for a deliberate whole-package identity
+change; never patch graph IDs or evidence references independently. See
+[Canonical Identity and Projection Context Ownership](Canonical%20Identity%20and%20Projection%20Context%20Ownership.md)
+and the [migration guide](Canonical%20Identity%20Migration%20Guide.md).
+
 For synthesis across multiple packages, group records first by sensor instance, then use `source_chart_family_group` to detect dependence among techniques sharing the same underlying chart.
 
 ## Synthetic canonical graph identity

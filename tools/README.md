@@ -20,6 +20,7 @@ Every tool supports `--help`, `--dry-run`, and `--non-interactive`. Dry runs val
 python tools/build_natal.py `
   --provider live `
   --name Kevin `
+  --source-chart-id example:chart:kevin `
   --birth-local 1981-10-10T16:15:00 `
   --birth-timezone America/Denver `
   --birth-lat 39.7392 `

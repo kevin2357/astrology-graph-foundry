@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "astrology-graph-foundry"
-version = "0.5.0"
+version = "0.6.0"
 description = "Ephemeris-backed canonical astrology graph and structural-evidence package foundry."
 readme = "README.md"
 requires-python = ">=3.10"

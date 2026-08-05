@@ -166,6 +166,24 @@ Legacy module invocation remains available:
 python -m astrology_graph_foundry.cli --help
 ```
 
+Production Natal generation should supply an opaque, caller-owned chart identity:
+
+```bat
+astro-package natal ^
+  --name Fido ^
+  --birth-local 2020-05-17T14:30:00 ^
+  --birth-timezone America/Denver ^
+  --birth-lat 39.7392 ^
+  --birth-lon -104.9903 ^
+  --source-chart-id astrowoof:chart:01HX... ^
+  --out fido.natal.json
+```
+
+`source_chart_id` is stable chart identity, not display metadata, a calculation
+fingerprint, or projection context. Omitting it retains a deterministic
+name-derived compatibility fallback that is unsuitable for durable production
+joins. See `docs/Canonical Identity and Projection Context Ownership.md`.
+
 For guided common workflows with the same underlying CLI behavior, see `tools/README.md`. The `build_natal.py`, `build_transit.py`, `build_synastry.py`, and `build_temporal_source.py` tools support interactive prompting, unattended flags, and command-preview dry runs.
 
 ## Documentation
