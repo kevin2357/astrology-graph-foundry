@@ -20,3 +20,55 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - Initial version recommendation: do not reuse 0.5.0. Prefer 0.6.0 for an additive but materially new identity/provenance contract; escalate if Sprint 1 creates a required-schema or compatibility break. Final decision waits for Sprint 1 and Release Gate 1.
 - No slice result or release artifact exists. The `results` directory is intentionally empty.
 
+## 2026-08-05 — Sprint Activation and Slice 1
+
+- Human approved beginning Sprint 2 after Sprint 1 completed and both AGF and
+  astrowoof-project were committed cleanly.
+- Froze the Sprint 1 base as
+  `885223bbd8126b88f22399de7f889387c6180b7b`; AGF was clean on `main`, six
+  commits ahead of `origin/main`.
+- Confirmed candidate package version 0.6.0, canonical graph 1.3.0, semantic
+  identity policy 1.1.0, and relationship identity policy 1.0.0.
+- Audited `pyproject.toml`, source layout, 33 schemas, console scripts, optional
+  dependencies, CI, resource lookup, version reporting, license, Git state,
+  local tags, and GitHub releases.
+- Confirmed there is no existing AGF tag or GitHub release. Proposed annotated
+  tag `astrology-graph-foundry-v0.6.0` and wheel-only release assets plus manifest
+  and checksums.
+- Built a disposable nonrelease wheel with the isolated backend. It contained 78
+  entries, all 33 schemas, license, metadata, and entry points; SHA-256
+  `54d9e4704de612b57ee87eeea69f761729f4060e3eca4f0c3a2fce0c3bd8855d`.
+  Removed the wheel and temporary directory after inspection.
+- Re-downloaded the SPC 0.10.0 release wheel. Independent SHA-256 remained
+  `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`,
+  agreeing with GitHub's release-asset digest. Removed the temporary copy.
+- Proposed pinned build frontend `build==1.5.0`, backend `setuptools==83.0.0`,
+  and `wheel==0.47.0`; byte reproducibility remains a later gate.
+- PyPI reports `pyswisseph==2.10.3.2` as current. Downloaded and hashed its
+  Windows x86-64 CPython 3.10 and 3.11 wheels, then removed them.
+- Critical finding: pyswisseph 2.10.3.2 publishes no CPython 3.12 binary on any
+  platform, while astrowoof-api requires Python `>=3.12,<3.13`. A controlled
+  Linux source-built wheel or separately approved Python 3.11 domain worker is
+  required for production live calculation.
+- Critical licensing finding: Astrodienst's official Swiss Ephemeris materials
+  require a choice between AGPL compliance and the Swiss Ephemeris Professional
+  License before dependent distribution or public-service activation. Recorded
+  this as a product-owner/legal gate without making a legal conclusion in AGF.
+- Confirmed AGF explicitly requests Swiss Ephemeris flags and sets `ephe_path`;
+  production must pin data files and prevent undocumented fallback behavior.
+- Baseline suite: 156 passed in 4.58 seconds on Windows CPython 3.12.13.
+- Both console module `--help` paths returned zero without pyswisseph. A combined
+  display command returned one because output truncation interrupted a pipeline;
+  direct exit-code reruns confirmed both commands themselves return zero.
+
+## 2026-08-05 — Slice 1 Gate Ready for Review
+
+- Wrote the release gap report, proposed artifact/dependency lock, supported-mode
+  matrix, risk register, checklist decisions, and compact machine-readable audit.
+- Reviewed the complete Slice 1 diff. Changes are documentation/evidence only;
+  no runtime, schema, packaging metadata, dependency, or identity behavior changed.
+- Parsed the JSON evidence, checked all changed and untracked files for trailing
+  whitespace, and ran `git diff --check` successfully.
+- Verified every temporary wheel/download directory was removed. No wheel, sdist,
+  build tree, environment, cache, or ephemeris data was retained.
+- Slice 1 is paused for human approval. No files are staged or committed.

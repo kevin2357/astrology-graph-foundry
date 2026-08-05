@@ -1,6 +1,6 @@
 # Immutable Release Engineering Sprint Plan
 
-**Status:** Proposed and blocked on Sprint 1
+**Status:** Active; Sprint 1 completed at `885223bbd8126b88f22399de7f889387c6180b7b`
 
 **Planned sequence:** Sprint 2 of 2. It begins only from the clean, approved, committed canonical-identity boundary.
 
