@@ -283,8 +283,8 @@ def main() -> None:
     p = sub.add_parser(
         "export-temporal-projection-source",
         help=(
-            "Build the Foundry-owned projection-neutral timing handoff reserved "
-            "for future Semantic Projection Core temporal support."
+            "Build the Foundry-owned projection-neutral timing handoff consumed "
+            "by Semantic Projection Core's production temporal route."
         ),
     )
     p.add_argument("--source-dataset", required=True)

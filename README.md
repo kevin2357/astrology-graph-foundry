@@ -81,7 +81,7 @@ astro-package export-temporal-projection-source ^
   --out transit.temporal_projection_source.json
 ```
 
-Semantic Projection Core does not yet execute temporal projection. Static projection of Transit packages remains explicitly rejected until `projected_temporal_activation_graph.v1` is implemented downstream.
+Semantic Projection Core 0.10.0 provides the production temporal route from this bundle to `projected_temporal_activation_graph.v1`, including materialization and a deterministic route receipt. Static projection of Transit packages remains explicitly rejected because temporal packages must use that dedicated route.
 
 See:
 

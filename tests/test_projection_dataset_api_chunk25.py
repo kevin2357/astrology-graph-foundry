@@ -40,8 +40,8 @@ def package_fixture() -> dict:
                     "structural_strength_score": 0.9,
                 },
                 {
-                    "id": "natal:Unsupported",
-                    "name": "Unsupported",
+                    "id": "natal:DerivedPoint",
+                    "name": "Derived Point",
                     "object_type": "calculated_point",
                 },
             ],
@@ -66,7 +66,7 @@ def test_project_dataset_needs_no_calculation_pipeline():
     result = project_dataset(source)
     assert result["metadata"]["profile_id"] == "orthodox_astrology.v1"
     assert result["metadata"]["source_dataset_analysis_type"] == "natal_dataset"
-    assert len(result["objects"]) == 2
+    assert len(result["objects"]) == 3
     assert len(result["relationships"]) == 1
     assert json.dumps(source, sort_keys=True) == before
 
@@ -90,14 +90,32 @@ def test_summary_view_omits_graph_and_mapping_execution_payloads():
     assert "relationships" not in summary
     assert "audit" not in summary
     assert summary["coverage"]["source_object_count"] == 3
-    assert summary["diagnostics_summary"]["unmapped_source_count"] == 1
+    assert summary["diagnostics_summary"]["unmapped_source_count"] == 0
 
 
 def test_unmapped_threshold_enforcement():
-    projected = project_dataset(package_fixture())
+    projected = {
+        "audit": {
+            "coverage": {
+                "source_object_count": 3,
+                "source_relationship_count": 1,
+                "unmapped_source_object_count": 1,
+                "unmapped_source_relationship_count": 0,
+            }
+        },
+        "summary": {
+            "profile_scope_coverage": {
+                "objects": {"eligible_count": 2, "eligible_but_unmapped_count": 1},
+                "relationships": {"eligible_count": 1, "eligible_but_unmapped_count": 0},
+            }
+        },
+    }
     with pytest.raises(ValueError, match="exceeds threshold"):
         enforce_unmapped_threshold(projected, 0.1)
     enforce_unmapped_threshold(projected, 0.5)
+    with pytest.raises(ValueError, match="exceeds threshold"):
+        enforce_unmapped_threshold(projected, 0.1, scope="eligible")
+    enforce_unmapped_threshold(projected, 0.5, scope="eligible")
 
 
 def test_analysis_view_is_rejected_as_source():

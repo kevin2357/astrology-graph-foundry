@@ -1,14 +1,17 @@
 {
   "limitations": [
-    "Semantic Projection Core does not yet execute this bundle.",
-    "The bundle preserves source timing facts and carries no projected temporal meanings."
+    "This bundle is projection-neutral source material and must be adapted and executed by Semantic Projection Core.",
+    "The bundle preserves source timing facts and carries no projected temporal meanings.",
+    "The consumer_status value is a frozen version-1.0.0 compatibility token retained for Semantic Projection Core intake validation."
   ],
   "metadata": {
     "bundle_id": "temporal_projection_source:14c163d236bcacee6109",
     "consumer_status": "reserved_for_semantic_projection_core_temporal_support",
     "contract_version": "1.0.0",
     "package_type": "temporal_projection_source_bundle",
-    "projection_neutral": true
+    "projection_neutral": true,
+    "static_source_graph_authority": "embedded_transit_package",
+    "transit_target_set": "all"
   },
   "source_identity": {
     "sensor_instance_id": "temporal:natal:example:2026-01-01:2026-01-12",
@@ -24,10 +27,20 @@
     "graph_type": "canonical_astrology_graph",
     "graph_version": "1.3.0",
     "metadata": {
-      "graph_id": "canonical:natal:example"
+      "graph_id": "canonical:natal:example",
+      "source_chart_id": "natal:example"
     },
-    "objects": [],
-    "relationships": []
+    "objects": [
+      {
+        "house": 8,
+        "id": "natal:Venus",
+        "name": "Venus",
+        "object_type": "planet_or_point",
+        "sign": "Scorpio"
+      }
+    ],
+    "relationships": [],
+    "source_chart_id": "natal:example"
   },
   "structural_evidence": {
     "graph_type": "structural_evidence_graph",

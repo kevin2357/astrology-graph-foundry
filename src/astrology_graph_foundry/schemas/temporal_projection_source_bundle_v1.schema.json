@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "temporal_projection_source_bundle_v1.schema.json",
   "title": "Temporal Projection Source Bundle v1",
-  "description": "Foundry-owned projection-neutral handoff reserved for Semantic Projection Core temporal support.",
+  "description": "Foundry-owned projection-neutral handoff consumed by Semantic Projection Core temporal projection. The frozen consumer_status token is retained for version-1.0.0 compatibility.",
   "type": "object",
   "required": [
     "metadata",

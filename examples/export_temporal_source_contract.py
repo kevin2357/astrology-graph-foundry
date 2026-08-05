@@ -93,8 +93,20 @@ def fixture() -> dict:
         "canonical_astrology_graph": {
             "graph_type": "canonical_astrology_graph",
             "graph_version": "1.3.0",
-            "metadata": {"graph_id": "canonical:natal:example"},
-            "objects": [],
+            "source_chart_id": "natal:example",
+            "metadata": {
+                "graph_id": "canonical:natal:example",
+                "source_chart_id": "natal:example",
+            },
+            "objects": [
+                {
+                    "id": "natal:Venus",
+                    "name": "Venus",
+                    "object_type": "planet_or_point",
+                    "sign": "Scorpio",
+                    "house": 8,
+                }
+            ],
             "relationships": [],
         },
         "structural_evidence_graph": {

@@ -282,9 +282,10 @@ Foundry timing packages now have an explicit projection-neutral export path:
 Transit package
 → canonical_temporal_activation_graph.v1
 → temporal_projection_source_bundle.v1
-→ future Semantic Projection Core temporal request
+→ Semantic Projection Core temporal_projection_request.v1
+→ projected_temporal_activation_graph.v1
 ```
 
 The canonical temporal graph is arc-first and directional. It preserves sampled observations, orb, motion, target identity, repeated-pass segmentation, and provenance without adding target-domain meaning.
 
-Static projection of a Transit package remains rejected. The correct future path is temporal-source export followed by `projected_temporal_activation_graph.v1` in Semantic Projection Core.
+Static projection of a Transit package remains rejected. The supported path is temporal-source export followed by Semantic Projection Core's production temporal projection route.

@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-"""Astrology Graph Foundry handoff for future temporal projection.
+"""Astrology Graph Foundry handoff for Semantic Projection Core temporal projection.
 
-Semantic Projection Core does not yet execute temporal projection.  This module
-prepares the complete Foundry-owned source bundle it will eventually consume:
+This module prepares the complete Foundry-owned source bundle consumed by
+Semantic Projection Core's production temporal route:
 a static canonical target graph, structural evidence, and the canonical
 temporal activation graph.
 
@@ -126,10 +126,9 @@ def build_temporal_projection_source_bundle(
 ) -> dict[str, Any]:
     """Build the projection-neutral cross-repository timing handoff.
 
-    This is a source adapter, not a projected result and not an executable
-    Semantic Projection Core request.  Core will define the final temporal
-    request contract when ``projected_temporal_activation_graph.v1`` is
-    implemented.
+    This is a source adapter, not a projected result or an executable Semantic
+    Projection Core request. Core validates and adapts this bundle into its
+    temporal request before producing ``projected_temporal_activation_graph.v1``.
     """
 
     filtered_package = _filter_temporal_source_package(
@@ -188,7 +187,8 @@ def build_temporal_projection_source_bundle(
             ),
         },
         "limitations": [
-            "Semantic Projection Core does not yet execute this bundle.",
+            "This bundle is projection-neutral source material and must be adapted and executed by Semantic Projection Core.",
             "The bundle preserves source timing facts and carries no projected temporal meanings.",
+            "The consumer_status value is a frozen version-1.0.0 compatibility token retained for Semantic Projection Core intake validation.",
         ],
     }

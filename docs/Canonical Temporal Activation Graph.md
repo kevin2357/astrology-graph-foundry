@@ -16,13 +16,13 @@ Schema:
 src/astrology_graph_foundry/schemas/canonical_temporal_activation_graph_v1.schema.json
 ```
 
-The contract is the Foundry-owned, projection-neutral representation of timing facts. It is designed for future consumption by Semantic Projection Core's reserved:
+The contract is the Foundry-owned, projection-neutral representation of timing facts. It is consumed by Semantic Projection Core's production temporal route, which emits:
 
 ```text
 projected_temporal_activation_graph.v1
 ```
 
-Semantic Projection Core does not yet execute temporal projection. Static projection of Transit packages remains intentionally rejected until both sides of the temporal boundary are implemented.
+Semantic Projection Core 0.10.0 executes temporal projection from the Foundry source bundle. Static projection of Transit packages remains intentionally rejected because it cannot faithfully represent arcs or observation states.
 
 ## Architectural boundary
 
@@ -35,9 +35,11 @@ canonical_temporal_activation_graph.v1
         ↓
 Foundry temporal projection source bundle
         ↓
-Semantic Projection Core — future temporal request adapter
-        ↓
+Semantic Projection Core temporal_projection_request.v1 adapter
+↓
 projected_temporal_activation_graph.v1
+↓
+full / standard / summary / forensic materialization + route receipt
 ```
 
 The Foundry owns:
@@ -49,7 +51,7 @@ The Foundry owns:
 - date, orb, motion, and provenance facts;
 - normalization from package-specific Transit structures.
 
-Semantic Projection Core will own:
+Semantic Projection Core owns:
 
 - projected temporal contracts;
 - target-domain activator and target mappings;
@@ -230,7 +232,11 @@ It is explicitly marked:
 reserved_for_semantic_projection_core_temporal_support
 ```
 
-It is not yet an executable Core request.
+It is projection-neutral source material rather than an executable Core request. SPC validates and adapts it into `temporal_projection_request.v1` before projection.
+
+The historical `reserved_for_semantic_projection_core_temporal_support` value is
+a frozen version-1.0.0 compatibility token. SPC 0.10.0 still validates that
+exact value; it does not mean temporal execution remains unavailable.
 
 ## Python API
 
@@ -262,7 +268,7 @@ astro-package export-temporal-graph ^
   --out transit.canonical_temporal.json
 ```
 
-Export the future Core handoff:
+Export the Core handoff:
 
 ```bat
 astro-package export-temporal-projection-source ^
@@ -338,10 +344,10 @@ With the 0.4.1 real-observation join correction and this 0.4.2 schema correction
 ```text
 A. canonical_temporal_activation_graph.v1     stable
 B. temporal_projection_source_bundle.v1       stable
-C. projected_temporal_activation_graph.v1     downstream next step
+C. projected_temporal_activation_graph.v1     implemented in Semantic Projection Core 0.10.0
 ```
 
-“Stable” means the initial cross-repository contract is suitable for implementation and integration. It does not preclude later versioned improvements such as solved exact-event timestamps, station-aware grouping, or richer source indexes.
+“Stable” means the cross-repository contract is implemented and suitable for integration. It does not preclude later versioned improvements such as solved exact-event timestamps, station-aware grouping, or richer source indexes.
 
 ## Downstream integration correction
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import importlib
 import json
 import platform
 import sys
@@ -26,10 +27,26 @@ def _module_status(module_name: str) -> dict[str, Any]:
     }
 
 
+def _module_attribute(module_name: str, attribute: str) -> str | None:
+    try:
+        module = importlib.import_module(module_name)
+    except ImportError:
+        return None
+    value = getattr(module, attribute, None)
+    return str(value) if value is not None else None
+
+
 def build_doctor_report() -> dict[str, Any]:
     package_status = _module_status("astrology_graph_foundry")
     projection_status = _module_status("semantic_projection")
     swiss_status = _module_status("swisseph")
+    projection_distribution_version = _distribution_version("semantic-projection-core")
+    projection_engine_version = _module_attribute("semantic_projection", "ENGINE_VERSION")
+    projection_version_mismatch = bool(
+        projection_distribution_version
+        and projection_engine_version
+        and projection_distribution_version != projection_engine_version
+    )
     return {
         "report_type": "astrology_graph_foundry_doctor",
         "python": {
@@ -45,7 +62,9 @@ def build_doctor_report() -> dict[str, Any]:
         },
         "semantic_projection_core": {
             **projection_status,
-            "distribution_version": _distribution_version("semantic-projection-core"),
+            "distribution_version": projection_distribution_version,
+            "engine_version": projection_engine_version,
+            "version_metadata_matches_engine": not projection_version_mismatch,
             "required_for_projection": True,
         },
         "swiss_ephemeris": {
@@ -63,6 +82,10 @@ def build_doctor_report() -> dict[str, Any]:
             *([] if projection_status["available"] else [
                 "Install Semantic Projection Core for projection workflows."
             ]),
+            *([] if not projection_version_mismatch else [
+                "Semantic Projection Core distribution metadata does not match its imported engine version. "
+                "Reinstall the editable Semantic Projection Core package to refresh installation metadata."
+            ]),
             *([] if swiss_status["available"] else [
                 "Install the Foundry live extra in an environment with a compatible pyswisseph wheel: "
                 "python -m pip install -e .[live]. Graph-only and saved-package workflows remain available."
@@ -79,7 +102,13 @@ def render_doctor_report(report: dict[str, Any]) -> str:
         f"Foundry: {'OK' if report['foundry']['available'] else 'MISSING'}"
         + (f" {report['foundry']['package_version']}" if report['foundry']['package_version'] else ""),
         f"Semantic Projection Core: {'OK' if report['semantic_projection_core']['available'] else 'MISSING'}"
-        + (f" {report['semantic_projection_core']['distribution_version']}" if report['semantic_projection_core']['distribution_version'] else ""),
+        + (f" {report['semantic_projection_core']['distribution_version']}" if report['semantic_projection_core']['distribution_version'] else "")
+        + (
+            f" (engine {report['semantic_projection_core']['engine_version']})"
+            if report['semantic_projection_core']['engine_version']
+            and report['semantic_projection_core']['engine_version'] != report['semantic_projection_core']['distribution_version']
+            else ""
+        ),
         f"Swiss Ephemeris / live calculations: {'OK' if report['swiss_ephemeris']['available'] else 'UNAVAILABLE'}",
         "",
         "Capabilities:",
