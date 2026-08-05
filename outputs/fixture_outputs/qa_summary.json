@@ -1,65 +1,57 @@
 {
-  "determinism": {
-    "gzip_byte_identical": true,
-    "gzip_sha256_run1": "a7d63837a15a0a7b2836b66960848869457d2a35f17ae8f84b90184fddf82d66",
-    "gzip_sha256_run2": "a7d63837a15a0a7b2836b66960848869457d2a35f17ae8f84b90184fddf82d66",
-    "json_byte_identical": true,
-    "json_sha256_run1": "169ab401ce7b56b3b72f6b8c901f37249bb5c2957ec86e489f7e357c2e83df32",
-    "json_sha256_run2": "169ab401ce7b56b3b72f6b8c901f37249bb5c2957ec86e489f7e357c2e83df32"
+  "canonical_identity": {
+    "all_object_ids_chart_scoped": true,
+    "cross_chart_collision_check": {
+      "collision_count": 0,
+      "collision_samples": [],
+      "passed": true,
+      "second_object_count": 189,
+      "second_source_chart_id": "natal:ashley"
+    },
+    "identity_policy": {
+      "object_id_scope": "source_chart_id",
+      "relationship_id_scope": "scoped_endpoints"
+    },
+    "legacy_unscoped_natal_ids": [],
+    "object_count": 189,
+    "source_chart_id": "natal:kevin"
   },
-  "fixture": "scripts\\outputs\\kevin_bre_test\\kevin_2026-01-01_to_2026-02-01_transit.full.json",
+  "game_materialization": {
+    "candidate_registry_count": 50,
+    "contact_count": 205,
+    "daily_sky_nonempty_days": 32,
+    "day_count": 32,
+    "expected_day_count": 32,
+    "gzip_byte_identical": true,
+    "gzip_sha256": "2a73fbb5dc47c975782069cfd613c72e4211ecc759c0a1427da48f876fc252f3",
+    "json_byte_identical": true,
+    "json_sha256": "22dea584e498c188d3681f06a70fd440967a6d1027436e7071b328ba0221325c",
+    "mean_node_candidate_ids": [],
+    "period_complete": true,
+    "true_node_candidate_count": 4,
+    "unresolved_contacts": []
+  },
   "negative_test": {
     "exception_type": "ValueError",
-    "message": "Unknown streaming profile 'not-a-profile'; expected one of ('standard', 'compact', 'game')",
+    "message": "Temporal projection source export requires a nonempty canonical target graph. Supply a full natal, composite, or Davison package via --target-dataset when the Transit artifact does not embed canonical_astrology_graph.",
     "passed": true
   },
-  "passed": true,
-  "profiles": {
-    "compact": {
-      "candidate_registry_count": 80,
-      "compression_ratio": 0.073511,
-      "day_count": 32,
-      "gzip_bytes": 33952,
-      "json_bytes": 461865,
-      "schema_errors": [],
-      "schema_valid": true
-    },
-    "game": {
-      "candidate_registry_count": 50,
-      "compression_ratio": 0.07763,
-      "day_count": 32,
-      "gzip_bytes": 17983,
-      "json_bytes": 231649,
-      "schema_errors": [],
-      "schema_valid": true
-    },
-    "standard": {
-      "candidate_registry_count": 80,
-      "compression_ratio": 0.04825,
-      "day_count": 32,
-      "gzip_bytes": 163466,
-      "json_bytes": 3387917,
-      "schema_errors": [],
-      "schema_valid": true
-    }
-  },
+  "passed": false,
   "pytest": {
-    "exit_code": 0,
+    "exit_code": 1,
     "log": "outputs\\fixture_outputs\\pytest.log"
   },
-  "qa_contract": "foundry_one_command_qa.v1",
-  "solar_return": {
-    "fixture": "scripts\\outputs\\kevin_bre_test\\kevin_2026_solar_return.json",
-    "output_bytes": 454634,
-    "relationship_family_distribution": {
-      "antiscia_relationship": 12,
-      "declination_relationship": 3,
-      "declination_relationship_between_derived_objects": 12,
-      "direct_aspect": 13,
-      "direct_aspect_between_derived_objects": 13,
-      "has_dignity_between_derived_objects": 12,
-      "has_sect_between_derived_objects": 2,
-      "lot_derived_from_between_derived_objects": 13
-    }
+  "qa_contract": "foundry_downstream_integration_regression.v1",
+  "temporal_bundle": {
+    "activation_count": 55,
+    "byte_identical": true,
+    "identity_matches": true,
+    "mean_node_activation_count": 0,
+    "static_graph_chart_id": "natal:kevin",
+    "static_graph_nonempty": true,
+    "static_graph_object_count": 189,
+    "static_graph_relationship_count": 4239,
+    "target_chart_id": "natal:kevin",
+    "target_set": "gameplay"
   }
 }

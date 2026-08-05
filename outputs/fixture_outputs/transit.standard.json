@@ -88727,6 +88727,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 111.25403762390496,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.1312408235748616
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 283.29507316804813,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7668921173572442
+          },
+          "Mercury": {
+            "house": 10,
+            "longitude": 269.86109612891613,
+            "retrograde": false,
+            "sign": "Sagittarius",
+            "speed_longitude": 1.530096740157536
+          },
+          "Moon": {
+            "house": 4,
+            "longitude": 78.61585169231537,
+            "retrograde": false,
+            "sign": "Gemini",
+            "speed_longitude": 15.059170593910897
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.51678644870395,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.012890415977150382
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.7424399959347,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.030280309545927597
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.21392717132255,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.05955492365274309
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 281.3751890940701,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.018861740178433
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.8359312249766,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.1523012309300637
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.9277545872653,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.02690221528514596
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 280.2026391210413,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2582742978265022
+          }
+        },
+        "transit_datetime": "2026-01-01T12:00:00-07:00"
+      },
       "date": "2026-01-01",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -88902,6 +88984,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 111.12239389026735,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.1320325317067966
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 284.0622967803735,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7675513462183672
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 271.39414731452797,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.5360065547639796
+          },
+          "Moon": {
+            "house": 5,
+            "longitude": 93.6605283467211,
+            "retrograde": false,
+            "sign": "Cancer",
+            "speed_longitude": 15.002142957241194
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.5299548174826,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.013443572228012377
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.7728033173839,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.030442661757512694
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.27424805510833,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.06108192566015165
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 282.394048683955,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0188534912811076
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.6817101390266,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.15430474648992554
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.90119228337557,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.026222583496647914
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 281.4608866039769,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2582190755561435
+          }
+        },
+        "transit_datetime": "2026-01-02T12:00:00-07:00"
+      },
       "date": "2026-01-02",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -89077,6 +89241,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 110.98999925677029,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.1327422426136474
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 284.8301737853744,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7681992804534238
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 272.93312625887523,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.541959651887262
+          },
+          "Moon": {
+            "house": 5,
+            "longitude": 108.56579180647196,
+            "retrograde": false,
+            "sign": "Cancer",
+            "speed_longitude": 14.783056437512917
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.5436685841416,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.013981961373596068
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.80331924255836,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.030586506523622367
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.33608232673623,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.06258280725387758
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 283.4128998473421,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0188455898282247
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.53261937158095,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.14023887255364706
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.8753087181287,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.025544373824988358
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 282.719078121315,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2581631866441403
+          }
+        },
+        "transit_datetime": "2026-01-03T12:00:00-07:00"
+      },
       "date": "2026-01-03",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -89252,6 +89498,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 110.85693754150043,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.1333656650358109
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 285.5986942086611,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7688388921428978
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 274.4780972646876,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.5479975347805022
+          },
+          "Moon": {
+            "house": 6,
+            "longitude": 123.18203477903063,
+            "retrograde": false,
+            "sign": "Leo",
+            "speed_longitude": 14.430955500482092
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.5579146034917,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.014509264283584991
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.83397088534747,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.0307154485817069
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.3994057087166,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.06406159810914495
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 284.43174433582664,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0188410353494661
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.4086743779096,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.10440882677105864
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.85010405021202,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.024863893435759912
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 283.9772160050974,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.25811297698125
+          }
+        },
+        "transit_datetime": "2026-01-04T12:00:00-07:00"
+      },
       "date": "2026-01-04",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -89427,6 +89755,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 110.7232983931488,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13389587472975112
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 286.3678517392861,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.769474134291263
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 276.0291643092294,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.5541578068741537
+          },
+          "Moon": {
+            "house": 6,
+            "longitude": 137.3991982245416,
+            "retrograde": false,
+            "sign": "Leo",
+            "speed_longitude": 13.993772921783608
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.5726847216143,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.015031286374810333
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.8647462811797,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.030835176627446868
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.4641992453742,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.06552435951227788
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 285.4505872300603,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0188431021448583
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.32716336628783,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.058535990853943703
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.82558339123972,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.02417534353288357
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 285.2353078025649,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2580701637835214
+          }
+        },
+        "transit_datetime": "2026-01-05T12:00:00-07:00"
+      },
       "date": "2026-01-05",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -89602,6 +90012,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 110.5891786032699,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13432592937895232
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 287.137643469852,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7701075402576748
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 277.5864663618347,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.5604725770445014
+          },
+          "Moon": {
+            "house": 7,
+            "longitude": 151.15895599254253,
+            "retrograde": false,
+            "sign": "Virgo",
+            "speed_longitude": 13.524782441402863
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.58797657315404,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.015553395001326105
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.8956391620578,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.030951024968679068
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.530449963755,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.06697658143158938
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 286.46943614170254,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0188533142571714
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.2891431102101,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.01951844481760265
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.80175768759878,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.02347325608501715
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 286.49335570359773,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2580229592523098
+          }
+        },
+        "transit_datetime": "2026-01-06T12:00:00-07:00"
+      },
       "date": "2026-01-06",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -89777,6 +90269,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 110.45468097428234,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13465096116246364
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 287.9080681138319,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7707400235086868
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 279.15017137760543,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.5669676877353698
+          },
+          "Moon": {
+            "house": 7,
+            "longitude": 164.45392235562252,
+            "retrograde": false,
+            "sign": "Virgo",
+            "speed_longitude": 13.071104346503116
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.60379211501566,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.016078746188703617
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.9266475172622,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.031066104237450876
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.59814925518054,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.06842142215005535
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 287.4882988947742,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.018870525666624
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.28399997971826,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.007186096515071328
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.77864229862726,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.022754405863089692
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 287.751352659614,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2579702159843669
+          }
+        },
+        "transit_datetime": "2026-01-07T12:00:00-07:00"
+      },
       "date": "2026-01-07",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -89952,6 +90526,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 110.31991192641875,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13486858315870268
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 288.6791254425811,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7713734156119599
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 280.72047008930986,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.5736629849702761
+          },
+          "Moon": {
+            "house": 7,
+            "longitude": 177.3180398461416,
+            "retrograde": false,
+            "sign": "Virgo",
+            "speed_longitude": 12.667784906949
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.62013513671934,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.016607995338357984
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.95777115386966,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03118108006077395
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.6672902545527,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.06985942206161976
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 288.50718095955585,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0188913407412945
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.29935512401954,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.02105035386407325
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.75625450633426,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.022018139243406436
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 289.0092998764258,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2579248717046576
+          }
+        },
+        "transit_datetime": "2026-01-08T12:00:00-07:00"
+      },
       "date": "2026-01-08",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -90127,6 +90783,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 110.18497924237474,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13497829282043225
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 289.45081825313514,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7720113497886265
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 282.29757068444394,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.5805737941690752
+          },
+          "Moon": {
+            "house": 7,
+            "longitude": 189.81377049471035,
+            "retrograde": false,
+            "sign": "Libra",
+            "speed_longitude": 12.336992772779393
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.6370091130068,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.017140107262589997
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 302.98900957314333,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03129499978213727
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.73786560582187,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.07128935547800723
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 289.5260837703806,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0189112998549017
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.3204213820193,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.017856370550670197
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.73461133793841,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.021265461329501297
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 290.26720647848794,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2578882753972642
+          }
+        },
+        "transit_datetime": "2026-01-09T12:00:00-07:00"
+      },
       "date": "2026-01-09",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -90302,6 +91040,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 110.0499906700114,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13498050101574124
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 290.2231508756986,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7726518939090307
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 283.88169474779005,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.587711740622965
+          },
+          "Moon": {
+            "house": 8,
+            "longitude": 202.0200211201605,
+            "retrograde": false,
+            "sign": "Libra",
+            "speed_longitude": 12.089858456848095
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.6544160363511,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.017673338918022894
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.0203608581963,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03140615143449392
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.8098662523017,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.0727092701586885
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 290.54500423813363,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.018925948575586
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.32914875259786,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.0028952226281355005
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.713728354880296,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.02049810128836098
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 291.52507875052936,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2578552481737912
+          }
+        },
+        "transit_datetime": "2026-01-10T12:00:00-07:00"
+      },
       "date": "2026-01-10",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -90477,6 +91297,88 @@
           "strength": "very tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 109.91505329402409,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.1348760740927206
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 290.99612179002537,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7732863797055263
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 285.47307405075685,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.5950855751522979
+          },
+          "Moon": {
+            "house": 8,
+            "longitude": 214.02231397475015,
+            "retrograde": false,
+            "sign": "Scorpio",
+            "speed_longitude": 11.928878184375453
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.67235605132583,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.01820581243075019
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.051821325421,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03151280117312483
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.88328106169763,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.074117067437497
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 291.56393499576063,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0189312116336513
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.3112417176607,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.03397369057846591
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.693619247572514,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.019718046089606284
+          },
+          "Venus": {
+            "house": 11,
+            "longitude": 292.7829177110945,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2578209572855672
+          }
+        },
+        "transit_datetime": "2026-01-11T12:00:00-07:00"
+      },
       "date": "2026-01-11",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -90652,6 +91554,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 109.78027324793302,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13466604360669684
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 291.7697211905449,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.773908118399883
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 287.07194756310463,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.6027009723408685
+          },
+          "Moon": {
+            "house": 9,
+            "longitude": 225.90528457148486,
+            "retrograde": false,
+            "sign": "Scorpio",
+            "speed_longitude": 11.85011895889495
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.69082740847176,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.018735634761570683
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.08338550224,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03161316380325175
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 356.9580967852401,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.07551063387829504
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 292.58286477036023,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.01892331526172
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.25998807655066,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.0689272968980954
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.67429575740649,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.018927227023127057
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 294.04072015970706,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.25778165769007
+          }
+        },
+        "transit_datetime": "2026-01-12T12:00:00-07:00"
+      },
       "date": "2026-01-12",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -90827,6 +91811,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 109.64575550105731,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13435170023588375
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 292.5439346294186,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7745141738609065
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 288.67855831120403,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.6105603271780777
+          },
+          "Moon": {
+            "house": 9,
+            "longitude": 237.74720854033498,
+            "retrograde": false,
+            "sign": "Scorpio",
+            "speed_longitude": 11.845084320797785
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.70982645288507,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.01926089628674506
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.1150461133417,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.031705423047274736
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.03429805270747,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.076887853310275
+          },
+          "Sun": {
+            "house": 11,
+            "longitude": 293.60177859187326,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0188986076240771
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.173134648509,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.10442295617298393
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.65576764537563,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.018127607274674214
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 295.29847952458175,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2577342753567746
+          }
+        },
+        "transit_datetime": "2026-01-13T12:00:00-07:00"
+      },
       "date": "2026-01-13",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -91002,6 +92068,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 109.51160370983983,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13393434870234958
+          },
+          "Mars": {
+            "house": 11,
+            "longitude": 293.3187456182488,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7751029778311149
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 290.29315003472726,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.618662676843172
+          },
+          "Moon": {
+            "house": 9,
+            "longitude": 249.61625522982675,
+            "retrograde": false,
+            "sign": "Sagittarius",
+            "speed_longitude": 11.90229309898822
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.7293476502009,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.019779762858639846
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.1467941268635,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03178787855448852
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.1118673989412,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.07824666455757964
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 294.6206579181363,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.018853639395762
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 340.05333016184807,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.133177066706548
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.63804270192186,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.017321188190547968
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 296.55618627680957,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.257676035256554
+          }
+        },
+        "transit_datetime": "2026-01-14T12:00:00-07:00"
+      },
       "date": "2026-01-14",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -91177,6 +92325,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 109.37792019813035,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13341533011154996
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 294.0941361585029,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7756730812557006
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 291.9159637015154,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.6270033847365843
+          },
+          "Moon": {
+            "house": 10,
+            "longitude": 261.56819036446876,
+            "retrograde": false,
+            "sign": "Sagittarius",
+            "speed_longitude": 12.008623603440377
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.7493837369691,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.020290615339657078
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.1786188861364,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03185899391823181
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.1907854063662,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.0795852093023545
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 295.63948084972066,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0187852092992873
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.911994378808,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.14645553663246688
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.62112687947706,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.016509650157104736
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 297.8138282388503,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2576043730524693
+          }
+        },
+        "transit_datetime": "2026-01-15T12:00:00-07:00"
+      },
       "date": "2026-01-15",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -91352,6 +92582,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 109.24480605652397,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13279579746117862
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 294.87008674730987,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7762229337585654
+          },
+          "Mercury": {
+            "house": 11,
+            "longitude": 293.5472338625087,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.6355742902363157
+          },
+          "Moon": {
+            "house": 11,
+            "longitude": 273.64535576336567,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 12.150560070381076
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.76992600068206,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.020792169186573093
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.2105084155147,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.031917629844678275
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.271030975277,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.08090196294062053
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 296.6582225002784,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.018690537071068
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.7659432075682,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.14324956612477727
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.605024556706404,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.015694384008809154
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 299.0713909489745,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.2575173070252568
+          }
+        },
+        "transit_datetime": "2026-01-16T12:00:00-07:00"
+      },
       "date": "2026-01-16",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -91527,6 +92839,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 109.11236133754092,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13207660585509978
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 295.6465765672935,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7767514855255429
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 295.18718483267526,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.6443630275529744
+          },
+          "Moon": {
+            "house": 11,
+            "longitude": 285.87694007415814,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 12.315540397487691
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.79096468092587,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.021283607868702634
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.2424497858661,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03196300130853541
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.35258171277934,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.08219584077069386
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 297.67685555412857,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0185675669557965
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.6291852899878,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.1287161720168061
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.589738913102366,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.01487638108273722
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 300.3288581460656,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2574132728343055
+          }
+        },
+        "transit_datetime": "2026-01-17T12:00:00-07:00"
+      },
       "date": "2026-01-17",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -91702,6 +93096,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 108.9806853998173,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13125824577417794
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 296.42358401654576,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.777258295767865
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 296.8360267021729,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.6533533816270074
+          },
+          "Moon": {
+            "house": 12,
+            "longitude": 298.28063843686687,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 12.49336695853874
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.812489550326,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.021764819625443754
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.27442966860553,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03199504264690958
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.4354145058487,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.08346645624565419
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 298.6953510778302,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0184152018871993
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.5113917780498,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.10533860171100551
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.57527248390937,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.014055926144776574
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 301.5862124573361,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2572915915315277
+          }
+        },
+        "transit_datetime": "2026-01-18T12:00:00-07:00"
+      },
       "date": "2026-01-18",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -91877,6 +93353,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 108.84987747963538,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.13034047651967814
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 297.20108761416986,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7777440540939525
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 298.4939510997363,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.662524484408537
+          },
+          "Moon": {
+            "house": 12,
+            "longitude": 310.86565037304194,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 12.677410350776842
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.8344907516673,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.022236646068505075
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.306435078562,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.032014508465837574
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.51950635510207,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.08471438933810596
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 299.71367966523576,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 1.0182336519955368
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.4214567756155,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.07326715690120192
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.56162796379167,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.01323236341452022
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 302.84343637495886,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2571527647599159
+          }
+        },
+        "transit_datetime": "2026-01-19T12:00:00-07:00"
+      },
       "date": "2026-01-19",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -92052,6 +93610,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 108.72003740842214,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.12932234688695823
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 297.9790671684245,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7782106254433334
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 300.16112598071055,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.671849380767378
+          },
+          "Moon": {
+            "house": 12,
+            "longitude": 323.63662704109714,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 12.865235936248022
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.8569598120573,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.022700960487260932
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.3384542640798,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03202302638306085
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.60483539363054,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.08594125119650642
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 300.731812850892,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0180245875882608
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.3662180252366,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.03724556466473988
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.548809184216566,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.012404099144143966
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 304.10051345497834,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2569983681076264
+          }
+        },
+        "transit_datetime": "2026-01-20T12:00:00-07:00"
+      },
       "date": "2026-01-20",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -92227,6 +93867,88 @@
           "strength": "exact / ultra-partile"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 108.59126617943699,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.12820259151539154
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 298.75750489207434,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7786609243669548
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 301.8376878956339,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.6812919538751048
+          },
+          "Moon": {
+            "house": 1,
+            "longitude": 336.5977816694083,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 13.058250172258832
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.8798905419969,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.023160353741689926
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.3704776543155,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.032023334152225656
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.6913817987258,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.08714940429638199
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 301.7497245152998,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0177909815029391
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.3454854872631,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.005540887625098731
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.53682197139768,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.011568846620339917
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 305.3574294532674,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2568310622992689
+          }
+        },
+        "transit_datetime": "2026-01-21T12:00:00-07:00"
+      },
       "date": "2026-01-21",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -92402,6 +94124,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 108.46366600563023,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.126980156441748
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 299.53638611715604,
+            "retrograde": false,
+            "sign": "Capricorn",
+            "speed_longitude": 0.7790981343371363
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 303.52373315563545,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.6908084841464597
+          },
+          "Moon": {
+            "house": 1,
+            "longitude": 349.75607613284143,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 13.26019868498431
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.90327946087405,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.023617543937486798
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.4024990621382,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03201956586096383
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.7791282455793,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.08834137668535133
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 302.76739196412177,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0175366340595635
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.352012348478,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.016852831618616376
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.525674526684746,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.010724217415850789
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 306.6141730697989,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2566540237923336
+          }
+        },
+        "transit_datetime": "2026-01-22T12:00:00-07:00"
+      },
       "date": "2026-01-22",
       "top_candidate": {
         "candidate_id": "tc:Pluto:square:natal_Mercury",
@@ -92577,6 +94381,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 108.33733968092962,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.12565502878989815
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 300.31569939876397,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7795253723346579
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 305.2193113314248,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.7003483910943384
+          },
+          "Moon": {
+            "house": 1,
+            "longitude": 3.12237098791831,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 13.474659456895141
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.92712555752263,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.02407468041950401
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.43451697124453,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.0320165358252524
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.86805971306626,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.08951920602403629
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 303.7847964790865,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.017265612560003
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.3756011672391,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.028293586253628124
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.515377140268086,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.009868543036582408
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 307.870736104703,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2564702300136068
+          }
+        },
+        "transit_datetime": "2026-01-23T12:00:00-07:00"
+      },
       "date": "2026-01-23",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -92752,6 +94638,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 108.21238929682454,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.12422872307559277
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 301.0954360062302,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7799449518114553
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 306.92441498213464,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.7098471156694415
+          },
+          "Moon": {
+            "house": 2,
+            "longitude": 16.709777094116998,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 13.70205525047096
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.95142941038057,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.024532765505177884
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.4665334507153,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03201605579647166
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 357.9581626710406,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.09068385338875082
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 304.8019233200135,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.016981715463663
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.40411947348684,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.026118648588341287
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.50594126685961,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.009001280781549345
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 309.127113031929,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2562819418569138
+          }
+        },
+        "transit_datetime": "2026-01-24T12:00:00-07:00"
+      },
       "date": "2026-01-24",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -92927,6 +94895,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 108.08891447794709,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.12270469038046768
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 301.8755888948275,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7803578688733255
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 308.6389632483111,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.7192223826293205
+          },
+          "Moon": {
+            "house": 2,
+            "longitude": 30.529069496946217,
+            "retrograde": false,
+            "sign": "Taurus",
+            "speed_longitude": 13.936882232618819
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 359.9761918008631,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.024991215401176083
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.4985499498179,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03201552332423754
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 358.0494237790817,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.09183479898339378
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 305.8187612192639,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0166880401281193
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.42272616341097,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.008705197863862337
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.49737810473998,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.0081235024545743
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 310.3833000777579,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2560903770696057
+          }
+        },
+        "transit_datetime": "2026-01-25T12:00:00-07:00"
+      },
       "date": "2026-01-25",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -93102,6 +95152,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 107.96701033379632,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.1210884979840106
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 302.6561512624972,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.780763596210849
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 310.3627837498625,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.7283731628297005
+          },
+          "Moon": {
+            "house": 2,
+            "longitude": 44.58172201232382,
+            "retrograde": false,
+            "sign": "Taurus",
+            "speed_longitude": 14.16584945062697
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 0.0014119748198967792,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 0.02544759948341786
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.5305644305151,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03201109179020809
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 358.14182824679244,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.09296976553245809
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 306.83530141451706,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.016386480265192
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.41843547066145,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.017907560750824777
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.48969683568683,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.007238145178024631
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 311.639293900915,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2558952033333493
+          }
+        },
+        "transit_datetime": "2026-01-26T12:00:00-07:00"
+      },
       "date": "2026-01-26",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -93277,6 +95409,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 107.84676543000323,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.11938758081423811
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 303.4371149413868,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7811600281555644
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 312.0955928851299,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.7371777217308413
+          },
+          "Moon": {
+            "house": 3,
+            "longitude": 58.851856937062436,
+            "retrograde": false,
+            "sign": "Taurus",
+            "speed_longitude": 14.367709515738422
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 0.027085830891015666,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 0.02589778454399729
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.56257089190217,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.031998795004578
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 358.23535812579445,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.09408487781116143
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 307.8515364278969,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0160777557503045
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.3877105304684,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.0423617918939276
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.482902812125744,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.0063498831257676
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 312.895090120461,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2556947960568732
+          }
+        },
+        "transit_datetime": "2026-01-27T12:00:00-07:00"
+      },
       "date": "2026-01-27",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -93452,6 +95666,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 107.72826036046254,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.1176102069197516
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 304.21846916194687,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7815442748351118
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 313.8369735766791,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.745490441980139
+          },
+          "Moon": {
+            "house": 4,
+            "longitude": 73.29923451653676,
+            "retrograde": false,
+            "sign": "Gemini",
+            "speed_longitude": 14.515626491282761
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 0.053204597315540184,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 0.026336784326704003
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.5945590520187,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03197409174085082
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 358.3299910877899,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.09517548332362914
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 308.86745909076745,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.015761908924388
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.3365133125684,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.058650915831004076
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.476996251402014,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.005464125121458679
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 314.1506822178459,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2554866905703546
+          }
+        },
+        "transit_datetime": "2026-01-28T12:00:00-07:00"
+      },
       "date": "2026-01-28",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -93627,6 +95923,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 107.61156767977293,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.11576386975312103
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 305.00020040151844,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7819139726891892
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 315.5863504029984,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.753139679591816
+          },
+          "Moon": {
+            "house": 4,
+            "longitude": 87.85605120837685,
+            "retrograde": false,
+            "sign": "Gemini",
+            "speed_longitude": 14.582393715124224
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 0.07975473613102244,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 0.02676031273270068
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.62651437681035,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03193315179339482
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 358.4257004201044,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.09623769391452862
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 309.88306248870936,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0154396096371598
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.2725058100334,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.06847983415350538
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.4719721790629,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.00458551488565261
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 315.40606151861397,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2552692835798964
+          }
+        },
+        "transit_datetime": "2026-01-29T12:00:00-07:00"
+      },
       "date": "2026-01-29",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -93802,6 +96180,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 107.49675367715398,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.11385332954762595
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 305.7822937434513,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7822688354780223
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 317.3429620335128,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.759924682399861
+          },
+          "Moon": {
+            "house": 5,
+            "longitude": 102.43002028836652,
+            "retrograde": false,
+            "sign": "Cancer",
+            "speed_longitude": 14.547465174335228
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 0.10671954098617081,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 0.027166475034113426
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.65841948241257,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.03187426444929249
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 358.52245669265113,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.0972700568602749
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 310.8983411892865,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0151133234121528
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.20149634667996,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.07211132958336566
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.467822088289935,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.003716220405616633
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 316.66121866128475,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2550429967118728
+          }
+        },
+        "transit_datetime": "2026-01-30T12:00:00-07:00"
+      },
       "date": "2026-01-30",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -93977,6 +96437,88 @@
           "strength": "very tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 107.38388168640319,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.11187968601206066
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 306.5647354030424,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7826114158301504
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 319.10583015474054,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.7656113136977885
+          },
+          "Moon": {
+            "house": 6,
+            "longitude": 116.91441548386146,
+            "retrograde": false,
+            "sign": "Cancer",
+            "speed_longitude": 14.403354240532448
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 0.1340821074039346,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 0.027556703044914598
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.690256935005,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.031798921747274826
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 358.62023076364994,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.09827445714319984
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 311.9132933406473,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0147876864121004
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.13197066527096,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.06466091258928543
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.4645369942891,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.0028549937382266292
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 317.91614617532946,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2548110460682762
+          }
+        },
+        "transit_datetime": "2026-01-31T12:00:00-07:00"
+      },
       "date": "2026-01-31",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
@@ -94152,6 +96694,88 @@
           "strength": "partile / extremely tight"
         }
       ],
+      "daily_sky": {
+        "positions": {
+          "Jupiter": {
+            "house": 5,
+            "longitude": 107.27301575870243,
+            "retrograde": true,
+            "sign": "Cancer",
+            "speed_longitude": -0.10984063130880943
+          },
+          "Mars": {
+            "house": 12,
+            "longitude": 307.347515284432,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.7829462571416651
+          },
+          "Mercury": {
+            "house": 12,
+            "longitude": 320.87372335022445,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.7699262040777064
+          },
+          "Moon": {
+            "house": 6,
+            "longitude": 131.20299790432767,
+            "retrograde": false,
+            "sign": "Leo",
+            "speed_longitude": 14.1586227971237
+          },
+          "Neptune": {
+            "house": 1,
+            "longitude": 0.1618285377463359,
+            "retrograde": false,
+            "sign": "Aries",
+            "speed_longitude": 0.027935279551390215
+          },
+          "Pluto": {
+            "house": 12,
+            "longitude": 303.72201232792224,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 0.0317113393832981
+          },
+          "Saturn": {
+            "house": 1,
+            "longitude": 358.7189969654117,
+            "retrograde": false,
+            "sign": "Pisces",
+            "speed_longitude": 0.09925559255313736
+          },
+          "Sun": {
+            "house": 12,
+            "longitude": 312.92792249103974,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.0144685799416777
+          },
+          "True Node": {
+            "house": 1,
+            "longitude": 339.0762747583306,
+            "retrograde": true,
+            "sign": "Pisces",
+            "speed_longitude": -0.045152113448207375
+          },
+          "Uranus": {
+            "house": 3,
+            "longitude": 57.46211073516572,
+            "retrograde": true,
+            "sign": "Taurus",
+            "speed_longitude": -0.001997666134894718
+          },
+          "Venus": {
+            "house": 12,
+            "longitude": 319.17084100417895,
+            "retrograde": false,
+            "sign": "Aquarius",
+            "speed_longitude": 1.2545787427708568
+          }
+        },
+        "transit_datetime": "2026-02-01T12:00:00-07:00"
+      },
       "date": "2026-02-01",
       "top_candidate": {
         "candidate_id": "tc:Jupiter:square:natal_Sun",
