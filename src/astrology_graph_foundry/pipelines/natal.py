@@ -4,11 +4,8 @@ import logging
 from datetime import datetime
 from typing import Any
 
-from astrology_graph_foundry.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.calculation_provenance import build_calculation_provenance
 from astrology_graph_foundry.common.chart_graph import build_chart_graph
-from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
-from astrology_graph_foundry.ephemeris.providers import create_provider
-from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
 from astrology_graph_foundry.common.semantic_layers import (
     canonical_graph_from_package,
     finalize_package_semantic_boundary,
@@ -18,6 +15,10 @@ from astrology_graph_foundry.common.semantic_layers import (
     orthodox_report_materials_from_package,
     orthodox_row_annotation,
 )
+from astrology_graph_foundry.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
+from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
+from astrology_graph_foundry.ephemeris.providers import create_provider
 
 SCHEMA_VERSION = "1.1.0"
 
@@ -109,20 +110,21 @@ def build(
             source_chart_id=source_chart_id,
         )
 
+    provider_config = ProviderConfig(
+        start=start,
+        end=end,
+        snapshot_timezone=snapshot_timezone,
+        snapshot_time=snapshot_time,
+        ephe_path=ephe_path,
+        house_system=house_system,
+    )
     ep = create_provider(
         provider,
         person_jsonl=person_jsonl,
         target_dataset=natal_dataset,
         birth_data=birth_data,
         global_jsonl=global_jsonl,
-        config=ProviderConfig(
-            start=start,
-            end=end,
-            snapshot_timezone=snapshot_timezone,
-            snapshot_time=snapshot_time,
-            ephe_path=ephe_path,
-            house_system=house_system,
-        ),
+        config=provider_config,
     )
     existing_graph = ep.natal_chart().get("semantic_graph")
     if existing_graph:
@@ -153,6 +155,16 @@ def build(
 
     logger.info("Natal package complete person=%s graph_objects=%d graph_relationships=%d long_transits=%d", ep.person_metadata().get("person"), len(graph.get("objects", [])), len(graph.get("relationships", [])), len(long_transits))
     provider_chart_id = ep.person_metadata().get("target_chart_id") or ep.person_metadata().get("source_chart_id")
+    runtime_provenance = getattr(ep, "calculation_runtime_provenance", None)
+    provider_runtime = (
+        runtime_provenance()
+        if callable(runtime_provenance)
+        else {
+            "mode": "live_calculation" if birth_data is not None else "cached_replay",
+            "provider": ep.person_metadata().get("provider") or "unknown",
+            "calculation_runtime": "not_reported_by_provider",
+        }
+    )
     package = {
         "metadata": {
             "schema_version": SCHEMA_VERSION,
@@ -164,6 +176,12 @@ def build(
             "start_date": start,
             "end_date": end,
             "live_natal_computation": provider == "live" and natal_dataset is None,
+            "calculation_provenance": build_calculation_provenance(
+                birth_data=birth_data,
+                natal_chart=ep.natal_chart(),
+                config=provider_config,
+                    provider_runtime=provider_runtime,
+            ),
         },
         "person": ep.person_metadata(),
         "natal": ep.natal_chart(),

@@ -230,3 +230,9 @@ def test_natal_live_build_accepts_and_serializes_explicit_identity(monkeypatch):
     assert result["metadata"]["source_chart_id"] == source_chart_id
     assert result["transitable_chart"]["chart_identity"]["chart_id"] == source_chart_id
     assert result["canonical_astrology_graph"]["source_chart_id"] == source_chart_id
+    provenance = result["metadata"]["calculation_provenance"]
+    assert provenance["source_input"]["completeness"] == "complete_live_input"
+    assert provenance["source_input"]["sha256"]
+    assert provenance["configuration_sha256"]
+    assert provenance["calculation_profile"]["provider"]["provider"] == "fake_live"
+    assert source_chart_id not in json.dumps(provenance, sort_keys=True)

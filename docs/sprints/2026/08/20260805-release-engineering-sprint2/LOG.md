@@ -122,3 +122,56 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - Verified the final qualification environment and all intermediate environments,
   wheels, and downloads were removed.
 - Slice 2 is paused for human approval. No files are staged or committed.
+
+## 2026-08-05 — Slice 2 Approval and Commit
+
+- Human approved Slice 2 and authorized continuation.
+- Committed the installable package boundary as `037f1c5`
+  (`Define installed AGF package boundary`).
+- Began Slice 3 from that clean named boundary.
+
+## 2026-08-05 — Slice 3 Calculation Profile and Provenance
+
+- Added versioned calculation provenance, calculation profile, normalization,
+  and canonical JSON policies plus a packaged JSON Schema.
+- Normalized birth geometry separately from display name, location label, and
+  source-chart identity. Included normalization-policy identity inside the source
+  hash envelope.
+- Added a deterministic configuration profile covering zodiac, houses, objects,
+  node alternatives, aspects/orbs, declination, lots/sect, derived techniques,
+  invocation settings, provider runtime, and ephemeris data.
+- Distinguished complete live profiles from cached replay profiles that cannot
+  prove the original calculation runtime.
+- Chose an explicit orchestration-owned exact artifact-byte hash boundary instead
+  of emitting a self-referential or misleading AGF content hash.
+- Added nonrecursive Swiss Ephemeris data inventory by filename, size, per-file
+  SHA-256, and sorted aggregate hash while excluding the machine path.
+- Recorded primary ecliptic and equatorial-declination calculation flags
+  separately after reviewing the actual live code.
+- Added provenance to newly built Natal package metadata without changing Sprint
+  1 source identity or making the field required for historical Natal schemas.
+- Packaged schema resource count increased from 33 to 34. Updated current tests;
+  retained Slice 2's manifest unchanged as evidence for its committed tree.
+- Added golden mutation vectors, synthetic live-contract and cached examples,
+  authoritative documentation, schema validation, provider inventory tests, and
+  live-Natal integration assertions.
+- Focused provenance/identity/resource suite: 40 passed.
+- Full suite before final evidence closure: 171 passed in 4.65 seconds.
+- Targeted Ruff passed while explicitly leaving the pre-existing naive
+  `metadata.created_at` behavior unchanged.
+
+## 2026-08-05 — Slice 3 Gate Ready for Review
+
+- Added a regression test that recomputes every retained golden vector and
+  validates both retained examples against the packaged provenance schema.
+- Final focused provenance/identity/resource suite: 41 passed.
+- Final full regression suite: 172 passed in 5.14 seconds.
+- Targeted Ruff passed, current-document links passed across 43 Markdown files,
+  all JSON evidence/schema parsed, tracked and untracked whitespace checks passed,
+  and `git diff --check` passed.
+- Reviewed the complete diff for source/chart/calculation identity conflation,
+  machine-path leakage, false cached provenance, unrecorded material defaults,
+  self-referential hashing, and projection-context leakage.
+- No temporary environment, generated chart, downloaded provider, build artifact,
+  or ephemeris data was created or retained in this slice.
+- Slice 3 is paused for human approval. No files are staged or committed.

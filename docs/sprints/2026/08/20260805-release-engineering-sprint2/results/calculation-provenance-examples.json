@@ -1,0 +1,413 @@
+{
+  "cached_legacy": {
+    "calculation_basis_status": "cached_replay_profile_not_original_calculation",
+    "calculation_profile": {
+      "aspects": {
+        "angles_degrees": {
+          "conjunction": 0,
+          "opposition": 180,
+          "quincunx": 150,
+          "semisextile": 30,
+          "sextile": 60,
+          "square": 90,
+          "trine": 120
+        },
+        "base_orbs_degrees": {
+          "conjunction": 6.0,
+          "opposition": 6.0,
+          "quincunx": 2.5,
+          "semisextile": 2.0,
+          "sextile": 4.5,
+          "square": 5.5,
+          "trine": 5.5
+        },
+        "body_adjustments_degrees": {
+          "angle": {
+            "delta": 0.5,
+            "members": [
+              "ASC",
+              "DSC",
+              "IC",
+              "MC"
+            ]
+          },
+          "luminary": {
+            "delta": 1.0,
+            "members": [
+              "Moon",
+              "Sun"
+            ]
+          },
+          "minimum_orb": 1.0,
+          "outer_planet_pair": {
+            "delta": -1.0,
+            "members": [
+              "Neptune",
+              "Pluto",
+              "Uranus"
+            ]
+          },
+          "point": {
+            "delta": -1.0,
+            "members": [
+              "Chiron",
+              "Mean Node",
+              "Part of Fortune",
+              "True Node",
+              "Vertex"
+            ]
+          }
+        },
+        "declination_parallel_orb_degrees": 1.0,
+        "included": [
+          "conjunction",
+          "opposition",
+          "quincunx",
+          "semisextile",
+          "sextile",
+          "square",
+          "trine"
+        ],
+        "major": [
+          "conjunction",
+          "opposition",
+          "sextile",
+          "square",
+          "trine"
+        ]
+      },
+      "canonical_json_policy_version": "agf.canonical_json.v1.0.0",
+      "derived": {
+        "antiscia": "solstitial_axis_v1",
+        "dignities": "lightweight_domicile_exaltation_triplicity_v1",
+        "fortune_day": "ASC + Moon - Sun",
+        "fortune_night": "ASC + Sun - Moon",
+        "sect_policy": "sun_house_7_through_12_is_day",
+        "spirit_day": "ASC + Sun - Moon",
+        "spirit_night": "ASC + Moon - Sun"
+      },
+      "houses": {
+        "angle_algorithm": "swisseph.houses_ex",
+        "system": "P"
+      },
+      "invocation_options": {
+        "asteroid_ids": [],
+        "end": null,
+        "fixed_star_names": [],
+        "harmonic_numbers": [
+          2,
+          3,
+          4,
+          5,
+          7,
+          9
+        ],
+        "house_system": "P",
+        "include_antiscia": true,
+        "include_asteroids": false,
+        "include_declinations": true,
+        "include_dignities": true,
+        "include_fixed_stars": false,
+        "include_harmonics": true,
+        "include_minor": true,
+        "include_optional_points": true,
+        "include_sect": true,
+        "snapshot_time": "12:00",
+        "snapshot_timezone": "America/Denver",
+        "start": null,
+        "top_n_candidates": 25
+      },
+      "normalization": {
+        "coordinate_encoding_for_hash": "normalized_base10_string",
+        "local_datetime_parser": "python.datetime.fromisoformat",
+        "policy_version": "agf.normalization_policy.v1.0.0",
+        "timezone_provider": "python.zoneinfo",
+        "utc_conversion": "aware_datetime.astimezone.UTC"
+      },
+      "objects": {
+        "angles": [
+          "ASC",
+          "DSC",
+          "MC",
+          "IC",
+          "Vertex"
+        ],
+        "asteroid_ids": [],
+        "asteroids_enabled": false,
+        "core": [
+          "Sun",
+          "Moon",
+          "Mercury",
+          "Venus",
+          "Mars",
+          "Jupiter",
+          "Saturn",
+          "Uranus",
+          "Neptune",
+          "Pluto",
+          "True Node",
+          "Mean Node"
+        ],
+        "fixed_star_names": [],
+        "fixed_stars_enabled": false,
+        "nodes": [
+          "True Node",
+          "Mean Node"
+        ],
+        "optional_chiron": true
+      },
+      "profile_version": "agf.calculation_profile.v1.0.0",
+      "provider": {
+        "calculation_runtime": "not_observed",
+        "mode": "cached_replay",
+        "provider": "cached_jsonl"
+      },
+      "zodiac": {
+        "ayanamsha": null,
+        "framework": "tropical"
+      }
+    },
+    "calculation_profile_version": "agf.calculation_profile.v1.0.0",
+    "canonical_json_policy_version": "agf.canonical_json.v1.0.0",
+    "configuration_sha256": "7f589de34c8783fb60a99a657d92304669a7caedc0b35d74aeb9f65274eeb257",
+    "contract_version": "agf.calculation_provenance.v1.0.0",
+    "normalization_policy_version": "agf.normalization_policy.v1.0.0",
+    "output_artifact_hash": {
+      "algorithm": "sha256",
+      "boundary": "exact persisted UTF-8 artifact bytes returned by AGF before downstream transformation",
+      "owner": "orchestration",
+      "reason": "AGF packages contain operational created_at metadata; the persistence owner hashes the final byte envelope.",
+      "status": "not_emitted_by_agf"
+    },
+    "source_input": {
+      "completeness": "recovered_from_cached_chart",
+      "excluded_descriptive_fields": [
+        "name",
+        "birth_location_label",
+        "source_chart_id"
+      ],
+      "included_fields": [
+        "birth_local",
+        "birth_timezone",
+        "birth_lat",
+        "birth_lon"
+      ],
+      "sha256": "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db"
+    }
+  },
+  "evidence_type": "agf_calculation_provenance_examples.v1",
+  "live": {
+    "calculation_basis_status": "complete_live_profile",
+    "calculation_profile": {
+      "aspects": {
+        "angles_degrees": {
+          "conjunction": 0,
+          "opposition": 180,
+          "quincunx": 150,
+          "semisextile": 30,
+          "sextile": 60,
+          "square": 90,
+          "trine": 120
+        },
+        "base_orbs_degrees": {
+          "conjunction": 6.0,
+          "opposition": 6.0,
+          "quincunx": 2.5,
+          "semisextile": 2.0,
+          "sextile": 4.5,
+          "square": 5.5,
+          "trine": 5.5
+        },
+        "body_adjustments_degrees": {
+          "angle": {
+            "delta": 0.5,
+            "members": [
+              "ASC",
+              "DSC",
+              "IC",
+              "MC"
+            ]
+          },
+          "luminary": {
+            "delta": 1.0,
+            "members": [
+              "Moon",
+              "Sun"
+            ]
+          },
+          "minimum_orb": 1.0,
+          "outer_planet_pair": {
+            "delta": -1.0,
+            "members": [
+              "Neptune",
+              "Pluto",
+              "Uranus"
+            ]
+          },
+          "point": {
+            "delta": -1.0,
+            "members": [
+              "Chiron",
+              "Mean Node",
+              "Part of Fortune",
+              "True Node",
+              "Vertex"
+            ]
+          }
+        },
+        "declination_parallel_orb_degrees": 1.0,
+        "included": [
+          "conjunction",
+          "opposition",
+          "quincunx",
+          "semisextile",
+          "sextile",
+          "square",
+          "trine"
+        ],
+        "major": [
+          "conjunction",
+          "opposition",
+          "sextile",
+          "square",
+          "trine"
+        ]
+      },
+      "canonical_json_policy_version": "agf.canonical_json.v1.0.0",
+      "derived": {
+        "antiscia": "solstitial_axis_v1",
+        "dignities": "lightweight_domicile_exaltation_triplicity_v1",
+        "fortune_day": "ASC + Moon - Sun",
+        "fortune_night": "ASC + Sun - Moon",
+        "sect_policy": "sun_house_7_through_12_is_day",
+        "spirit_day": "ASC + Sun - Moon",
+        "spirit_night": "ASC + Moon - Sun"
+      },
+      "houses": {
+        "angle_algorithm": "swisseph.houses_ex",
+        "system": "P"
+      },
+      "invocation_options": {
+        "asteroid_ids": [],
+        "end": null,
+        "fixed_star_names": [],
+        "harmonic_numbers": [
+          2,
+          3,
+          4,
+          5,
+          7,
+          9
+        ],
+        "house_system": "P",
+        "include_antiscia": true,
+        "include_asteroids": false,
+        "include_declinations": true,
+        "include_dignities": true,
+        "include_fixed_stars": false,
+        "include_harmonics": true,
+        "include_minor": true,
+        "include_optional_points": true,
+        "include_sect": true,
+        "snapshot_time": "12:00",
+        "snapshot_timezone": "America/Denver",
+        "start": null,
+        "top_n_candidates": 25
+      },
+      "normalization": {
+        "coordinate_encoding_for_hash": "normalized_base10_string",
+        "local_datetime_parser": "python.datetime.fromisoformat",
+        "policy_version": "agf.normalization_policy.v1.0.0",
+        "timezone_provider": "python.zoneinfo",
+        "utc_conversion": "aware_datetime.astimezone.UTC"
+      },
+      "objects": {
+        "angles": [
+          "ASC",
+          "DSC",
+          "MC",
+          "IC",
+          "Vertex"
+        ],
+        "asteroid_ids": [],
+        "asteroids_enabled": false,
+        "core": [
+          "Sun",
+          "Moon",
+          "Mercury",
+          "Venus",
+          "Mars",
+          "Jupiter",
+          "Saturn",
+          "Uranus",
+          "Neptune",
+          "Pluto",
+          "True Node",
+          "Mean Node"
+        ],
+        "fixed_star_names": [],
+        "fixed_stars_enabled": false,
+        "nodes": [
+          "True Node",
+          "Mean Node"
+        ],
+        "optional_chiron": true
+      },
+      "profile_version": "agf.calculation_profile.v1.0.0",
+      "provider": {
+        "calculation_flags": {
+          "ecliptic_positions": [
+            "FLG_SWIEPH",
+            "FLG_SPEED"
+          ],
+          "equatorial_declinations": [
+            "FLG_SWIEPH",
+            "FLG_SPEED",
+            "FLG_EQUATORIAL"
+          ]
+        },
+        "distribution": "pyswisseph",
+        "distribution_version": "2.10.3.2",
+        "ephemeris_data": {
+          "inventory_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "status": "test_fixture"
+        },
+        "library_version": "2.10.03",
+        "mode": "live_calculation",
+        "provider": "swiss_ephemeris"
+      },
+      "zodiac": {
+        "ayanamsha": null,
+        "framework": "tropical"
+      }
+    },
+    "calculation_profile_version": "agf.calculation_profile.v1.0.0",
+    "canonical_json_policy_version": "agf.canonical_json.v1.0.0",
+    "configuration_sha256": "eb9cb67167df00b529b88b1b678b2ec7708171b98573efa2605ffdfe06a8afad",
+    "contract_version": "agf.calculation_provenance.v1.0.0",
+    "normalization_policy_version": "agf.normalization_policy.v1.0.0",
+    "output_artifact_hash": {
+      "algorithm": "sha256",
+      "boundary": "exact persisted UTF-8 artifact bytes returned by AGF before downstream transformation",
+      "owner": "orchestration",
+      "reason": "AGF packages contain operational created_at metadata; the persistence owner hashes the final byte envelope.",
+      "status": "not_emitted_by_agf"
+    },
+    "source_input": {
+      "completeness": "complete_live_input",
+      "excluded_descriptive_fields": [
+        "name",
+        "birth_location_label",
+        "source_chart_id"
+      ],
+      "included_fields": [
+        "birth_local",
+        "birth_timezone",
+        "birth_lat",
+        "birth_lon"
+      ],
+      "sha256": "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db"
+    }
+  },
+  "live_contract_example_status": "synthetic_provider_fixture_not_live_astronomy"
+}

@@ -22,7 +22,12 @@
         "created_at",
         "person",
         "provider"
-      ]
+      ],
+      "properties": {
+        "calculation_provenance": {
+          "$ref": "calculation_provenance_v1.schema.json"
+        }
+      }
     },
     "person": {
       "type": "object"

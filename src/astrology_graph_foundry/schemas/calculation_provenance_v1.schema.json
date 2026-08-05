@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrology-graph-foundry.local/schemas/calculation_provenance_v1.schema.json",
+  "title": "AGF Calculation Provenance v1",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "calculation_basis_status",
+    "calculation_profile_version",
+    "normalization_policy_version",
+    "canonical_json_policy_version",
+    "source_input",
+    "configuration_sha256",
+    "calculation_profile",
+    "output_artifact_hash"
+  ],
+  "properties": {
+    "contract_version": {"const": "agf.calculation_provenance.v1.0.0"},
+    "calculation_basis_status": {
+      "enum": ["complete_live_profile", "cached_replay_profile_not_original_calculation"]
+    },
+    "calculation_profile_version": {"const": "agf.calculation_profile.v1.0.0"},
+    "normalization_policy_version": {"const": "agf.normalization_policy.v1.0.0"},
+    "canonical_json_policy_version": {"const": "agf.canonical_json.v1.0.0"},
+    "source_input": {
+      "type": "object",
+      "required": ["completeness", "sha256", "included_fields", "excluded_descriptive_fields"],
+      "properties": {
+        "completeness": {"enum": ["complete_live_input", "recovered_from_cached_chart", "legacy_source_unavailable"]},
+        "sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "included_fields": {"type": "array", "items": {"type": "string"}},
+        "excluded_descriptive_fields": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "configuration_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "calculation_profile": {"type": "object"},
+    "output_artifact_hash": {
+      "type": "object",
+      "required": ["owner", "status", "algorithm", "boundary", "reason"],
+      "properties": {
+        "owner": {"const": "orchestration"},
+        "status": {"const": "not_emitted_by_agf"},
+        "algorithm": {"const": "sha256"},
+        "boundary": {"type": "string"},
+        "reason": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

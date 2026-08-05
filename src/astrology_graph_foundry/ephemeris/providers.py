@@ -1,18 +1,54 @@
 from __future__ import annotations
-from datetime import datetime, timedelta
+
+import hashlib
+import json
 import logging
+from collections.abc import Iterable
+from datetime import datetime, timedelta
+from importlib import metadata
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 from zoneinfo import ZoneInfo
+
 from astrology_graph_foundry.common.aspects import all_aspects
 from astrology_graph_foundry.common.chart_graph import build_chart_graph
 from astrology_graph_foundry.common.graph_compiler import GraphCompiler
 from astrology_graph_foundry.common.io import load_global, load_person, write_jsonl
-from astrology_graph_foundry.common.transitable_chart import TransitableChart, from_package as transitable_chart_from_package
+from astrology_graph_foundry.common.transitable_chart import TransitableChart
+from astrology_graph_foundry.common.transitable_chart import from_package as transitable_chart_from_package
+
 from .live_natal import active_body_map, build_live_natal_chart, datetime_to_jd_ut, safe_planet_position
 from .models import BirthData, DailySnapshot, ProviderConfig
 
 logger = logging.getLogger(__name__)
+
+
+def _ephemeris_data_inventory(ephe_path: str | Path) -> dict[str, Any]:
+    root = Path(ephe_path)
+    candidates = []
+    if root.is_dir():
+        candidates.extend(root.glob("*.se1"))
+        candidates.extend(root / name for name in ("sefstars.txt", "seorbel.txt") if (root / name).is_file())
+    resources = []
+    for path in sorted(set(candidates), key=lambda item: item.name):
+        content = path.read_bytes()
+        resources.append(
+            {
+                "name": path.name,
+                "size_bytes": len(content),
+                "sha256": hashlib.sha256(content).hexdigest(),
+            }
+        )
+    payload = json.dumps(resources, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return {
+        "status": "inventoried" if resources else "no_external_data_files_detected",
+        "inventory_policy": "nonrecursive_se1_and_standard_catalogs_v1",
+        "inventory_sha256": hashlib.sha256(payload).hexdigest(),
+        "resource_count": len(resources),
+        "resources": resources,
+        "configured_path_recorded": False,
+        "fallback_policy": "no_external_files_does_not_prove_swiss_ephemeris_avoided_fallback",
+    }
 
 class EphemerisProvider:
     def target_metadata(self) -> dict[str, Any]: raise NotImplementedError
@@ -23,6 +59,8 @@ class EphemerisProvider:
     def iter_days(self) -> Iterable[DailySnapshot]: raise NotImplementedError
     def graph_compiler(self, *, relationship_limit: int = 12):
         return None
+    def calculation_runtime_provenance(self) -> dict[str, Any]:
+        return {"mode": "cached_replay", "provider": "cached_jsonl", "calculation_runtime": "not_observed"}
     def to_jsonl_rows(self) -> list[dict[str, Any]]:
         person = self.person_metadata().get("person")
         rows = [{**self.person_metadata(), "type": "person_metadata"}, {**self.natal_chart(), "type": "natal_chart"}]
@@ -95,6 +133,23 @@ class LiveSwissEphemerisProvider(EphemerisProvider):
         if self._graph_compiler.relationship_limit == relationship_limit:
             return self._graph_compiler
         return GraphCompiler(self._chart, relationship_limit=relationship_limit)
+    def calculation_runtime_provenance(self) -> dict[str, Any]:
+        try:
+            distribution_version = metadata.version("pyswisseph")
+        except metadata.PackageNotFoundError:
+            distribution_version = None
+        return {
+            "mode": "live_calculation",
+            "provider": "swiss_ephemeris",
+            "distribution": "pyswisseph",
+            "distribution_version": distribution_version,
+            "library_version": str(getattr(self.swe, "version", "unknown")),
+            "calculation_flags": {
+                "ecliptic_positions": ["FLG_SWIEPH", "FLG_SPEED"],
+                "equatorial_declinations": ["FLG_SWIEPH", "FLG_SPEED", "FLG_EQUATORIAL"],
+            },
+            "ephemeris_data": _ephemeris_data_inventory(self.config.ephe_path),
+        }
     def target_metadata(self) -> dict[str, Any]:
         return {
             "person": self._target.label,

@@ -1,0 +1,56 @@
+{
+  "evidence_type": "agf_calculation_provenance_golden_vectors.v1",
+  "policies": {
+    "contract": "agf.calculation_provenance.v1.0.0",
+    "calculation_profile": "agf.calculation_profile.v1.0.0",
+    "normalization": "agf.normalization_policy.v1.0.0",
+    "canonical_json": "agf.canonical_json.v1.0.0"
+  },
+  "baseline": {
+    "source_input_sha256": "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db",
+    "configuration_sha256": "eb9cb67167df00b529b88b1b678b2ec7708171b98573efa2605ffdfe06a8afad"
+  },
+  "mutations": [
+    {
+      "name": "display-and-identity-only",
+      "source_input_sha256": "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db",
+      "configuration_sha256": "eb9cb67167df00b529b88b1b678b2ec7708171b98573efa2605ffdfe06a8afad",
+      "expected": "both_unchanged"
+    },
+    {
+      "name": "birth-minute",
+      "source_input_sha256": "9ee86ecd2c607188bbd94eee222d7bdef4aa18e3abab7768e7044f7cb918a047",
+      "configuration_sha256": "eb9cb67167df00b529b88b1b678b2ec7708171b98573efa2605ffdfe06a8afad",
+      "expected": "input_changed"
+    },
+    {
+      "name": "latitude",
+      "source_input_sha256": "6d8f7030ab33e3ad570250bacf112e50cea293274865dcaee435b52dcd18297a",
+      "configuration_sha256": "eb9cb67167df00b529b88b1b678b2ec7708171b98573efa2605ffdfe06a8afad",
+      "expected": "input_changed"
+    },
+    {
+      "name": "whole-sign-houses",
+      "source_input_sha256": "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db",
+      "configuration_sha256": "9822cc8497f24a9d2ab0de796fc2c0c949fe2af82e3239212419e1285d0c321b",
+      "expected": "configuration_changed"
+    },
+    {
+      "name": "major-aspects-only",
+      "source_input_sha256": "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db",
+      "configuration_sha256": "36ecf79299e831ead9e8113ab15a09fd1a1d25476e71939db78fe894a78fe178",
+      "expected": "configuration_changed"
+    },
+    {
+      "name": "provider-version",
+      "source_input_sha256": "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db",
+      "configuration_sha256": "49a2af6f37804fd83f8f46e950a1aa83585aaba31036ebe9c714d89901035946",
+      "expected": "configuration_changed"
+    }
+  ],
+  "output_hash_boundary": {
+    "owner": "orchestration",
+    "algorithm": "sha256",
+    "agf_emits_hash": false
+  }
+}

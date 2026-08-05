@@ -40,6 +40,7 @@ semantics, schemas, and implementation.
 
 - [Canonical Identity and Projection Context Ownership](Canonical%20Identity%20and%20Projection%20Context%20Ownership.md)
 - [Canonical Identity Migration Guide](Canonical%20Identity%20Migration%20Guide.md)
+- [Calculation Provenance and Hashing](Calculation%20Provenance%20and%20Hashing.md)
 - [Canonical Temporal Activation Graph](Canonical%20Temporal%20Activation%20Graph.md)
 - [Semantic Graph Ingestion](semantic_graph_ingestion.md)
 - [Semantic Projection Integration](Semantic%20Projection%20Integration.md)
