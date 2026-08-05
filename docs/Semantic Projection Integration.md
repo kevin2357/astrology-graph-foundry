@@ -2,6 +2,13 @@
 
 Astrology Graph Foundry produces `canonical_astrology_graph` and `structural_evidence_graph`. Its `projection_adapter.py` converts saved SDK packages and source registries into generic Semantic Projection Core requests.
 
+For AstroWoof-specific orchestration, retention, compatibility, and provenance
+policy, see the project-level
+[Canonical Chart Integration](https://github.com/kevin2357/astrowoof-project/blob/main/docs/architecture/Canonical%20Chart%20Integration.md)
+and
+[Canonical Natal Chart Consumer Contract](https://github.com/kevin2357/astrowoof-project/blob/main/docs/contracts/Canonical%20Natal%20Chart%20Contract.md).
+Those documents do not transfer canine ontology or product behavior into Foundry.
+
 The static adapter rejects temporal activation packages because they require the dedicated temporal route. Foundry exports `temporal_projection_source_bundle.v1`; Semantic Projection Core 0.10.0 validates and adapts that bundle, executes projection to `projected_temporal_activation_graph.v1`, materializes the selected view, and can emit a deterministic route receipt. Projection profiles, projected contracts, schemas, term registries, rendering primitives, and materialization policy are external.
 
 Install the sibling project during development:
