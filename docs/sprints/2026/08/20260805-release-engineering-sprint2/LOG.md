@@ -255,3 +255,11 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - Added a manual GitHub Actions workflow targeting Ubuntu 24.04 and CPython 3.11. It hashes the exact SPC and pyswisseph wheels, builds/installs AGF, runs controlled Natal fixtures with an empty ephemeris directory, projects through installed SPC, and runs the full suite against installed code.
 - The project repository now has uncommitted, user-requested release-strategy and open-question notes recording that technical qualification does not satisfy the Swiss Ephemeris public-activation licensing gate.
 - Focused mode/provenance/identity/package tests passed: 51. Full source suite after the first implementation pass passed: 181.
+
+## 2026-08-05 - Slice 6 Linux Qualification Attempt 1
+
+- Committed the controlled-live implementation on `codex/live-qualification` as `f3be5fb` and pushed only that qualification branch; `main` was not pushed.
+- GitHub Actions run `31064829608` failed before installation in the dependency-acquisition step. The pinned SPC asset name, tag, and SHA-256 were correct, but unauthenticated `curl` received HTTP 404 because the SPC repository is private.
+- Confirmed the released SPC wheel asset still reports SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150` through authenticated GitHub release metadata.
+- Corrected the workflow to acquire that private release asset with authenticated `gh release download` through the narrowly named `SPC_RELEASE_TOKEN` secret, while retaining the independent SHA-256 check.
+- No release credential was copied, printed, or stored during the correction. A rerun requires explicit authorization to configure the repository secret or another approved credential provision.

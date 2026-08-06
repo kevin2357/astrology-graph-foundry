@@ -27,12 +27,15 @@ jobs:
           python -m pip wheel . --no-deps --no-build-isolation --wheel-dir "$RUNNER_TEMP/agf-live/wheels"
       - name: Acquire exact SPC and pyswisseph wheels
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.SPC_RELEASE_TOKEN }}
         run: |
           set -euo pipefail
           cd "$RUNNER_TEMP/agf-live/wheels"
-          curl --fail --location --silent --show-error \
-            --output semantic_projection_core-0.10.0-py3-none-any.whl \
-            https://github.com/kevin2357/semantic-projection-core/releases/download/semantic-projection-core-v0.10.0/semantic_projection_core-0.10.0-py3-none-any.whl
+          gh release download semantic-projection-core-v0.10.0 \
+            --repo kevin2357/semantic-projection-core \
+            --pattern semantic_projection_core-0.10.0-py3-none-any.whl \
+            --dir .
           echo "60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150  semantic_projection_core-0.10.0-py3-none-any.whl" | sha256sum --check
           python -m pip download --disable-pip-version-check --no-deps --only-binary=:all: \
             --dest . pyswisseph==2.10.3.2
