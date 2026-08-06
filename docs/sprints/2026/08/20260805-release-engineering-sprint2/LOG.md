@@ -263,3 +263,14 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - Confirmed the released SPC wheel asset still reports SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150` through authenticated GitHub release metadata.
 - Corrected the workflow to acquire that private release asset with authenticated `gh release download` through the narrowly named `SPC_RELEASE_TOKEN` secret, while retaining the independent SHA-256 check.
 - No release credential was copied, printed, or stored during the correction. A rerun requires explicit authorization to configure the repository secret or another approved credential provision.
+
+## 2026-08-05 - Slice 6 Linux Qualification Success
+
+- Product owner approved securely piping the existing authenticated GitHub CLI token into the encrypted AGF repository secret `SPC_RELEASE_TOKEN`; only the secret name and update timestamp were displayed. No credential entered source or retained evidence.
+- Manually dispatched GitHub Actions run `31065465973` against `3b34b72d97b2fc730cffec90aaef22b338e8689e`; every workflow step passed.
+- Exact SPC and pyswisseph wheel SHA-256 checks passed before installation. The clean candidate runtime passed `pip check`.
+- Controlled baseline, standard-time, daylight-time, and coordinate-edge Natal calculations requested and observed Moshier mode with an empty ephemeris directory and optional points disabled.
+- Repeated calculation was semantically identical. Installed SPC projection passed with 188 objects, 3,143 relationships, and exact `agf:qualification:baseline` identity preservation.
+- Full suite against installed AGF wheel code passed: 181 tests in 4.15 seconds.
+- Downloaded the 2,959-byte `controlled-live-summary.json` workflow artifact and retained compact controlled-live and cross-repository compatibility evidence beside the Slice 6 report.
+- Verified the retained controlled-live JSON is structurally identical to the downloaded workflow artifact, then removed the verified temporary download directory `C:\tmp\agf-live-run-31065465973`.

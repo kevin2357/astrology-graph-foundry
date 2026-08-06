@@ -1,0 +1,66 @@
+{
+  "artifacts": {
+    "agf_wheel_sha256": "6895a744395bf07b3a554fe372dc6c85380d96552f3c19220ff524f932ed5be1",
+    "pyswisseph_wheel_sha256": "e00d7e08aeafe00938603bc118874b6ca7871c5aaa55aafca8fa2c6d76aff812",
+    "spc_wheel_sha256": "60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150"
+  },
+  "evidence_type": "agf.controlled_live_summary.v1",
+  "fixtures": [
+    {
+      "canonical_graph_sha256": "94c885700b256fc14756925897c128fe1052c2716c1b1fa7a23e157557baf844",
+      "configuration_sha256": "e9ea6d38d8123a98594e542a0cb6309c9e32610e57915cacd17a75bf81e4868f",
+      "label": "baseline",
+      "semantic_package_sha256": "1cce499b16c7d1bbe18c605d55ebdfdd89ad3e4d6414d904c9f8a5f764ae4208",
+      "source_chart_id": "agf:qualification:baseline",
+      "source_input_sha256": "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db"
+    },
+    {
+      "canonical_graph_sha256": "93a2ffccbf9b394d505d1fcca5ef70ecc5c57f2f33cc27734001e737552e1077",
+      "configuration_sha256": "e9ea6d38d8123a98594e542a0cb6309c9e32610e57915cacd17a75bf81e4868f",
+      "label": "standard-time",
+      "semantic_package_sha256": "6a9098d324969fc452dc8955ddd82138eef707d818177144bba2223d68e27643",
+      "source_chart_id": "agf:qualification:standard-time",
+      "source_input_sha256": "fbbed3dbba0990803e060f3ea30cce4cc1da4ccf7f3d14f9a35e4077c2b79dbb"
+    },
+    {
+      "canonical_graph_sha256": "76c31b5d3ec44531463f664be1551fcd4091d038e5562e37ada9572bd98a0bfe",
+      "configuration_sha256": "e9ea6d38d8123a98594e542a0cb6309c9e32610e57915cacd17a75bf81e4868f",
+      "label": "daylight-time",
+      "semantic_package_sha256": "65a3224096915d4ebfc3a80ea0cb9f6a0d4d7531a4eb0d1e1fa2fa62a595c329",
+      "source_chart_id": "agf:qualification:daylight-time",
+      "source_input_sha256": "786689e7c82ac4123562149bcccf7babb53e31d7fb6cb473b9bc2f79641ee473"
+    },
+    {
+      "canonical_graph_sha256": "1f98646385de31a1e240631abc058980b4a0aaee101fee92daa7349b0c575e45",
+      "configuration_sha256": "e9ea6d38d8123a98594e542a0cb6309c9e32610e57915cacd17a75bf81e4868f",
+      "label": "coordinate-edge",
+      "semantic_package_sha256": "a4b443d86ede3de370273d11961b6e4a2db2b4b4d3f6b3016b9c392b77b99b8d",
+      "source_chart_id": "agf:qualification:coordinate-edge",
+      "source_input_sha256": "1b3f8262330bee3fd671f8f26957feabd327a3b76e8ff58e0d99480b8a70587f"
+    }
+  ],
+  "projection": {
+    "object_count": 188,
+    "passed": true,
+    "relationship_count": 3143,
+    "source_chart_id": "agf:qualification:baseline"
+  },
+  "provider": {
+    "external_ephemeris_files": 0,
+    "observed_modes": [
+      "moshier"
+    ],
+    "optional_points": false,
+    "requested_mode": "moshier"
+  },
+  "repeat_semantic_equal": true,
+  "runtime": {
+    "agf_version": "0.6.0",
+    "machine": "x86_64",
+    "pyswisseph_version": "2.10.3.2",
+    "python": "3.11.15",
+    "spc_distribution_version": "0.10.0",
+    "spc_engine_version": "0.10.0",
+    "system": "Linux"
+  }
+}

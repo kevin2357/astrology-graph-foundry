@@ -1,0 +1,32 @@
+{
+  "agf": {
+    "commit": "3b34b72d97b2fc730cffec90aaef22b338e8689e",
+    "version": "0.6.0",
+    "wheel_sha256": "6895a744395bf07b3a554fe372dc6c85380d96552f3c19220ff524f932ed5be1"
+  },
+  "evidence_type": "agf.cross_repository_compatibility.v1",
+  "github_actions": {
+    "run_id": 31065465973,
+    "url": "https://github.com/kevin2357/astrology-graph-foundry/actions/runs/31065465973"
+  },
+  "identity": {
+    "expected_source_chart_id": "agf:qualification:baseline",
+    "projected_source_chart_id": "agf:qualification:baseline",
+    "preserved": true
+  },
+  "projection": {
+    "object_count": 188,
+    "passed": true,
+    "relationship_count": 3143
+  },
+  "runtime": {
+    "architecture": "x86_64",
+    "os": "Linux",
+    "python": "3.11.15"
+  },
+  "spc": {
+    "distribution_version": "0.10.0",
+    "engine_version": "0.10.0",
+    "wheel_sha256": "60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150"
+  }
+}
