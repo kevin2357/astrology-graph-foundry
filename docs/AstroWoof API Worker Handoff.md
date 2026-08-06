@@ -1,6 +1,6 @@
 # AstroWoof API Worker Handoff
 
-**Status:** release-candidate integration contract; artifact placeholders remain unresolved until qualification and publication.
+**Status:** published and download-verified 0.6.0 artifact lock.
 
 This AGF-owned handoff describes what an AstroWoof worker needs from the canonical-chart stage. It does not define API persistence, jobs, retries, dog/profile models, projection policy, authoring, or UI behavior.
 
@@ -11,13 +11,13 @@ agf:
   distribution: astrology-graph-foundry
   version: 0.6.0
   wheel: astrology_graph_foundry-0.6.0-py3-none-any.whl
-  wheel_sha256: QUALIFY_IN_SLICE_7
-  release_commit: QUALIFY_IN_SLICE_7
+  wheel_sha256: d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95
+  release_commit: e36284af0f04e7380113ab141731e18f378ea2dc
 spc:
   distribution: semantic-projection-core
   version: 0.10.0
   wheel_sha256: 60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150
-  verification_status: reverify_download_in_slice_6_or_7
+  verification_status: reverified from the published SPC 0.10.0 release asset
 live:
   python_platform: CPython 3.11 / Linux x86-64 / glibc manylinux_2_17 compatible
   pyswisseph: 2.10.3.2

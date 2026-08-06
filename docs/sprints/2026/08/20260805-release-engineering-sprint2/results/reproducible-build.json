@@ -1,0 +1,35 @@
+{
+  "build_environment": {
+    "build": "1.5.0",
+    "colorama": "0.4.6",
+    "packaging": "26.3",
+    "pyproject_hooks": "1.2.0",
+    "python": "3.12.13",
+    "setuptools": "83.0.0",
+    "wheel": "0.47.0"
+  },
+  "builds": [
+    {
+      "filename": "astrology_graph_foundry-0.6.0-py3-none-any.whl",
+      "ordinal": 1,
+      "sha256": "d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95",
+      "size_bytes": 147578
+    },
+    {
+      "filename": "astrology_graph_foundry-0.6.0-py3-none-any.whl",
+      "ordinal": 2,
+      "sha256": "d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95",
+      "size_bytes": 147578
+    }
+  ],
+  "byte_identical": true,
+  "candidate_commit": "e36284af0f04e7380113ab141731e18f378ea2dc",
+  "evidence_type": "agf.reproducible_build.v1",
+  "source_archive": {
+    "build_1_sha256": "5205d4a8c9988dca0037a9028c3b41af3c47d90d5ddce67c5567489c1385703b",
+    "build_2_sha256": "5205d4a8c9988dca0037a9028c3b41af3c47d90d5ddce67c5567489c1385703b",
+    "byte_identical": true,
+    "size_bytes": 1332973
+  },
+  "source_date_epoch": 1785987314
+}

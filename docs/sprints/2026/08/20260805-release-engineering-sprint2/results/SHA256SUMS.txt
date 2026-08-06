@@ -1,0 +1,2 @@
+d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95  astrology_graph_foundry-0.6.0-py3-none-any.whl
+0109ff13d10ebe50b927ffc61b6a56fd2c3d5e864d61a8c2fdb2fb88b5d4c676  release-manifest.json

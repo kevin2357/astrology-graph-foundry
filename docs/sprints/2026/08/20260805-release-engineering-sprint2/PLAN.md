@@ -1,6 +1,6 @@
 # Immutable Release Engineering Sprint Plan
 
-**Status:** Active; Sprint 1 completed at `885223bbd8126b88f22399de7f889387c6180b7b`
+**Status:** Completed; AGF 0.6.0 published and download-verified at tag `astrology-graph-foundry-v0.6.0`
 
 **Planned sequence:** Sprint 2 of 2. It begins only from the clean, approved, committed canonical-identity boundary.
 

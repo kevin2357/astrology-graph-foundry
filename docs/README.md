@@ -2,6 +2,8 @@
 
 These pages describe the current Astrology Graph Foundry 0.6.x codebase. Documents under [`history/`](history/) are implementation records and are not normative.
 
+Release notes: [Astrology Graph Foundry 0.6.0](releases/0.6.0.md).
+
 Astrology Graph Foundry calculates astrology packages and compiles canonical source graphs, structural evidence, temporal activation graphs, and consumer-oriented materializations. Semantic Projection Core owns target-domain projection. Reasoning, claims, game rules, report planning, and publication remain downstream.
 
 AstroWoof is one downstream consumer, not an organizing assumption of Foundry.

@@ -1,0 +1,47 @@
+{
+  "assets": [
+    {
+      "filename": "astrology_graph_foundry-0.6.0-py3-none-any.whl",
+      "sha256": "d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95",
+      "size_bytes": 147578,
+      "verified_after_download": true
+    },
+    {
+      "filename": "release-manifest.json",
+      "sha256": "0109ff13d10ebe50b927ffc61b6a56fd2c3d5e864d61a8c2fdb2fb88b5d4c676",
+      "size_bytes": 2432,
+      "verified_after_download": true
+    },
+    {
+      "filename": "SHA256SUMS.txt",
+      "sha256": "056a3889aa5de138b3170e2566cb9b00dbfa94483eb1b79bfdbe02a6de42ba87",
+      "size_bytes": 201,
+      "verified_after_download": true
+    }
+  ],
+  "evidence_type": "agf.publication_verification.v1",
+  "installed_verification": {
+    "cli_versions": {
+      "astro-package": "0.6.0",
+      "generate-daily-ephemeris": "0.6.0"
+    },
+    "pip_check": "pass",
+    "projection_doctor": "pass",
+    "resource_count": 34,
+    "runtime_manifest_canonical_sha256": "a674adff1b4b5334b7434cf4cc9b8cf30aaffd5b5fb2c97f1336e245dfa539a4",
+    "runtime_manifest_file_sha256": "c7047e9cb259e372e5312300c84513a935a21c30c925121de089d97829b0f076",
+    "tests_passed": 181
+  },
+  "publication": {
+    "published_at": "2026-08-06T04:14:53Z",
+    "release_url": "https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.6.0",
+    "tag": "astrology-graph-foundry-v0.6.0",
+    "tag_commit": "e36284af0f04e7380113ab141731e18f378ea2dc",
+    "tag_object": "1237a6535b203199f492fbe22228fa67b4183569"
+  },
+  "spc": {
+    "sha256": "60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150",
+    "verified_after_download": true,
+    "version": "0.10.0"
+  }
+}

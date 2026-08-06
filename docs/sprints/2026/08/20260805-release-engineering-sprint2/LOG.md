@@ -274,3 +274,30 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - Full suite against installed AGF wheel code passed: 181 tests in 4.15 seconds.
 - Downloaded the 2,959-byte `controlled-live-summary.json` workflow artifact and retained compact controlled-live and cross-repository compatibility evidence beside the Slice 6 report.
 - Verified the retained controlled-live JSON is structurally identical to the downloaded workflow artifact, then removed the verified temporary download directory `C:\tmp\agf-live-run-31065465973`.
+
+## 2026-08-05 - Slice 6 Approval and Slice 7 Reproducible Build
+
+- Product owner approved Slice 6 and authorized Slice 7. Committed Slice 6 evidence as `e36284a` (`Record controlled Linux qualification`).
+- Froze `e36284af0f04e7380113ab141731e18f378ea2dc` as the release candidate and used its commit timestamp, `1785987314`, as `SOURCE_DATE_EPOCH`.
+- Created two independent `git archive` exports. Both source ZIPs were 1,332,973 bytes with SHA-256 `5205d4a8c9988dca0037a9028c3b41af3c47d90d5ddce67c5567489c1385703b`.
+- Built each export with Python 3.12.13, `build==1.5.0`, `setuptools==83.0.0`, and `wheel==0.47.0`. The resolved build closure also contained `colorama==0.4.6`, `packaging==26.3`, and `pyproject_hooks==1.2.0`.
+- Both wheels were byte-identical: 147,578 bytes, SHA-256 `d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95`.
+- Inspected 82 wheel entries, 34 packaged schemas, MIT license metadata, both console entry points, `py3-none-any` tag, Python `>=3.10`, SPC range `>=0.10.0,<0.11`, and live pyswisseph range `>=2.10,<2.11`.
+- Re-downloaded the exact private SPC release wheel and reverified SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`.
+- Clean installed inspection outside the checkout passed `pip check`, both console `--version` commands, and projection doctor. Installed resource count was 34; canonical manifest SHA-256 was `a674adff1b4b5334b7434cf4cc9b8cf30aaffd5b5fb2c97f1336e245dfa539a4`.
+- Assembled the three intended AGF release assets without publishing: the wheel, `release-manifest.json`, and `SHA256SUMS.txt`. SPC remains independently owned input evidence and is not an AGF release asset.
+- Final prepublication release-manifest SHA-256 is `0109ff13d10ebe50b927ffc61b6a56fd2c3d5e864d61a8c2fdb2fb88b5d4c676`; both checksum entries verified against assembled bytes.
+- Updated the API worker handoff with the exact candidate commit and wheel hash, added 0.6.0 release notes, and prepared the Slice 7 publication report. No tag or AGF GitHub release has been created.
+
+## 2026-08-05 - Slice 7 Publication and Verification
+
+- Product owner explicitly approved tag creation, publication, post-publication commits, and integration to `main`.
+- Created annotated tag `astrology-graph-foundry-v0.6.0` with tag object `1237a6535b203199f492fbe22228fa67b4183569`, pointing exactly to candidate commit `e36284af0f04e7380113ab141731e18f378ea2dc`, and pushed the tag.
+- Published [Astrology Graph Foundry 0.6.0](https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.6.0) at `2026-08-06T04:14:53Z` with exactly the wheel, release manifest, and checksum file.
+- Downloaded all published assets into a fresh directory. Wheel SHA-256 `d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95` and release-manifest SHA-256 `0109ff13d10ebe50b927ffc61b6a56fd2c3d5e864d61a8c2fdb2fb88b5d4c676` matched `SHA256SUMS.txt` and GitHub asset digests.
+- Re-downloaded exact SPC 0.10.0 and reverified SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`.
+- Fresh published-wheel installation passed `pip check`, both CLI version checks, runtime-manifest generation, projection doctor, and 181 installed-wheel tests in 7.91 seconds.
+- Updated AGF and AstroWoof project documentation from candidate/future provenance language to the published 0.6.0 artifact baseline. Preserved unrelated project milestone work.
+- Committed the AstroWoof released baseline as `9f022ef` (`Record published AGF 0.6.0 baseline`).
+- Deleted the temporary `SPC_RELEASE_TOKEN` Actions secret after successful publication verification.
+- Verified and removed `C:\tmp\agf-slice7-20260805`, `C:\tmp\agf-publication-verify-20260805`, repository build output, test/lint caches, and Python bytecode caches. Compact evidence and hashes remain under sprint results.

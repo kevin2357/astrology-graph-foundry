@@ -4,7 +4,7 @@
 
 | Component | Current Foundry expectation |
 |---|---|
-| Astrology Graph Foundry | 0.6.0 release candidate; use an exact qualified wheel/hash in production |
+| Astrology Graph Foundry | published 0.6.0 at tag `astrology-graph-foundry-v0.6.0`; exact wheel SHA-256 `d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95` |
 | Semantic Projection Core | library compatibility range `>=0.10.0,<0.11`; production artifact is exactly 0.10.0 |
 | Python | 3.10 or newer |
 | Swiss Ephemeris | Optional `>=2.10,<2.11`; required only for live calculation |
