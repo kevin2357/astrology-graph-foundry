@@ -9,6 +9,8 @@
 | Python | 3.10 or newer |
 | Swiss Ephemeris | Optional `>=2.10,<2.11`; required only for live calculation |
 
+Windows installs also require the declared `tzdata>=2024.1` dependency so IANA timezone normalization works in clean environments. Release deployments pin its exact artifact through the outer lock.
+
 Foundry's library metadata permits the SPC 0.10 release line. The release handoff pins SPC 0.10.0 wheel SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`. This digest must be independently reverified during release qualification.
 
 Use `astro-package doctor --json` to compare installed distribution versions with imported engine versions. Worker startup may assert `astro-package doctor --require-mode saved|projection|live --json`; failure exits with status 2 and stable failure codes. `live` proves dependency availability only, not that a Swiss Ephemeris data set has been release-qualified.

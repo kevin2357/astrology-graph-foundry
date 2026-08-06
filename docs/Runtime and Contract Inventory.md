@@ -8,6 +8,7 @@ This is the concise consumer inventory for the AGF 0.6.0 release candidate. The 
 - Python: 3.10–3.12 are the declared pure-mode matrix. A live production platform is not supported until Slice 6 qualifies it.
 - Commands: `astro-package` and `generate-daily-ephemeris`.
 - Base dependency: `semantic-projection-core>=0.10.0,<0.11`; production uses the exact qualified artifact.
+- Timezone database: `tzdata>=2024.1` on Windows, where Python does not normally have an operating-system IANA timezone database. Production locks its exact artifact.
 - Optional live dependency: `pyswisseph>=2.10,<2.11`; its presence alone is not a production qualification.
 - Canonical graph: `canonical_astrology_graph.v1`, graph version 1.3.0.
 - Canonical identity: `agf.source_chart_identity.v1.0.0`; callers should supply opaque `source_chart_id` through live Natal generation. The deterministic name fallback is compatibility behavior, not a production identity.

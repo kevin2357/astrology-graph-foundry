@@ -1,0 +1,47 @@
+{
+  "evidence_type": "agf.slice5.deterministic_replay.v1",
+  "candidate_artifact": {
+    "distribution": "astrology-graph-foundry",
+    "version": "0.6.0",
+    "filename": "astrology_graph_foundry-0.6.0-py3-none-any.whl",
+    "size_bytes": 145720,
+    "sha256": "7b2101cb9bec75e29c1a274b3af04f55af73afde00d284192a53517654f8347e",
+    "status": "slice_5_nonrelease_candidate"
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "platform": "Windows 11",
+    "source_tree_excluded_from_imports": true,
+    "pyswisseph_installed": false,
+    "tzdata_version": "2026.3",
+    "spc_version": "0.10.0",
+    "spc_wheel_sha256": "60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150"
+  },
+  "fixture_replay": {
+    "source_chart_id": "astrowoof:dog:slice5",
+    "runs_separated_across_timestamp_seconds": true,
+    "exact_bytes_equal": false,
+    "documented_nonsemantic_difference": "metadata.created_at",
+    "semantic_equal_excluding_created_at": true,
+    "semantic_sha256": "7d8d1087fbb51fce032fa86d442a4e81dc9aa53df32904f121daba9da36f8bab",
+    "canonical_graph_sha256": "73566ffe82267ea24daa82a959acdf5236bdd83febdc7ba992b20431ccdb9689",
+    "schema_error_count": 0,
+    "calculation_basis_status": "cached_replay_profile_not_original_calculation"
+  },
+  "projection": {
+    "passed": true,
+    "source_chart_id_preserved": true,
+    "object_count": 3,
+    "relationship_count": 1
+  },
+  "packaged_resources": {
+    "resource_count": 34,
+    "all_sha256_verified": true,
+    "runtime_manifest_sha256": "58e351fc4a713c5cdb1a254c442ba46b586ca98fe30ff0020e5f634e6408d7f0"
+  },
+  "installed_suite": {
+    "passed": 176,
+    "failed": 0,
+    "duration_seconds": 5.2
+  }
+}

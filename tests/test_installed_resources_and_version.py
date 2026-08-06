@@ -27,6 +27,7 @@ def test_project_metadata_uses_runtime_version_as_single_source():
     assert 'dynamic = ["version"]' in pyproject
     assert 'version = {attr = "astrology_graph_foundry._version.__version__"}' in pyproject
     assert 'version = "0.6.0"' not in pyproject
+    assert '"tzdata>=2024.1; platform_system == \'Windows\'"' in pyproject
 
 
 def test_installed_distribution_and_runtime_versions_agree():
@@ -42,6 +43,12 @@ def test_packaged_schema_api_is_complete_and_rejects_unknown_names():
     assert read_schema("canonical_astrology_graph_v1.schema.json")["title"]
     with pytest.raises(FileNotFoundError, match="Unknown packaged schema"):
         read_schema("missing.schema.json")
+
+
+def test_natal_schema_requires_canonical_graph_not_removed_nested_alias():
+    schema = read_schema("natal_dataset_v1.schema.json")
+    assert "canonical_astrology_graph" in schema["required"]
+    assert "semantic_graph" not in schema["properties"]["natal"]["required"]
 
 
 def test_runtime_package_manifest_matches_packaged_bytes():

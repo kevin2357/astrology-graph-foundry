@@ -1,0 +1,25 @@
+{
+  "evidence_type": "agf.slice5.pure_mode_failures.v1",
+  "doctor_projection": {
+    "exit_code": 0,
+    "ready": true
+  },
+  "doctor_live": {
+    "exit_code": 2,
+    "failure_codes": [
+      "pyswisseph_missing"
+    ]
+  },
+  "astro_package_live": {
+    "exit_code": 1,
+    "traceback_present": false,
+    "artifact_created": false,
+    "message": "ERROR: LiveSwissEphemerisProvider requires pyswisseph (`pip install pyswisseph`)."
+  },
+  "generate_daily_ephemeris_live": {
+    "exit_code": 1,
+    "traceback_present": false,
+    "artifact_created": false,
+    "message": "ERROR: LiveSwissEphemerisProvider requires pyswisseph (`pip install pyswisseph`)."
+  }
+}

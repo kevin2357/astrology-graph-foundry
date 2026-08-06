@@ -203,3 +203,35 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - Confirmed no API, SPC, SBE, or project repository was modified and no production code changed identity or calculation behavior.
 - No environment, wheel, downloaded dependency, generated chart, or provider data was created in this slice.
 - Slice 4 is paused for human approval. No files are staged or committed.
+
+## 2026-08-05 - Slice 4 Approval and Commit
+
+- Human approved Slice 4 and authorized continuation.
+- Committed stable runtime and consumer contracts as `f2bfdf5` (`Define stable runtime consumer contracts`).
+- Began Slice 5 from that clean named boundary.
+
+## 2026-08-05 - Slice 5 Packaged Deterministic QA
+
+- Built initial nonrelease candidate wheel and created a clean CPython 3.12 environment outside the checkout with exact SPC 0.10.0 and no pyswisseph.
+- The first installed cached-Natal run found a Windows packaging defect: IANA timezone normalization failed because no system timezone database existed and AGF did not declare `tzdata`.
+- Added conditional Windows dependency `tzdata>=2024.1`, documentation, and a metadata regression assertion. Rebuilt and restarted from a new environment; it resolved `tzdata==2026.3` and passed timezone normalization.
+- The next schema validation found `natal_dataset_v1.schema.json` still required removed legacy alias `natal.semantic_graph`. Canonical finalization has intentionally published top-level `canonical_astrology_graph` since the dual-write removal.
+- Corrected the schema to keep the nested alias optional while retaining the canonical top-level graph requirement and added a regression assertion. Rebuilt and restarted qualification in a third clean environment.
+- Final Slice 5 wheel: 145,720 bytes, SHA-256 `7b2101cb9bec75e29c1a274b3af04f55af73afde00d284192a53517654f8347e`.
+- Reverified local published SPC wheel SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150` before install.
+- Generated the same cached Natal package twice with executions separated across timestamp seconds. Exact bytes differed only because of documented operational `metadata.created_at`; semantic content excluding that field was identical.
+- Semantic replay SHA-256: `7d8d1087fbb51fce032fa86d442a4e81dc9aa53df32904f121daba9da36f8bab`; canonical graph SHA-256: `73566ffe82267ea24daa82a959acdf5236bdd83febdc7ba992b20431ccdb9689`.
+- Validated the Natal package against installed schemas, verified all 34 installed resource hashes, and recorded runtime-manifest SHA-256 `58e351fc4a713c5cdb1a254c442ba46b586ca98fe30ff0020e5f634e6408d7f0`.
+- Installed SPC projection succeeded with three objects, one relationship, and exact `astrowoof:dog:slice5` identity preservation.
+- Doctor projection assertion passed. Doctor live assertion returned exit 2 with `pyswisseph_missing` as designed.
+- Meaningfully exercised both console entry points. Both live invocations failed concisely without traceback and created no artifact while pyswisseph was absent.
+- Installed-wheel full suite, launched outside the checkout against the repository test inventory: 176 passed in 5.20 seconds.
+
+## 2026-08-05 - Slice 5 Gate Ready for Review
+
+- Source-environment full regression suite also passed: 176 tests in 5.20 seconds.
+- Targeted Ruff passed; both retained JSON evidence files parsed; 51 relative Markdown links passed; `git diff --check` passed.
+- Reviewed the complete dependency, schema, regression-test, compatibility, evidence, result, and log diff. Changes are limited to the two installed-QA defects and their durable contract/evidence updates.
+- Verified exact cleanup targets before recursively removing `C:\tmp\agf-slice5-20260805` and the repository-local `.slice5-transfer` directory. All three virtual environments, generated inputs/outputs, candidate wheels, and duplicate SPC wheel were removed successfully.
+- The retained wheel and manifest hashes identify the tested candidate even though the nonrelease binaries were intentionally cleaned. Slice 7 will rebuild final artifacts reproducibly from the approved commit.
+- Slice 5 is paused for human approval. No files are staged or committed.

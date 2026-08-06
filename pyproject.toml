@@ -11,7 +11,10 @@ requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{name = "Kevin Tankersley"}]
-dependencies = ["semantic-projection-core>=0.10.0,<0.11"]
+dependencies = [
+    "semantic-projection-core>=0.10.0,<0.11",
+    "tzdata>=2024.1; platform_system == 'Windows'",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
