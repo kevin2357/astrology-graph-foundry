@@ -1,18 +1,19 @@
 # Runtime and Contract Inventory
 
-This is the concise consumer inventory for the AGF 0.6.0 release candidate. The packaged JSON Schemas remain authoritative; enumerate and hash the installed bytes with `astro-package runtime-manifest` rather than locating source-tree files.
+This is the concise consumer inventory for the published AGF 0.6.0 wheel. The packaged JSON Schemas remain authoritative; enumerate and hash the installed bytes with `astro-package runtime-manifest` rather than locating source-tree files.
 
 ## Stable public boundary
 
 - Distribution: `astrology-graph-foundry`; import package: `astrology_graph_foundry`.
-- Python: 3.10–3.12 are the declared pure-mode matrix. A live production platform is not supported until Slice 6 qualifies it.
+- Python: 3.10–3.12 are the declared pure-mode matrix. The only qualified live profile is CPython 3.11 on glibc Linux x86-64 with the exact Moshier configuration documented below.
 - Commands: `astro-package` and `generate-daily-ephemeris`.
 - Base dependency: `semantic-projection-core>=0.10.0,<0.11`; production uses the exact qualified artifact.
 - Timezone database: `tzdata>=2024.1` on Windows, where Python does not normally have an operating-system IANA timezone database. Production locks its exact artifact.
 - Optional live dependency: `pyswisseph>=2.10,<2.11`; its presence alone is not a production qualification.
 - Canonical graph: `canonical_astrology_graph.v1`, graph version 1.3.0.
-- Canonical identity: `agf.source_chart_identity.v1.0.0`; callers should supply opaque `source_chart_id` through live Natal generation. The deterministic name fallback is compatibility behavior, not a production identity.
+- Canonical identity: semantic identity policy `semantic_sensor_identity_v1.1.0`; relationship identity policy `relationship_chart_identity_v1.0.0`. Callers should supply opaque `source_chart_id` through live Natal generation. The deterministic name fallback is compatibility behavior, not a production identity.
 - Calculation provenance: `agf.calculation_provenance.v1.0.0`; calculation profile `agf.calculation_profile.v1.1.0`; normalization policy `agf.normalization_policy.v1.0.0`.
+- Published AGF wheel SHA-256: `d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95`; installed resource count: 34; canonical runtime-manifest SHA-256: `a674adff1b4b5334b7434cf4cc9b8cf30aaffd5b5fb2c97f1336e245dfa539a4`.
 
 The runtime manifest is the complete machine-readable inventory for the installed build. Release-significant families include birth input, Natal packages, canonical and structural graphs, evidence provenance, projection requests/results, transitable charts, temporal activation/source handoffs, and calculation provenance. Consumers must inspect each resource's declared version rather than infer a contract from its filename.
 

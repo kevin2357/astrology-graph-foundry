@@ -1,4 +1,6 @@
-# Relationship Dataset v1 — Ingestion Notes
+# Legacy Relationship Dataset v1 — Ingestion Notes
+
+> **Historical:** this guide describes a pre-canonical JSONL compiler and report/story-oriented package shape. It is retained for archaeology, not as the current Synastry, Composite, Davison, or projection contract.
 
 ## Purpose
 

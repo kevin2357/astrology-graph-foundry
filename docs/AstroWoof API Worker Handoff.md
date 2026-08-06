@@ -4,6 +4,10 @@
 
 This AGF-owned handoff describes what an AstroWoof worker needs from the canonical-chart stage. It does not define API persistence, jobs, retries, dog/profile models, projection policy, authoring, or UI behavior.
 
+The qualified boundary in this document ends at installed AGF-to-SPC projection.
+It is not evidence that the released AGF, SPC, SBE, and API artifacts compose as an
+unrestricted production worker.
+
 ## Artifact lock
 
 ```yaml
@@ -62,3 +66,19 @@ At image build/startup:
 Stable doctor failure codes are deployment signals: `foundry_version_mismatch`, `packaged_resources_missing`, `spc_missing`, `spc_version_mismatch`, `spc_incompatible`, and `pyswisseph_missing`.
 
 Input validation and deterministic contract incompatibility are terminal until inputs or the pinned generation profile change. Deployment mismatch is not a request retry. Provider/infrastructure failures require explicit API classification and bounded retry policy; AGF makes no universal retryability guarantee. Warning-bearing complete output may proceed only under the API's pinned acceptance policy. AGF does not emit a general partial-but-valid Natal artifact.
+
+## Downstream composition status
+
+AstroWoof's coordinated-readiness audit records a current downstream seam that is
+outside AGF's authority: released SBE 0.1.0 requires a projected graph's
+`source_chart_id` to equal `natal:<subject_id>`, while AGF 0.6.0 deliberately accepts
+any valid caller-owned opaque chart identity. Therefore the published AGF 0.6.0 and
+SPC 0.10.0 proof must not be promoted into a claim that every AGF-valid identity is
+accepted by the complete AGF/SPC/SBE tuple.
+
+The integration layer must reconcile package subject identity and canonical chart
+identity without deriving AGF identity from display name, rewriting projected
+lineage, or leaking product database semantics into AGF. This is a project/SBE/API
+contract change and qualification task, not a reason to narrow AGF's canonical
+identity contract. See AstroWoof project's
+[`MILESTONE-001 - Coordinated Natal Pipeline Readiness`](https://github.com/kevin2357/astrowoof-project/blob/main/docs/milestones/MILESTONE-001%20-%20Coordinated%20Natal%20Pipeline%20Readiness.md#blocking-compatibility-seam--opaque-agf-identity-versus-authoring-v01).

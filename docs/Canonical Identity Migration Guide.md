@@ -59,6 +59,9 @@ differ from historical name-derived output. Re-project migrated or regenerated
 sources rather than joining old and new derived artifacts by canonical ID.
 
 AGF 0.6.0 identity behavior has been qualified against the exact SPC 0.10.0
-wheel recorded in the canonical-identity sprint evidence. Immutable production
-release hashes and runtime pins remain the responsibility of the subsequent
-release-engineering sprint.
+wheel SHA-256
+`60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`.
+The published AGF 0.6.0 wheel SHA-256 is
+`d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95`;
+the complete lock and invocation boundary are in the
+[AstroWoof API Worker Handoff](AstroWoof%20API%20Worker%20Handoff.md).

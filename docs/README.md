@@ -21,8 +21,10 @@ semantics, schemas, and implementation.
 - [Package Types](package_types.md) — current pipeline and materialization status.
 - [Compatibility](compatibility.md) — Foundry/SPC, graph, temporal, and profile-version expectations.
 - [Runtime and Contract Inventory](Runtime%20and%20Contract%20Inventory.md) — installed modes, public contracts, guarantees, and failures.
-- [Qualified Live Calculation Profile](Qualified%20Live%20Calculation%20Profile.md) — pinned Linux/Moshier candidate and its qualification boundary.
-- [AstroWoof API Worker Handoff](AstroWoof%20API%20Worker%20Handoff.md) — release-candidate artifact lock and worker integration boundary.
+- [Qualified Live Calculation Profile](Qualified%20Live%20Calculation%20Profile.md) — released Linux/Moshier qualification boundary.
+- [AstroWoof API Worker Handoff](AstroWoof%20API%20Worker%20Handoff.md) — published artifact lock and worker integration boundary.
+- [Release Engineering](Release%20Engineering.md) — reproducible build, installed qualification, private dependency, publication, and cleanup controls.
+- [Architecture Decision Records](decisions/README.md) — durable rationale for identity, provenance, and live-profile choices.
 - [Ideas and Improvements](ideas_and_improvements.md) — active Foundry-owned roadmap.
 
 ## Calculation and package guides
@@ -30,12 +32,10 @@ semantics, schemas, and implementation.
 - [Provider Architecture](provider_architecture.md)
 - [Live Natal Generation](live_natal_generation.md)
 - [Rich Natal Facts](rich_natal_facts.md)
-- [Natal Dataset Ingestion](natal_dataset_ingestion_notes.md)
 - [Unified Transit Dataset](transit_dataset.md)
 - [Legacy Transit Period Note](transit_period_dataset.md)
 - [Transit Streaming Profiles and Game Index](Transit%20Streaming%20Profiles%20and%20Game%20Index.md)
 - [Synastry and Composite Pipelines](synastry_and_composite_pipelines.md)
-- [Relationship Dataset Ingestion](relationship_dataset_ingestion_notes.md)
 - [Timing Pipelines](timing_pipelines.md)
 - [TransitableChart Interface](transitable_chart.md)
 - [Logging](logging.md)
@@ -64,6 +64,8 @@ These documents describe downstream boundaries and research direction. They are 
 ## Implementation history
 
 Completed release notes, migrations, regression records, and the former in-repository projection extraction history are retained under [`history/`](history/). Historical files explain why contracts evolved but may describe superseded package shapes, ownership, commands, or implementation status.
+
+The [Foundry 0.6.0 identity and release retrospective](history/foundry-development/Foundry%200.6.0%20Identity%20and%20Release%20Retrospective.md) promotes the day's reusable lessons without turning sprint chronology into a current contract.
 
 ## Documentation authority
 

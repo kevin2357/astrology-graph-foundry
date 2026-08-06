@@ -125,6 +125,6 @@ calculation
 
 Orthodox astrology is the first explicit profile, not an implicit universal interpretation. This keeps the same SDK packages usable by future cognitive, game, workplace, family-system, Human OS, and NCS/MPAS projections without requiring prose-level reinterpretation.
 
-## Projection layer implementation begins
+## Projection layer extraction and current ownership
 
 Projection contracts and execution now belong to the independent Semantic Projection Core repository. Foundry retains only source-package adapters and integration boundaries.

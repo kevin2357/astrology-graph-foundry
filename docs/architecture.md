@@ -170,7 +170,7 @@ Compact analysis and streaming/indexed outputs also have dedicated schemas, stre
 
 ## Historical architecture milestones
 
-The following sections summarize completed migration milestones. They explain why the current boundary exists but are not a forward implementation plan. Detailed records live under `docs/history/`.
+The following sections summarize completed migration milestones. They explain why the current boundary exists but are not a forward implementation plan. References to an in-repository projection engine or temporary dual-write behavior describe pre-extraction states; current projection execution, profiles, and target ontologies belong to Semantic Projection Core. Detailed records live under `docs/history/`.
 
 ### Chunk 1 semantic-boundary architecture
 
@@ -185,7 +185,7 @@ projection_views
         └── orthodox_astrology.v1
 ```
 
-The first two layers are pre-projection. The orthodox view is explicit projected interpretation. Legacy semantic fields are dual-written for one generated-output inspection cycle.
+The first two layers are pre-projection. The orthodox view is explicit projected interpretation. At this historical stage, legacy semantic fields were temporarily dual-written for one generated-output inspection cycle; that compatibility layer was later removed.
 
 Calculation pipelines may import the semantic-boundary finalizer, but they must not import future projected reasoning, claim synthesis, report planning, or publishing modules.
 

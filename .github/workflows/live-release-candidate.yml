@@ -2,9 +2,6 @@ name: Controlled live release candidate
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - codex/live-qualification
 
 permissions:
   contents: read

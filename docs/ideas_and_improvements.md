@@ -8,11 +8,10 @@
 
 ### Installation and environment diagnostics
 
-The initial `astro-package doctor` command now reports the availability of Foundry, Semantic Projection Core, and Swiss Ephemeris. Follow-up work:
+`astro-package doctor` now distinguishes saved, projection, and live dependency readiness; AGF 0.6.0 additionally qualified one exact CPython 3.11/Linux/Moshier combination. Follow-up work:
 
-- test and document recommended Python / `pyswisseph` wheel combinations on Windows, macOS, and Linux;
-- decide whether Python 3.11 should remain the recommended Windows live-calculation environment until dependable CPython 3.12+ wheels exist;
-- add graph-only and live-calculation CI jobs;
+- qualify additional Python / `pyswisseph` wheel combinations only when a consumer needs them, including Windows, macOS, musllinux, or newer Python ABIs;
+- convert the current controlled-live workflow into a reusable release workflow with deliberately provisioned least-privilege access to private dependency assets;
 - expand doctor output with ephemeris-path validation and optional live-provider smoke checks.
 
 ### Long-window eclipse/lunation workflows

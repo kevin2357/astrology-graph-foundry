@@ -1,5 +1,7 @@
 
-# Natal Dataset v1
+# Legacy Natal Dataset v1 Ingestion Notes
+
+> **Historical:** this guide predates the canonical/structural semantic boundary and current package materialization contracts. It is retained for archaeology, not as current AGF usage guidance.
 
 Purpose:
 Compile an existing `Name_2026.jsonl` into a reusable hierarchical natal-analysis package.

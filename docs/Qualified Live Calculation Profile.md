@@ -1,10 +1,10 @@
 # Qualified Live Calculation Profile
 
-## AstroWoof candidate profile
+## AstroWoof qualified profile
 
-The Slice 6 candidate intentionally qualifies a narrow live runtime:
+AGF 0.6.0 intentionally qualifies a narrow live runtime:
 
-| Dimension | Candidate value |
+| Dimension | Qualified value |
 |---|---|
 | Python | CPython 3.11 on Linux x86-64 |
 | Linux ABI | glibc `manylinux_2_17` or newer-compatible host |
@@ -39,9 +39,9 @@ The no-file profile does not claim Swiss `.se1`, JPL, Chiron, asteroid, or fixed
 star support. Adding any of those later creates a new calculation-profile version
 with separately pinned data and runtime evidence; it does not alter this profile.
 
-## Qualification boundary
+## Qualification evidence
 
-Linux release-candidate evidence must prove:
+The retained Linux evidence proves:
 
 - imports originate from installed AGF and SPC wheels rather than source trees;
 - the exact pyswisseph wheel hash and Python/platform tags;
@@ -54,3 +54,7 @@ Linux release-candidate evidence must prove:
 
 The Swiss Ephemeris licensing activation gate remains project-owned. Passing
 technical qualification does not authorize public service use.
+
+The successful controlled-live run and exact artifact hashes are retained in
+the [Slice 6 report](sprints/2026/08/20260805-release-engineering-sprint2/results/SLICE%206%20-%20Controlled%20Live%20AGF-to-SPC%20Release%20Candidate.md)
+and the [0.6.0 release manifest](sprints/2026/08/20260805-release-engineering-sprint2/results/release-manifest.json).

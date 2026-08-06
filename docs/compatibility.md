@@ -23,13 +23,13 @@ Use `astro-package doctor --json` to compare installed distribution versions wit
 | Projection | Saved mode plus compatible SPC | Projects canonical/static or supported temporal handoffs. Production additionally requires the exact qualified SPC wheel/hash and pinned projection resources. |
 | Live | AGF plus pyswisseph and qualified ephemeris data | Calculates charts. Availability is distinct from production qualification of Python, platform, wrapper, library, and data hashes. |
 
-The AstroWoof live candidate is CPython 3.11 on glibc-based Linux x86-64 with the published `pyswisseph==2.10.3.2` manylinux wheel (SHA-256 `e00d7e08aeafe00938603bc118874b6ca7871c5aaa55aafca8fa2c6d76aff812`). It explicitly requests Moshier, uses no external ephemeris files, and disables optional Chiron/asteroid/fixed-star inputs. See [Qualified Live Calculation Profile](Qualified%20Live%20Calculation%20Profile.md).
+The qualified AstroWoof live profile is CPython 3.11 on glibc-based Linux x86-64 with the published `pyswisseph==2.10.3.2` manylinux wheel (SHA-256 `e00d7e08aeafe00938603bc118874b6ca7871c5aaa55aafca8fa2c6d76aff812`). It explicitly requests Moshier, uses no external ephemeris files, and disables optional Chiron/asteroid/fixed-star inputs. See [Qualified Live Calculation Profile](Qualified%20Live%20Calculation%20Profile.md).
 
 AGF emits complete packages or raises an error. It does not advertise a partial-but-valid Natal artifact contract. `calculation_warnings` may describe deliberately skipped optional objects; warnings do not turn a structurally incomplete package into success.
 
 Validation and incompatibility errors are terminal for the same request/configuration. Missing packages, corrupt resources, unsupported contract versions, and provider/data incompatibility are deployment/configuration failures. Transient filesystem or provider infrastructure failures may be retried only after the orchestration owner classifies them; AGF does not make a universal retry promise.
 
-See [Runtime and Contract Inventory](Runtime%20and%20Contract%20Inventory.md) for the release-facing schema inventory and [AstroWoof API Worker Handoff](AstroWoof%20API%20Worker%20Handoff.md) for the candidate integration boundary.
+See [Runtime and Contract Inventory](Runtime%20and%20Contract%20Inventory.md) for the release-facing schema inventory and [AstroWoof API Worker Handoff](AstroWoof%20API%20Worker%20Handoff.md) for the qualified integration boundary.
 
 ## Static projection boundary
 
@@ -49,6 +49,14 @@ Profiles resolve by exact profile ID and profile version:
 | `woofmapped_astrology.v0` | 0.1.0 |
 
 Source coverage is profile-aware. Mapped, excluded-by-selection-policy, outside-scope, and eligible-but-unmapped rows are distinct outcomes.
+
+This is an AGF-to-SPC compatibility claim only. AstroWoof project's current
+cross-repository audit reports that SBE 0.1.0 accepts a narrower
+`natal:<subject_id>` chart-identity convention than AGF 0.6.0's general opaque
+`source_chart_id` contract. The exact three-wheel tuple therefore requires a
+separate integration qualification; AGF must not adopt the downstream filename or
+subject-key convention as canonical identity. See the
+[API worker handoff](AstroWoof%20API%20Worker%20Handoff.md#downstream-composition-status).
 
 ## Temporal projection boundary
 

@@ -38,7 +38,7 @@ A missing `pyswisseph` installation does not prevent cached-package, schema, gra
 ### Non-installed CLI from a repo checkout
 
 ```bat
-python -m astrology_graph_foundry.cli natal --provider live --name Alex Example --birth-local 1990-04-12T09:30:00 --birth-timezone America/Denver --birth-lat 39.7392 --birth-lon -104.9903 --birth-location-label "Denver, Colorado" --ephe-path C:\dev\swisseph --out alex_natal_dataset.json
+python -m astrology_graph_foundry.cli natal --provider live --name Alex Example --birth-local 1990-04-12T09:30:00 --birth-timezone America/Denver --birth-lat 39.7392 --birth-lon -104.9903 --birth-location-label "Denver, Colorado" --source-chart-id example:chart:alex --ephe-path C:\dev\swisseph --out alex_natal_dataset.json
 ```
 
 ### Installed CLI
@@ -93,8 +93,10 @@ Important sections:
 
 - `metadata`: package identity and version.
 - `natal`: bodies, houses, angles, aspects, lots, dignities, declinations, antiscia, harmonics, and optional points.
-- `semantic_graph`: first-class graph objects and relationships.
-- `report_materials`: pre-chewed summary material for downstream prose/report layers.
+- `canonical_astrology_graph`: authoritative pre-projection objects and relationships.
+- `structural_evidence_graph`: normalized evidence structure and derivation lineage.
+- `projection_views`: explicit derived views; these do not replace the canonical source graph.
+- `metadata.calculation_provenance`: normalized source-input and configuration identities plus provider/runtime evidence for newly built Natal packages.
 
 ## Unified transit pipeline
 

@@ -4,7 +4,7 @@ This directory contains implementation records that explain how current Foundry 
 
 ## Foundry development records
 
-[`foundry-development/`](foundry-development/) contains completed release notes, migration plans, regression records, and the pre-projection semantic-boundary rollout through Foundry 0.5.0.
+[`foundry-development/`](foundry-development/) contains completed release notes, migration plans, regression records, the pre-projection semantic-boundary rollout, and the [Foundry 0.6.0 identity/release retrospective](foundry-development/Foundry%200.6.0%20Identity%20and%20Release%20Retrospective.md).
 
 ## Projection extraction records
 
