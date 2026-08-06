@@ -23,7 +23,7 @@ from astrology_graph_foundry.common.constants import (
 from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
 
 CALCULATION_PROVENANCE_CONTRACT_VERSION = "agf.calculation_provenance.v1.0.0"
-CALCULATION_PROFILE_VERSION = "agf.calculation_profile.v1.0.0"
+CALCULATION_PROFILE_VERSION = "agf.calculation_profile.v1.1.0"
 NORMALIZATION_POLICY_VERSION = "agf.normalization_policy.v1.0.0"
 CANONICAL_JSON_POLICY_VERSION = "agf.canonical_json.v1.0.0"
 

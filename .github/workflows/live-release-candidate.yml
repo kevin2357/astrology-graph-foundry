@@ -1,0 +1,72 @@
+name: Controlled live release candidate
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - codex/live-qualification
+
+permissions:
+  contents: read
+
+jobs:
+  qualify-linux-cp311-moshier:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Build AGF candidate wheel
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check setuptools==83.0.0 wheel==0.47.0
+          mkdir -p "$RUNNER_TEMP/agf-live/wheels" "$RUNNER_TEMP/agf-live/out"
+          python -m pip wheel . --no-deps --no-build-isolation --wheel-dir "$RUNNER_TEMP/agf-live/wheels"
+      - name: Acquire exact SPC and pyswisseph wheels
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/agf-live/wheels"
+          curl --fail --location --silent --show-error \
+            --output semantic_projection_core-0.10.0-py3-none-any.whl \
+            https://github.com/kevin2357/semantic-projection-core/releases/download/semantic-projection-core-v0.10.0/semantic_projection_core-0.10.0-py3-none-any.whl
+          echo "60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150  semantic_projection_core-0.10.0-py3-none-any.whl" | sha256sum --check
+          python -m pip download --disable-pip-version-check --no-deps --only-binary=:all: \
+            --dest . pyswisseph==2.10.3.2
+          echo "e00d7e08aeafe00938603bc118874b6ca7871c5aaa55aafca8fa2c6d76aff812  pyswisseph-2.10.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" | sha256sum --check
+      - name: Install exact candidate runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check \
+            "$RUNNER_TEMP/agf-live/wheels/semantic_projection_core-0.10.0-py3-none-any.whl" \
+            "$RUNNER_TEMP/agf-live/wheels/pyswisseph-2.10.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" \
+            "$RUNNER_TEMP/agf-live/wheels/astrology_graph_foundry-0.6.0-py3-none-any.whl"
+          python -m pip check
+      - name: Run controlled live and installed SPC qualification
+        working-directory: /tmp
+        shell: bash
+        run: |
+          set -euo pipefail
+          python "$GITHUB_WORKSPACE/scripts/qualify_live_release_candidate.py" \
+            --require-installed \
+            --agf-wheel "$RUNNER_TEMP/agf-live/wheels/astrology_graph_foundry-0.6.0-py3-none-any.whl" \
+            --spc-wheel "$RUNNER_TEMP/agf-live/wheels/semantic_projection_core-0.10.0-py3-none-any.whl" \
+            --pyswisseph-wheel "$RUNNER_TEMP/agf-live/wheels/pyswisseph-2.10.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" \
+            --out "$RUNNER_TEMP/agf-live/out/controlled-live-summary.json"
+      - name: Run full suite against installed wheel
+        working-directory: /tmp
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pytest==8.4.2 hypothesis==6.165.2
+          python -m pytest "$GITHUB_WORKSPACE/tests" -q
+      - uses: actions/upload-artifact@v4
+        with:
+          name: agf-controlled-live-cp311-linux-x86_64
+          path: ${{ runner.temp }}/agf-live/out/controlled-live-summary.json
+          if-no-files-found: error
+          retention-days: 7

@@ -17,7 +17,7 @@ from astrology_graph_foundry.common.io import load_global, load_person, write_js
 from astrology_graph_foundry.common.transitable_chart import TransitableChart
 from astrology_graph_foundry.common.transitable_chart import from_package as transitable_chart_from_package
 
-from .live_natal import active_body_map, build_live_natal_chart, datetime_to_jd_ut, safe_planet_position
+from .live_natal import active_body_map, build_live_natal_chart, datetime_to_jd_ut, ephemeris_flag, safe_planet_position
 from .models import BirthData, DailySnapshot, ProviderConfig
 
 logger = logging.getLogger(__name__)
@@ -138,6 +138,12 @@ class LiveSwissEphemerisProvider(EphemerisProvider):
             distribution_version = metadata.version("pyswisseph")
         except metadata.PackageNotFoundError:
             distribution_version = None
+        requested_flag_name = {
+            "auto": "FLG_SWIEPH",
+            "swiss": "FLG_SWIEPH",
+            "moshier": "FLG_MOSEPH",
+        }[self.config.ephemeris_mode]
+        chart_runtime = getattr(self, "_chart", {}).get("ephemeris_runtime", {})
         return {
             "mode": "live_calculation",
             "provider": "swiss_ephemeris",
@@ -145,8 +151,11 @@ class LiveSwissEphemerisProvider(EphemerisProvider):
             "distribution_version": distribution_version,
             "library_version": str(getattr(self.swe, "version", "unknown")),
             "calculation_flags": {
-                "ecliptic_positions": ["FLG_SWIEPH", "FLG_SPEED"],
-                "equatorial_declinations": ["FLG_SWIEPH", "FLG_SPEED", "FLG_EQUATORIAL"],
+                "requested_ephemeris_mode": self.config.ephemeris_mode,
+                "observed_ephemeris_modes": chart_runtime.get("observed_modes", []),
+                "returned_flags_recorded": chart_runtime.get("returned_flags_recorded", False),
+                "ecliptic_positions": [requested_flag_name, "FLG_SPEED"],
+                "equatorial_declinations": [requested_flag_name, "FLG_SPEED", "FLG_EQUATORIAL"],
             },
             "ephemeris_data": _ephemeris_data_inventory(self.config.ephe_path),
         }
@@ -175,8 +184,9 @@ class LiveSwissEphemerisProvider(EphemerisProvider):
         return self._active_bodies
     def _daily_positions(self, jd_ut: float) -> dict[str, dict[str, Any]]:
         positions = {}
+        flags = ephemeris_flag(self.swe, self.config.ephemeris_mode) | self.swe.FLG_SPEED
         for name, swe_id in self._ensure_active_bodies(jd_ut).items():
-            pos, error = safe_planet_position(self.swe, jd_ut, swe_id)
+            pos, error = safe_planet_position(self.swe, jd_ut, swe_id, flags)
             if error or pos is None:
                 logger.warning("Skipping transit body %s: %s", name, error or "unknown calculation failure")
                 self._skipped_transit_bodies.append({"name": name, "swe_id": swe_id, "reason": error or "unknown calculation failure"})

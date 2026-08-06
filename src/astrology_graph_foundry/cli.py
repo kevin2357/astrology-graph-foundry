@@ -94,6 +94,8 @@ def add_provider_args(p: argparse.ArgumentParser, *, include_natal_dataset: bool
     p.add_argument("--timezone", default="America/Denver")
     p.add_argument("--ephe-path", default=".")
     p.add_argument("--house-system", default="P")
+    p.add_argument("--ephemeris-mode", choices=["auto", "swiss", "moshier"], default="auto")
+    p.add_argument("--no-optional-points", action="store_true")
     p.add_argument("--output-dir")
 
 
@@ -597,6 +599,8 @@ def main() -> None:
             ephe_path=args.ephe_path,
             house_system=args.house_system,
             top_n_candidates=args.top_n_candidates,
+            ephemeris_mode=args.ephemeris_mode,
+            include_optional_points=not args.no_optional_points,
         )
         if args.persist_jsonl:
             ep.persist_jsonl(args.persist_jsonl)
@@ -630,6 +634,8 @@ def main() -> None:
             snapshot_time=args.snapshot_time,
             ephe_path=args.ephe_path,
             house_system=args.house_system,
+            ephemeris_mode=args.ephemeris_mode,
+            include_optional_points=not args.no_optional_points,
         )
         out = resolve_output_path(args, f"{safe_name(data['metadata'].get('person'))}_natal_dataset.json", data)
         if args.out_analysis:

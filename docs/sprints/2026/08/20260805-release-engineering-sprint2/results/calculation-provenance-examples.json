@@ -93,6 +93,7 @@
       "invocation_options": {
         "asteroid_ids": [],
         "end": null,
+        "ephemeris_mode": "auto",
         "fixed_star_names": [],
         "harmonic_numbers": [
           2,
@@ -156,7 +157,7 @@
         ],
         "optional_chiron": true
       },
-      "profile_version": "agf.calculation_profile.v1.0.0",
+      "profile_version": "agf.calculation_profile.v1.1.0",
       "provider": {
         "calculation_runtime": "not_observed",
         "mode": "cached_replay",
@@ -167,9 +168,9 @@
         "framework": "tropical"
       }
     },
-    "calculation_profile_version": "agf.calculation_profile.v1.0.0",
+    "calculation_profile_version": "agf.calculation_profile.v1.1.0",
     "canonical_json_policy_version": "agf.canonical_json.v1.0.0",
-    "configuration_sha256": "7f589de34c8783fb60a99a657d92304669a7caedc0b35d74aeb9f65274eeb257",
+    "configuration_sha256": "98ac7e89614bcb5ddee7d9af3252b860668ff378bfb741108c1a1e438f3fc1f8",
     "contract_version": "agf.calculation_provenance.v1.0.0",
     "normalization_policy_version": "agf.normalization_policy.v1.0.0",
     "output_artifact_hash": {
@@ -290,6 +291,7 @@
       "invocation_options": {
         "asteroid_ids": [],
         "end": null,
+        "ephemeris_mode": "auto",
         "fixed_star_names": [],
         "harmonic_numbers": [
           2,
@@ -353,7 +355,7 @@
         ],
         "optional_chiron": true
       },
-      "profile_version": "agf.calculation_profile.v1.0.0",
+      "profile_version": "agf.calculation_profile.v1.1.0",
       "provider": {
         "calculation_flags": {
           "ecliptic_positions": [
@@ -381,9 +383,9 @@
         "framework": "tropical"
       }
     },
-    "calculation_profile_version": "agf.calculation_profile.v1.0.0",
+    "calculation_profile_version": "agf.calculation_profile.v1.1.0",
     "canonical_json_policy_version": "agf.canonical_json.v1.0.0",
-    "configuration_sha256": "eb9cb67167df00b529b88b1b678b2ec7708171b98573efa2605ffdfe06a8afad",
+    "configuration_sha256": "5d2e97a4c008b2b022ded2b16b8382b74c430c75dc56cc24304928eaf959021b",
     "contract_version": "agf.calculation_provenance.v1.0.0",
     "normalization_policy_version": "agf.normalization_policy.v1.0.0",
     "output_artifact_hash": {

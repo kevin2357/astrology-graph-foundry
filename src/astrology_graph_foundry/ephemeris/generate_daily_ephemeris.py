@@ -21,6 +21,8 @@ def build_ephemeris_objects(
     ephe_path: str = ".",
     house_system: str = "P",
     top_n_candidates: int = 25,
+    ephemeris_mode: str = "auto",
+    include_optional_points: bool = True,
 ):
     logger.info("Building live ephemeris provider natal_dataset=%s birth_data_present=%s start=%s end=%s", natal_dataset, birth_data is not None, start, end)
     return LiveSwissEphemerisProvider(
@@ -33,6 +35,8 @@ def build_ephemeris_objects(
             ephe_path=ephe_path,
             house_system=house_system,
             top_n_candidates=top_n_candidates,
+            ephemeris_mode=ephemeris_mode,
+            include_optional_points=include_optional_points,
         ),
         birth_data=birth_data,
     )
@@ -54,6 +58,8 @@ def main() -> None:
     parser.add_argument("--timezone", default="America/Denver")
     parser.add_argument("--ephe-path", default=".")
     parser.add_argument("--house-system", default="P")
+    parser.add_argument("--ephemeris-mode", choices=["auto", "swiss", "moshier"], default="auto")
+    parser.add_argument("--no-optional-points", action="store_true")
     parser.add_argument("--top-n-candidates", type=int, default=25)
     parser.add_argument("--persist-jsonl")
     parser.add_argument("--persist-json")
@@ -85,6 +91,8 @@ def main() -> None:
         ephe_path=args.ephe_path,
         house_system=args.house_system,
         top_n_candidates=args.top_n_candidates,
+        ephemeris_mode=args.ephemeris_mode,
+        include_optional_points=not args.no_optional_points,
     )
 
     if args.persist_jsonl:

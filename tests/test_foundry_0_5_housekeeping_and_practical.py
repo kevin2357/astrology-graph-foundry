@@ -18,7 +18,7 @@ def test_doctor_report_is_structured_and_renderable():
     assert "Astrology Graph Foundry doctor" in render_doctor_report(report)
     assert report["runtime_resources"]["resource_count"] >= 34
     assert len(report["runtime_resources"]["manifest_sha256"]) == 64
-    assert report["calculation_contracts"]["profile"] == "agf.calculation_profile.v1.0.0"
+    assert report["calculation_contracts"]["profile"] == "agf.calculation_profile.v1.1.0"
     assert report["semantic_projection_core"]["supported_release_line"] == "0.10.x"
 
 

@@ -19,7 +19,7 @@
     "calculation_basis_status": {
       "enum": ["complete_live_profile", "cached_replay_profile_not_original_calculation"]
     },
-    "calculation_profile_version": {"const": "agf.calculation_profile.v1.0.0"},
+    "calculation_profile_version": {"const": "agf.calculation_profile.v1.1.0"},
     "normalization_policy_version": {"const": "agf.normalization_policy.v1.0.0"},
     "canonical_json_policy_version": {"const": "agf.canonical_json.v1.0.0"},
     "source_input": {

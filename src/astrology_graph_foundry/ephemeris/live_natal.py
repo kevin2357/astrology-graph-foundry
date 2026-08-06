@@ -1,11 +1,14 @@
 from __future__ import annotations
+
 import logging
 from datetime import datetime
 from typing import Any
 from zoneinfo import ZoneInfo
+
 from astrology_graph_foundry.common.aspects import all_aspects
 from astrology_graph_foundry.common.constants import SIGN_RULERS_MODERN, SIGN_RULERS_TRADITIONAL
-from astrology_graph_foundry.common.geometry import decimal_to_dms, format_zodiac, house_for_lon, normalize, deg_to_sign
+from astrology_graph_foundry.common.geometry import decimal_to_dms, deg_to_sign, format_zodiac, house_for_lon, normalize
+
 from .models import BirthData, ProviderConfig
 
 logger = logging.getLogger(__name__)
@@ -14,11 +17,33 @@ ELEMENTS = {"Aries":"Fire","Leo":"Fire","Sagittarius":"Fire","Taurus":"Earth","V
 EXALTATIONS = {"Sun":"Aries","Moon":"Taurus","Mercury":"Virgo","Venus":"Pisces","Mars":"Capricorn","Jupiter":"Cancer","Saturn":"Libra"}
 TRIPLICITIES = {"Fire":{"day":"Sun","night":"Jupiter"},"Earth":{"day":"Venus","night":"Moon"},"Air":{"day":"Saturn","night":"Mercury"},"Water":{"day":"Venus","night":"Mars"}}
 
-def _unwrap_calc_result(result: Any) -> tuple | list:
-    xx = result[0] if isinstance(result, tuple) and len(result) == 2 and isinstance(result[0], (list, tuple)) else result
+def _split_calc_result(result: Any) -> tuple[tuple | list, int | None]:
+    returned_flags = None
+    if isinstance(result, tuple) and len(result) == 2 and isinstance(result[0], (list, tuple)):
+        xx, returned_flags = result
+    else:
+        xx = result
     while isinstance(xx, (tuple, list)) and xx and isinstance(xx[0], (tuple, list)):
         xx = xx[0]
-    return xx
+    return xx, int(returned_flags) if returned_flags is not None else None
+
+def ephemeris_flag(swe: Any, mode: str) -> int:
+    return {"auto": swe.FLG_SWIEPH, "swiss": swe.FLG_SWIEPH, "moshier": swe.FLG_MOSEPH}[mode]
+
+def ephemeris_name_from_flags(swe: Any, flags: int | None) -> str:
+    if flags is None:
+        return "unreported"
+    for name, flag_name in (("jpl", "FLG_JPLEPH"), ("swiss", "FLG_SWIEPH"), ("moshier", "FLG_MOSEPH")):
+        if flags & getattr(swe, flag_name):
+            return name
+    return "unreported"
+
+def validate_ephemeris_mode(requested_mode: str, observed_modes: set[str]) -> None:
+    if requested_mode in {"swiss", "moshier"} and observed_modes != {requested_mode}:
+        raise RuntimeError(
+            f"Requested ephemeris mode {requested_mode!r}, but Swiss Ephemeris returned "
+            f"{sorted(observed_modes)!r}"
+        )
 
 def datetime_to_jd_ut(swe: Any, dt: datetime) -> tuple[float, datetime]:
     utc = dt.astimezone(ZoneInfo("UTC"))
@@ -27,11 +52,11 @@ def datetime_to_jd_ut(swe: Any, dt: datetime) -> tuple[float, datetime]:
 
 def planet_position(swe: Any, jd_ut: float, swe_id: int, flags: int | None = None) -> dict[str, Any]:
     flags = flags if flags is not None else (swe.FLG_SWIEPH | swe.FLG_SPEED)
-    xx = _unwrap_calc_result(swe.calc_ut(jd_ut, swe_id, flags))
+    xx, returned_flags = _split_calc_result(swe.calc_ut(jd_ut, swe_id, flags))
     lon = normalize(float(xx[0]))
     lat = float(xx[1]) if len(xx) > 1 else None
     speed = float(xx[3]) if len(xx) > 3 else None
-    return {"lon": lon, "lat": lat, "speed_lon": speed, "retrograde": bool(speed is not None and speed < 0), "pretty": format_zodiac(lon), "absolute_dms": decimal_to_dms(lon)}
+    return {"lon": lon, "lat": lat, "speed_lon": speed, "retrograde": bool(speed is not None and speed < 0), "pretty": format_zodiac(lon), "absolute_dms": decimal_to_dms(lon), "ephemeris_return_flags": returned_flags, "ephemeris_actual": ephemeris_name_from_flags(swe, returned_flags)}
 
 def safe_planet_position(swe: Any, jd_ut: float, swe_id: int, flags: int | None = None) -> tuple[dict[str, Any] | None, str | None]:
     try:
@@ -59,7 +84,8 @@ def active_body_map(swe: Any, jd_ut: float | None = None, config: ProviderConfig
         bodies.update(optional)
         return bodies, skipped
     for name, swe_id in optional.items():
-        _, error = safe_planet_position(swe, jd_ut, swe_id)
+        flags = ephemeris_flag(swe, config.ephemeris_mode) | swe.FLG_SPEED
+        _, error = safe_planet_position(swe, jd_ut, swe_id, flags)
         if error:
             skipped.append({"name": name, "swe_id": swe_id, "reason": error, "note": "Optional body skipped; missing Swiss Ephemeris file or unsupported object."})
         else:
@@ -110,11 +136,12 @@ def antiscia(lon: float) -> dict[str, Any]:
 def harmonic_positions(lon: float, numbers: tuple[int, ...]) -> dict[str, Any]:
     return {str(n): {"lon": normalize(lon * n), "pretty": format_zodiac(normalize(lon * n))} for n in numbers}
 
-def declination_position(swe: Any, jd_ut: float, swe_id: int) -> dict[str, Any] | None:
-    pos, err = safe_planet_position(swe, jd_ut, swe_id, swe.FLG_SWIEPH | swe.FLG_SPEED | swe.FLG_EQUATORIAL)
+def declination_position(swe: Any, jd_ut: float, swe_id: int, ephemeris_mode: str = "auto") -> dict[str, Any] | None:
+    flags = ephemeris_flag(swe, ephemeris_mode) | swe.FLG_SPEED | swe.FLG_EQUATORIAL
+    pos, err = safe_planet_position(swe, jd_ut, swe_id, flags)
     if err or pos is None:
         return None
-    return {"right_ascension": pos["lon"], "declination": pos["lat"], "declination_pretty": None if pos["lat"] is None else f"{pos['lat']:.5f}°"}
+    return {"right_ascension": pos["lon"], "declination": pos["lat"], "declination_pretty": None if pos["lat"] is None else f"{pos['lat']:.5f}°", "ephemeris_actual": pos["ephemeris_actual"], "ephemeris_return_flags": pos["ephemeris_return_flags"]}
 
 def declination_aspects(bodies: dict[str, dict[str, Any]], orb: float = 1.0) -> list[dict[str, Any]]:
     rows = []
@@ -155,20 +182,25 @@ def build_live_natal_chart(birth: BirthData, config: ProviderConfig | None = Non
     active_bodies, skipped_optional = active_body_map(swe, birth_jd_ut, config)
     logger.info("Live natal active bodies=%d skipped_optional=%d", len(active_bodies), len(skipped_optional))
     natal = {}
+    observed_ephemerides = set()
+    requested_flags = ephemeris_flag(swe, config.ephemeris_mode) | swe.FLG_SPEED
     for name, swe_id in active_bodies.items():
-        pos, err = safe_planet_position(swe, birth_jd_ut, swe_id)
+        pos, err = safe_planet_position(swe, birth_jd_ut, swe_id, requested_flags)
         if err or pos is None:
             logger.warning("Skipping natal body %s: %s", name, err or "unknown calculation failure")
             skipped_optional.append({"name": name, "swe_id": swe_id, "reason": err or "unknown calculation failure"})
             continue
+        observed_ephemerides.add(pos["ephemeris_actual"])
         body = {"name": f"n{name}", "lon": pos["lon"], "lat": pos["lat"], "speed_lon": pos["speed_lon"], "retrograde": pos["retrograde"], "house": house_for_lon(pos["lon"], houses["cusps"]), "pretty": pos["pretty"], "absolute_dms": pos["absolute_dms"], "type": "planet_or_point"}
         if config.include_declinations:
-            dec = declination_position(swe, birth_jd_ut, swe_id)
+            dec = declination_position(swe, birth_jd_ut, swe_id, config.ephemeris_mode)
             if dec:
+                observed_ephemerides.add(dec["ephemeris_actual"])
                 body.update(dec)
         natal[f"n{name}"] = body
     for angle_name in ["ASC", "DSC", "MC", "IC"]:
         natal[f"n{angle_name}"] = {"name": f"n{angle_name}", "lon": houses[angle_name], "lat": None, "speed_lon": None, "retrograde": False, "house": "-", "pretty": format_zodiac(houses[angle_name]), "absolute_dms": decimal_to_dms(houses[angle_name]), "type": "angle"}
+    validate_ephemeris_mode(config.ephemeris_mode, observed_ephemerides)
     day_birth = is_day_chart(natal["nSun"]["house"])
     pof_lon = part_of_fortune(day_birth, houses["ASC"], natal["nSun"]["lon"], natal["nMoon"]["lon"])
     natal["nPart of Fortune"] = {"name":"nPart of Fortune","lon":pof_lon,"lat":None,"speed_lon":None,"retrograde":False,"house":house_for_lon(pof_lon,houses["cusps"]),"pretty":format_zodiac(pof_lon),"absolute_dms":decimal_to_dms(pof_lon),"type":"calculated_point"}
@@ -195,4 +227,4 @@ def build_live_natal_chart(birth: BirthData, config: ProviderConfig | None = Non
     lots["Spirit"].update({"pretty": format_zodiac(lots["Spirit"]["lon"]), "house": house_for_lon(lots["Spirit"]["lon"], houses["cusps"])})
     decl_bodies = {k: {"declination": v.get("declination")} for k, v in natal.items() if v.get("declination") is not None}
     logger.info("Live natal chart complete for %s: bodies=%d skipped_optional=%d fixed_stars=%d", birth.name, len(natal), len(skipped_optional), len(fixed_star_records))
-    return {"type":"natal_chart","person":birth.name,**({"source_chart_id":birth.source_chart_id} if birth.source_chart_id else {}),"birth_local":birth.birth_local,"birth_timezone":birth.birth_timezone,"birth_utc":birth_utc_dt.isoformat(),"birth_lat":birth.birth_lat,"birth_lon":birth.birth_lon,"birth_location_label":birth.birth_location_label,"jd_ut":birth_jd_ut,"house_system":config.house_system,"calculation_options":{"include_declinations":config.include_declinations,"include_dignities":config.include_dignities,"include_sect":config.include_sect,"include_antiscia":config.include_antiscia,"include_harmonics":config.include_harmonics,"harmonic_numbers":list(config.harmonic_numbers),"include_optional_points":config.include_optional_points,"include_asteroids":config.include_asteroids,"include_fixed_stars":config.include_fixed_stars},"calculation_warnings":{"skipped_optional_bodies":skipped_optional,"skipped_fixed_stars":skipped_stars},"sect":{"is_day_chart":day_birth,"sect_light":"Sun" if day_birth else "Moon","out_of_sect_light":"Moon" if day_birth else "Sun"},"houses":{str(i):{"lon":houses["cusps"][i-1],"pretty":format_zodiac(houses["cusps"][i-1]),"traditional_ruler":trad_rulers[i]["ruler"],"modern_ruler":modern_rulers[i]["ruler"]} for i in range(1,13)},"angles":{k:houses[k] for k in ["ASC","DSC","MC","IC"]},"bodies":natal,"lots":lots,"fixed_stars":fixed_star_records,"declination_aspects":declination_aspects(decl_bodies) if config.include_declinations else [],"natal_planet_aspects":all_aspects(natal_planets,natal_planets,"natal","natal",include_minor=config.include_minor),"natal_planet_angle_aspects":all_aspects(natal_planets,natal_angles,"natal","natal",include_minor=config.include_minor),"natal_planet_point_aspects":all_aspects(natal_planets,natal_points,"natal","natal",include_minor=config.include_minor)}
+    return {"type":"natal_chart","person":birth.name,**({"source_chart_id":birth.source_chart_id} if birth.source_chart_id else {}),"birth_local":birth.birth_local,"birth_timezone":birth.birth_timezone,"birth_utc":birth_utc_dt.isoformat(),"birth_lat":birth.birth_lat,"birth_lon":birth.birth_lon,"birth_location_label":birth.birth_location_label,"jd_ut":birth_jd_ut,"house_system":config.house_system,"ephemeris_runtime":{"requested_mode":config.ephemeris_mode,"observed_modes":sorted(observed_ephemerides),"returned_flags_recorded":True},"calculation_options":{"include_declinations":config.include_declinations,"include_dignities":config.include_dignities,"include_sect":config.include_sect,"include_antiscia":config.include_antiscia,"include_harmonics":config.include_harmonics,"harmonic_numbers":list(config.harmonic_numbers),"include_optional_points":config.include_optional_points,"include_asteroids":config.include_asteroids,"include_fixed_stars":config.include_fixed_stars},"calculation_warnings":{"skipped_optional_bodies":skipped_optional,"skipped_fixed_stars":skipped_stars},"sect":{"is_day_chart":day_birth,"sect_light":"Sun" if day_birth else "Moon","out_of_sect_light":"Moon" if day_birth else "Sun"},"houses":{str(i):{"lon":houses["cusps"][i-1],"pretty":format_zodiac(houses["cusps"][i-1]),"traditional_ruler":trad_rulers[i]["ruler"],"modern_ruler":modern_rulers[i]["ruler"]} for i in range(1,13)},"angles":{k:houses[k] for k in ["ASC","DSC","MC","IC"]},"bodies":natal,"lots":lots,"fixed_stars":fixed_star_records,"declination_aspects":declination_aspects(decl_bodies) if config.include_declinations else [],"natal_planet_aspects":all_aspects(natal_planets,natal_planets,"natal","natal",include_minor=config.include_minor),"natal_planet_angle_aspects":all_aspects(natal_planets,natal_angles,"natal","natal",include_minor=config.include_minor),"natal_planet_point_aspects":all_aspects(natal_planets,natal_points,"natal","natal",include_minor=config.include_minor)}

@@ -23,6 +23,8 @@ Use `astro-package doctor --json` to compare installed distribution versions wit
 | Projection | Saved mode plus compatible SPC | Projects canonical/static or supported temporal handoffs. Production additionally requires the exact qualified SPC wheel/hash and pinned projection resources. |
 | Live | AGF plus pyswisseph and qualified ephemeris data | Calculates charts. Availability is distinct from production qualification of Python, platform, wrapper, library, and data hashes. |
 
+The AstroWoof live candidate is CPython 3.11 on glibc-based Linux x86-64 with the published `pyswisseph==2.10.3.2` manylinux wheel (SHA-256 `e00d7e08aeafe00938603bc118874b6ca7871c5aaa55aafca8fa2c6d76aff812`). It explicitly requests Moshier, uses no external ephemeris files, and disables optional Chiron/asteroid/fixed-star inputs. See [Qualified Live Calculation Profile](Qualified%20Live%20Calculation%20Profile.md).
+
 AGF emits complete packages or raises an error. It does not advertise a partial-but-valid Natal artifact contract. `calculation_warnings` may describe deliberately skipped optional objects; warnings do not turn a structurally incomplete package into success.
 
 Validation and incompatibility errors are terminal for the same request/configuration. Missing packages, corrupt resources, unsupported contract versions, and provider/data incompatibility are deployment/configuration failures. Transient filesystem or provider infrastructure failures may be retried only after the orchestration owner classifies them; AGF does not make a universal retry promise.

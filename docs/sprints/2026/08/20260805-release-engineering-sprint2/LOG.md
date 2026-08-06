@@ -235,3 +235,23 @@ This log is append-only during execution. The sprint is blocked on Sprint 1, and
 - Verified exact cleanup targets before recursively removing `C:\tmp\agf-slice5-20260805` and the repository-local `.slice5-transfer` directory. All three virtual environments, generated inputs/outputs, candidate wheels, and duplicate SPC wheel were removed successfully.
 - The retained wheel and manifest hashes identify the tested candidate even though the nonrelease binaries were intentionally cleaned. Slice 7 will rebuild final artifacts reproducibly from the approved commit.
 - Slice 5 is paused for human approval. No files are staged or committed.
+
+## 2026-08-05 - Slice 5 Approval and Commit
+
+- Human approved Slice 5 and authorized continuation.
+- Committed deterministic installed qualification as `b5459d4` (`Qualify deterministic installed workflows`).
+- Began Slice 6 from that clean named boundary.
+
+## 2026-08-05 - Slice 6 Controlled Live Candidate
+
+- Product owner selected CPython 3.11 on glibc-based Linux x86-64 and the published `pyswisseph==2.10.3.2` manylinux wheel as the first qualification route.
+- Pinned published pyswisseph wheel SHA-256 `e00d7e08aeafe00938603bc118874b6ca7871c5aaa55aafca8fa2c6d76aff812`.
+- Product owner confirmed the current AstroWoof profile uses no external ephemeris files. Chiron's file-backed possibility is acknowledged but explicitly deferred with asteroids and fixed stars.
+- Selected explicit Moshier calculation rather than Swiss-first automatic fallback for the no-file profile.
+- Added `ephemeris_mode` to provider configuration and calculation-profile hashing, bumping the calculation profile from 1.0.0 to 1.1.0 without changing the enclosing provenance contract version.
+- Added `--ephemeris-mode` and `--no-optional-points` to both supported live console boundaries and forwarded them through Natal/daily provider construction.
+- Live calculations now retain Swiss Ephemeris returned flags, decode the observed provider mode, and reject mismatches for explicit `moshier` or `swiss` requests. Legacy `auto` remains compatibility behavior.
+- Added the candidate live-profile contract, refreshed the AstroWoof worker handoff, and added a reusable installed Linux qualification harness.
+- Added a manual GitHub Actions workflow targeting Ubuntu 24.04 and CPython 3.11. It hashes the exact SPC and pyswisseph wheels, builds/installs AGF, runs controlled Natal fixtures with an empty ephemeris directory, projects through installed SPC, and runs the full suite against installed code.
+- The project repository now has uncommitted, user-requested release-strategy and open-question notes recording that technical qualification does not satisfy the Swiss Ephemeris public-activation licensing gate.
+- Focused mode/provenance/identity/package tests passed: 51. Full source suite after the first implementation pass passed: 181.

@@ -81,6 +81,8 @@ def build(
     snapshot_time: str = "12:00",
     ephe_path: str = ".",
     house_system: str = "P",
+    ephemeris_mode: str = "auto",
+    include_optional_points: bool = True,
 ) -> dict[str, Any]:
     logger.info("Building natal package provider=%s name=%s natal_dataset=%s start=%s end=%s", provider, name, natal_dataset, start, end)
     birth_data = None
@@ -117,6 +119,8 @@ def build(
         snapshot_time=snapshot_time,
         ephe_path=ephe_path,
         house_system=house_system,
+        ephemeris_mode=ephemeris_mode,
+        include_optional_points=include_optional_points,
     )
     ep = create_provider(
         provider,

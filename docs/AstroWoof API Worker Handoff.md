@@ -19,9 +19,12 @@ spc:
   wheel_sha256: 60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150
   verification_status: reverify_download_in_slice_6_or_7
 live:
-  pyswisseph: DECISION_REQUIRED
-  python_platform: DECISION_REQUIRED
-  ephemeris_data_manifest: DECISION_REQUIRED
+  python_platform: CPython 3.11 / Linux x86-64 / glibc manylinux_2_17 compatible
+  pyswisseph: 2.10.3.2
+  pyswisseph_wheel_sha256: e00d7e08aeafe00938603bc118874b6ca7871c5aaa55aafca8fa2c6d76aff812
+  ephemeris_mode: moshier
+  external_ephemeris_files: none
+  optional_points: false
 ```
 
 Installers should use a hash-enforcing lock containing local or immutable artifact URLs and exact hashes. Install SPC's declared dependency closure, then the exact SPC and AGF wheels. A compatible version range is insufficient production evidence.
@@ -29,6 +32,8 @@ Installers should use a hash-enforcing lock containing local or immutable artifa
 ## Invocation
 
 The supported Natal call supplies the fields defined by packaged `birth_data_v1.schema.json`: display `name`, local ISO date-time, IANA timezone, latitude, longitude, optional descriptive location label, and explicit `source_chart_id`. `source_chart_id` is the opaque stable chart scope; AstroWoof may derive it from product identity outside AGF, but AGF neither parses nor stores dog/user semantics. Do not use display name, timestamps, filesystem paths, calculation hashes, or projection context as chart identity.
+
+The qualified live invocation also supplies `--ephemeris-mode moshier --no-optional-points`. It uses no external ephemeris files and does not qualify Chiron, asteroids, or fixed stars. A future file-backed profile is a separately versioned calculation contract.
 
 The worker pins every live calculation option represented in `metadata.calculation_provenance.calculation_profile`. It validates the returned Natal package and archives exact returned bytes before downstream transformation.
 

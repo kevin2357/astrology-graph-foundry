@@ -92,6 +92,7 @@ def test_configuration_hash_changes_for_material_choices():
     baseline = _provenance()["configuration_sha256"]
     assert _provenance(config=ProviderConfig(house_system="W"))["configuration_sha256"] != baseline
     assert _provenance(config=ProviderConfig(include_minor=False))["configuration_sha256"] != baseline
+    assert _provenance(config=ProviderConfig(ephemeris_mode="moshier"))["configuration_sha256"] != baseline
     assert _provenance(runtime=_runtime(distribution_version="2.10.3.3"))["configuration_sha256"] != baseline
 
 
@@ -104,7 +105,7 @@ def test_provenance_versions_output_boundary_and_golden_hashes():
     assert provenance["output_artifact_hash"]["owner"] == "orchestration"
     assert provenance["output_artifact_hash"]["status"] == "not_emitted_by_agf"
     assert provenance["source_input"]["sha256"] == "81fb2c383274d18c48d057009362312274cdb0a72c200425aebbe7e4f07aa0db"
-    assert provenance["configuration_sha256"] == "eb9cb67167df00b529b88b1b678b2ec7708171b98573efa2605ffdfe06a8afad"
+    assert provenance["configuration_sha256"] == "5d2e97a4c008b2b022ded2b16b8382b74c430c75dc56cc24304928eaf959021b"
 
 
 def test_cached_source_recovery_and_unavailable_source_are_explicit():
@@ -153,6 +154,8 @@ def test_live_runtime_provenance_records_library_and_data_but_not_machine_path(m
     runtime = provider.calculation_runtime_provenance()
     assert runtime["distribution_version"] == "2.10.3.2"
     assert runtime["library_version"] == "2.10.03"
+    assert runtime["calculation_flags"]["requested_ephemeris_mode"] == "auto"
+    assert runtime["calculation_flags"]["observed_ephemeris_modes"] == []
     assert runtime["ephemeris_data"]["status"] == "inventoried"
     assert runtime["ephemeris_data"]["resource_count"] == 1
     assert runtime["ephemeris_data"]["resources"][0]["name"] == "sepl_18.se1"
@@ -172,6 +175,7 @@ def test_retained_golden_vectors_and_examples_match_implementation():
         "whole-sign-houses": _provenance(config=ProviderConfig(house_system="W")),
         "major-aspects-only": _provenance(config=ProviderConfig(include_minor=False)),
         "provider-version": _provenance(runtime=_runtime(distribution_version="2.10.3.3")),
+        "moshier-mode": _provenance(config=ProviderConfig(ephemeris_mode="moshier")),
     }
     baseline = _provenance()
     assert vectors["baseline"]["source_input_sha256"] == baseline["source_input"]["sha256"]

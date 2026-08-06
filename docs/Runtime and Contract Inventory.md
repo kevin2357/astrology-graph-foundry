@@ -12,7 +12,7 @@ This is the concise consumer inventory for the AGF 0.6.0 release candidate. The 
 - Optional live dependency: `pyswisseph>=2.10,<2.11`; its presence alone is not a production qualification.
 - Canonical graph: `canonical_astrology_graph.v1`, graph version 1.3.0.
 - Canonical identity: `agf.source_chart_identity.v1.0.0`; callers should supply opaque `source_chart_id` through live Natal generation. The deterministic name fallback is compatibility behavior, not a production identity.
-- Calculation provenance: `agf.calculation_provenance.v1.0.0`; calculation profile `agf.calculation_profile.v1.0.0`; normalization policy `agf.normalization_policy.v1.0.0`.
+- Calculation provenance: `agf.calculation_provenance.v1.0.0`; calculation profile `agf.calculation_profile.v1.1.0`; normalization policy `agf.normalization_policy.v1.0.0`.
 
 The runtime manifest is the complete machine-readable inventory for the installed build. Release-significant families include birth input, Natal packages, canonical and structural graphs, evidence provenance, projection requests/results, transitable charts, temporal activation/source handoffs, and calculation provenance. Consumers must inspect each resource's declared version rather than infer a contract from its filename.
 

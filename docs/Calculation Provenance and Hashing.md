@@ -9,7 +9,7 @@ packaged `calculation_provenance_v1.schema.json` resource.
 The calculation profile, normalization policy, and canonical JSON policy are
 independently versioned:
 
-- `agf.calculation_profile.v1.0.0`
+- `agf.calculation_profile.v1.1.0`
 - `agf.normalization_policy.v1.0.0`
 - `agf.canonical_json.v1.0.0`
 
@@ -64,6 +64,11 @@ operation; it never upgrades historical calculation assumptions by inference.
 - provider mode, distribution/library version, calculation flags, and ephemeris
   data status.
 
+Calculation profile 1.1 adds the requested ephemeris mode. Live provenance
+records the requested mode and modes decoded from Swiss Ephemeris return flags.
+Explicit `moshier` and `swiss` modes fail on a mismatch. Historical `auto`
+behavior may record a fallback and is not the qualified AstroWoof profile.
+
 `configuration_sha256` is SHA-256 over the profile serialized with UTF-8,
 sorted object keys, compact separators, Unicode preserved, and non-finite numbers
 rejected. A material configuration or provider change changes this hash.
@@ -72,10 +77,9 @@ Filesystem ephemeris paths are deliberately excluded: a machine path is neither
 semantic identity nor reproducible data provenance. Live runtime provenance
 inventories `*.se1`, `sefstars.txt`, and `seorbel.txt` nonrecursively by filename,
 size, and SHA-256, then hashes the sorted inventory. It records no absolute path.
-An empty inventory is explicit and does not prove that the library avoided its
-fallback calculation path. Production qualification must pair a closed inventory
-with controlled result evidence; merely requesting `FLG_SWIEPH` is not proof of
-which provider data produced a result.
+An empty inventory is explicit but, by itself, does not prove which calculation
+path ran. Returned-flag evidence supplies that proof for profile 1.1. Production
+qualification pairs the closed inventory with the requested and observed modes.
 
 ## Output artifact hash boundary
 

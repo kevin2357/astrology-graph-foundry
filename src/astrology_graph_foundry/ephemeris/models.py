@@ -1,8 +1,10 @@
 from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import Any
 
 from astrology_graph_foundry.common.identity import validate_source_chart_id
+
 
 @dataclass(frozen=True)
 class BirthData:
@@ -46,6 +48,7 @@ class ProviderConfig:
     snapshot_time: str = "12:00"
     ephe_path: str = "."
     house_system: str = "P"
+    ephemeris_mode: str = "auto"
     include_minor: bool = True
     top_n_candidates: int = 25
     include_declinations: bool = True
@@ -59,3 +62,7 @@ class ProviderConfig:
     asteroid_ids: tuple[int, ...] = ()
     include_fixed_stars: bool = False
     fixed_star_names: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        if self.ephemeris_mode not in {"auto", "swiss", "moshier"}:
+            raise ValueError("ephemeris_mode must be one of: auto, swiss, moshier")
