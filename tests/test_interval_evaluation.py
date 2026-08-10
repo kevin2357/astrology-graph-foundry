@@ -1,0 +1,81 @@
+from __future__ import annotations
+
+import math
+
+from astrology_graph_foundry.ephemeris.interval_evaluation import IntervalProofProfile, evaluate_interval
+
+PROFILE = IntervalProofProfile(minimum_step_seconds=60, maximum_evaluations=3000)
+
+
+def _linear(**bodies):
+    def evaluate(jd):
+        return {name: {"lon": (start + speed * jd) % 360, "speed_lon": speed} for name, (start, speed) in bodies.items()}
+
+    return evaluate
+
+
+def test_stable_and_variable_moon_signs():
+    stable = evaluate_interval(0, 0.25, {"Moon": 1}, _linear(Moon=(5, 13)), profile=PROFILE)
+    variable = evaluate_interval(0, 0.25, {"Moon": 1}, _linear(Moon=(29, 13)), profile=PROFILE)
+    assert stable["bodies"]["Moon"]["classification"] == "invariant"
+    assert stable["bodies"]["Moon"]["sign_dignity"]["sign"] == "Aries"
+    assert stable["bodies"]["Moon"]["sign_dignity"]["sect_dependent_components"] == "unavailable"
+    assert variable["bodies"]["Moon"]["classification"] == "variable"
+    assert variable["bodies"]["Moon"]["sign_dignity"] is None
+    assert variable["bodies"]["Moon"]["longitude_range"]["possible_sign_indexes"] == [0, 1]
+
+
+def test_circular_wraparound_is_not_a_false_zodiac_ingress():
+    result = evaluate_interval(0, 0.2, {"Sun": 0}, _linear(Sun=(359, 2)), profile=PROFILE)
+    evidence = result["bodies"]["Sun"]["longitude_range"]
+    assert evidence["unwrapped_min"] > 358
+    assert evidence["unwrapped_max"] > 359
+
+
+def test_station_window_is_variable_motion():
+    def station(jd):
+        speed = jd - 0.5
+        return {"Mercury": {"lon": 10 + (jd - 0.5) ** 2 / 2, "speed_lon": speed}}
+
+    result = evaluate_interval(0, 1, {"Mercury": 2}, station, profile=PROFILE)
+    assert result["bodies"]["Mercury"]["motion"]["classification"] == "variable"
+    assert set(result["bodies"]["Mercury"]["motion"]["possible_states"]) == {"direct", "retrograde", "stationary"}
+
+
+def test_aspect_entry_exit_and_invariant_orb_range():
+    invariant = evaluate_interval(0, 0.1, {"Sun": 0, "Moon": 1}, _linear(Sun=(0, 1), Moon=(120, 1)), profile=PROFILE)
+    row = invariant["aspects"][0]
+    assert row["classification"] == "invariant"
+    assert row["aspect"] == "trine"
+    assert row["orb_range"]["min"] == 0
+
+    crossing = evaluate_interval(0, 1, {"Sun": 0, "Moon": 1}, _linear(Sun=(0, 0), Moon=(112, 16)), profile=PROFILE)
+    assert crossing["aspects"][0]["classification"] == "conditional"
+
+
+def test_dense_refinement_detects_multiple_crossing_threat():
+    def oscillating(jd):
+        phase = 2 * math.pi * jd * 48
+        return {"Moon": {"lon": 29.5 + math.sin(phase), "speed_lon": 2 * math.pi * 48 * math.cos(phase)}}
+
+    result = evaluate_interval(0, 1 / 24, {"Moon": 1}, oscillating, profile=PROFILE)
+    assert result["bodies"]["Moon"]["classification"] == "variable"
+    assert result["evaluation_count"] == 61
+
+
+def test_provider_failure_and_budget_exhaustion_fail_closed():
+    def failure(_jd):
+        raise RuntimeError("synthetic failure")
+
+    failed = evaluate_interval(0, 0.01, {"Sun": 0}, failure, profile=PROFILE)
+    assert failed["status"] == "inconclusive"
+    assert "provider failure" in failed["failures"][0]["reason"]
+
+    tiny_budget = IntervalProofProfile(minimum_step_seconds=1, maximum_evaluations=2)
+    exhausted = evaluate_interval(0, 1, {"Sun": 0}, _linear(Sun=(0, 1)), profile=tiny_budget)
+    assert exhausted["status"] == "inconclusive"
+
+
+def test_repeat_determinism():
+    args = (0, 0.25, {"Sun": 0, "Moon": 1}, _linear(Sun=(1, 1), Moon=(121, 13)))
+    assert evaluate_interval(*args, profile=PROFILE) == evaluate_interval(*args, profile=PROFILE)

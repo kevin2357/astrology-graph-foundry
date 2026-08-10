@@ -9,7 +9,8 @@ from astrology_graph_foundry.common.aspects import all_aspects
 from astrology_graph_foundry.common.constants import SIGN_RULERS_MODERN, SIGN_RULERS_TRADITIONAL
 from astrology_graph_foundry.common.geometry import decimal_to_dms, deg_to_sign, format_zodiac, house_for_lon, normalize
 
-from .models import BirthData, ProviderConfig
+from .interval_evaluation import IntervalProofProfile, evaluate_interval
+from .models import BirthData, BoundedBirthData, ProviderConfig
 
 logger = logging.getLogger(__name__)
 
@@ -167,6 +168,52 @@ def fixed_stars(swe: Any, jd_ut: float, names: tuple[str, ...]) -> tuple[list[di
         except Exception as exc:
             skipped.append({"name": name, "reason": str(exc)})
     return found, skipped
+
+
+def evaluate_bounded_natal_interval(
+    birth: BoundedBirthData,
+    config: ProviderConfig | None = None,
+    *,
+    profile: IntervalProofProfile | None = None,
+) -> dict[str, Any]:
+    """Evaluate ordinary configured natal bodies across a normalized birth interval."""
+    try:
+        import swisseph as swe
+    except ImportError as exc:
+        raise ImportError("Bounded natal computation requires pyswisseph (`pip install pyswisseph`).") from exc
+    config = config or ProviderConfig()
+    swe.set_ephe_path(config.ephe_path)
+    basis = birth.resolved_birth_time_basis
+    if basis is None:
+        raise ValueError("bounded birth data must have a normalized birth_time_basis")
+    start_dt = datetime.fromisoformat(basis.start_utc)
+    end_dt = datetime.fromisoformat(basis.end_utc)
+    start_jd, _ = datetime_to_jd_ut(swe, start_dt)
+    end_jd, _ = datetime_to_jd_ut(swe, end_dt)
+    bodies = base_body_map(swe)
+    flags = ephemeris_flag(swe, config.ephemeris_mode) | swe.FLG_SPEED
+
+    def point_positions(jd_ut: float) -> dict[str, dict[str, Any]]:
+        positions = {}
+        for name, swe_id in bodies.items():
+            position, error = safe_planet_position(swe, jd_ut, swe_id, flags)
+            if error or position is None:
+                raise RuntimeError(f"{name}: {error or 'unknown calculation failure'}")
+            positions[name] = position
+        return positions
+
+    result = evaluate_interval(
+        start_jd,
+        end_jd,
+        bodies,
+        point_positions,
+        include_minor=config.include_minor,
+        profile=profile,
+    )
+    result["birth_time_basis"] = basis.as_dict()
+    result["configured_body_names"] = list(bodies)
+    result["ephemeris_mode_requested"] = config.ephemeris_mode
+    return result
 
 def build_live_natal_chart(birth: BirthData, config: ProviderConfig | None = None) -> dict[str, Any]:
     logger.info("Building live natal chart for %s", birth.name)

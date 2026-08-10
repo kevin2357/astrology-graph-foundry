@@ -140,3 +140,41 @@ completed implementation slices.
 - Added a regression test tying retained normalization vectors back to the live
   normalization/hash implementation.
 - Final full Slice 2 suite: 198 passed in 18.57 seconds.
+## 2026-08-10 - Slice 3 interval evaluation and classification
+
+- Began from approved Slice 2 commit `1f69033` with a clean worktree.
+- Added provider-independent interval evaluation under proof profile
+  `agf.interval_proof.v1.0.0`.
+- Chose full one-minute refinement for v1 rather than endpoint or sparse-sample
+  inference. Longitude and aspect ranges carry speed-derived safety envelopes.
+- Added circular unwrapping, ingress classification, station-aware motion ranges,
+  sign-only dignity classification, invariant/conditional/variable aspects, orb
+  ranges, evaluation budgets, and fail-closed provider behavior. Sect-dependent
+  dignity components remain explicitly unavailable.
+- Added the Swiss Ephemeris bridge for ordinary configured bodies without yet
+  producing a bounded package.
+- Focused vectors: 7 passed; combined affected tests: 29 passed; final full suite:
+  205 passed in 17.18 seconds.
+- Attempted controlled live evidence in bundled Python 3.12. No compatible
+  pyswisseph wheel was available and source build failed for lack of MSVC. Recorded
+  this as an environment limitation; it does not convert into ordinary uncertainty.
+- Added compact machine-readable vectors and updated both future-integration
+  journals. Slice remains uncommitted pending Gate 3 approval.
+
+### Controlled-live follow-up
+
+- User authorized Docker for the missing Linux/Python 3.11 evidence.
+- First container import correctly exposed AGF's SPC runtime dependency. PyPI did not
+  publish SPC 0.10.0, and a Windows-mounted wheel was unreadable inside Docker, so
+  the successful proof mounted the local SPC 0.10.0 source boundary read-only.
+- Docker `python:3.11-slim` installed pyswisseph 2.10.3.2 and ran Moshier calculations
+  against the AGF checkout mounted read-only.
+- The 24-hour case completed 1,441 evaluations over 12 bodies in 0.701 seconds; its
+  repeat took 0.698 seconds and produced an identical hash.
+- The maximum 48-hour case completed 2,881 evaluations over 12 bodies in 1.273
+  seconds; its repeat took 1.256 seconds and produced an identical hash.
+- This closes the Slice 3 controlled-live gap and supports keeping full one-minute
+  refinement in proof profile v1 rather than adding adaptive pruning now.
+- User approved Gate 3 and expressed a firm preference for the simple, intuitive
+  minute-by-minute proof model unless later production profiling demonstrates a
+  pressing need to optimize it.

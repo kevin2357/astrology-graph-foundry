@@ -61,3 +61,16 @@ No longitude, speed, extrema, or transition evidence exists yet; Slice 2 only
 ensures the input interval needed to calculate it is reproducible. Slice 3 should
 retain circular range and proof-quality fields outside the canonical graph even when
 the corresponding sign fact is invariant.
+## Slice 3 implications
+
+The interval engine now retains the minimum source evidence a later scalar-transit
+versus bounded-natal classifier needs: an unwrapped natal longitude range, speed and
+motion-state range, possible signs, aspect type possibilities, padded orb range,
+proof profile, interval bounds, evaluation count, and explicit inconclusive status.
+
+The one-minute grid and speed envelope must not automatically become the Transit
+contract. A fast transit evaluated against a natal interval has two independent
+motion bounds, and a future sprint should either reuse the generic pair evaluator
+with both clocks explicit or define a stronger two-dimensional proof. Importantly,
+provider failure and budget exhaustion are already distinct from a merely
+conditional transit contact.

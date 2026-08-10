@@ -1,0 +1,27 @@
+{
+  "profile": "agf.interval_proof.v1.0.0",
+  "vectors": [
+    {"name": "stable_moon", "expected": "invariant", "observed": "invariant", "sample_count": 361},
+    {"name": "moon_ingress", "expected": "variable", "observed": "variable", "possible_sign_indexes": [0, 1], "sample_count": 361},
+    {"name": "longitude_wraparound", "expected": "continuous_unwrapped_range", "observed_unwrapped_min_greater_than": 358, "observed_unwrapped_max_greater_than": 359},
+    {"name": "station", "expected_motion": "variable", "observed_motion": "variable", "possible_states": ["direct", "retrograde", "stationary"]},
+    {"name": "invariant_trine", "expected": "invariant", "observed": "invariant", "evidence": "padded_orb_range"},
+    {"name": "aspect_entry_exit", "expected": "conditional", "observed": "conditional"},
+    {"name": "multiple_crossing_threat", "expected": "variable", "observed": "variable", "evaluation_count": 61},
+    {"name": "provider_failure", "expected": "inconclusive", "observed": "inconclusive"},
+    {"name": "evaluation_budget", "expected": "inconclusive", "observed": "inconclusive"},
+    {"name": "repeat", "expected": "byte-equivalent Python value", "observed": "equal"}
+  ],
+  "performance": {
+    "synthetic_suite_seconds": 0.28,
+    "full_suite_tests": 205,
+    "full_suite_seconds": 17.18,
+    "controlled_live_status": "passed",
+    "runtime": "Docker python:3.11-slim with pyswisseph 2.10.3.2, Moshier mode, local SPC 0.10.0 source boundary",
+    "controlled_live": [
+      {"label": "24h_unknown_time", "evaluations": 1441, "bodies": 12, "elapsed_seconds": 0.701, "repeat_seconds": 0.698, "deterministic": true, "sha256": "596d0e53c83f2b11aada42a3903ffcffd6780c54524fe6f9a12a48b0a2ec8dcf"},
+      {"label": "48h_bounded", "evaluations": 2881, "bodies": 12, "elapsed_seconds": 1.273, "repeat_seconds": 1.256, "deterministic": true, "sha256": "0fb2982a4389c81dade0c432b9be16e7a208e1717acb89cafbad8711c4b5e056"}
+    ],
+    "note": "The native Windows Python 3.12 attempt remained unavailable because pyswisseph has no compatible wheel and MSVC was absent; Docker supplied the qualified Linux/Python 3.11 boundary."
+  }
+}

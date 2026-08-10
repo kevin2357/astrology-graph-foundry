@@ -57,3 +57,16 @@ No pairwise geometry is calculated in this slice. Slice 3's per-body circular ra
 station evidence, and proof-quality markers will determine whether scalar-versus-
 range and range-versus-range Synastry feasibility can proceed without recalculating
 the native Natal intervals.
+## Slice 3 implications
+
+The generic evaluator demonstrates the exact-versus-bounded first feasibility case:
+one participant can be represented as a scalar longitude while the other retains
+the bounded range, speed envelope, possible signs, and padded aspect-orb evidence.
+Those records should survive Slice 4 even when only invariant categories enter the
+canonical graph.
+
+Two bounded participants remain a distinct problem. Their birth intervals are
+independent axes, so walking both along the same sample index would be semantically
+wrong. A future Synastry sprint needs a Cartesian/extrema strategy and independent
+proof identities. The current fail-closed vocabulary and circular unwrapping are
+reusable, while the one-dimensional sampling schedule is not sufficient by itself.
