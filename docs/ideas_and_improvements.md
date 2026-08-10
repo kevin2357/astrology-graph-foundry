@@ -88,6 +88,21 @@ Periodically audit every pipeline for stable IDs, provenance, evidence tiers, de
 
 ## Major calculation and timing design work
 
+### Bounded birth-time Natal calculation
+
+Implement the accepted uncertainty-aware Natal direction described in
+[`Bounded Birth-Time Natal Calculation`](Bounded%20Birth-Time%20Natal%20Calculation.md):
+
+- accept exact, bounded, and whole-local-day birth-time bases;
+- prove which signs, motion states, sign-dependent dignities, and body-to-body
+  aspects remain invariant throughout the possible interval;
+- preserve variable, conditional, unavailable, and failed features as structured
+  evidence;
+- emit only invariant facts as canonical graph assertions;
+- publish reduced house, angle, and exact-longitude capabilities; and
+- qualify the resulting package through SPC and uncertainty-aware downstream
+  selection before replacing any warned-noon consumer policy.
+
 ### Secondary progressions
 
 Complete the currently scaffolded pipeline after deciding:

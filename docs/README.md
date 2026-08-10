@@ -32,6 +32,7 @@ semantics, schemas, and implementation.
 - [Provider Architecture](provider_architecture.md)
 - [Live Natal Generation](live_natal_generation.md)
 - [Rich Natal Facts](rich_natal_facts.md)
+- [Bounded Birth-Time Natal Calculation](Bounded%20Birth-Time%20Natal%20Calculation.md) — accepted design direction for uncertainty-aware Natal generation; not implemented in 0.6.0.
 - [Unified Transit Dataset](transit_dataset.md)
 - [Legacy Transit Period Note](transit_period_dataset.md)
 - [Transit Streaming Profiles and Game Index](Transit%20Streaming%20Profiles%20and%20Game%20Index.md)
