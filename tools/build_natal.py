@@ -6,8 +6,17 @@ from __future__ import annotations
 import argparse
 
 from _foundry_cli import (
-    add_common_execution_arguments, append_live_birth_arguments, choose, cli_command, configure_execution,
-    existing_file, option, output_dir, print_outputs, run_commands, run_main,
+    add_common_execution_arguments,
+    append_live_birth_arguments,
+    choose,
+    cli_command,
+    configure_execution,
+    existing_file,
+    option,
+    output_dir,
+    print_outputs,
+    run_commands,
+    run_main,
 )
 
 
@@ -18,6 +27,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--global-jsonl")
     parser.add_argument("--name")
     parser.add_argument("--birth-local")
+    parser.add_argument("--birth-local-earliest")
+    parser.add_argument("--birth-local-latest")
+    parser.add_argument("--birth-date")
+    parser.add_argument("--birth-time-unknown", action="store_true")
     parser.add_argument("--birth-timezone")
     parser.add_argument("--birth-lat", type=float)
     parser.add_argument("--birth-lon", type=float)
@@ -39,7 +52,21 @@ def main(argv: list[str] | None = None) -> int:
     command = cli_command("natal")
     option(command, "--provider", provider)
     if provider == "live":
-        append_live_birth_arguments(command, args)
+        bounded = bool(args.birth_local_earliest or args.birth_local_latest or args.birth_date or args.birth_time_unknown)
+        if bounded:
+            option(command, "--name", args.name)
+            option(command, "--birth-timezone", args.birth_timezone)
+            option(command, "--birth-lat", args.birth_lat)
+            option(command, "--birth-lon", args.birth_lon)
+            option(command, "--birth-location-label", args.birth_location_label)
+            option(command, "--source-chart-id", args.source_chart_id)
+            option(command, "--birth-local-earliest", args.birth_local_earliest)
+            option(command, "--birth-local-latest", args.birth_local_latest)
+            option(command, "--birth-date", args.birth_date)
+            if args.birth_time_unknown:
+                command.append("--birth-time-unknown")
+        else:
+            append_live_birth_arguments(command, args)
         option(command, "--ephe-path", args.ephe_path)
         option(command, "--house-system", args.house_system)
     else:

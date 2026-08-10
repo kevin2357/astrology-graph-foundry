@@ -6,7 +6,6 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).parents[1]
 TOOLS = ROOT / "tools"
 
@@ -48,6 +47,26 @@ def test_natal_cached_dry_run_delegates_to_cli(tmp_path: Path):
     assert "astrology_graph_foundry.cli natal" in result.stdout
     assert "--out-analysis" in result.stdout
     assert "sample.full.json" in result.stdout
+
+
+def test_natal_bounded_dry_run_delegates_separate_birth_time_arguments(tmp_path: Path):
+    result = run_tool(
+        "build_natal.py",
+        "--provider", "live",
+        "--name", "Scout",
+        "--birth-local-earliest", "2020-05-17T08:00:00",
+        "--birth-local-latest", "2020-05-17T14:00:00",
+        "--birth-timezone", "America/Denver",
+        "--birth-lat", "39.7392",
+        "--birth-lon", "-104.9903",
+        "--out-dir", str(tmp_path / "out"),
+        "--non-interactive",
+        "--dry-run",
+    )
+    assert result.returncode == 0, result.stderr
+    assert "--birth-local-earliest 2020-05-17T08:00:00" in result.stdout
+    assert "--birth-local-latest 2020-05-17T14:00:00" in result.stdout
+    assert "--birth-local " not in result.stdout
 
 
 def test_transit_dry_run_builds_compact_and_optional_full_paths(tmp_path: Path):

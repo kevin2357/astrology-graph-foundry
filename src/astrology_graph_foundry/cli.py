@@ -99,6 +99,17 @@ def add_provider_args(p: argparse.ArgumentParser, *, include_natal_dataset: bool
     p.add_argument("--output-dir")
 
 
+def add_bounded_birth_args(p: argparse.ArgumentParser) -> None:
+    p.add_argument("--birth-local-earliest", help="Inclusive earliest possible local birth datetime.")
+    p.add_argument("--birth-local-latest", help="Inclusive latest possible local birth datetime.")
+    p.add_argument("--birth-date", help="Known local birth date for --birth-time-unknown (YYYY-MM-DD).")
+    p.add_argument(
+        "--birth-time-unknown",
+        action="store_true",
+        help="Use the complete known local birth date as the possible birth-time interval.",
+    )
+
+
 def add_pair_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--person-a-provider", choices=["cached", "live"], default="live")
     p.add_argument("--person-a-jsonl")
@@ -162,6 +173,7 @@ def main() -> None:
 
     p = sub.add_parser("natal")
     add_provider_args(p)
+    add_bounded_birth_args(p)
     p.add_argument("--start")
     p.add_argument("--end")
     p.add_argument("--out")
@@ -623,6 +635,10 @@ def main() -> None:
             global_jsonl=args.global_jsonl,
             name=args.name,
             birth_local=args.birth_local,
+            birth_local_earliest=args.birth_local_earliest,
+            birth_local_latest=args.birth_local_latest,
+            birth_date=args.birth_date,
+            birth_time_unknown=args.birth_time_unknown,
             birth_timezone=args.birth_timezone,
             birth_lat=args.birth_lat,
             birth_lon=args.birth_lon,

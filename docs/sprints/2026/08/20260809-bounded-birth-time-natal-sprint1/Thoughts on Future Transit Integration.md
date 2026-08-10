@@ -44,3 +44,20 @@ The bounded package must retain compact ranges and transition evidence even when
 bounded Natal canonical graph promotes only categorical invariant facts. Discarding
 those ranges would force a future Transit implementation to recalculate or infer
 from lossy graph output.
+
+## Slice 2 — Input, normalization, and provenance boundary
+
+The normalized birth-time basis now preserves both local and UTC interval bounds,
+boundary semantics, elapsed duration, IANA timezone, coordinates, and a versioned
+source-input hash. A future Transit cache or proof must include that native identity;
+two equal longitude ranges calculated under different time bases or normalization
+policies are not automatically interchangeable.
+
+Inclusive caller bounds versus half-open whole-local-day bounds are explicit. A
+future contact solver must respect the stored boundary policy when deciding whether
+an exact threshold contact at the edge is possible.
+
+No longitude, speed, extrema, or transition evidence exists yet; Slice 2 only
+ensures the input interval needed to calculate it is reproducible. Slice 3 should
+retain circular range and proof-quality fields outside the canonical graph even when
+the corresponding sign fact is invariant.

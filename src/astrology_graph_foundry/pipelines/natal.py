@@ -17,7 +17,7 @@ from astrology_graph_foundry.common.semantic_layers import (
 )
 from astrology_graph_foundry.common.themes import operator_hints, theme_tags
 from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
-from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
+from astrology_graph_foundry.ephemeris.models import BirthData, BirthTimeBasis, BoundedBirthData, ProviderConfig
 from astrology_graph_foundry.ephemeris.providers import create_provider
 
 SCHEMA_VERSION = "1.1.0"
@@ -70,6 +70,10 @@ def build(
     global_jsonl: str | None = None,
     name: str | None = None,
     birth_local: str | None = None,
+    birth_local_earliest: str | None = None,
+    birth_local_latest: str | None = None,
+    birth_date: str | None = None,
+    birth_time_unknown: bool = False,
     birth_timezone: str | None = None,
     birth_lat: float | None = None,
     birth_lon: float | None = None,
@@ -87,10 +91,13 @@ def build(
     logger.info("Building natal package provider=%s name=%s natal_dataset=%s start=%s end=%s", provider, name, natal_dataset, start, end)
     birth_data = None
     if provider == "live" and natal_dataset is None:
+        bounded_carriers = any((birth_local_earliest, birth_local_latest, birth_date, birth_time_unknown))
+        if birth_local and bounded_carriers:
+            raise ValueError("Exact --birth-local cannot be combined with bounded or unknown-time birth inputs")
         missing = [
             flag for flag, value in {
                 "name": name,
-                "birth_local": birth_local,
+                "birth_time": birth_local or birth_local_earliest or (birth_date if birth_time_unknown else None),
                 "birth_timezone": birth_timezone,
                 "birth_lat": birth_lat,
                 "birth_lon": birth_lon,
@@ -101,6 +108,31 @@ def build(
             raise ValueError(
                 "provider='live' requires either natal_dataset or complete birth data. Missing: "
                 + ", ".join(missing)
+            )
+        if bounded_carriers:
+            if birth_time_unknown:
+                if not birth_date or birth_local_earliest or birth_local_latest:
+                    raise ValueError("unknown-time input requires --birth-time-unknown and --birth-date only")
+                basis = BirthTimeBasis(mode="unknown_time", birth_date=birth_date)
+            else:
+                if birth_date or not birth_local_earliest or not birth_local_latest:
+                    raise ValueError("bounded input requires both birth_local_earliest and birth_local_latest")
+                basis = BirthTimeBasis(
+                    mode="bounded",
+                    earliest_local=birth_local_earliest,
+                    latest_local=birth_local_latest,
+                )
+            BoundedBirthData(
+                name=name or "Unknown",
+                birth_time_basis=basis,
+                birth_timezone=birth_timezone or "",
+                birth_lat=float(birth_lat),
+                birth_lon=float(birth_lon),
+                birth_location_label=birth_location_label,
+                source_chart_id=source_chart_id,
+            )
+            raise NotImplementedError(
+                "Bounded birth-time input is valid, but bounded Natal calculation is not implemented until Slice 3"
             )
         birth_data = BirthData(
             name=name or "Unknown",

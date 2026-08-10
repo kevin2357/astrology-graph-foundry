@@ -20,11 +20,12 @@ from astrology_graph_foundry.common.constants import (
     OUTER_PLANETS,
     POINTS,
 )
-from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
+from astrology_graph_foundry.ephemeris.models import BirthData, BoundedBirthData, ProviderConfig
 
 CALCULATION_PROVENANCE_CONTRACT_VERSION = "agf.calculation_provenance.v1.0.0"
 CALCULATION_PROFILE_VERSION = "agf.calculation_profile.v1.1.0"
 NORMALIZATION_POLICY_VERSION = "agf.normalization_policy.v1.0.0"
+BOUNDED_NORMALIZATION_POLICY_VERSION = "agf.bounded_birth_time.normalization_policy.v1.0.0"
 CANONICAL_JSON_POLICY_VERSION = "agf.canonical_json.v1.0.0"
 
 CORE_BODY_NAMES = (
@@ -57,6 +58,37 @@ def canonical_json_bytes(value: Any) -> bytes:
 
 def sha256_json(value: Any) -> str:
     return hashlib.sha256(canonical_json_bytes(value)).hexdigest()
+
+
+def normalize_bounded_source_input(birth_data: BoundedBirthData) -> dict[str, Any]:
+    """Normalize bounded geometry inputs without changing the exact-input contract."""
+
+    basis = birth_data.resolved_birth_time_basis
+    if basis is None:  # pragma: no cover - dataclass construction guarantees this
+        raise ValueError("BoundedBirthData has no normalized birth-time basis")
+    return {
+        "birth_time_basis": basis.as_dict(),
+        "birth_timezone": ZoneInfo(birth_data.birth_timezone).key,
+        "birth_lat": _canonical_decimal(birth_data.birth_lat),
+        "birth_lon": _canonical_decimal(birth_data.birth_lon),
+    }
+
+
+def build_bounded_source_input_provenance(birth_data: BoundedBirthData) -> dict[str, Any]:
+    normalized = normalize_bounded_source_input(birth_data)
+    return {
+        "normalization_policy_version": BOUNDED_NORMALIZATION_POLICY_VERSION,
+        "completeness": "complete_bounded_live_input",
+        "sha256": sha256_json(
+            {
+                "normalization_policy_version": BOUNDED_NORMALIZATION_POLICY_VERSION,
+                "values": normalized,
+            }
+        ),
+        "values": normalized,
+        "included_fields": ["birth_time_basis", "birth_timezone", "birth_lat", "birth_lon"],
+        "excluded_descriptive_fields": ["name", "birth_location_label", "source_chart_id"],
+    }
 
 
 def _canonical_decimal(value: float) -> str:

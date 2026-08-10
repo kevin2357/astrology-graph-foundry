@@ -1,0 +1,27 @@
+{
+  "artifact": "agf.bounded_birth_time.normalization_vectors.v1",
+  "normalization_policy_version": "agf.bounded_birth_time.normalization_policy.v1.0.0",
+  "cases": {
+    "bounded": {
+      "mode": "bounded",
+      "start_utc": "2020-05-17T14:00:00+00:00",
+      "end_utc": "2020-05-17T20:00:00+00:00",
+      "duration_hours": 6.0,
+      "source_input_sha256": "fe1d9a21410f52a658ad6d81351e88f4375afa00914ff630abf523ca3969680d"
+    },
+    "unknown_time_dst_short": {
+      "mode": "unknown_time",
+      "start_utc": "2024-03-10T05:00:00+00:00",
+      "end_utc": "2024-03-11T04:00:00+00:00",
+      "duration_hours": 23.0,
+      "source_input_sha256": "6b67187a06c48e6d616829cb4600b90ceec1e2a6baa6c011934c0fefc1fe241d"
+    },
+    "unknown_time_dst_long": {
+      "mode": "unknown_time",
+      "start_utc": "2024-11-03T04:00:00+00:00",
+      "end_utc": "2024-11-04T05:00:00+00:00",
+      "duration_hours": 25.0,
+      "source_input_sha256": "97d4407ae8460de9a746443a199426b4c5e758c78f101885d53821555a04a2a2"
+    }
+  }
+}

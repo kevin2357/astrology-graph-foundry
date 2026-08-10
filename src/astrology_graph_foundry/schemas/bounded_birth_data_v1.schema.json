@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bounded_birth_data_v1.schema.json",
+  "title": "Bounded Birth Data v1",
+  "type": "object",
+  "required": [
+    "name",
+    "birth_time_basis",
+    "birth_timezone",
+    "birth_lat",
+    "birth_lon"
+  ],
+  "properties": {
+    "name": {"type": "string", "minLength": 1},
+    "birth_time_basis": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["mode", "earliest_local", "latest_local"],
+          "properties": {
+            "mode": {"const": "bounded"},
+            "earliest_local": {"type": "string", "minLength": 1},
+            "latest_local": {"type": "string", "minLength": 1},
+            "earliest_utc": {"type": "string", "format": "date-time"},
+            "latest_utc": {"type": "string", "format": "date-time"}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["mode", "birth_date"],
+          "properties": {
+            "mode": {"const": "unknown_time"},
+            "birth_date": {"type": "string", "format": "date"},
+            "earliest_utc": {"type": "string", "format": "date-time"},
+            "latest_utc": {"type": "string", "format": "date-time"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "birth_timezone": {"type": "string", "minLength": 1},
+    "birth_lat": {"type": "number", "minimum": -90, "maximum": 90},
+    "birth_lon": {"type": "number", "minimum": -180, "maximum": 180},
+    "birth_location_label": {"type": "string"},
+    "source_chart_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}$"
+    }
+  },
+  "additionalProperties": false
+}

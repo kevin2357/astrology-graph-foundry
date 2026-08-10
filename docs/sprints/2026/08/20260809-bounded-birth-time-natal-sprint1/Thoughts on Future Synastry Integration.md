@@ -39,3 +39,21 @@ House overlays remain unavailable unless the receiving participant has an exact
 chart or a future bounded-house contract. Later Synastry output must distinguish
 exact cross-aspects, invariant bounded cross-aspects, possible contacts, and omitted
 overlays rather than presenting them under today's single relationship vocabulary.
+
+## Slice 2 — Input, normalization, and provenance boundary
+
+Each bounded participant can now carry a deterministic normalized interval and
+source-input hash without coupling that identity to display name or
+`source_chart_id`. A future Synastry request should retain both participants' native
+time-basis/provenance blocks independently before constructing any cross-chart range
+evidence.
+
+The 48-hour maximum bounds each participant independently. Two bounded participants
+still create a two-dimensional possibility space; a later Synastry profile must not
+interpret the pair as one shared time axis unless the source events are actually
+correlated.
+
+No pairwise geometry is calculated in this slice. Slice 3's per-body circular ranges,
+station evidence, and proof-quality markers will determine whether scalar-versus-
+range and range-versus-range Synastry feasibility can proceed without recalculating
+the native Natal intervals.

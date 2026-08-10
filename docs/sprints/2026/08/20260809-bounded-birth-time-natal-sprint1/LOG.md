@@ -97,3 +97,46 @@ completed implementation slices.
   and Synastry work, especially longitude and orb ranges.
 - Added append-per-slice Transit and Synastry integration journals. Slice 1 entries
   capture the evidence and contract seams discovered so far.
+
+## 2026-08-10 — Slice 1 approval and commits
+
+- Committed approved AGF Slice 1 documentation and evidence as `41994dc`
+  (`Document bounded natal Slice 1 contract`).
+- Committed the two authorized API terminology updates independently as `2df7b4c`
+  (`docs: rename unknown birth-time mode`), preserving unrelated API sprint work.
+- Began Slice 2 from AGF `41994dc`.
+
+## 2026-08-10 — Slice 2 input, normalization, and provenance boundary
+
+- Added separate `BirthTimeBasis`, `NormalizedBirthTimeBasis`, and
+  `BoundedBirthData` models while leaving exact `BirthData` unchanged.
+- Implemented unique-wall-time resolution with explicit nonexistent/ambiguous
+  rejection, optional caller-resolved UTC verification, inclusive bounded endpoints,
+  whole-local-day `unknown_time`, and hard 48-hour validation.
+- Added packaged `bounded_birth_data_v1.schema.json`; exact Birth Data v1 is unchanged.
+- Added bounded-only source normalization/provenance hashing under
+  `agf.bounded_birth_time.normalization_policy.v1.0.0`.
+- Added Natal-only CLI flags and standard helper forwarding. Other package-family
+  CLIs intentionally do not expose bounded input.
+- Valid bounded invocation stops before calculation with a deliberate implementation
+  error assigned to Slice 3.
+- Added focused schema, normalization, DST, cross-midnight, invalid-bound, hash,
+  identity, CLI, helper, and pipeline-boundary tests.
+- Initial focused suite: 48 passed.
+- First full suite found three installed-resource count assertions after adding the
+  new schema: 193 passed, 3 failed. Updated the count from 34 to 35 and asserted the
+  new schema name explicitly.
+- Full suite after the resource fix: 196 passed in 16.29 seconds.
+- Final focused bounded/helper/resource suite: 34 passed in 8.75 seconds.
+- `compileall` passed.
+- Retained compact normalization vectors with deterministic hashes for bounded,
+  DST-short, and DST-long examples.
+- Installed the declared Ruff development dependency into the external bundled
+  Python runtime. Import-only formatting was applied to changed files.
+- Targeted Ruff passed with the pre-existing legacy exact-Natal naive `created_at`
+  warning explicitly excluded; this slice did not alter that artifact field.
+- Full suite after helper coverage and import normalization: 197 passed in 17.10
+  seconds.
+- Added a regression test tying retained normalization vectors back to the live
+  normalization/hash implementation.
+- Final full Slice 2 suite: 198 passed in 18.57 seconds.
