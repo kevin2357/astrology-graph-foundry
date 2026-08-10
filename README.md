@@ -204,6 +204,29 @@ fingerprint, or projection context. Omitting it retains a deterministic
 name-derived compatibility fallback that is unsuitable for durable production
 joins. See `docs/Canonical Identity and Projection Context Ownership.md`.
 
+For a known date with unknown birth time, the 0.7.0 release candidate can produce a
+separate uncertainty-aware bounded artifact:
+
+```bat
+astro-package natal ^
+  --provider live ^
+  --name Fido ^
+  --birth-time-unknown ^
+  --birth-date 2020-05-17 ^
+  --birth-timezone America/Denver ^
+  --birth-lat 39.7392 ^
+  --birth-lon -104.9903 ^
+  --source-chart-id astrowoof:chart:01HX... ^
+  --ephemeris-mode moshier ^
+  --out fido.bounded-natal.json
+```
+
+Use `--birth-local-earliest` and `--birth-local-latest` instead when a narrower
+interval is known. Bounded output intentionally omits exact longitudes, houses,
+angles, sect, and dependent lots from its canonical graph. Current SPC/SBE and
+timing consumers require follow-on compatibility work; see
+[`docs/Bounded Birth-Time Natal Calculation.md`](docs/Bounded%20Birth-Time%20Natal%20Calculation.md).
+
 For guided common workflows with the same underlying CLI behavior, see `tools/README.md`. The `build_natal.py`, `build_transit.py`, `build_synastry.py`, and `build_temporal_source.py` tools support interactive prompting, unattended flags, and command-preview dry runs.
 
 ## Documentation

@@ -94,3 +94,15 @@ Davison event construction cannot inherit that support merely because Synastry d
 SPC currently supports exact Synastry vocabulary only. Any future bounded Synastry
 projection needs compatibility for both bounded participant evidence and the new
 cross-chart relationship proof; accepting bounded Natal objects alone is not enough.
+
+## Slice 6 implications
+
+The installed wheel proof establishes a portable participant artifact with stable
+IDs, immutable source/configuration hashes, and resolvable uncertainty evidence.
+Those are sufficient inputs for a future feasibility sprint without reopening the
+Natal calculation contract.
+
+Release sequencing remains important: AGF 0.7.0 supplies participant evidence, but
+SPC and SBE support does not make bounded Synastry automatic. Exact-versus-bounded
+and bounded-versus-bounded relationship evidence still need distinct semantics,
+qualification fixtures, and compatibility versions.

@@ -99,3 +99,14 @@ eclipse target activation, and profections consistently.
 Current SPC compatibility does not alter this conclusion. Even after SPC can project
 bounded categorical facts for authoring, timing remains an AGF calculation contract
 that needs range-versus-scalar evidence and its own acceptance tests.
+
+## Slice 6 implications
+
+Installed qualification proves the bounded evidence survives a real wheel/runtime
+boundary and that saved mode can inspect it without pyswisseph. A future Transit
+worker can therefore separate stored-source consumption from live recomputation and
+pin the bounded proof-profile/configuration hashes in its own contact cache key.
+
+AGF 0.7.0 publication alone will not enable Transit. The exact `TransitableChart`
+guard remains binding until a separately versioned range-aware interface and
+acceptance matrix are implemented.

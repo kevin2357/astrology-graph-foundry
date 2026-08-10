@@ -228,3 +228,33 @@ completed implementation slices.
   17.33 seconds.
 - Added compact cross-repository compatibility evidence and updated both future
   integration journals. Slice remains uncommitted pending Gate 5 approval.
+
+## 2026-08-10 - Slice 6 migration, qualification, and release decision
+
+- Began from approved and pushed Slice 5 commit `f3c1859`.
+- Selected AGF 0.7.0 as the candidate version; exact graph/package contracts remain
+  unchanged while bounded contracts begin at their own v1/1.0.0 versions.
+- Updated the bounded calculation guide from proposed to implemented, added CLI and
+  package guidance, consumer/API handoff, candidate release notes, compatibility and
+  runtime-inventory notes, and explicit published-versus-candidate status.
+- Built two byte-identical wheels under controlled build inputs. Candidate wheel
+  SHA-256: `181190606a9373ef3bb091803b015c2a962155e289aa04e30a20740e08e4bd05`.
+- Clean installed Linux/Python 3.11 qualification used exact SPC 0.10.0 and
+  pyswisseph 2.10.3.2. Both CLIs loaded; live doctor passed; all 38 schemas were
+  packaged with manifest hash
+  `64178c9085474eb94f7b90bd14524e883d7e941764d9ecd13779a592b1b80018`.
+- Installed unknown-time Moshier generation was schema-valid and precision-safe;
+  installed exact Woofmap projection produced 17 objects and 61 relationships with
+  source identity preserved.
+- Uninstalled pyswisseph inside the temporary container; saved mode and packaged
+  bounded schema access remained ready.
+- First source-suite run found stale editable 0.6.0 distribution metadata. Refreshed
+  the external editable install to 0.7.0; final suite passed 214 tests in 17.40
+  seconds with only a non-failing pytest-cache permission warning.
+- Release decision: no tag, publication, or release credential use in this sprint.
+  A separately approved immutable release must bind the final Gate 6 commit.
+- Added compact installed qualification evidence and updated both future-integration
+  journals. Slice remains uncommitted pending Gate 6 approval.
+- Removed the two temporary wheel-build directories, repository `build` and generated
+  egg-info trees, and the named qualification container after preserving compact
+  hashes and results. No release artifact was copied into the repository.

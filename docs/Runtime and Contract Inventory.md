@@ -2,6 +2,17 @@
 
 This is the concise consumer inventory for the published AGF 0.6.0 wheel. The packaged JSON Schemas remain authoritative; enumerate and hash the installed bytes with `astro-package runtime-manifest` rather than locating source-tree files.
 
+## Unpublished 0.7.0 candidate additions
+
+The current source adds bounded Birth Data v1, Bounded Natal Dataset 1.0.0, bounded
+canonical graph 1.0.0, bounded calculation provenance 1.0.0, bounded normalization
+policy 1.0.0, and interval proof profile 1.0.0. Its installed candidate wheel exposes
+38 schema resources and runtime-manifest hash
+`64178c9085474eb94f7b90bd14524e883d7e941764d9ecd13779a592b1b80018`.
+
+These candidate contracts do not change exact canonical graph 1.3.0. They remain
+unpublished and are not part of the production 0.6.0 artifact lock below.
+
 ## Stable public boundary
 
 - Distribution: `astrology-graph-foundry`; import package: `astrology_graph_foundry`.

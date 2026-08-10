@@ -1,0 +1,31 @@
+{
+  "status": "passed_unpublished_candidate",
+  "starting_commit": "f3c1859",
+  "qualified_source_commit": "pending_gate_6_approval_and_commit",
+  "distribution_version": "0.7.0",
+  "wheel": "astrology_graph_foundry-0.7.0-py3-none-any.whl",
+  "wheel_sha256": "181190606a9373ef3bb091803b015c2a962155e289aa04e30a20740e08e4bd05",
+  "reproducible_builds": 2,
+  "byte_identical": true,
+  "build_controls": {"source_date_epoch": 1786320000, "setuptools": "83.0.0", "wheel": "0.47.0"},
+  "runtime": {"python": "3.11.15", "platform": "Linux x86_64 glibc", "container_base": "python:3.11-slim"},
+  "dependencies": {"semantic_projection_core": "0.10.0 exact wheel", "pyswisseph": "2.10.3.2"},
+  "installed_resources": {"count": 38, "manifest_sha256": "64178c9085474eb94f7b90bd14524e883d7e941764d9ecd13779a592b1b80018"},
+  "cli": {"astro_package_version": "passed", "astro_package_help": "passed", "doctor_live": "passed", "generate_daily_ephemeris_help": "passed"},
+  "bounded_live": {
+    "mode": "unknown_time",
+    "provider": "Moshier",
+    "schema_valid": true,
+    "objects": 11,
+    "relationships": 13,
+    "precision_safe": true,
+    "no_dangling": true,
+    "uncertainty_refs_resolve": true,
+    "artifact_bytes_sha256": "3f2eb682ca6e45cff54b9ed1a121344863039d584ac632392bd50c764aad6f01"
+  },
+  "exact_spc_projection": {"status": "passed", "objects": 17, "relationships": 61, "source_chart_id": "gate:exact"},
+  "saved_mode_without_pyswisseph": {"status": "passed", "schemas": 38},
+  "source_suite": {"passed": 214, "seconds": 17.40, "warning": "pytest cache directory was not writable; no test failed"},
+  "publication": {"tagged": false, "pushed_release": false, "github_release": false, "decision": "separate explicit release approval required"},
+  "cleanup": {"temporary_build_directories": "removed", "qualification_container": "removed", "repository_build_and_egg_info": "removed"}
+}

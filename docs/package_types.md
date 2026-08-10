@@ -1,6 +1,13 @@
 # Package Types
 
-Implemented: natal, unified transit, synastry, composite, annual profections, solar return, lunar return, Davison, eclipse/lunation timeline, timeline wrapper.
+Implemented: exact natal, bounded birth-time natal, unified transit, synastry,
+composite, annual profections, solar return, lunar return, Davison,
+eclipse/lunation timeline, timeline wrapper.
+
+Bounded Natal is a distinct package and graph family. It is not a reduced exact
+Natal package and does not implement `TransitableChart`. Current projection,
+relationship-chart, and timing consumers reject it until they add reviewed bounded
+semantics.
 
 Scaffolded: secondary progressions, solar arc directions.
 

@@ -9,6 +9,12 @@
 | Python | 3.10 or newer |
 | Swiss Ephemeris | Optional `>=2.10,<2.11`; required only for live calculation |
 
+The source tree is an unpublished AGF 0.7.0 candidate. Its exact canonical graph
+1.3.0 path remains compatible with SPC 0.10.0. Its bounded canonical graph 1.0.0 is
+deliberately rejected until SPC publishes an explicit bounded-graph compatibility
+contract. Production remains pinned to published AGF 0.6.0 until a separate release
+is approved.
+
 Windows installs also require the declared `tzdata>=2024.1` dependency so IANA timezone normalization works in clean environments. Release deployments pin its exact artifact through the outer lock.
 
 Foundry's library metadata permits the SPC 0.10 release line. The release handoff pins SPC 0.10.0 wheel SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`. This digest must be independently reverified during release qualification.

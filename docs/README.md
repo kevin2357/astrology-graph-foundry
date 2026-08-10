@@ -1,8 +1,10 @@
 # Astrology Graph Foundry documentation
 
-These pages describe the current Astrology Graph Foundry 0.6.x codebase. Documents under [`history/`](history/) are implementation records and are not normative.
+These pages describe the current Astrology Graph Foundry 0.7.0 release candidate.
+The latest published immutable release remains 0.6.0. Documents under
+[`history/`](history/) are implementation records and are not normative.
 
-Release notes: [Astrology Graph Foundry 0.6.0](releases/0.6.0.md).
+Release notes: [published 0.6.0](releases/0.6.0.md); [unpublished 0.7.0 candidate](releases/0.7.0.md).
 
 Astrology Graph Foundry calculates astrology packages and compiles canonical source graphs, structural evidence, temporal activation graphs, and consumer-oriented materializations. Semantic Projection Core owns target-domain projection. Reasoning, claims, game rules, report planning, and publication remain downstream.
 
@@ -32,7 +34,8 @@ semantics, schemas, and implementation.
 - [Provider Architecture](provider_architecture.md)
 - [Live Natal Generation](live_natal_generation.md)
 - [Rich Natal Facts](rich_natal_facts.md)
-- [Bounded Birth-Time Natal Calculation](Bounded%20Birth-Time%20Natal%20Calculation.md) — accepted design direction for uncertainty-aware Natal generation; not implemented in 0.6.0.
+- [Bounded Birth-Time Natal Calculation](Bounded%20Birth-Time%20Natal%20Calculation.md) — implemented 0.7.0 candidate contract and uncertainty model.
+- [Bounded Natal Consumer Handoff](Bounded%20Natal%20Consumer%20Handoff.md) — API, SPC, SBE, storage, caching, and migration obligations.
 - [Unified Transit Dataset](transit_dataset.md)
 - [Legacy Transit Period Note](transit_period_dataset.md)
 - [Transit Streaming Profiles and Game Index](Transit%20Streaming%20Profiles%20and%20Game%20Index.md)

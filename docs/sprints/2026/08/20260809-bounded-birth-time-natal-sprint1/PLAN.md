@@ -1,6 +1,6 @@
 # Bounded Birth-Time Natal Sprint Plan
 
-**Status:** Proposed for review; planning and documentation only so far
+**Status:** Implemented through Slice 6; final gate pending review
 
 **Repository:** `astrology-graph-foundry`
 

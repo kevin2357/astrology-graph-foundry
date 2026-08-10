@@ -1,7 +1,7 @@
 # Bounded Birth-Time Natal Calculation
 
-**Status:** Accepted design direction; not implemented in Astrology Graph Foundry
-0.6.0
+**Status:** Implemented on `main` for the Astrology Graph Foundry 0.7.0 release
+candidate; not yet published
 
 **Owner:** Astrology Graph Foundry for calculation, canonical source facts,
 uncertainty evidence, provenance, schemas, and source capabilities
@@ -11,18 +11,20 @@ Basis Extractor, AstroWoof API, and other Natal-package consumers
 
 ## Purpose
 
-AGF currently requires one exact local birth datetime and emits an exact Natal
-package. Some subjects, including many animals and historical or poorly documented
-human subjects, have a known date or approximate time range but no defensible exact
-instant.
+AGF supports its established exact Natal package and a separate bounded Natal
+package for subjects whose date or approximate time range is known but whose exact
+instant is not defensible. This is common for animals and may also apply to
+historical or poorly documented human subjects.
 
-The intended new mode accepts a bounded birth-time basis and produces only natal
+The bounded mode accepts a bounded birth-time basis and produces only natal
 facts proven valid throughout the complete interval. It must preserve uncertainty
 explicitly rather than hiding a representative noon calculation behind exact-looking
 longitudes, houses, angles, aspects, and derived structures.
 
-This document describes the current design intention. Code, schemas, CLI flags, and
-released package guarantees do not yet implement it.
+The 0.7.0 candidate implements the Python/CLI input, interval evaluation, schemas,
+canonical graph, uncertainty evidence, provenance, capabilities, and exact-only
+consumer rejections described here. SPC and SBE support remains a separate follow-on
+sprint; the published 0.6.0 wheel does not implement bounded Natal.
 
 ## Core invariant
 
@@ -34,7 +36,7 @@ Failure to prove invariance is not proof that a fact is false. Such a feature is
 reported as conditional, variable, or unavailable. Provider/runtime failure remains
 a separate failure class.
 
-## Proposed input contract
+## Input contract
 
 Use a tagged birth-time basis rather than optional combinations of unrelated fields:
 
@@ -47,7 +49,7 @@ Use a tagged birth-time basis rather than optional combinations of unrelated fie
 }
 ```
 
-Proposed modes:
+Modes:
 
 - `exact`: one validated local civil datetime;
 - `bounded`: earliest and latest complete local datetimes; and
@@ -58,10 +60,12 @@ For CLI exposure, prefer `--birth-local-earliest` and
 `--birth-local-latest`. “Earlier than” and “later than” are easier to reverse and do
 not naturally communicate complete datetime or boundary semantics.
 
-The reviewed contract must decide endpoint inclusivity, maximum interval duration,
-ambiguous/nonexistent local-time behavior, and whether a zero-width bounded range is
-accepted or normalized to `exact`. A whole local day is not assumed to be 24 UTC
-hours because timezone transitions may produce 23- or 25-hour days.
+Caller-supplied endpoints are inclusive. `unknown_time` spans local midnight
+inclusive to the next local midnight exclusive. The v1 maximum is 48 elapsed UTC
+hours. Empty/inverted bounds are rejected, and a zero-width range must use exact
+mode. Ambiguous or nonexistent boundary wall times fail closed. A whole local day is
+not assumed to be 24 UTC hours because timezone transitions may produce 23- or
+25-hour days.
 
 ## Why sign-change filtering is insufficient
 
@@ -81,9 +85,9 @@ Endpoint equality does not establish invariance. Retrograde loops, 360-degree
 wraparound, interior aspect extrema, and multiple crossings can return the same
 endpoint category after changing inside the interval.
 
-## Initial calculation scope
+## Implemented calculation scope
 
-The first implementation should conservatively assess:
+The 0.7.0 candidate conservatively assesses:
 
 - bounded longitude ranges for ordinary configured bodies;
 - invariant versus possible zodiac signs;
@@ -105,7 +109,7 @@ Initially treat these as unavailable in bounded mode:
 This deliberately conservative first scope can expand later without laundering
 uncertainty into the canonical graph.
 
-## Proposed artifact layers
+## Artifact layers
 
 ### Birth-time basis
 
@@ -154,11 +158,13 @@ Swiss Ephemeris can calculate positions and speeds at arbitrary UT Julian dates,
 the provider supports interval evaluation. Correctness requires a versioned AGF
 algorithm above those point calculations.
 
-A reasonable initial strategy is conservative adaptive sampling with transition
-detection and numerical refinement. The profile must define step selection,
-tolerances, wraparound handling, station detection, aspect-boundary refinement, and
-the condition under which AGF declares proof inconclusive. Inconclusive evidence is
-never promoted merely because sampled endpoints agree.
+Proof profile `agf.interval_proof.v1.0.0` evaluates every valid minute throughout the
+interval, unwraps circular longitude, and adds speed-derived safety envelopes to
+longitude and aspect ranges. Provider failure, non-finite/missing point data, and
+evaluation-budget exhaustion are inconclusive. Inconclusive evidence is never
+promoted merely because sampled endpoints agree. Controlled Linux/Python 3.11
+Moshier evidence measured approximately 0.70 seconds for 24 hours and 1.27 seconds
+for the maximum 48 hours.
 
 ## Identity, hashing, and provenance
 
@@ -186,12 +192,14 @@ namespaces. A historical noon artifact must never be relabeled as bounded eviden
 - AGF remains reusable and does not learn dog, user, breed, handler, or product
   database semantics.
 
-## Versioning expectation
+## Versioning
 
 This is additive at the product capability level but materially changes input,
-package, graph, and consumer semantics. The sprint must choose versions from actual
-schema impact; it should not force the mode into the current Birth Data v1 or exact
-Natal contract merely to obtain a patch-level release.
+package, graph, and consumer semantics. The package candidate is AGF 0.7.0. Exact
+Birth Data v1, Natal Dataset 1.1.0, and canonical graph 1.3.0 remain unchanged.
+Bounded contracts begin at Birth Data v1, Bounded Natal Dataset 1.0.0, bounded
+canonical graph 1.0.0, bounded calculation provenance 1.0.0, and interval proof
+profile 1.0.0.
 
 ## Acceptance examples
 
@@ -212,15 +220,11 @@ No uncertain feature may appear as an exact canonical fact, no omitted feature m
 vanish without classified evidence, and no downstream exact-only path may accept a
 bounded artifact silently.
 
-## Open design decisions
+## Deferred follow-on decisions
 
-- bounded graph vocabulary and object/relationship IDs;
-- proof algorithm, tolerances, and evidence compactness;
-- aspect semantics when type remains invariant but orb/strength/application varies;
+- SPC and SBE compatibility and release versions;
+- aspect strength/application semantics;
 - whether estimated representative positions have any non-canonical consumer role;
-- duration limits and performance budgets;
-- package/schema/profile version increments;
-- exact SPC compatibility contract;
 - whether timing pipelines can target bounded placements and with what semantics;
 - migration timing for consumers currently using warned noon; and
-- qualification and release matrix.
+- later adaptive proof profiles if production cost justifies their complexity.
