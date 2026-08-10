@@ -8,9 +8,11 @@ from semantic_projection import (
     ProjectionOptions,
     ProjectionProfileRegistry,
     ProjectionRequest,
+    materialize_projected_graph,
     project,
     projection_request_id,
-    materialize_projected_graph,
+)
+from semantic_projection import (
     projection_summary_view as generic_projection_summary_view,
 )
 from semantic_projection.profiles import builtin_projection_registry as _external_builtin_projection_registry
@@ -19,6 +21,8 @@ from semantic_projection.profiles.orthodox_astrology.object_mappings import (
     canonical_object_name,
     house_number,
 )
+
+from astrology_graph_foundry.common.package_compatibility import require_exact_chart_package
 
 GENERAL_RELATIONSHIP_CONTEXT_ID = "orthodox.relationship.general.v1"
 
@@ -412,6 +416,7 @@ def project_dataset(
     projection contract is implemented; otherwise their top-level target chart
     would be mistaken for the complete timing package.
     """
+    require_exact_chart_package(source_package, consumer="AGF-to-SPC static projection")
     reject_unsupported_temporal_projection(source_package)
     source_graph = deepcopy(
         source_package.get("canonical_astrology_graph") or {}

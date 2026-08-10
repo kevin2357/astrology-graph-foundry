@@ -87,3 +87,15 @@ Stable source-scoped bounded body IDs give later transit results durable endpoin
 while calculation provenance identifies which interval/proof profile supplied the
 range. Correcting bounds can therefore retain chart lineage but must produce new
 calculation and transit-contact evidence.
+
+## Slice 5 implications
+
+All current `TransitableChart` consumers now reject bounded Natal through one shared
+guard. A future Transit sprint therefore has an intentional opening point: it should
+add a new bounded capability/interface rather than relax the exact interface or
+special-case one pipeline. The present rejection covers transit periods, returns,
+eclipse target activation, and profections consistently.
+
+Current SPC compatibility does not alter this conclusion. Even after SPC can project
+bounded categorical facts for authoring, timing remains an AGF calculation contract
+that needs range-versus-scalar evidence and its own acceptance tests.

@@ -13,6 +13,7 @@ from typing import Any, Protocol, runtime_checkable
 from astrology_graph_foundry.common.chart_graph import build_chart_graph
 from astrology_graph_foundry.common.identity import resolve_explicit_source_chart_id
 from astrology_graph_foundry.common.io import read_json
+from astrology_graph_foundry.common.package_compatibility import require_exact_chart_package
 
 TRANSITABLE_CHART_VERSION = "transitable_chart_v1.0.0"
 
@@ -140,6 +141,7 @@ def _reference_event(package: dict[str, Any], chart_type: str, chart: dict[str, 
 
 def from_package(package_or_path: str | dict[str, Any]) -> TransitableChart:
     package = _load(package_or_path)
+    require_exact_chart_package(package, consumer="TransitableChart")
     chart_type, subject_scope, chart_key, chart = _detect(package)
     graph = package.get("canonical_astrology_graph") or chart.get("semantic_graph") or package.get("semantic_graph") or build_chart_graph(chart)
     chart["semantic_graph"] = graph

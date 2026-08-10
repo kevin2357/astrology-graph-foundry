@@ -4,22 +4,25 @@ from datetime import datetime, timezone
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from astrology_graph_foundry.common.io import read_json
-from astrology_graph_foundry.pipelines.natal import build as build_natal
-from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
-from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
 from astrology_graph_foundry.common.identity import (
     RELATIONSHIP_CHART_IDENTITY_VERSION,
     derive_relationship_source_chart_id,
     source_chart_id_from_natal_package,
 )
+from astrology_graph_foundry.common.io import read_json
+from astrology_graph_foundry.common.package_compatibility import require_exact_chart_package
+from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
+from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
+from astrology_graph_foundry.pipelines.natal import build as build_natal
 
 SCHEMA_VERSION = "1.0.0"
 PIPELINE_VERSION = "davison_pipeline_v1.0.0"
 
 
 def _load(data: str | dict[str, Any]) -> dict[str, Any]:
-    return read_json(data) if isinstance(data, str) else data
+    dataset = read_json(data) if isinstance(data, str) else data
+    require_exact_chart_package(dataset, consumer="Davison")
+    return dataset
 
 
 def _natal(dataset: dict[str, Any]) -> dict[str, Any]:

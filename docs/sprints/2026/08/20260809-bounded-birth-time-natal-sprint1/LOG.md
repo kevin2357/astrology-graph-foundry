@@ -203,3 +203,28 @@ completed implementation slices.
   precision, no dangling endpoints, and 78 complete body/aspect assessments.
 - Added compact artifact evidence and updated both future-integration journals.
   Slice remains uncommitted pending Gate 4 approval.
+
+## 2026-08-10 - Slice 5 downstream and package-family compatibility
+
+- Began from approved and pushed Slice 4 commit `930a3cc`.
+- Added a shared bounded-package classifier and an explicit compatibility error for
+  exact-only consumers.
+- Guarded AGF static projection, `TransitableChart`, Synastry/Composite participant
+  loading, and Davison participant loading. Transit, returns, eclipse target
+  activation, and profections inherit the `TransitableChart` guard.
+- Tests prove analysis type or graph type independently triggers rejection and that
+  serialization/reload does not weaken the boundary.
+- Read SPC 0.10.0 compatibility and validation contracts: static graph 1.3.0 is the
+  only supported version; bounded graph 1.0.0 requires a separate SPC sprint.
+- Read the SBE authoring boundary: it consumes projected artifacts and retains
+  source graph references; it should not receive bounded AGF canonical input before
+  SPC defines the projection contract.
+- Existing qualified worker image passed SPC runtime smoke and AGF doctor with
+  installed AGF 0.6.0/SPC 0.10.0/Python 3.11.15.
+- Installed live exact Natal-to-Woofmap proof produced 17 objects, 61 relationships,
+  full eligible coverage, and preserved `gate:exact` identity. Initial inspection
+  used an obsolete result wrapper key; the actual SPC root contract passed.
+- Focused compatibility suite: 16 passed in 0.40 seconds. Full suite: 214 passed in
+  17.33 seconds.
+- Added compact cross-repository compatibility evidence and updated both future
+  integration journals. Slice remains uncommitted pending Gate 5 approval.

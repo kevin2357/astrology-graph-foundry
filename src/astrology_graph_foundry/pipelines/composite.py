@@ -8,16 +8,17 @@ from zoneinfo import ZoneInfo
 
 from astrology_graph_foundry.common.aspects import all_aspects
 from astrology_graph_foundry.common.chart_graph import build_chart_graph
-from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
-from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
 from astrology_graph_foundry.common.geometry import deg_to_sign, format_zodiac, house_for_lon, midpoint
-from astrology_graph_foundry.common.io import read_json
 from astrology_graph_foundry.common.identity import (
     RELATIONSHIP_CHART_IDENTITY_VERSION,
     derive_relationship_source_chart_id,
     source_chart_id_from_natal_package,
 )
+from astrology_graph_foundry.common.io import read_json
+from astrology_graph_foundry.common.package_compatibility import require_exact_chart_package
+from astrology_graph_foundry.common.semantic_layers import finalize_package_semantic_boundary
 from astrology_graph_foundry.common.themes import operator_hints, theme_tags
+from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
 from astrology_graph_foundry.ephemeris.models import BirthData, ProviderConfig
 from astrology_graph_foundry.ephemeris.providers import create_provider
 from astrology_graph_foundry.pipelines.natal import build as build_natal
@@ -33,7 +34,9 @@ CORE_BODY_ORDER = [
 
 
 def _load_dataset(path_or_data: str | dict[str, Any]) -> dict[str, Any]:
-    return read_json(path_or_data) if isinstance(path_or_data, str) else path_or_data
+    dataset = read_json(path_or_data) if isinstance(path_or_data, str) else path_or_data
+    require_exact_chart_package(dataset, consumer="Composite/Synastry")
+    return dataset
 
 
 def _natal_from_dataset(dataset: dict[str, Any]) -> dict[str, Any]:

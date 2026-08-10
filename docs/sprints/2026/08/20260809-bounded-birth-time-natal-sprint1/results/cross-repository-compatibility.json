@@ -1,0 +1,39 @@
+{
+  "agf_starting_commit": "930a3cc",
+  "qualified_exact_installed_boundary": {
+    "runtime": "astrowoof-domain-worker:acceptance, Python 3.11.15",
+    "agf_version": "0.6.0",
+    "spc_version": "0.10.0",
+    "spc_resource_manifest_sha256": "74ba2450c20e4b8c636ba2ffcb0a8b6db8ae3e0964f552cfdfbf78bde1145afd",
+    "source_graph_version": "1.3.0",
+    "profile_id": "woofmapped_astrology.v0",
+    "profile_version": "0.1.0",
+    "projected_objects": 17,
+    "projected_relationships": 61,
+    "eligible_object_coverage": 1.0,
+    "eligible_relationship_coverage": 1.0,
+    "source_chart_id": "gate:exact",
+    "status": "passed"
+  },
+  "bounded_boundary": {
+    "package_type": "bounded_natal_dataset",
+    "graph_type": "bounded_canonical_astrology_graph",
+    "graph_version": "1.0.0",
+    "agf_projection_adapter": "explicitly_rejected_pending_spc_support",
+    "spc_0_10_0_supported_static_graph_versions": ["1.3.0"],
+    "spc_0_10_0_bounded_support": false,
+    "sbe_status": "not_eligible_until_spc_emits_a_reviewed_bounded_projection_contract"
+  },
+  "package_family_matrix": [
+    {"consumer": "AGF static projection adapter", "bounded_v1": "explicit_rejection"},
+    {"consumer": "TransitableChart and transit/returns/profections", "bounded_v1": "explicit_rejection"},
+    {"consumer": "Synastry", "bounded_v1": "explicit_rejection"},
+    {"consumer": "Composite", "bounded_v1": "explicit_rejection"},
+    {"consumer": "Davison", "bounded_v1": "explicit_rejection"},
+    {"consumer": "SBE authoring pipeline", "bounded_v1": "no_direct_canonical_input; waits_for_spc_contract"}
+  ],
+  "tests": {
+    "focused_compatibility": {"passed": 16, "seconds": 0.40},
+    "full_agf": {"passed": 214, "seconds": 17.33}
+  }
+}

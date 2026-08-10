@@ -82,3 +82,15 @@ The graph intentionally contains no scalar longitude or orb, so existing Synastr
 code must reject it rather than infer exact endpoints. An exact-versus-bounded sprint
 can use one uncertainty registry directly; bounded-versus-bounded still requires a
 Cartesian proof and must never align the two participants by sample index.
+
+## Slice 5 implications
+
+Synastry and Composite now reject bounded participants at their shared pair-input
+boundary, while Davison rejects independently because it requires exact birth event
+times. This preserves a clean future split: exact-versus-bounded or
+bounded-versus-bounded Synastry may become meaningful, but Composite midpoint and
+Davison event construction cannot inherit that support merely because Synastry does.
+
+SPC currently supports exact Synastry vocabulary only. Any future bounded Synastry
+projection needs compatibility for both bounded participant evidence and the new
+cross-chart relationship proof; accepting bounded Natal objects alone is not enough.
