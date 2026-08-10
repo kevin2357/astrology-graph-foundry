@@ -62,7 +62,7 @@ result review, and human approval before commit.
 
 ## Slice 2 — Input, Normalization, and Provenance Boundary
 
-Implement a tagged exact/bounded/unknown-day model, schemas, CLI/Python surfaces,
+Implement a tagged exact/bounded/unknown-time model, schemas, CLI/Python surfaces,
 validation, UTC normalization, DST fold/gap behavior, normalized source hashing, and
 calculation-profile fields. Preserve legacy exact calls and keep API-derived warned
 noon distinguishable from genuine bounds.
@@ -137,6 +137,9 @@ authorization.
   identity, not automatically chart lineage.
 - Run proportionate tests, broad tests for broad contracts, `git diff --check`, diff
   review, append-only log, slice result, approval, then commit at every gate.
+- At every slice gate, append relevant implementation findings to both `Thoughts on
+  Future Transit Integration.md` and `Thoughts on Future Synastry Integration.md`,
+  including an explicit “no new implication” entry when appropriate.
 - Do not modify SPC, SBE, API, project, or frontend implementation without explicit
   authority.
 - Do not tag, push, publish, or use release credentials without explicit approval.
@@ -152,7 +155,7 @@ authorization.
 
 ## Exit criteria
 
-- One documented exact/bounded/unknown-day input and precedence contract.
+- One documented exact/bounded/unknown-time input and precedence contract.
 - Civil-time bounds, DST behavior, inclusivity, duration, and hashing are explicit.
 - Invariant classification is conservative, deterministic, versioned, and tested.
 - Canonical graph contains no unsupported exact values.

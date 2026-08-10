@@ -1,0 +1,41 @@
+# Thoughts on Future Synastry Integration
+
+**Status:** Append-per-slice research journal; not part of bounded Natal v1 scope
+
+This document retains design evidence that may support a later sprint for Synastry
+with one or two bounded-time participants. Entries describe implications and
+possibilities, not implemented guarantees. Each sprint slice appends its findings
+without rewriting earlier observations.
+
+## Slice 1 — Contract and fact-dependency audit
+
+Current Synastry assumes exact participant longitudes for cross-chart aspects and
+exact houses for overlays. Bounded Natal v1 therefore rejects Synastry, but the
+source artifact should preserve sufficient ranges for later pairwise interval
+reasoning.
+
+Useful retained evidence includes:
+
+- circular longitude range and proof quality for each participant body;
+- invariant/possible signs and motion states;
+- per-body transition windows;
+- independent source calculation interval and profile identity for each participant;
+- stable participant `source_chart_id` independent of birth-bound corrections; and
+- scalar exact values only for an exact-time participant, never midpoint substitutes
+  for a bounded participant.
+
+For a pair of longitude intervals, a later Synastry engine may classify an aspect as
+`always_in_orb`, `possibly_in_orb`, or `never_in_orb`, with a cross-chart orb range.
+The extrema cannot generally be obtained by comparing only interval endpoints,
+especially with circular wrap, retrograde motion, or correlated motion within each
+participant's birth interval.
+
+If one participant is exact and one bounded, the problem reduces to one scalar
+against one interval and should be the first feasibility case. Two independently
+bounded participants create a Cartesian product of possible instants and need a
+separate proof/performance policy.
+
+House overlays remain unavailable unless the receiving participant has an exact
+chart or a future bounded-house contract. Later Synastry output must distinguish
+exact cross-aspects, invariant bounded cross-aspects, possible contacts, and omitted
+overlays rather than presenting them under today's single relationship vocabulary.

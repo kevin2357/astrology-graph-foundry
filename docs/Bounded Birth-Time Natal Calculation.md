@@ -51,7 +51,8 @@ Proposed modes:
 
 - `exact`: one validated local civil datetime;
 - `bounded`: earliest and latest complete local datetimes; and
-- `unknown_day`: a known local calendar date normalized to its complete local day.
+- `unknown_time`: a known local calendar date with no known time, normalized to its
+  complete local day.
 
 For CLI exposure, prefer `--birth-local-earliest` and
 `--birth-local-latest`. “Earlier than” and “later than” are easier to reverse and do
