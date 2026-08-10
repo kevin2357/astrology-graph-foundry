@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded Canonical Astrology Graph v1",
+  "type": "object",
+  "required": ["graph_type", "graph_version", "source_chart_id", "source_chart_ids", "projection_status", "objects", "relationships", "capabilities"],
+  "properties": {
+    "graph_type": {"const": "bounded_canonical_astrology_graph"},
+    "graph_version": {"const": "1.0.0"},
+    "source_chart_id": {"type": "string", "minLength": 1},
+    "source_chart_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "projection_status": {"const": "pre_projection"},
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "object_type", "name", "sign_index", "motion_state", "uncertainty_evidence_ref", "evidence_metadata"],
+        "properties": {
+          "object_type": {"const": "bounded_natal_body"},
+          "sign_index": {"type": "integer", "minimum": 0, "maximum": 11},
+          "motion_state": {"enum": ["direct", "retrograde", "stationary"]},
+          "longitude": false,
+          "pretty": false,
+          "sign_degree": false
+        },
+        "additionalProperties": true
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "relationship_type", "source_id", "target_id", "aspect", "uncertainty_evidence_ref", "evidence_metadata"],
+        "properties": {
+          "relationship_type": {"const": "BOUNDED_INVARIANT_ASPECT"},
+          "orb": false,
+          "distance": false,
+          "applying_delta": false,
+          "strength": false
+        },
+        "additionalProperties": true
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "required": ["supports_exact_longitudes", "supports_house_transits", "supports_angle_transits"],
+      "properties": {
+        "supports_exact_longitudes": {"const": false},
+        "supports_house_transits": {"const": false},
+        "supports_angle_transits": {"const": false}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

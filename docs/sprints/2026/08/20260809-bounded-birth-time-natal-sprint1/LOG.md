@@ -178,3 +178,28 @@ completed implementation slices.
 - User approved Gate 3 and expressed a firm preference for the simple, intuitive
   minute-by-minute proof model unless later production profiling demonstrates a
   pressing need to optimize it.
+
+## 2026-08-10 - Slice 4 bounded artifact and canonical graph
+
+- Began from approved and pushed Slice 3 commit `b6e9a9b`.
+- Added distinct bounded Natal Dataset 1.0.0 and bounded canonical graph 1.0.0
+  schemas; exact schemas remain unchanged.
+- Added invariant-only canonical promotion, complete uncertainty assessment,
+  resolvable uncertainty references, explicit feature dispositions, and reduced
+  capability advertisement.
+- Added bounded calculation provenance binding normalized input, proof profile,
+  object/aspect policy, and configuration hash.
+- Artifact tests found local bounded IDs were not recognized by shared source-chart
+  scoping. Changed only their pre-finalization namespace to `natal:bounded:*`; the
+  finalized vocabulary remains `bounded_natal_body`.
+- Artifact tests also found bounded packages needed chart-stable sensor identity for
+  repeat finalization. The semantic identity classifier now treats bounded Natal as
+  a Natal chart family while calculation identity remains separate.
+- Added a dedicated bounded calculation-provenance schema rather than leaving the
+  new profile as an unconstrained metadata object.
+- Focused suite: 36 passed. Final full suite: 209 passed in 17.54 seconds.
+- Docker Linux/Python 3.11 generated a real Moshier unknown-time package in 0.655
+  seconds with 11 invariant objects, 13 invariant relationships, no scalar canonical
+  precision, no dangling endpoints, and 78 complete body/aspect assessments.
+- Added compact artifact evidence and updated both future-integration journals.
+  Slice remains uncommitted pending Gate 4 approval.

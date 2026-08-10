@@ -17,12 +17,14 @@ from astrology_graph_foundry.common.semantic_layers import (
 )
 from astrology_graph_foundry.common.themes import operator_hints, theme_tags
 from astrology_graph_foundry.common.transitable_chart import descriptor_for_package
+from astrology_graph_foundry.ephemeris.bounded_natal import build_bounded_natal_package
 from astrology_graph_foundry.ephemeris.models import BirthData, BirthTimeBasis, BoundedBirthData, ProviderConfig
 from astrology_graph_foundry.ephemeris.providers import create_provider
 
 SCHEMA_VERSION = "1.1.0"
 
 logger = logging.getLogger(__name__)
+
 
 def _aggregate_long_running_transits(provider, min_days: int = 14) -> list[dict[str, Any]]:
     logger.info("Aggregating long-running transits min_days=%d", min_days)
@@ -43,24 +45,29 @@ def _aggregate_long_running_transits(provider, min_days: int = 14) -> list[dict[
     for row in agg.values():
         if len(row["dates"]) < min_days:
             continue
-        out.append({
-            "transit_body": row.get("transit_body"),
-            "aspect": row.get("aspect"),
-            "natal_target": row.get("natal_target"),
-            "count_days_top15": len(row["dates"]),
-            "first_date": min(row["dates"]),
-            "last_date": max(row["dates"]),
-            "closest_orb": min(row["orbs"]),
-            "average_rank": sum(row["ranks"]) / len(row["ranks"]),
-            "max_relevance_score": max(row["scores"]),
-            "natal_target_house": row.get("natal_target_house"),
-            "transit_house_in_natal_chart": row.get("transit_house_in_natal_chart"),
-            "theme_tags": theme_tags(row.get("transit_body"), row.get("natal_target"), row.get("natal_target_house"), aspect=row.get("aspect")),
-            "semantic_operator_hints": operator_hints(row.get("transit_body"), row.get("natal_target"), aspect=row.get("aspect")),
-        })
+        out.append(
+            {
+                "transit_body": row.get("transit_body"),
+                "aspect": row.get("aspect"),
+                "natal_target": row.get("natal_target"),
+                "count_days_top15": len(row["dates"]),
+                "first_date": min(row["dates"]),
+                "last_date": max(row["dates"]),
+                "closest_orb": min(row["orbs"]),
+                "average_rank": sum(row["ranks"]) / len(row["ranks"]),
+                "max_relevance_score": max(row["scores"]),
+                "natal_target_house": row.get("natal_target_house"),
+                "transit_house_in_natal_chart": row.get("transit_house_in_natal_chart"),
+                "theme_tags": theme_tags(
+                    row.get("transit_body"), row.get("natal_target"), row.get("natal_target_house"), aspect=row.get("aspect")
+                ),
+                "semantic_operator_hints": operator_hints(row.get("transit_body"), row.get("natal_target"), aspect=row.get("aspect")),
+            }
+        )
     logger.info("Long-running transit aggregation complete: days=%d arc_count=%d", processed, len(out))
     out.sort(key=lambda r: (-r["count_days_top15"], r["average_rank"], r["closest_orb"]))
     return out
+
 
 def build(
     *,
@@ -95,7 +102,8 @@ def build(
         if birth_local and bounded_carriers:
             raise ValueError("Exact --birth-local cannot be combined with bounded or unknown-time birth inputs")
         missing = [
-            flag for flag, value in {
+            flag
+            for flag, value in {
                 "name": name,
                 "birth_time": birth_local or birth_local_earliest or (birth_date if birth_time_unknown else None),
                 "birth_timezone": birth_timezone,
@@ -105,10 +113,7 @@ def build(
             if value is None or value == ""
         ]
         if missing:
-            raise ValueError(
-                "provider='live' requires either natal_dataset or complete birth data. Missing: "
-                + ", ".join(missing)
-            )
+            raise ValueError("provider='live' requires either natal_dataset or complete birth data. Missing: " + ", ".join(missing))
         if bounded_carriers:
             if birth_time_unknown:
                 if not birth_date or birth_local_earliest or birth_local_latest:
@@ -122,7 +127,7 @@ def build(
                     earliest_local=birth_local_earliest,
                     latest_local=birth_local_latest,
                 )
-            BoundedBirthData(
+            bounded_birth_data = BoundedBirthData(
                 name=name or "Unknown",
                 birth_time_basis=basis,
                 birth_timezone=birth_timezone or "",
@@ -131,9 +136,17 @@ def build(
                 birth_location_label=birth_location_label,
                 source_chart_id=source_chart_id,
             )
-            raise NotImplementedError(
-                "Bounded birth-time input is valid, but bounded Natal calculation is not implemented until Slice 3"
+            bounded_config = ProviderConfig(
+                start=None,
+                end=None,
+                snapshot_timezone=snapshot_timezone,
+                snapshot_time=snapshot_time,
+                ephe_path=ephe_path,
+                house_system=house_system,
+                ephemeris_mode=ephemeris_mode,
+                include_optional_points=False,
             )
+            return build_bounded_natal_package(bounded_birth_data, bounded_config)
         birth_data = BirthData(
             name=name or "Unknown",
             birth_local=birth_local or "",
@@ -189,7 +202,13 @@ def build(
         for i, (theme, data) in enumerate(sorted(themes.items(), key=lambda kv: -kv[1]["score"]), 1)
     ]
 
-    logger.info("Natal package complete person=%s graph_objects=%d graph_relationships=%d long_transits=%d", ep.person_metadata().get("person"), len(graph.get("objects", [])), len(graph.get("relationships", [])), len(long_transits))
+    logger.info(
+        "Natal package complete person=%s graph_objects=%d graph_relationships=%d long_transits=%d",
+        ep.person_metadata().get("person"),
+        len(graph.get("objects", [])),
+        len(graph.get("relationships", [])),
+        len(long_transits),
+    )
     provider_chart_id = ep.person_metadata().get("target_chart_id") or ep.person_metadata().get("source_chart_id")
     runtime_provenance = getattr(ep, "calculation_runtime_provenance", None)
     provider_runtime = (
@@ -216,7 +235,7 @@ def build(
                 birth_data=birth_data,
                 natal_chart=ep.natal_chart(),
                 config=provider_config,
-                    provider_runtime=provider_runtime,
+                provider_runtime=provider_runtime,
             ),
         },
         "person": ep.person_metadata(),
@@ -248,6 +267,7 @@ def analysis_view(package: dict[str, Any], *, top_relationship_limit: int = 80, 
     graph = canonical_graph_from_package(package)
     objects = graph.get("objects", []) or []
     relationships = graph.get("relationships", []) or []
+
     def object_weight(obj: dict[str, Any]) -> tuple[int, str]:
         priority = {
             "planet_or_point": 0,
@@ -260,23 +280,54 @@ def analysis_view(package: dict[str, Any], *, top_relationship_limit: int = 80, 
             "harmonic_point": 7,
         }.get(str(obj.get("object_type")), 9)
         return priority, str(obj.get("id") or obj.get("name"))
+
     compact_objects = [
-        {k: obj.get(k) for k in ("id", "object_type", "name", "source_key", "longitude", "sign", "house", "pretty", "element", "modality", "ruler", "dignity_state") if obj.get(k) is not None}
+        {
+            k: obj.get(k)
+            for k in (
+                "id",
+                "object_type",
+                "name",
+                "source_key",
+                "longitude",
+                "sign",
+                "house",
+                "pretty",
+                "element",
+                "modality",
+                "ruler",
+                "dignity_state",
+            )
+            if obj.get(k) is not None
+        }
         for obj in sorted(objects, key=object_weight)[:top_object_limit]
     ]
     compact_relationships = []
     for rel in relationships[:top_relationship_limit]:
         projected = orthodox_row_annotation(rel)
-        compact_relationships.append({
-            k: projected.get(k)
-            for k in (
-                "id", "relationship_id", "relationship_type", "source",
-                "target", "source_id", "target_id", "source_name",
-                "target_name", "aspect", "orb", "weight", "theme_tags",
-                "orthodox_astrology_theme_tags", "semantic_operator_hints",
-            )
-            if projected.get(k) is not None
-        })
+        compact_relationships.append(
+            {
+                k: projected.get(k)
+                for k in (
+                    "id",
+                    "relationship_id",
+                    "relationship_type",
+                    "source",
+                    "target",
+                    "source_id",
+                    "target_id",
+                    "source_name",
+                    "target_name",
+                    "aspect",
+                    "orb",
+                    "weight",
+                    "theme_tags",
+                    "orthodox_astrology_theme_tags",
+                    "semantic_operator_hints",
+                )
+                if projected.get(k) is not None
+            }
+        )
     view = {
         "metadata": {**package.get("metadata", {}), "view_type": "natal_analysis", "view_compaction": "semantic_graph_summary_v1"},
         "person": package.get("person"),

@@ -70,3 +70,15 @@ independent axes, so walking both along the same sample index would be semantica
 wrong. A future Synastry sprint needs a Cartesian/extrema strategy and independent
 proof identities. The current fail-closed vocabulary and circular unwrapping are
 reusable, while the one-dimensional sampling schedule is not sufficient by itself.
+
+## Slice 4 implications
+
+The artifact separates durable participant/body identity from each calculation's
+longitude range. That is a useful future Synastry boundary: cross-chart results can
+reference stable body IDs while citing each participant's independent uncertainty
+registry and calculation profile.
+
+The graph intentionally contains no scalar longitude or orb, so existing Synastry
+code must reject it rather than infer exact endpoints. An exact-versus-bounded sprint
+can use one uncertainty registry directly; bounded-versus-bounded still requires a
+Cartesian proof and must never align the two participants by sample index.

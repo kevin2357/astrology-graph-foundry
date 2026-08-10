@@ -24,6 +24,7 @@ from astrology_graph_foundry.ephemeris.models import BirthData, BoundedBirthData
 
 CALCULATION_PROVENANCE_CONTRACT_VERSION = "agf.calculation_provenance.v1.0.0"
 CALCULATION_PROFILE_VERSION = "agf.calculation_profile.v1.1.0"
+BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.0.0"
 NORMALIZATION_POLICY_VERSION = "agf.normalization_policy.v1.0.0"
 BOUNDED_NORMALIZATION_POLICY_VERSION = "agf.bounded_birth_time.normalization_policy.v1.0.0"
 CANONICAL_JSON_POLICY_VERSION = "agf.canonical_json.v1.0.0"
@@ -88,6 +89,51 @@ def build_bounded_source_input_provenance(birth_data: BoundedBirthData) -> dict[
         "values": normalized,
         "included_fields": ["birth_time_basis", "birth_timezone", "birth_lat", "birth_lon"],
         "excluded_descriptive_fields": ["name", "birth_location_label", "source_chart_id"],
+    }
+
+
+def build_bounded_calculation_provenance(
+    *,
+    birth_data: BoundedBirthData,
+    config: ProviderConfig,
+    interval_assessment: dict[str, Any],
+) -> dict[str, Any]:
+    source_input = build_bounded_source_input_provenance(birth_data)
+    profile = {
+        "profile_version": BOUNDED_CALCULATION_PROFILE_VERSION,
+        "canonical_json_policy_version": CANONICAL_JSON_POLICY_VERSION,
+        "normalization_policy_version": BOUNDED_NORMALIZATION_POLICY_VERSION,
+        "proof_profile": interval_assessment["proof_profile"],
+        "ephemeris_mode": config.ephemeris_mode,
+        "zodiac": {"framework": "tropical", "ayanamsha": None},
+        "object_inclusion": {"core": list(CORE_BODY_NAMES), "optional_file_dependent": False},
+        "aspects": {
+            "angles_degrees": dict(sorted(ASPECTS.items())),
+            "base_orbs_degrees": dict(sorted(DEFAULT_ORBS.items())),
+            "include_minor": config.include_minor,
+        },
+        "bounded_feature_policy": {
+            "houses_angles_sect_lots": "unavailable",
+            "declinations_antiscia_harmonics_fixed_stars": "deferred",
+            "canonical_promotion": "invariant_categories_only",
+        },
+    }
+    return {
+        "contract_version": "agf.bounded_natal.calculation_provenance.v1.0.0",
+        "calculation_basis_status": "complete_bounded_live_profile",
+        "calculation_profile_version": BOUNDED_CALCULATION_PROFILE_VERSION,
+        "normalization_policy_version": BOUNDED_NORMALIZATION_POLICY_VERSION,
+        "canonical_json_policy_version": CANONICAL_JSON_POLICY_VERSION,
+        "source_input": source_input,
+        "configuration_sha256": sha256_json(profile),
+        "calculation_profile": profile,
+        "output_artifact_hash": {
+            "owner": "orchestration",
+            "status": "not_emitted_by_agf",
+            "algorithm": "sha256",
+            "boundary": "exact persisted UTF-8 artifact bytes returned by AGF before downstream transformation",
+            "reason": "AGF packages contain operational created_at metadata; persistence owns the final byte envelope.",
+        },
     }
 
 

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded Natal Calculation Provenance v1",
+  "type": "object",
+  "required": ["contract_version", "calculation_basis_status", "calculation_profile_version", "normalization_policy_version", "canonical_json_policy_version", "source_input", "configuration_sha256", "calculation_profile", "output_artifact_hash"],
+  "properties": {
+    "contract_version": {"const": "agf.bounded_natal.calculation_provenance.v1.0.0"},
+    "calculation_basis_status": {"const": "complete_bounded_live_profile"},
+    "calculation_profile_version": {"const": "agf.bounded_natal.calculation_profile.v1.0.0"},
+    "normalization_policy_version": {"const": "agf.bounded_birth_time.normalization_policy.v1.0.0"},
+    "canonical_json_policy_version": {"const": "agf.canonical_json.v1.0.0"},
+    "source_input": {"type": "object", "required": ["normalization_policy_version", "completeness", "sha256", "values", "included_fields", "excluded_descriptive_fields"]},
+    "configuration_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "calculation_profile": {"type": "object", "required": ["profile_version", "proof_profile", "bounded_feature_policy"]},
+    "output_artifact_hash": {"type": "object", "required": ["owner", "status", "algorithm", "boundary", "reason"]}
+  },
+  "additionalProperties": false
+}

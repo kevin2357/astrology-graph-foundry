@@ -74,3 +74,16 @@ motion bounds, and a future sprint should either reuse the generic pair evaluato
 with both clocks explicit or define a stronger two-dimensional proof. Importantly,
 provider failure and budget exhaustion are already distinct from a merely
 conditional transit contact.
+
+## Slice 4 implications
+
+The bounded artifact preserves all body and aspect ranges in an addressable
+uncertainty registry even though only invariant categories enter its canonical
+graph. A future Transit implementation should consume those range records directly;
+it must not treat `bounded_natal_body` as an exact transit target. Accordingly, the
+initial capability block disables exact longitude aspects and semantic activation.
+
+Stable source-scoped bounded body IDs give later transit results durable endpoints,
+while calculation provenance identifies which interval/proof profile supplied the
+range. Correcting bounds can therefore retain chart lineage but must produce new
+calculation and transit-contact evidence.

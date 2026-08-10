@@ -1,0 +1,18 @@
+{
+  "runtime": "Docker python:3.11-slim, pyswisseph 2.10.3.2, Moshier mode",
+  "input_mode": "unknown_time",
+  "schema_version": "1.0.0",
+  "graph_type": "bounded_canonical_astrology_graph",
+  "graph_version": "1.0.0",
+  "objects": 11,
+  "relationships": 13,
+  "uncertainty_bodies": 12,
+  "uncertainty_aspects": 66,
+  "object_precision_safe": true,
+  "relationship_precision_safe": true,
+  "uncertainty_references_resolve": true,
+  "no_dangling_graph_endpoints": true,
+  "supports_exact_longitudes": false,
+  "elapsed_seconds": 0.655,
+  "graph_sha256": "c1d8bdaed9b9ede73e159b60cde8dbb77068b6d53cd36bb9dc527c0a709c02c4"
+}

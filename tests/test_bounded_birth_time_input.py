@@ -252,7 +252,7 @@ def test_natal_cli_exposes_only_natal_bounded_flags():
     assert "--birth-local-earliest" not in transit_help.stdout
 
 
-def test_natal_boundary_rejects_conflicts_and_stops_before_unimplemented_calculation():
+def test_natal_boundary_rejects_conflicts_and_routes_bounded_calculation(monkeypatch):
     common = {
         "provider": "live",
         "name": "Scout",
@@ -267,9 +267,10 @@ def test_natal_boundary_rejects_conflicts_and_stops_before_unimplemented_calcula
             birth_local_earliest="2020-05-17T08:00:00",
             birth_local_latest="2020-05-17T14:00:00",
         )
-    with pytest.raises(NotImplementedError, match="not implemented until Slice 3"):
-        natal.build(
-            **common,
-            birth_local_earliest="2020-05-17T08:00:00",
-            birth_local_latest="2020-05-17T14:00:00",
-        )
+    sentinel = {"bounded": True}
+    monkeypatch.setattr(natal, "build_bounded_natal_package", lambda birth, config: sentinel)
+    assert natal.build(
+        **common,
+        birth_local_earliest="2020-05-17T08:00:00",
+        birth_local_latest="2020-05-17T14:00:00",
+    ) is sentinel

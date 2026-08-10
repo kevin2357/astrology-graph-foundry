@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded Natal Dataset v1",
+  "type": "object",
+  "required": ["metadata", "person", "birth_time_basis", "bounded_natal", "uncertainty_assessment", "capabilities", "canonical_astrology_graph", "structural_evidence_graph", "semantic_boundary"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["schema_version", "analysis_type", "person", "source_chart_id", "calculation_provenance"],
+      "properties": {
+        "schema_version": {"const": "1.0.0"},
+        "analysis_type": {"const": "bounded_natal_dataset"},
+        "canonical_graph_contract": {"const": "bounded_canonical_astrology_graph.v1"},
+        "calculation_provenance": {"$ref": "bounded_calculation_provenance_v1.schema.json"}
+      },
+      "additionalProperties": true
+    },
+    "birth_time_basis": {"type": "object"},
+    "bounded_natal": {"type": "object", "required": ["bodies", "aspects"]},
+    "uncertainty_assessment": {
+      "type": "object",
+      "required": ["status", "proof_profile", "interval", "evaluation_count", "failures", "body_evidence", "aspect_evidence", "evidence_registry", "feature_dispositions"]
+    },
+    "capabilities": {"type": "object"},
+    "canonical_astrology_graph": {"$ref": "bounded_canonical_astrology_graph_v1.schema.json"},
+    "structural_evidence_graph": {"$ref": "structural_evidence_graph_v1.schema.json"},
+    "semantic_boundary": {"type": "object"}
+  },
+  "additionalProperties": true
+}

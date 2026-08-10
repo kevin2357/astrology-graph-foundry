@@ -36,10 +36,13 @@ def test_installed_distribution_and_runtime_versions_agree():
 
 def test_packaged_schema_api_is_complete_and_rejects_unknown_names():
     names = schema_names()
-    assert len(names) == 35
+    assert len(names) == 38
     assert names == tuple(sorted(names))
     assert "birth_data_v1.schema.json" in names
     assert "bounded_birth_data_v1.schema.json" in names
+    assert "bounded_natal_dataset_v1.schema.json" in names
+    assert "bounded_canonical_astrology_graph_v1.schema.json" in names
+    assert "bounded_calculation_provenance_v1.schema.json" in names
     assert "canonical_astrology_graph_v1.schema.json" in names
     assert read_schema("canonical_astrology_graph_v1.schema.json")["title"]
     with pytest.raises(FileNotFoundError, match="Unknown packaged schema"):
@@ -56,7 +59,7 @@ def test_runtime_package_manifest_matches_packaged_bytes():
     manifest = build_runtime_package_manifest()
     assert manifest["manifest_type"] == RUNTIME_PACKAGE_MANIFEST_TYPE
     assert manifest["package_version"] == __version__
-    assert manifest["resource_count"] == 35
+    assert manifest["resource_count"] == 38
     paths = [resource["path"] for resource in manifest["resources"]]
     assert paths == sorted(paths)
     for resource in manifest["resources"]:
@@ -88,7 +91,7 @@ def test_primary_cli_emits_runtime_manifest(monkeypatch, capsys):
     cli_main()
     manifest = json.loads(capsys.readouterr().out)
     assert manifest["package_version"] == __version__
-    assert manifest["resource_count"] == 35
+    assert manifest["resource_count"] == 38
 
 
 def test_console_entries_render_optional_dependency_failures(monkeypatch):

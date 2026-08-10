@@ -13,11 +13,11 @@ Consumers should prefer:
     projection_views["orthodox_astrology.v1"]
 """
 
-from collections import Counter, defaultdict
+import re
+from collections import Counter
 from copy import deepcopy
 from hashlib import sha1
 from typing import Any
-import re
 
 from astrology_graph_foundry.common.identity import resolve_explicit_source_chart_id
 from astrology_graph_foundry.common.themes import theme_tags
@@ -358,7 +358,7 @@ def _semantic_identity(package: dict[str, Any]) -> dict[str, Any]:
             ("person.source_chart_id", person.get("source_chart_id")),
             ("natal.source_chart_id", natal.get("source_chart_id")),
         )
-    ) if analysis_type == "natal_dataset" else None
+    ) if analysis_type in {"natal_dataset", "bounded_natal_dataset"} else None
 
     direct_chart_id = resolve_explicit_source_chart_id(
         (
@@ -411,7 +411,7 @@ def _semantic_identity(package: dict[str, Any]) -> dict[str, Any]:
         source_chart_ids = [f"source:{_slug(analysis_type)}:{_stable_token(metadata)}"]
 
     primary = source_chart_ids[0]
-    if analysis_type in {"natal_dataset", "composite_dataset", "davison_relationship_dataset"}:
+    if analysis_type in {"natal_dataset", "bounded_natal_dataset", "composite_dataset", "davison_relationship_dataset"}:
         sensor_instance_id = primary
     elif analysis_type == "synastry_relationship_dataset":
         sensor_instance_id = f"synastry:{source_chart_ids[0]}:{source_chart_ids[1]}"
