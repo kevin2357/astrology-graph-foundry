@@ -76,6 +76,149 @@ def _sample_motion_state(speed: float, tolerance: float) -> str:
     return "stationary"
 
 
+def _scalar_envelope(
+    values: list[float],
+    speeds: list[float],
+    times: list[float],
+    factor: float,
+) -> tuple[float, float]:
+    padding = [
+        max(abs(speeds[index]), abs(speeds[index + 1]))
+        * (times[index + 1] - times[index])
+        * factor
+        for index in range(len(times) - 1)
+    ]
+    return (
+        min(values[index] - (padding[index - 1] if index else padding[0]) for index in range(len(values))),
+        max(values[index] + (padding[index - 1] if index else padding[0]) for index in range(len(values))),
+    )
+
+
+def _coordinate_evidence(
+    *,
+    name: str,
+    samples: Mapping[float, Mapping[str, Mapping[str, float | bool | None]]],
+    times: list[float],
+    value_key: str,
+    speed_key: str,
+    value_kind: str,
+    unit: str,
+    factor: float,
+    circular: bool = False,
+) -> dict[str, Any]:
+    values: list[float] = []
+    speeds: list[float] = []
+    for time in times:
+        row = samples[time].get(name) or {}
+        value, speed = row.get(value_key), row.get(speed_key)
+        if value is None or speed is None:
+            availability = str(
+                row.get(f"{value_key}_availability")
+                or row.get(f"{speed_key}_availability")
+                or "missing_provider_field"
+            )
+            return evidence_record(
+                feature_key=f"body:{name}:{value_key}",
+                classification="inconclusive",
+                value_kind=value_kind,
+                prerequisite_refs=[f"provider_position:{name}"],
+                availability=availability,
+                status_reason=str(
+                    row.get(f"{value_key}_status_reason")
+                    or row.get(f"{speed_key}_status_reason")
+                    or f"provider did not return {value_key} and {speed_key} at every evaluation"
+                ),
+            )
+        value, speed = float(value), float(speed)
+        if not math.isfinite(value) or not math.isfinite(speed):
+            return evidence_record(
+                feature_key=f"body:{name}:{value_key}",
+                classification="inconclusive",
+                value_kind=value_kind,
+                prerequisite_refs=[f"provider_position:{name}"],
+                availability="nonfinite_provider_value",
+                status_reason=f"provider returned non-finite {value_key} or {speed_key}",
+            )
+        values.append(value % 360.0 if circular else value)
+        speeds.append(speed)
+    proof_values = [values[0]]
+    if circular:
+        for value in values[1:]:
+            proof_values.append(_unwrap(value, proof_values[-1]))
+    else:
+        proof_values = values
+    low, high = _scalar_envelope(proof_values, speeds, times, factor)
+    range_evidence = (
+        circular_range_from_unwrapped(low, high, unit=unit)
+        if circular
+        else scalar_range(low, high, unit=unit, observed_low=min(values), observed_high=max(values))
+    )
+    return evidence_record(
+        feature_key=f"body:{name}:{value_key}",
+        classification="invariant" if high == low else "variable",
+        value_kind=value_kind,
+        prerequisite_refs=[f"provider_position:{name}", f"provider_speed:{name}:{speed_key}"],
+        range_evidence=range_evidence,
+        availability="available",
+    )
+
+
+def _speed_evidence(
+    *,
+    name: str,
+    samples: Mapping[float, Mapping[str, Mapping[str, float | bool | None]]],
+    times: list[float],
+    speed_key: str,
+    value_kind: str,
+    factor: float,
+) -> dict[str, Any]:
+    speeds = []
+    for time in times:
+        row = samples[time].get(name) or {}
+        speed = row.get(speed_key)
+        if speed is None:
+            availability = str(row.get(f"{speed_key}_availability") or "missing_provider_field")
+            return evidence_record(
+                feature_key=f"body:{name}:{speed_key}",
+                classification="inconclusive",
+                value_kind=value_kind,
+                prerequisite_refs=[f"provider_speed:{name}:{speed_key}"],
+                availability=availability,
+                status_reason=str(
+                    row.get(f"{speed_key}_status_reason")
+                    or f"provider did not return {speed_key} at every evaluation"
+                ),
+            )
+        speed = float(speed)
+        if not math.isfinite(speed):
+            return evidence_record(
+                feature_key=f"body:{name}:{speed_key}",
+                classification="inconclusive",
+                value_kind=value_kind,
+                prerequisite_refs=[f"provider_speed:{name}:{speed_key}"],
+                availability="nonfinite_provider_value",
+                status_reason=f"provider returned non-finite {speed_key}",
+            )
+        speeds.append(speed)
+    padding = max(
+        (abs(speeds[index + 1] - speeds[index]) * factor for index in range(len(speeds) - 1)),
+        default=0.0,
+    )
+    low, high = min(speeds) - padding, max(speeds) + padding
+    return evidence_record(
+        feature_key=f"body:{name}:{speed_key}",
+        classification="invariant" if high == low else "variable",
+        value_kind=value_kind,
+        prerequisite_refs=[f"provider_speed:{name}:{speed_key}"],
+        range_evidence=scalar_range(
+            low,
+            high,
+            unit="degrees_per_day",
+            observed_low=min(speeds),
+            observed_high=max(speeds),
+        ),
+        availability="available",
+    )
 def _distance(a: float, b: float) -> float:
     return abs((a - b + 180.0) % 360.0 - 180.0)
 
@@ -150,13 +293,7 @@ def evaluate_interval(
         for value in values[1:]:
             path.append(_unwrap(value, path[-1]))
         unwrapped[name] = path
-        segment_padding = []
-        for index in range(len(times) - 1):
-            duration = times[index + 1] - times[index]
-            observed_speed = max(abs(speeds[index]), abs(speeds[index + 1]))
-            segment_padding.append(observed_speed * duration * profile.speed_envelope_factor)
-        low = min(path[index] - (segment_padding[index - 1] if index else segment_padding[0]) for index in range(len(path)))
-        high = max(path[index] + (segment_padding[index - 1] if index else segment_padding[0]) for index in range(len(path)))
+        low, high = _scalar_envelope(path, speeds, times, profile.speed_envelope_factor)
         signs = _signs_for_range(low, high, profile.longitude_tolerance_degrees)
         speed_padding = max(
             (abs(speeds[index + 1] - speeds[index]) * profile.speed_envelope_factor for index in range(len(speeds) - 1)),
@@ -182,6 +319,12 @@ def evaluate_interval(
                 "fall": EXALTATIONS.get(name) == opposite,
                 "sect_dependent_components": "unavailable",
             }
+        dignity_components = []
+        if sign_dignity is not None:
+            dignity_components = [
+                f"{key}={str(sign_dignity[key]).lower()}"
+                for key in ("domicile_traditional", "domicile_modern", "exaltation", "detriment_traditional", "fall")
+            ]
         bodies[name] = {
             "classification": "invariant" if len(signs) == 1 and len(motions) == 1 else "variable",
             "longitude_range": {"unwrapped_min": low, "unwrapped_max": high, "possible_sign_indexes": signs},
@@ -241,6 +384,78 @@ def evaluate_interval(
                         if motion_values
                         else []
                     ),
+                ),
+                "longitude_speed": _speed_evidence(
+                    name=name,
+                    samples=samples,
+                    times=times,
+                    speed_key="speed_lon",
+                    value_kind="ecliptic_longitude_speed_range",
+                    factor=profile.speed_envelope_factor,
+                ),
+                "latitude": _coordinate_evidence(
+                    name=name,
+                    samples=samples,
+                    times=times,
+                    value_key="lat",
+                    speed_key="speed_lat",
+                    value_kind="ecliptic_latitude_range",
+                    unit="degrees",
+                    factor=profile.speed_envelope_factor,
+                ),
+                "latitude_speed": _speed_evidence(
+                    name=name,
+                    samples=samples,
+                    times=times,
+                    speed_key="speed_lat",
+                    value_kind="ecliptic_latitude_speed_range",
+                    factor=profile.speed_envelope_factor,
+                ),
+                "right_ascension": _coordinate_evidence(
+                    name=name,
+                    samples=samples,
+                    times=times,
+                    value_key="right_ascension",
+                    speed_key="right_ascension_speed",
+                    value_kind="equatorial_right_ascension_range",
+                    unit="degrees",
+                    factor=profile.speed_envelope_factor,
+                    circular=True,
+                ),
+                "right_ascension_speed": _speed_evidence(
+                    name=name,
+                    samples=samples,
+                    times=times,
+                    speed_key="right_ascension_speed",
+                    value_kind="equatorial_right_ascension_speed_range",
+                    factor=profile.speed_envelope_factor,
+                ),
+                "declination": _coordinate_evidence(
+                    name=name,
+                    samples=samples,
+                    times=times,
+                    value_key="declination",
+                    speed_key="declination_speed",
+                    value_kind="equatorial_declination_range",
+                    unit="degrees",
+                    factor=profile.speed_envelope_factor,
+                ),
+                "declination_speed": _speed_evidence(
+                    name=name,
+                    samples=samples,
+                    times=times,
+                    speed_key="declination_speed",
+                    value_kind="equatorial_declination_speed_range",
+                    factor=profile.speed_envelope_factor,
+                ),
+                "dignity": evidence_record(
+                    feature_key=f"body:{name}:sign_dignity",
+                    classification="invariant" if sign_dignity is not None else "variable",
+                    value_kind="non_sect_sign_dignity_components",
+                    possibilities=dignity_components,
+                    prerequisite_refs=[f"body:{name}:sign"],
+                    availability="available",
+                    status_reason=(None if sign_dignity is not None else "zodiac sign varies across interval"),
                 ),
             },
         }

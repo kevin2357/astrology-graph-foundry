@@ -1,0 +1,39 @@
+{
+  "artifact_type": "agf_slice3_rich_body_coordinate_live_summary",
+  "runtime": {
+    "platform": "linux_x86_64_glibc",
+    "python": "3.11",
+    "pyswisseph": "2.10.3.2",
+    "ephemeris_mode": "moshier",
+    "external_ephemeris_files": false,
+    "optional_file_backed_points": false
+  },
+  "interval": {
+    "duration_hours": 4,
+    "inclusive_minute_evaluations": 241
+  },
+  "coverage": {
+    "ordinary_body_count": 12,
+    "evidence_records_validated": 132,
+    "available_for_every_body": [
+      "longitude",
+      "longitude_speed",
+      "sign",
+      "motion",
+      "latitude",
+      "latitude_speed",
+      "right_ascension",
+      "right_ascension_speed",
+      "declination",
+      "declination_speed",
+      "non_sect_sign_dignity"
+    ],
+    "inconclusive_coordinate_or_speed_records": 0
+  },
+  "calculation_profile_version": "agf.bounded_natal.calculation_profile.v1.2.0",
+  "evidence_contract_version": "agf.bounded_uncertainty_evidence.v1.0.0",
+  "calculation_wall_seconds": 1.773,
+  "retained_live_artifact": false,
+  "temporary_artifact_sha256": "fbbb0056aa08faec51befc3d8a4951e94e699b171915b119e265b4b20e290f16",
+  "temporary_artifact_bytes": 756591
+}

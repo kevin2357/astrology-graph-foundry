@@ -163,10 +163,12 @@ def evidence_record(
     transitions: Iterable[Mapping[str, Any]] = (),
     counterexample_rows: Iterable[Mapping[str, Any]] = (),
     proof_scope: str = "complete_normalized_birth_interval",
+    availability: str | None = None,
+    status_reason: str | None = None,
 ) -> dict[str, Any]:
     """Build the common additive evidence envelope used by bounded feature rows."""
 
-    return {
+    record = {
         "evidence_contract_version": EVIDENCE_CONTRACT_VERSION,
         "feature_key": feature_key,
         "classification": classification,
@@ -178,3 +180,8 @@ def evidence_record(
         "counterexamples": [dict(row) for row in counterexample_rows],
         "proof_scope": proof_scope,
     }
+    if availability is not None:
+        record["availability"] = availability
+    if status_reason is not None:
+        record["status_reason"] = status_reason
+    return record

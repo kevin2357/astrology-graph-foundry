@@ -32,10 +32,12 @@ exact serialized bytes because operational `created_at` belongs to that envelope
 ## Downstream consumption
 
 The canonical graph contains only invariant categorical body and aspect facts.
-Longitude, speed, and orb ranges live in `uncertainty_assessment.evidence_registry`
-and are referenced by canonical rows. Consumers may filter canonical rows while
-retaining evidence references and provenance. They must not convert a range endpoint
-or midpoint into an exact placement.
+Longitude, ecliptic latitude, right ascension, declination, available coordinate
+speeds, and orb ranges live in `uncertainty_assessment.evidence_registry` and are
+referenced by canonical rows. Consumers may filter canonical rows while retaining
+evidence references and provenance. They must not convert a range endpoint or
+midpoint into an exact placement. Coordinate evidence also distinguishes missing or
+non-finite provider fields from provider calculation failure.
 
 Newer working artifacts may additionally advertise
 `agf.bounded_uncertainty_evidence.v1.0.0`. Its circular segment sets,

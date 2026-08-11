@@ -57,7 +57,8 @@ def planet_position(swe: Any, jd_ut: float, swe_id: int, flags: int | None = Non
     lon = normalize(float(xx[0]))
     lat = float(xx[1]) if len(xx) > 1 else None
     speed = float(xx[3]) if len(xx) > 3 else None
-    return {"lon": lon, "lat": lat, "speed_lon": speed, "retrograde": bool(speed is not None and speed < 0), "pretty": format_zodiac(lon), "absolute_dms": decimal_to_dms(lon), "ephemeris_return_flags": returned_flags, "ephemeris_actual": ephemeris_name_from_flags(swe, returned_flags)}
+    speed_lat = float(xx[4]) if len(xx) > 4 else None
+    return {"lon": lon, "lat": lat, "speed_lon": speed, "speed_lat": speed_lat, "retrograde": bool(speed is not None and speed < 0), "pretty": format_zodiac(lon), "absolute_dms": decimal_to_dms(lon), "ephemeris_return_flags": returned_flags, "ephemeris_actual": ephemeris_name_from_flags(swe, returned_flags)}
 
 def safe_planet_position(swe: Any, jd_ut: float, swe_id: int, flags: int | None = None) -> tuple[dict[str, Any] | None, str | None]:
     try:
@@ -137,12 +138,22 @@ def antiscia(lon: float) -> dict[str, Any]:
 def harmonic_positions(lon: float, numbers: tuple[int, ...]) -> dict[str, Any]:
     return {str(n): {"lon": normalize(lon * n), "pretty": format_zodiac(normalize(lon * n))} for n in numbers}
 
-def declination_position(swe: Any, jd_ut: float, swe_id: int, ephemeris_mode: str = "auto") -> dict[str, Any] | None:
+def declination_position(
+    swe: Any,
+    jd_ut: float,
+    swe_id: int,
+    ephemeris_mode: str = "auto",
+    *,
+    include_speeds: bool = False,
+) -> dict[str, Any] | None:
     flags = ephemeris_flag(swe, ephemeris_mode) | swe.FLG_SPEED | swe.FLG_EQUATORIAL
     pos, err = safe_planet_position(swe, jd_ut, swe_id, flags)
     if err or pos is None:
         return None
-    return {"right_ascension": pos["lon"], "declination": pos["lat"], "declination_pretty": None if pos["lat"] is None else f"{pos['lat']:.5f}°", "ephemeris_actual": pos["ephemeris_actual"], "ephemeris_return_flags": pos["ephemeris_return_flags"]}
+    result = {"right_ascension": pos["lon"], "declination": pos["lat"], "declination_pretty": None if pos["lat"] is None else f"{pos['lat']:.5f}°", "ephemeris_actual": pos["ephemeris_actual"], "ephemeris_return_flags": pos["ephemeris_return_flags"]}
+    if include_speeds:
+        result.update({"right_ascension_speed": pos["speed_lon"], "declination_speed": pos["speed_lat"]})
+    return result
 
 def declination_aspects(bodies: dict[str, dict[str, Any]], orb: float = 1.0) -> list[dict[str, Any]]:
     rows = []
@@ -199,6 +210,22 @@ def evaluate_bounded_natal_interval(
             position, error = safe_planet_position(swe, jd_ut, swe_id, flags)
             if error or position is None:
                 raise RuntimeError(f"{name}: {error or 'unknown calculation failure'}")
+            equatorial_flags = flags | swe.FLG_EQUATORIAL
+            equatorial, equatorial_error = safe_planet_position(swe, jd_ut, swe_id, equatorial_flags)
+            if equatorial_error or equatorial is None:
+                reason = equatorial_error or "unknown equatorial calculation failure"
+                for key in ("right_ascension", "right_ascension_speed", "declination", "declination_speed"):
+                    position[f"{key}_availability"] = "provider_failure"
+                    position[f"{key}_status_reason"] = reason
+            else:
+                position.update(
+                    {
+                        "right_ascension": equatorial["lon"],
+                        "declination": equatorial["lat"],
+                        "right_ascension_speed": equatorial["speed_lon"],
+                        "declination_speed": equatorial["speed_lat"],
+                    }
+                )
             positions[name] = position
         return positions
 

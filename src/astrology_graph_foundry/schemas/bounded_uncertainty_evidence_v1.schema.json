@@ -72,7 +72,9 @@
     },
     "transition_witnesses": {"type": "array", "items": {"type": "object"}},
     "counterexamples": {"type": "array", "items": {"type": "object"}},
-    "proof_scope": {"type": "string", "minLength": 1}
+    "proof_scope": {"type": "string", "minLength": 1},
+    "availability": {"enum": ["available", "disabled_by_configuration", "unsupported_provider_field", "missing_provider_field", "nonfinite_provider_value", "provider_failure"]},
+    "status_reason": {"type": "string", "minLength": 1}
   },
   "additionalProperties": false
 }

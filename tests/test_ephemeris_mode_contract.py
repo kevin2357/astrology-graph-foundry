@@ -31,6 +31,7 @@ def test_explicit_moshier_request_records_actual_returned_mode():
     result = planet_position(swe, 2451545.0, 0, ephemeris_flag(swe, "moshier") | swe.FLG_SPEED)
     assert result["ephemeris_actual"] == "moshier"
     assert result["ephemeris_return_flags"] == FakeSwiss.FLG_MOSEPH | FakeSwiss.FLG_SPEED
+    assert result["speed_lat"] == 0.0
 
 
 def test_explicit_mode_rejects_silent_fallback_but_auto_allows_observation():

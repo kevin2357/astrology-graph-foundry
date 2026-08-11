@@ -14,6 +14,34 @@ def _linear(**bodies):
     return evaluate
 
 
+def _rich_linear(**bodies):
+    def evaluate(jd):
+        return {
+            name: {
+                "lon": (start + speed * jd) % 360,
+                "speed_lon": speed,
+                "lat": latitude + latitude_speed * jd,
+                "speed_lat": latitude_speed,
+                "right_ascension": (right_ascension + right_ascension_speed * jd) % 360,
+                "right_ascension_speed": right_ascension_speed,
+                "declination": declination + declination_speed * jd,
+                "declination_speed": declination_speed,
+            }
+            for name, (
+                start,
+                speed,
+                latitude,
+                latitude_speed,
+                right_ascension,
+                right_ascension_speed,
+                declination,
+                declination_speed,
+            ) in bodies.items()
+        }
+
+    return evaluate
+
+
 def test_stable_and_variable_moon_signs():
     stable = evaluate_interval(0, 0.25, {"Moon": 1}, _linear(Moon=(5, 13)), profile=PROFILE)
     variable = evaluate_interval(0, 0.25, {"Moon": 1}, _linear(Moon=(29, 13)), profile=PROFILE)
@@ -102,3 +130,54 @@ def test_aspect_generalized_evidence_preserves_endpoint_prerequisites():
     assert row["possibilities"]["values"] == ["trine"]
     assert row["prerequisite_refs"] == ["body:Moon:longitude", "body:Sun:longitude"]
     assert row["range_evidence"]["range_type"] == "scalar_closed"
+
+
+def test_rich_coordinate_ranges_match_exhaustive_sample_oracle_and_preserve_dignity_truths():
+    evaluator = _rich_linear(Mars=(10, 1, -2, 0.2, 359.9, 2, -20, 0.5))
+    result = evaluate_interval(0, 0.1, {"Mars": 4}, evaluator, profile=PROFILE)
+    evidence = result["bodies"]["Mars"]["evidence"]
+    assert evidence["latitude"]["availability"] == "available"
+    assert evidence["latitude"]["range_evidence"]["observed"] == {"minimum": -2.0, "maximum": -1.98}
+    assert evidence["declination"]["range_evidence"]["observed"] == {"minimum": -20.0, "maximum": -19.95}
+    assert evidence["right_ascension"]["range_evidence"]["wraps_origin"] is True
+    assert evidence["dignity"]["possibilities"]["values"] == [
+        "detriment_traditional=false",
+        "domicile_modern=true",
+        "domicile_traditional=true",
+        "exaltation=false",
+        "fall=false",
+    ]
+
+
+def test_missing_and_nonfinite_optional_provider_fields_are_feature_local():
+    missing = evaluate_interval(0, 0.1, {"Sun": 0}, _linear(Sun=(10, 1)), profile=PROFILE)
+    assert missing["status"] == "complete"
+    assert missing["bodies"]["Sun"]["evidence"]["declination"]["classification"] == "inconclusive"
+    assert missing["bodies"]["Sun"]["evidence"]["declination"]["availability"] == "missing_provider_field"
+
+    def nonfinite(jd):
+        row = _rich_linear(Sun=(10, 1, 0, 0, 10, 1, 0, 0))(jd)
+        row["Sun"]["declination"] = math.nan
+        return row
+
+    result = evaluate_interval(0, 0.1, {"Sun": 0}, nonfinite, profile=PROFILE)
+    assert result["bodies"]["Sun"]["evidence"]["declination"]["availability"] == "nonfinite_provider_value"
+
+
+def test_feature_local_provider_failure_is_not_mislabeled_as_missing_data():
+    def failed_equatorial(jd):
+        row = _linear(Sun=(10, 1))(jd)
+        row["Sun"].update(
+            {
+                "declination_availability": "provider_failure",
+                "declination_status_reason": "synthetic equatorial failure",
+                "declination_speed_availability": "provider_failure",
+                "declination_speed_status_reason": "synthetic equatorial failure",
+            }
+        )
+        return row
+
+    result = evaluate_interval(0, 0.1, {"Sun": 0}, failed_equatorial, profile=PROFILE)
+    evidence = result["bodies"]["Sun"]["evidence"]["declination"]
+    assert evidence["availability"] == "provider_failure"
+    assert evidence["status_reason"] == "synthetic equatorial failure"

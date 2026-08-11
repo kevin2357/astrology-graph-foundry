@@ -90,6 +90,9 @@ endpoint category after changing inside the interval.
 The 0.7.0 candidate conservatively assesses:
 
 - bounded longitude ranges for ordinary configured bodies;
+- bounded ecliptic-latitude, right-ascension, and declination ranges;
+- bounded ranges for the longitude, latitude, right-ascension, and declination
+  speeds returned by Swiss Ephemeris;
 - invariant versus possible zodiac signs;
 - invariant versus variable motion state;
 - sign-dependent dignity only when its inputs are invariant; and
@@ -138,6 +141,12 @@ The post-0.7.0 working source formalizes
 - compact counterexamples explaining withheld invariance; and
 - an explicit complete-normalized-birth-interval proof scope.
 
+Coordinate evidence records whether the provider field was available, missing,
+non-finite, or failed calculation. A failed equatorial calculation therefore makes
+right ascension and declination inconclusive without erasing an otherwise valid
+ecliptic placement. Numeric ranges remain evidence and are not promoted as exact
+canonical coordinates.
+
 This is deliberate dual-write compatibility. Saved 0.7-shaped artifacts remain
 readable and valid under their original contract; consumers should feature-detect
 the new `evidence_contract_version` rather than assuming every bounded artifact has
@@ -181,8 +190,10 @@ interval, unwraps circular longitude, and adds speed-derived safety envelopes to
 longitude and aspect ranges. Provider failure, non-finite/missing point data, and
 evaluation-budget exhaustion are inconclusive. Inconclusive evidence is never
 promoted merely because sampled endpoints agree. Controlled Linux/Python 3.11
-Moshier evidence measured approximately 0.70 seconds for 24 hours and 1.27 seconds
-for the maximum 48 hours.
+Moshier evidence for the original longitude-only evaluator measured approximately
+0.70 seconds for 24 hours and 1.27 seconds for the maximum 48 hours. A Slice 3
+four-hour run including ecliptic and equatorial coordinates and speeds completed in
+1.77 seconds; broader-duration performance is requalified at the final sprint gate.
 
 ## Identity, hashing, and provenance
 

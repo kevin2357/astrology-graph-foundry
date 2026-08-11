@@ -80,6 +80,7 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.2.0"
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
@@ -100,7 +101,9 @@ def test_reduced_capabilities_and_feature_dispositions_are_explicit(monkeypatch)
     dispositions = package["uncertainty_assessment"]["feature_dispositions"]
     assert dispositions["houses"] == "unavailable_birth_time_dependent"
     assert dispositions["representative_longitudes"] == "prohibited_precision_laundering"
-    assert dispositions["declinations"] == "deferred_interval_semantics"
+    assert dispositions["declinations"] == "assessed_as_continuous_ranges"
+    assert package["capabilities"]["supports_bounded_body_coordinate_evidence"] is True
+    assert package["capabilities"]["supports_bounded_declination_evidence"] is True
 
 
 def test_ids_are_deterministic_scoped_and_display_name_independent(monkeypatch):

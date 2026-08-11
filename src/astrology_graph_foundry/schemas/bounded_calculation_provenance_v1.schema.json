@@ -9,7 +9,8 @@
     "calculation_profile_version": {
       "enum": [
         "agf.bounded_natal.calculation_profile.v1.0.0",
-        "agf.bounded_natal.calculation_profile.v1.1.0"
+        "agf.bounded_natal.calculation_profile.v1.1.0",
+        "agf.bounded_natal.calculation_profile.v1.2.0"
       ]
     },
     "normalization_policy_version": {"const": "agf.bounded_birth_time.normalization_policy.v1.0.0"},
