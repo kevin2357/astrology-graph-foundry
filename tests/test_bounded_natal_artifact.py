@@ -80,11 +80,12 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.2.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.3.0"
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
+    assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
-    assert graph["graph_version"] == "1.0.0"
+    assert graph["graph_version"] == "1.1.0"
     assert {row["name"] for row in graph["objects"]} == {"Sun", "Mars"}
     assert len(graph["relationships"]) == 1
     assert all(not ({"longitude", "pretty", "sign_degree"} & row.keys()) for row in graph["objects"])
@@ -129,6 +130,7 @@ def test_repeated_finalization_is_idempotent(monkeypatch):
 
 def test_pre_generalized_bounded_artifact_remains_schema_valid(monkeypatch):
     package = _build(monkeypatch)
+    package["canonical_astrology_graph"]["graph_version"] = "1.0.0"
     assessment = package["uncertainty_assessment"]
     assessment.pop("evidence_contract_version", None)
     for row in list(assessment["body_evidence"].values()) + list(assessment["aspect_evidence"]):
@@ -139,3 +141,63 @@ def test_pre_generalized_bounded_artifact_remains_schema_valid(monkeypatch):
     provenance["calculation_profile"].pop("evidence_contract_version", None)
     schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator(schema, registry=_registry()).validate(package)
+
+
+def test_invariant_transforms_materialize_without_exact_longitudes_and_keep_owner_lineage(monkeypatch):
+    assessment = _assessment()
+    assessment["bodies"]["Sun"]["transforms"] = {
+        "antiscia": {
+            "classification": "invariant",
+            "possible_sign_indexes": [5],
+            "evidence": {"feature_key": "body:Sun:transform:antiscia"},
+        },
+        "contra_antiscia": {
+            "classification": "variable",
+            "possible_sign_indexes": [5, 6],
+            "evidence": {"feature_key": "body:Sun:transform:contra_antiscia"},
+        },
+        "harmonics": {
+            "3": {
+                "classification": "invariant",
+                "possible_sign_indexes": [1],
+                "evidence": {"feature_key": "body:Sun:transform:harmonic:3"},
+            },
+            "9": {
+                "classification": "variable",
+                "possible_sign_indexes": list(range(12)),
+                "evidence": {"feature_key": "body:Sun:transform:harmonic:9"},
+            },
+        },
+    }
+    monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(assessment))
+    package = bounded_natal.build_bounded_natal_package(_birth(), ProviderConfig(ephemeris_mode="moshier"))
+    graph = package["canonical_astrology_graph"]
+    derived = [row for row in graph["objects"] if row["object_type"] != "bounded_natal_body"]
+    assert {row["object_type"] for row in derived} == {"bounded_antiscia_point", "bounded_harmonic_point"}
+    assert all("longitude" not in row and "motion_state" not in row for row in derived)
+    object_ids = {row["id"] for row in graph["objects"]}
+    assert all(row["owner_object_ref"] in object_ids for row in derived)
+    owner_relationships = [row for row in graph["relationships"] if row["relationship_type"].startswith("BOUNDED_HAS_")]
+    assert len(owner_relationships) == 2
+    assert all(row["source_id"] in object_ids and row["target_id"] in object_ids for row in owner_relationships)
+    assert all(row["uncertainty_evidence_ref"] in package["uncertainty_assessment"]["evidence_registry"] for row in derived)
+    schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
+    Draft202012Validator(schema, registry=_registry()).validate(package)
+
+
+def test_transform_configuration_changes_bounded_configuration_identity(monkeypatch):
+    monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(_assessment()))
+    default = bounded_natal.build_bounded_natal_package(_birth(), ProviderConfig(ephemeris_mode="moshier"))
+    changed = bounded_natal.build_bounded_natal_package(
+        _birth(),
+        ProviderConfig(ephemeris_mode="moshier", harmonic_numbers=(3, 5)),
+    )
+    disabled = bounded_natal.build_bounded_natal_package(
+        _birth(),
+        ProviderConfig(ephemeris_mode="moshier", include_antiscia=False, include_harmonics=False),
+    )
+    hashes = {
+        row["metadata"]["calculation_provenance"]["configuration_sha256"]
+        for row in (default, changed, disabled)
+    }
+    assert len(hashes) == 3

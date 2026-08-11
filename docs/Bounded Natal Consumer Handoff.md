@@ -39,6 +39,13 @@ evidence references and provenance. They must not convert a range endpoint or
 midpoint into an exact placement. Coordinate evidence also distinguishes missing or
 non-finite provider fields from provider calculation failure.
 
+Bounded canonical graph 1.1.0 adds bounded antiscia, contra-antiscia, and harmonic
+derived objects plus explicit owner-lineage relationships. These rows assert only
+an invariant transformed sign. Consumers must not interpret their familiar
+astrological transform names as evidence that an exact transformed longitude is
+present. Graph 1.0.0 remains valid and contains only the original bounded body and
+aspect vocabulary.
+
 Newer working artifacts may additionally advertise
 `agf.bounded_uncertainty_evidence.v1.0.0`. Its circular segment sets,
 prerequisites, transition witnesses, and counterexamples are additive to the legacy

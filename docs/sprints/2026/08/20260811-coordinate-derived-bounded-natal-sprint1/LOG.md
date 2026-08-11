@@ -137,3 +137,47 @@ completed implementation slices.
   output directories from `C:\tmp`; retained only compact summary, artifact size,
   and SHA-256 evidence. The reusable QA image remains intentionally available for
   later slices.
+
+## 2026-08-11 — Slice 4 coordinate-derived points and transforms
+
+- Began from approved, committed, and pushed Slice 3 boundary `c8ac246`.
+- Implemented analytic antiscia (`180 - longitude`), contra-antiscia
+  (`180 + longitude`), and configured harmonic (`n × longitude`) transforms over
+  the conservative unwrapped source-longitude proof envelope.
+- Circular origin crossings retain ordered closed segments. Harmonic images whose
+  envelope width reaches 360 degrees become explicit full-circle coverage rather
+  than misleading min/max arcs or representative points.
+- Added transformed sign possibilities, transition witnesses, counterexamples, and
+  prerequisite reference to the owning body's longitude evidence. Disabled
+  antiscia/harmonic configuration produces no transform rows rather than variability.
+- Promoted only invariant transformed signs into new bounded derived graph objects,
+  with deterministic chart-scoped IDs and explicit owner relationships. Derived
+  objects contain no longitude or fabricated motion state; variable transforms stay
+  evidence-only.
+- Advanced bounded canonical graph 1.0.0 to 1.1.0 for the expanded object and
+  relationship vocabulary. The v1 schema continues to accept saved 1.0.0 graphs.
+- Closed a provenance gap: transform enablement and the ordered configured harmonic
+  numbers now participate in the calculation profile and configuration hash.
+  Advanced bounded calculation profile 1.2.0 to 1.3.0; earlier profiles remain
+  schema-valid.
+- Focused tests cover antiscia/contra lineage, origin crossing, repeated harmonic
+  wraps, full-circle suppression, disabled transforms, graph endpoint/reference
+  integrity, configuration-hash separation, and exact-minute sign-set oracle
+  agreement away from safety boundaries.
+- Controlled live execution used reusable image
+  `agf-bounded-qa:py311-pyswe-2.10.3.2`. A four-hour, 241-state Moshier artifact
+  retained 12 antiscia, 12 contra-antiscia, and 69 of 72 harmonic derived objects;
+  three harmonic signs were correctly withheld as variable. The graph contained 105
+  objects and 109 relationships, and the evidence registry contained 174 entries.
+- Regenerated the live artifact after the approved graph/profile version advances.
+  Bounded Dataset schema validation passed for graph 1.1.0/profile 1.3.0; the
+  temporary 1,673,236-byte artifact SHA-256 was
+  `2f57b16d5e41fb6f44f2304fd036f2d90cf0b33e828de47a2adc4a79c936424b`.
+- No downstream repository, release tag, or published artifact was changed. Slice
+  remains uncommitted pending final Gate 4 validation and approval.
+- Final focused Ruff passed. The full suite passed 231 tests in 28.83 seconds;
+  43 schema/result JSON files parsed and `git diff --check` passed.
+- Five changed Markdown files passed relative-link and trailing-whitespace checks.
+  Reviewed the final diff and removed the temporary Slice 4 live directory from
+  `C:\tmp`; only the compact summary and SHA-256 remain. The reusable QA image was
+  retained intentionally.

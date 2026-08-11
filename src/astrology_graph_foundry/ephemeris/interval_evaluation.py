@@ -219,6 +219,49 @@ def _speed_evidence(
         ),
         availability="available",
     )
+
+
+def _transform_evidence(
+    *,
+    name: str,
+    transform_key: str,
+    source_low: float,
+    source_high: float,
+    source_values: list[float],
+    times: list[float],
+    multiplier: float,
+    offset: float,
+) -> dict[str, Any]:
+    first, second = multiplier * source_low + offset, multiplier * source_high + offset
+    low, high = min(first, second), max(first, second)
+    transformed_values = [(multiplier * value + offset) % 360.0 for value in source_values]
+    sign_indexes = _signs_for_range(low, high, 0.0)
+    sign_values = [SIGNS[int(value // 30) % 12] for value in transformed_values]
+    classification: EvidenceClassification = "invariant" if len(sign_indexes) == 1 else "variable"
+    return {
+        "classification": classification,
+        "possible_sign_indexes": sign_indexes,
+        "evidence": evidence_record(
+            feature_key=f"body:{name}:transform:{transform_key}",
+            classification=classification,
+            value_kind="transformed_ecliptic_longitude",
+            possibilities=(SIGNS[index] for index in sign_indexes),
+            prerequisite_refs=[f"body:{name}:longitude"],
+            range_evidence=circular_range_from_unwrapped(low, high),
+            transitions=transition_witnesses(sign_values, times, coordinate_unit="jd_ut"),
+            counterexample_rows=(
+                counterexamples(
+                    sign_values,
+                    times,
+                    expected=sign_values[0],
+                    coordinate_unit="jd_ut",
+                )
+                if sign_values
+                else []
+            ),
+            availability="available",
+        ),
+    }
 def _distance(a: float, b: float) -> float:
     return abs((a - b + 180.0) % 360.0 - 180.0)
 
@@ -242,6 +285,9 @@ def evaluate_interval(
     evaluator: PositionEvaluator,
     *,
     include_minor: bool = True,
+    include_antiscia: bool = True,
+    include_harmonics: bool = True,
+    harmonic_numbers: tuple[int, ...] = (2, 3, 4, 5, 7, 9),
     profile: IntervalProofProfile | None = None,
 ) -> dict[str, Any]:
     """Conservatively classify body and aspect facts over a Julian-day interval.
@@ -325,6 +371,42 @@ def evaluate_interval(
                 f"{key}={str(sign_dignity[key]).lower()}"
                 for key in ("domicile_traditional", "domicile_modern", "exaltation", "detriment_traditional", "fall")
             ]
+        transforms: dict[str, Any] = {}
+        if include_antiscia:
+            transforms["antiscia"] = _transform_evidence(
+                name=name,
+                transform_key="antiscia",
+                source_low=low,
+                source_high=high,
+                source_values=values,
+                times=times,
+                multiplier=-1.0,
+                offset=180.0,
+            )
+            transforms["contra_antiscia"] = _transform_evidence(
+                name=name,
+                transform_key="contra_antiscia",
+                source_low=low,
+                source_high=high,
+                source_values=values,
+                times=times,
+                multiplier=1.0,
+                offset=180.0,
+            )
+        if include_harmonics:
+            transforms["harmonics"] = {
+                str(number): _transform_evidence(
+                    name=name,
+                    transform_key=f"harmonic:{number}",
+                    source_low=low,
+                    source_high=high,
+                    source_values=values,
+                    times=times,
+                    multiplier=float(number),
+                    offset=0.0,
+                )
+                for number in harmonic_numbers
+            }
         bodies[name] = {
             "classification": "invariant" if len(signs) == 1 and len(motions) == 1 else "variable",
             "longitude_range": {"unwrapped_min": low, "unwrapped_max": high, "possible_sign_indexes": signs},
@@ -336,6 +418,7 @@ def evaluate_interval(
             },
             "sign_dignity": sign_dignity,
             "sample_count": len(times),
+            "transforms": transforms,
             "evidence": {
                 "longitude": evidence_record(
                     feature_key=f"body:{name}:longitude",

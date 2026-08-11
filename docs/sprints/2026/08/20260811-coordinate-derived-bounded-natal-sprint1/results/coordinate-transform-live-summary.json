@@ -1,0 +1,30 @@
+{
+  "artifact_type": "agf_slice4_coordinate_transform_live_summary",
+  "runtime_image": "agf-bounded-qa:py311-pyswe-2.10.3.2",
+  "interval_evaluations": 241,
+  "ordinary_body_count": 12,
+  "canonical_graph_version": "1.1.0",
+  "calculation_profile_version": "agf.bounded_natal.calculation_profile.v1.3.0",
+  "canonical_objects": {
+    "bounded_natal_body": 12,
+    "bounded_antiscia_point": 12,
+    "bounded_contra_antiscia_point": 12,
+    "bounded_harmonic_point": 69,
+    "total": 105
+  },
+  "canonical_relationships": {
+    "bounded_invariant_aspect": 16,
+    "bounded_has_antiscia_point": 12,
+    "bounded_has_contra_antiscia_point": 12,
+    "bounded_has_harmonic_point": 69,
+    "total": 109
+  },
+  "configured_harmonic_candidates": 72,
+  "invariant_harmonic_signs_promoted": 69,
+  "variable_harmonic_signs_withheld": 3,
+  "evidence_registry_entries": 174,
+  "retained_live_artifact": false,
+  "temporary_artifact_sha256": "2f57b16d5e41fb6f44f2304fd036f2d90cf0b33e828de47a2adc4a79c936424b",
+  "temporary_artifact_bytes": 1673236,
+  "dataset_schema_validation": "passed"
+}

@@ -12,7 +12,7 @@ from astrology_graph_foundry.ephemeris.live_natal import evaluate_bounded_natal_
 from astrology_graph_foundry.ephemeris.models import BoundedBirthData, ProviderConfig
 
 BOUNDED_NATAL_SCHEMA_VERSION = "1.0.0"
-BOUNDED_GRAPH_VERSION = "1.0.0"
+BOUNDED_GRAPH_VERSION = "1.1.0"
 
 
 def _body_id(name: str) -> str:
@@ -23,6 +23,16 @@ def _body_id(name: str) -> str:
 
 def _relationship_id(first: str, second: str, aspect: str) -> str:
     return f"bounded_aspect:{first.replace(' ', '_')}:{aspect}:{second.replace(' ', '_')}"
+
+
+def _transform_id(name: str, kind: str, qualifier: str | None = None) -> str:
+    suffix = f":{qualifier}" if qualifier is not None else ""
+    return f"natal:bounded:{name.replace(' ', '_')}:{kind}{suffix}"
+
+
+def _transform_evidence_ref(name: str, kind: str, qualifier: str | None = None) -> str:
+    suffix = f":{qualifier}" if qualifier is not None else ""
+    return f"uncertainty:transforms:{name}:{kind}{suffix}"
 
 
 def build_bounded_natal_package(
@@ -77,6 +87,58 @@ def build_bounded_natal_package(
             }
         )
 
+    for name in sorted(object_names):
+        body_evidence = assessment["bodies"][name]
+        transforms = body_evidence.get("transforms") or {}
+        transform_rows = [
+            ("antiscia", "bounded_antiscia_point", "BOUNDED_HAS_ANTISCIA_POINT", transforms.get("antiscia"), None),
+            (
+                "contra_antiscia",
+                "bounded_contra_antiscia_point",
+                "BOUNDED_HAS_CONTRA_ANTISCIA_POINT",
+                transforms.get("contra_antiscia"),
+                None,
+            ),
+        ]
+        transform_rows.extend(
+            ("harmonic", "bounded_harmonic_point", "BOUNDED_HAS_HARMONIC_POINT", row, number)
+            for number, row in sorted((transforms.get("harmonics") or {}).items(), key=lambda item: int(item[0]))
+        )
+        for kind, object_type, relationship_type, transform, qualifier in transform_rows:
+            signs = (transform or {}).get("possible_sign_indexes") or []
+            if (transform or {}).get("classification") != "invariant" or len(signs) != 1:
+                continue
+            transform_id = _transform_id(name, kind, qualifier)
+            evidence_ref = _transform_evidence_ref(name, kind, qualifier)
+            display_kind = f"harmonic {qualifier}" if qualifier is not None else kind.replace("_", " ")
+            objects.append(
+                {
+                    "id": transform_id,
+                    "name": f"{name} {display_kind}",
+                    "source_key": f"n{name}:{kind}{f':{qualifier}' if qualifier is not None else ''}",
+                    "object_type": object_type,
+                    "sign_index": signs[0],
+                    "owner_object_ref": _body_id(name),
+                    "transform_kind": kind,
+                    **({"harmonic_number": int(qualifier)} if qualifier is not None else {}),
+                    "uncertainty_evidence_ref": evidence_ref,
+                    "transit_target": False,
+                    "source_operator_hints": ["bounded_coordinate_transform"],
+                }
+            )
+            relationships.append(
+                {
+                    "id": f"bounded_transform_owner:{_body_id(name)}:{transform_id}",
+                    "relationship_type": relationship_type,
+                    "source_id": _body_id(name),
+                    "target_id": transform_id,
+                    "source_name": name,
+                    "target_name": f"{name} {display_kind}",
+                    "uncertainty_evidence_ref": evidence_ref,
+                    "source_operator_hints": ["bounded_coordinate_transform_lineage"],
+                }
+            )
+
     feature_dispositions = {
         "houses": "unavailable_birth_time_dependent",
         "house_placements": "unavailable_birth_time_dependent",
@@ -87,8 +149,8 @@ def build_bounded_natal_package(
         "right_ascensions": "assessed_as_continuous_circular_ranges",
         "declinations": "assessed_as_continuous_ranges",
         "declination_aspects": "deferred_interval_semantics",
-        "antiscia": "deferred_interval_semantics",
-        "harmonics": "deferred_interval_semantics",
+        "antiscia": "assessed_with_invariant_sign_promotion",
+        "harmonics": "assessed_with_invariant_sign_promotion",
         "fixed_stars": "deferred_interval_semantics",
         "aspect_strength": "deferred_interval_semantics",
         "aspect_application": "deferred_interval_semantics",
@@ -97,6 +159,23 @@ def build_bounded_natal_package(
     evidence_registry = {
         **{f"uncertainty:bodies:{name}": evidence for name, evidence in sorted(assessment["bodies"].items())},
         **{f"uncertainty:aspects:{row['a']}:{row['b']}": row for row in assessment["aspects"]},
+        **{
+            _transform_evidence_ref(name, kind): transform["evidence"]
+            for name, body in sorted(assessment["bodies"].items())
+            for kind, transform in (
+                ("antiscia", (body.get("transforms") or {}).get("antiscia")),
+                ("contra_antiscia", (body.get("transforms") or {}).get("contra_antiscia")),
+            )
+            if transform is not None
+        },
+        **{
+            _transform_evidence_ref(name, "harmonic", number): transform["evidence"]
+            for name, body in sorted(assessment["bodies"].items())
+            for number, transform in sorted(
+                (((body.get("transforms") or {}).get("harmonics") or {}).items()),
+                key=lambda item: int(item[0]),
+            )
+        },
     }
     graph = {
         "graph_type": "bounded_canonical_astrology_graph",
@@ -113,6 +192,7 @@ def build_bounded_natal_package(
             "supports_bounded_invariant_aspects": True,
             "supports_bounded_body_coordinate_evidence": True,
             "supports_bounded_declination_evidence": True,
+            "supports_bounded_coordinate_transforms": True,
             "supports_exact_longitudes": False,
             "supports_longitude_aspects": False,
             "supports_house_transits": False,

@@ -93,6 +93,8 @@ The 0.7.0 candidate conservatively assesses:
 - bounded ecliptic-latitude, right-ascension, and declination ranges;
 - bounded ranges for the longitude, latitude, right-ascension, and declination
   speeds returned by Swiss Ephemeris;
+- antiscia, contra-antiscia, and configured harmonic longitude ranges, with
+  invariant transformed signs promoted as explicitly bounded derived objects;
 - invariant versus possible zodiac signs;
 - invariant versus variable motion state;
 - sign-dependent dignity only when its inputs are invariant; and
@@ -146,6 +148,12 @@ non-finite, or failed calculation. A failed equatorial calculation therefore mak
 right ascension and declination inconclusive without erasing an otherwise valid
 ecliptic placement. Numeric ranges remain evidence and are not promoted as exact
 canonical coordinates.
+
+Antiscia and harmonic transforms operate on the conservative source-longitude proof
+envelope, not a midpoint. Circular origin crossings become ordered segment sets;
+when harmonic multiplication covers 360 degrees or more, evidence records
+full-circle coverage and no sign is promoted. Derived graph objects retain their
+source-body owner reference and contain a sign index but no exact target longitude.
 
 This is deliberate dual-write compatibility. Saved 0.7-shaped artifacts remain
 readable and valid under their original contract; consumers should feature-detect

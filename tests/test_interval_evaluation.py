@@ -181,3 +181,77 @@ def test_feature_local_provider_failure_is_not_mislabeled_as_missing_data():
     evidence = result["bodies"]["Sun"]["evidence"]["declination"]
     assert evidence["availability"] == "provider_failure"
     assert evidence["status_reason"] == "synthetic equatorial failure"
+
+
+def test_antiscia_and_contra_antiscia_transform_ranges_preserve_wrap_and_lineage():
+    result = evaluate_interval(0, 0.1, {"Sun": 0}, _linear(Sun=(359.9, 1)), profile=PROFILE)
+    transforms = result["bodies"]["Sun"]["transforms"]
+    antiscia = transforms["antiscia"]["evidence"]
+    contra = transforms["contra_antiscia"]["evidence"]
+    assert antiscia["prerequisite_refs"] == ["body:Sun:longitude"]
+    assert contra["prerequisite_refs"] == ["body:Sun:longitude"]
+    assert antiscia["range_evidence"]["range_type"] == "circular_closed_segments"
+    assert contra["range_evidence"]["range_type"] == "circular_closed_segments"
+
+
+def test_harmonic_multiplication_handles_origin_wrap_and_full_circle_coverage():
+    wrapped = evaluate_interval(
+        0,
+        0.1,
+        {"Sun": 0},
+        _linear(Sun=(119.9, 1)),
+        harmonic_numbers=(3,),
+        profile=PROFILE,
+    )["bodies"]["Sun"]["transforms"]["harmonics"]["3"]
+    assert wrapped["evidence"]["range_evidence"]["wraps_origin"] is True
+
+    full = evaluate_interval(
+        0,
+        1,
+        {"Moon": 1},
+        _linear(Moon=(0, 50)),
+        harmonic_numbers=(9,),
+        profile=PROFILE,
+    )["bodies"]["Moon"]["transforms"]["harmonics"]["9"]
+    assert full["classification"] == "variable"
+    assert full["evidence"]["range_evidence"]["coverage"] == "full_circle"
+    assert full["possible_sign_indexes"] == list(range(12))
+
+
+def test_disabled_transforms_are_absent_instead_of_mislabeled_variable():
+    result = evaluate_interval(
+        0,
+        0.1,
+        {"Sun": 0},
+        _linear(Sun=(11, 1)),
+        include_antiscia=False,
+        include_harmonics=False,
+        profile=PROFILE,
+    )
+    assert result["bodies"]["Sun"]["transforms"] == {}
+
+
+def test_transform_sign_sets_agree_with_exhaustive_minute_oracle_away_from_boundaries():
+    start, end = 0.0, 0.1
+    result = evaluate_interval(
+        start,
+        end,
+        {"Sun": 0},
+        _linear(Sun=(11, 1)),
+        harmonic_numbers=(2, 3, 5),
+        profile=PROFILE,
+    )
+    transforms = result["bodies"]["Sun"]["transforms"]
+    count = math.ceil((end - start) / (PROFILE.minimum_step_seconds / 86400.0))
+    source_values = [11 + (end - start) * index / count for index in range(count + 1)]
+    cases = {
+        "antiscia": ((180 - value) % 360 for value in source_values),
+        "contra_antiscia": ((180 + value) % 360 for value in source_values),
+        "harmonic:2": ((2 * value) % 360 for value in source_values),
+        "harmonic:3": ((3 * value) % 360 for value in source_values),
+        "harmonic:5": ((5 * value) % 360 for value in source_values),
+    }
+    for key, values in cases.items():
+        row = transforms[key] if not key.startswith("harmonic:") else transforms["harmonics"][key.split(":")[1]]
+        oracle = sorted({int(value // 30) % 12 for value in values})
+        assert row["possible_sign_indexes"] == oracle

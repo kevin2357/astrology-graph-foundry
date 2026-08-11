@@ -235,6 +235,9 @@ def evaluate_bounded_natal_interval(
         bodies,
         point_positions,
         include_minor=config.include_minor,
+        include_antiscia=config.include_antiscia,
+        include_harmonics=config.include_harmonics,
+        harmonic_numbers=config.harmonic_numbers,
         profile=profile,
     )
     result["birth_time_basis"] = basis.as_dict()
