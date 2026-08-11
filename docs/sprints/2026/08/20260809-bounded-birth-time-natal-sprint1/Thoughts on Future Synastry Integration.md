@@ -169,3 +169,10 @@ participant. Cross-chart relationships must take the Cartesian product of releva
 formula branches; matching sample indexes across two bounded births would invent a
 shared clock correlation. Formula identity and prerequisite lineage should survive
 projection even when every branch supports the same cross-chart aspect.
+
+## Terrestrial-frame Sprint 2, Slice 7 implications
+
+Optional-object availability belongs to each participant's artifact and profile.
+Synastry may form a relationship only when both endpoint objects exist under their
+respective qualified profiles; a requested-but-unsupported Chiron or fixed star is
+not a latent endpoint that downstream code may reconstruct.

@@ -175,3 +175,10 @@ may promote a contact only when the same predicate holds over all applicable
 branches. An invariant house is independently reusable even when a lot's sign or
 degree range remains variable. Vertex house evidence is likewise reusable without
 reconstructing the terrestrial frame.
+
+## Terrestrial-frame Sprint 2, Slice 7 implications
+
+A future Transit implementation must not assume that an optional natal target was
+calculated merely because its name was requested. `unsupported_profile` and
+`disabled` are distinct inputs. File-backed transit bodies require their own pinned
+provider/data profile and cannot borrow qualification from the natal no-file core.

@@ -25,7 +25,7 @@ from astrology_graph_foundry.ephemeris.uncertainty_evidence import EVIDENCE_CONT
 
 CALCULATION_PROVENANCE_CONTRACT_VERSION = "agf.calculation_provenance.v1.0.0"
 CALCULATION_PROFILE_VERSION = "agf.calculation_profile.v1.1.0"
-BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.10.0"
+BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.11.0"
 NORMALIZATION_POLICY_VERSION = "agf.normalization_policy.v1.0.0"
 BOUNDED_NORMALIZATION_POLICY_VERSION = "agf.bounded_birth_time.normalization_policy.v1.0.0"
 CANONICAL_JSON_POLICY_VERSION = "agf.canonical_json.v1.0.0"
@@ -108,7 +108,17 @@ def build_bounded_calculation_provenance(
         "proof_profile": interval_assessment["proof_profile"],
         "ephemeris_mode": config.ephemeris_mode,
         "zodiac": {"framework": "tropical", "ayanamsha": None},
-        "object_inclusion": {"core": list(CORE_BODY_NAMES), "optional_file_dependent": False},
+        "object_inclusion": {
+            "core": list(CORE_BODY_NAMES),
+            "optional_file_dependent": {
+                "qualified_profile": None,
+                "chiron_requested": config.include_optional_points,
+                "asteroids_requested": config.include_asteroids,
+                "asteroid_ids": list(config.asteroid_ids),
+                "fixed_stars_requested": config.include_fixed_stars,
+                "fixed_star_names": list(config.fixed_star_names),
+            },
+        },
         "aspects": {
             "angles_degrees": dict(sorted(ASPECTS.items())),
             "base_orbs_degrees": dict(sorted(DEFAULT_ORBS.items())),
@@ -136,7 +146,7 @@ def build_bounded_calculation_provenance(
             "declination_relationships": "assessed_with_invariant_relationship_promotion",
             "applying_separating": "unavailable_without_reviewed_temporal_semantics",
             "structural_material": "invariant_subgraph_counts_and_lineage_without_scores_or_claims",
-            "fixed_stars": "deferred",
+            "optional_external_features": "explicitly_unavailable_without_qualified_data_profile",
             "canonical_promotion": "invariant_categories_only",
         },
     }

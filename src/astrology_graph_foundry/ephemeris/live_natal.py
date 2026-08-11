@@ -669,6 +669,26 @@ def evaluate_bounded_natal_interval(
                 availability="prerequisite_variable_or_unavailable",
             )
     result["sect_triplicity"] = triplicity
+    optional_requests = {
+        "Chiron": config.include_optional_points,
+        "asteroids": config.include_asteroids,
+        "fixed_stars": config.include_fixed_stars,
+    }
+    result["optional_external_features"] = {
+        name: evidence_record(
+            feature_key=f"optional_external_feature:{name}",
+            classification="unavailable",
+            value_kind="optional_external_data_feature",
+            prerequisite_refs=[f"qualified_external_data_profile:{name}"],
+            availability="unsupported_profile" if requested else "disabled",
+            status_reason=(
+                "no external-data-backed bounded Natal profile is qualified"
+                if requested
+                else "feature disabled by configuration"
+            ),
+        )
+        for name, requested in optional_requests.items()
+    }
     result["birth_time_basis"] = basis.as_dict()
     result["configured_body_names"] = list(bodies)
     result["ephemeris_mode_requested"] = config.ephemeris_mode

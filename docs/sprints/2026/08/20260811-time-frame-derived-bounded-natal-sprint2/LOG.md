@@ -188,3 +188,30 @@ completed implementation slices.
 - Pure Gate 6 suite passed 22 tests; full host suite passed 253 tests.
 - `git diff --check` passed. No downstream repository, external ephemeris data,
   tag, release, or publication changed.
+
+## 2026-08-11 — Slice 6 approval and commit
+
+- Product owner approved Gate 6.
+- Committed and pushed Slice 6 as `648f867` (`Add bounded natal lots and Vertex
+  evidence`).
+
+## 2026-08-11 — Slice 7 optional objects and external-data profiles
+
+- Audited exact and bounded body selection, fixed-star calculation, provider data
+  inventory, configuration hashing, CLI defaults, and the qualified no-file profile.
+- Confirmed bounded Natal intentionally evaluates only the twelve core bodies; it
+  previously ignored optional request flags without artifact-level disposition and
+  recorded `optional_file_dependent: false` regardless of caller configuration.
+- Added explicit Chiron, asteroid, and fixed-star evidence. Requested families are
+  `unsupported_profile`; disabled families are `disabled`. Neither outcome changes
+  independent core calculation success.
+- Added request flags, asteroid IDs, and fixed-star names to bounded configuration
+  provenance while retaining the rule that machine-local ephemeris paths are not
+  semantic identity.
+- Advanced bounded calculation profile to `v1.11.0`; graph and dataset schema
+  versions remain unchanged.
+- Reaffirmed the accepted no-file decision: no `.se1`, JPL, Chiron, asteroid, or
+  star-catalog profile is qualified in this sprint. Any future profile requires
+  pinned resource hashes, coverage, provider-mode proof, and separate versioning.
+- Controlled Linux requested/disabled runs remained complete with the same twelve
+  core bodies and emitted the expected `unsupported_profile`/`disabled` evidence.

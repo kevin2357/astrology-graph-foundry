@@ -126,7 +126,7 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.10.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.11.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["terrestrial_frame"]["qualified_systems"] == ["P", "W"]
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
@@ -157,11 +157,42 @@ def test_reduced_capabilities_and_feature_dispositions_are_explicit(monkeypatch)
     assert package["capabilities"]["supports_bounded_declination_evidence"] is True
     assert package["capabilities"]["supports_bounded_terrestrial_frame_evidence"] is True
     assert package["capabilities"]["supports_bounded_invariant_house_membership"] is True
+    assert dispositions["optional_external_features"] == "explicitly_unavailable_without_qualified_data_profile"
     sun = next(row for row in package["canonical_astrology_graph"]["objects"] if row["name"] == "Sun")
     mars = next(row for row in package["canonical_astrology_graph"]["objects"] if row["name"] == "Mars")
     assert sun["house_number"] == 8
     assert sun["house_uncertainty_evidence_ref"] in package["uncertainty_assessment"]["evidence_registry"]
     assert "house_number" not in mars
+
+
+def test_optional_external_features_are_explicit_and_affect_provenance(monkeypatch):
+    assessment = _assessment()
+    assessment["optional_external_features"] = {
+        "Chiron": {
+            "classification": "unavailable",
+            "availability": "unsupported_profile",
+            "feature_key": "optional_external_feature:Chiron",
+            "value_kind": "optional_external_data_feature",
+            "possibilities": {"possibility_type": "categorical_set", "values": [], "count": 0},
+            "prerequisite_refs": ["qualified_external_data_profile:Chiron"],
+            "range_evidence": None,
+            "transition_witnesses": [],
+            "counterexamples": [],
+            "proof_scope": "complete_normalized_birth_interval",
+            "status_reason": "no external-data-backed bounded Natal profile is qualified",
+        }
+    }
+    monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(assessment))
+    enabled = bounded_natal.build_bounded_natal_package(_birth(), ProviderConfig(ephemeris_mode="moshier"))
+    disabled = bounded_natal.build_bounded_natal_package(
+        _birth(), ProviderConfig(ephemeris_mode="moshier", include_optional_points=False)
+    )
+    evidence = enabled["bounded_natal"]["optional_external_features"]["Chiron"]
+    assert evidence["availability"] == "unsupported_profile"
+    assert "uncertainty:optional_external_feature:Chiron" in enabled["uncertainty_assessment"]["evidence_registry"]
+    enabled_profile = enabled["metadata"]["calculation_provenance"]["calculation_profile"]
+    assert enabled_profile["object_inclusion"]["optional_file_dependent"]["chiron_requested"] is True
+    assert enabled["metadata"]["calculation_provenance"]["configuration_sha256"] != disabled["metadata"]["calculation_provenance"]["configuration_sha256"]
 
 
 def test_invariant_house_materializes_when_sign_and_motion_vary(monkeypatch):

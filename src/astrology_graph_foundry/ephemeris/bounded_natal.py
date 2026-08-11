@@ -350,6 +350,7 @@ def build_bounded_natal_package(
         "angle_relationships": "assessed_with_invariant_relationship_promotion",
         "sect": "assessed_with_invariant_prerequisite_promotion",
         "lots": "assessed_as_branched_calculated_point_ranges",
+        "optional_external_features": "explicitly_unavailable_without_qualified_data_profile",
         "body_latitudes": "assessed_as_continuous_ranges",
         "right_ascensions": "assessed_as_continuous_circular_ranges",
         "declinations": "assessed_as_continuous_ranges",
@@ -402,6 +403,10 @@ def build_bounded_natal_package(
         **{
             f"uncertainty:terrestrial_frame:calculated_point_relationship:{row['a']}:{row['b']}": row
             for row in (assessment.get("terrestrial_frame") or {}).get("calculated_point_relationships", [])
+        },
+        **{
+            f"uncertainty:optional_external_feature:{name}": value
+            for name, value in sorted((assessment.get("optional_external_features") or {}).items())
         },
         **{
             f"uncertainty:terrestrial_frame:house_membership:{key}": value
@@ -490,6 +495,7 @@ def build_bounded_natal_package(
             "declination_relationships": assessment.get("declination_relationships") or [],
             "terrestrial_frame": assessment.get("terrestrial_frame"),
             "calculated_points": (assessment.get("terrestrial_frame") or {}).get("calculated_points") or {},
+            "optional_external_features": assessment.get("optional_external_features") or {},
         },
         "uncertainty_assessment": {
             **(
@@ -507,6 +513,7 @@ def build_bounded_natal_package(
             "derived_aspect_evidence": assessment.get("derived_aspects") or [],
             "declination_relationship_evidence": assessment.get("declination_relationships") or [],
             "terrestrial_frame_evidence": assessment.get("terrestrial_frame"),
+            "optional_external_feature_evidence": assessment.get("optional_external_features") or {},
             "evidence_registry": evidence_registry,
             "feature_dispositions": feature_dispositions,
         },

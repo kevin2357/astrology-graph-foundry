@@ -245,6 +245,22 @@ bytes.
 Legacy warned-noon and bounded artifacts occupy different calculation-policy
 namespaces. A historical noon artifact must never be relabeled as bounded evidence.
 
+### Optional external-data features
+
+The bounded no-file profile evaluates only the twelve core bodies. Chiron,
+asteroids, and fixed stars are not silently attempted or fallback-calculated.
+Whether requested or disabled, each family receives an explicit evidence record:
+`unsupported_profile` when requested without a qualified external-data profile and
+`disabled` when excluded by configuration. Request flags, asteroid IDs, and fixed-
+star names participate in the configuration hash; the machine-local ephemeris path
+does not.
+
+No external-data-backed bounded profile is currently qualified. A future profile
+must pin the Swiss Ephemeris wrapper and every `.se1` or catalog resource by content
+hash, define supported date coverage, prove requested-versus-observed provider
+behavior, and version the calculation profile. The existing Moshier/no-file profile
+remains valid and does not acquire an external-file dependency.
+
 ## Downstream boundary
 
 - SPC may project canonical invariant facts and preserve their evidence. It must not
