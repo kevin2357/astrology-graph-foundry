@@ -1,6 +1,6 @@
 # Time-Frame and Derived-Structure Bounded Natal Expansion Sprint Plan
 
-**Status:** Active; Slice 5 Gate 5 candidate awaiting human review
+**Status:** Active; Slice 6 Gate 6 candidate awaiting human review
 
 **Repository:** `astrology-graph-foundry`
 

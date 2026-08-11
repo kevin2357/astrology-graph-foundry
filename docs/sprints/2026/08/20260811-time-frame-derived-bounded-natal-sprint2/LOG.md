@@ -167,3 +167,24 @@ completed implementation slices.
 - Linux results: four hours promoted none; 30 minutes promoted 10 cusps, 3 angles,
   and 20 angle relationships. No downstream repository or release changed.
 - No downstream repository, tag, release, or external data changed.
+
+## 2026-08-11 — Slice 6 lots, Vertex, and branched calculated points
+
+- Evaluated Part of Fortune and Lot of Spirit at every existing terrestrial-frame
+  minute using the exact Natal day/night formulas.
+- Preserved each contiguous formula branch as a separate circular range; sunrise
+  and sunset discontinuities are not collapsed into a fictitious continuous
+  longitude envelope.
+- Added possible formula identities, sign possibilities, house-membership evidence,
+  transition witnesses, and prerequisite lineage for both lots.
+- Calculated-point aspects promote only when every applicable formula branch
+  independently proves the same relationship.
+- Added Vertex house-membership assessment and canonical house promotion when the
+  result is invariant.
+- Advanced the bounded graph to `1.7.0` and calculation profile to `v1.10.0`.
+- Controlled Linux day/night/sunrise runs used the pinned QA image. Day and night
+  retained one formula; sunrise retained two disconnected branches. Fortune
+  retained invariant house 11 in the daytime case while its sign varied.
+- Pure Gate 6 suite passed 22 tests; full host suite passed 253 tests.
+- `git diff --check` passed. No downstream repository, external ephemeris data,
+  tag, release, or publication changed.

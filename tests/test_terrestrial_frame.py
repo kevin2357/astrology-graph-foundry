@@ -109,3 +109,39 @@ def test_exact_four_hour_grid_has_241_states_despite_julian_float_noise():
     start = 2444518.2916666665
     end = 2444518.4583333335
     assert len(evaluation_times(start, end, 60.0)) == 241
+
+
+def test_fortune_and_spirit_preserve_day_night_formula_branches():
+    result = evaluate_terrestrial_frame_interval(
+        FakeSwe(), 1.0, 1.0 + 1.0 / 24.0, 39.0, -105.0,
+        ProviderConfig(house_system="P"),
+        IntervalProofProfile(minimum_step_seconds=300),
+        lambda jd: {
+            "Sun": {"lon": 355.0, "speed_lon": 0.0},
+            "Moon": {"lon": 20.0, "speed_lon": 0.0},
+        },
+    )
+    fortune = result["calculated_points"]["Fortune"]
+    spirit = result["calculated_points"]["Spirit"]
+    assert fortune["possible_formula_ids"] == ["asc_plus_moon_minus_sun", "asc_plus_sun_minus_moon"]
+    assert spirit["possible_formula_ids"] == ["asc_plus_moon_minus_sun", "asc_plus_sun_minus_moon"]
+    assert len(fortune["branches"]) == 2
+    assert {row["sect"] for row in fortune["branches"]} == {"day", "night"}
+    assert all(row["longitude_range"] is not None for row in fortune["branches"])
+    assert result["house_memberships"]["calculated_point:Fortune"]["classification"] == "variable"
+    assert result["house_memberships"]["angle:Vertex"]["availability"] == "available"
+
+
+def test_calculated_points_are_unavailable_when_sect_is_disabled():
+    result = evaluate_terrestrial_frame_interval(
+        FakeSwe(), 1.0, 1.0 + 5.0 / 1440.0, 39.0, -105.0,
+        ProviderConfig(house_system="P", include_sect=False),
+        IntervalProofProfile(minimum_step_seconds=300),
+        lambda jd: {
+            "Sun": {"lon": 355.0, "speed_lon": 0.0},
+            "Moon": {"lon": 20.0, "speed_lon": 0.0},
+        },
+    )
+    assert set(result["calculated_points"]) == {"Fortune", "Spirit"}
+    assert all(row["classification"] == "unavailable" for row in result["calculated_points"].values())
+    assert all(row["availability"] == "disabled" for row in result["calculated_points"].values())

@@ -195,6 +195,94 @@ def evaluate_terrestrial_frame_interval(
             times,
             profile.speed_envelope_factor,
         )
+    calculated_points = {}
+    point_specs = {
+            "Fortune": {
+                "day": ("asc_plus_moon_minus_sun", 1.0, -1.0),
+                "night": ("asc_plus_sun_minus_moon", -1.0, 1.0),
+            },
+            "Spirit": {
+                "day": ("asc_plus_sun_minus_moon", -1.0, 1.0),
+                "night": ("asc_plus_moon_minus_sun", 1.0, -1.0),
+            },
+    }
+    can_calculate_points = position_evaluator is not None and config.include_sect and {"Sun", "Moon"}.issubset(samples[0][4])
+    if can_calculate_points:
+        sampled_sects = []
+        for sample in samples:
+            sun_house = house_for_lon(float(sample[4]["Sun"]["lon"]), [float(value) for value in sample[0]])
+            sampled_sects.append("day" if is_day_chart(sun_house) else "night")
+        for point_name, formulas in point_specs.items():
+            values = []
+            speeds = []
+            formula_ids = []
+            for sample, sect_value in zip(samples, sampled_sects):
+                formula_id, moon_factor, sun_factor = formulas[sect_value]
+                asc = float(sample[1][0])
+                sun = float(sample[4]["Sun"]["lon"])
+                moon = float(sample[4]["Moon"]["lon"])
+                values.append(normalize(asc + moon_factor * moon + sun_factor * sun))
+                speeds.append(
+                    float(sample[3][0])
+                    + moon_factor * float(sample[4]["Moon"]["speed_lon"])
+                    + sun_factor * float(sample[4]["Sun"]["speed_lon"])
+                )
+                formula_ids.append(formula_id)
+            branches = []
+            branch_signs = set()
+            start = 0
+            while start < len(times):
+                end = start
+                while end + 1 < len(times) and formula_ids[end + 1] == formula_ids[start]:
+                    end += 1
+                branch_values = values[start : end + 1]
+                branch_path = _unwrap_path(branch_values)
+                if len(branch_path) == 1:
+                    low = high = branch_path[0]
+                else:
+                    padding = [
+                        max(abs(speeds[index]), abs(speeds[index + 1]))
+                        * (times[index + 1] - times[index])
+                        * profile.speed_envelope_factor
+                        for index in range(start, end)
+                    ]
+                    low = min(value - (padding[index - 1] if index else padding[0]) for index, value in enumerate(branch_path))
+                    high = max(value + (padding[index - 1] if index else padding[0]) for index, value in enumerate(branch_path))
+                first_sign = int((low + 1e-7) // 30)
+                last_sign = int((high - 1e-7) // 30)
+                signs = sorted({index % 12 for index in range(first_sign, last_sign + 1)})
+                branch_signs.update(signs)
+                branches.append({
+                    "formula_id": formula_ids[start],
+                    "sect": sampled_sects[start],
+                    "sample_index_start": start,
+                    "sample_index_end": end,
+                    "interval": {"start_jd": times[start], "end_jd": times[end], "boundary_policy": "inclusive"},
+                    "longitude_range": circular_range_from_unwrapped(low, high),
+                    "possible_sign_indexes": signs,
+                })
+                start = end + 1
+            calculated_points[point_name] = {
+                "feature_key": f"calculated_point:{point_name}",
+                "classification": "invariant" if len(branch_signs) == 1 else "variable",
+                "value_kind": "branched_calculated_point_longitude",
+                "availability": "available",
+                "possible_sign_indexes": sorted(branch_signs),
+                "possible_formula_ids": sorted(set(formula_ids)),
+                "branches": branches,
+                "prerequisite_refs": ["terrestrial_frame:angle:ASC", "body:Sun", "body:Moon", "terrestrial_frame:sect"],
+                "transition_witnesses": transition_witnesses(formula_ids, times, coordinate_unit="jd_ut"),
+            }
+    else:
+        for point_name in point_specs:
+            calculated_points[point_name] = evidence_record(
+                feature_key=f"calculated_point:{point_name}",
+                classification="unavailable",
+                value_kind="branched_calculated_point_longitude",
+                prerequisite_refs=["terrestrial_frame:angle:ASC", "body:Sun", "body:Moon", "terrestrial_frame:sect"],
+                availability="disabled" if not config.include_sect else "prerequisite_unavailable",
+                status_reason="sect disabled by configuration" if not config.include_sect else "Sun or Moon coordinate unavailable",
+            )
     cusp_semantics = {}
     for house_number in range(1, 13):
         coordinate = coordinates[f"cusp:{house_number}"]
@@ -229,6 +317,7 @@ def evaluate_terrestrial_frame_interval(
         }
     memberships = {}
     angle_relationships = []
+    calculated_point_relationships = []
     if position_evaluator is not None:
         node_names = []
         first_positions = samples[0][4]
@@ -242,12 +331,41 @@ def evaluate_terrestrial_frame_interval(
             if config.include_harmonics:
                 for number in config.harmonic_numbers:
                     node_names.append((f"transform:{body_name}:harmonic:{number}", f"{body_name} harmonic {number}", lambda row, n=body_name, k=number: normalize(float(row[n]["lon"]) * k), lambda row, n=body_name, k=number: float(row[n]["speed_lon"]) * k))
+        node_names.append(("angle:Vertex", "Vertex", lambda row: 0.0, lambda row: 0.0))
+        for point_name, point_evidence in calculated_points.items():
+            if point_evidence.get("availability") != "available":
+                continue
+            node_names.append((f"calculated_point:{point_name}", point_name, None, None))
         for node_key, display_name, lon_getter, speed_getter in node_names:
+            def node_lon(sample_index):
+                sample = samples[sample_index]
+                if node_key == "angle:Vertex":
+                    return float(sample[1][3]) % 360
+                if node_key.startswith("calculated_point:"):
+                    point = node_key.split(":", 1)[1]
+                    day = sampled_sects[sample_index] == "day"
+                    return (
+                        part_of_fortune(day, float(sample[1][0]), float(sample[4]["Sun"]["lon"]), float(sample[4]["Moon"]["lon"]))
+                        if point == "Fortune"
+                        else lot(float(sample[1][0]), float(sample[4]["Sun"]["lon"]), float(sample[4]["Moon"]["lon"]), day)
+                    )
+                return lon_getter(sample[4])
+
+            def node_speed(sample_index):
+                sample = samples[sample_index]
+                if node_key == "angle:Vertex":
+                    return float(sample[3][3])
+                if node_key.startswith("calculated_point:"):
+                    point = node_key.split(":", 1)[1]
+                    factors = point_specs[point][sampled_sects[sample_index]]
+                    return float(sample[3][0]) + factors[1] * float(sample[4]["Moon"]["speed_lon"]) + factors[2] * float(sample[4]["Sun"]["speed_lon"])
+                return speed_getter(sample[4])
+
             observed = []
             possible = set()
             safety_houses = set()
-            for sample in samples:
-                body_lon = lon_getter(sample[4])
+            for sample_index, sample in enumerate(samples):
+                body_lon = node_lon(sample_index)
                 house = house_for_lon(body_lon, [float(value) for value in sample[0]])
                 observed.append(house)
                 if house is not None:
@@ -259,12 +377,15 @@ def evaluate_terrestrial_frame_interval(
                 start_index = house - 1
                 end_index = house % 12
                 dt = times[index + 1] - times[index]
-                body_speed = max(abs(speed_getter(samples[index][4])), abs(speed_getter(samples[index + 1][4])))
+                if node_key.startswith("calculated_point:") and sampled_sects[index] != sampled_sects[index + 1]:
+                    safety_houses.update({house, 1 if house == 12 else house + 1, 12 if house == 1 else house - 1})
+                    continue
+                body_speed = max(abs(node_speed(index)), abs(node_speed(index + 1)))
                 for cusp_index, adjacent in ((start_index, 12 if house == 1 else house - 1), (end_index, 1 if house == 12 else house + 1)):
                     cusp_speed = max(abs(float(samples[index][2][cusp_index])), abs(float(samples[index + 1][2][cusp_index])))
                     margin = min(
-                        abs(((lon_getter(samples[index][4]) - float(samples[index][0][cusp_index]) + 180) % 360) - 180),
-                        abs(((lon_getter(samples[index + 1][4]) - float(samples[index + 1][0][cusp_index]) + 180) % 360) - 180),
+                        abs(((node_lon(index) - float(samples[index][0][cusp_index]) + 180) % 360) - 180),
+                        abs(((node_lon(index + 1) - float(samples[index + 1][0][cusp_index]) + 180) % 360) - 180),
                     )
                     if margin <= (body_speed + cusp_speed) * dt * profile.speed_envelope_factor:
                         safety_houses.add(adjacent)
@@ -280,8 +401,12 @@ def evaluate_terrestrial_frame_interval(
                 availability="available",
                 status_reason=("continuous boundary envelope admits adjacent house" if safety_houses else None),
             )
-            node_path = _unwrap_path([lon_getter(sample[4]) for sample in samples])
-            node_speeds = [speed_getter(sample[4]) for sample in samples]
+            if node_key == "angle:Vertex":
+                continue
+            if node_key.startswith("calculated_point:") and len(set(sampled_sects)) > 1:
+                continue
+            node_path = _unwrap_path([node_lon(index) for index in range(len(samples))])
+            node_speeds = [node_speed(index) for index in range(len(samples))]
             for angle_name, (_, angle_index, multiplier, offset) in angle_sources.items():
                 angle_path = _unwrap_path([
                     (float(sample[1][angle_index]) * multiplier + offset) % 360
@@ -303,6 +428,52 @@ def evaluate_terrestrial_frame_interval(
                 )
                 if relationship is not None:
                     angle_relationships.append(relationship)
+        for point_name, point_evidence in calculated_points.items():
+            if point_evidence.get("availability") != "available":
+                continue
+            for body_name in first_positions:
+                branch_results = []
+                for branch in point_evidence["branches"]:
+                    start = branch["sample_index_start"]
+                    end = branch["sample_index_end"] + 1
+                    if end - start < 2:
+                        branch_results.append(None)
+                        continue
+                    point_path = _unwrap_path([
+                        part_of_fortune(sampled_sects[index] == "day", float(samples[index][1][0]), float(samples[index][4]["Sun"]["lon"]), float(samples[index][4]["Moon"]["lon"]))
+                        if point_name == "Fortune"
+                        else lot(float(samples[index][1][0]), float(samples[index][4]["Sun"]["lon"]), float(samples[index][4]["Moon"]["lon"]), sampled_sects[index] == "day")
+                        for index in range(start, end)
+                    ])
+                    formula = point_specs[point_name][branch["sect"]]
+                    point_speeds = [
+                        float(samples[index][3][0]) + formula[1] * float(samples[index][4]["Moon"]["speed_lon"]) + formula[2] * float(samples[index][4]["Sun"]["speed_lon"])
+                        for index in range(start, end)
+                    ]
+                    branch_results.append(_classify_longitude_relationship(
+                        first_key=f"calculated_point:{point_name}",
+                        first_name=point_name,
+                        first_path=point_path,
+                        first_speeds=point_speeds,
+                        second_key=f"body:{body_name}",
+                        second_name=body_name,
+                        second_path=_unwrap_path([float(samples[index][4][body_name]["lon"]) for index in range(start, end)]),
+                        second_speeds=[float(samples[index][4][body_name]["speed_lon"]) for index in range(start, end)],
+                        times=times[start:end],
+                        include_minor=config.include_minor,
+                        factor=profile.speed_envelope_factor,
+                    ))
+                aspects = {row.get("aspect") for row in branch_results if row is not None and row.get("classification") == "invariant"}
+                if len(branch_results) == len(point_evidence["branches"]) and all(row is not None for row in branch_results) and len(aspects) == 1:
+                    calculated_point_relationships.append({
+                        "a": f"calculated_point:{point_name}",
+                        "b": f"body:{body_name}",
+                        "a_name": point_name,
+                        "b_name": body_name,
+                        "classification": "invariant",
+                        "aspect": next(iter(aspects)),
+                        "formula_branch_evidence": [row["evidence"] for row in branch_results],
+                    })
     sun_membership = memberships.get("body:Sun") or {}
     sun_houses = {int(value) for value in (sun_membership.get("possibilities") or {}).get("values", [])}
     sect_values = []
@@ -329,6 +500,8 @@ def evaluate_terrestrial_frame_interval(
         "cusp_semantics": cusp_semantics,
         "house_memberships": memberships,
         "angle_relationships": angle_relationships,
+        "calculated_points": calculated_points,
+        "calculated_point_relationships": calculated_point_relationships,
         "sect": sect,
         "failures": [],
     }

@@ -126,13 +126,13 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.9.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.10.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["terrestrial_frame"]["qualified_systems"] == ["P", "W"]
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
-    assert graph["graph_version"] == "1.6.0"
+    assert graph["graph_version"] == "1.7.0"
     assert {row["name"] for row in graph["objects"]} == {"Sun", "Mars"}
     assert len(graph["relationships"]) == 1
     assert all(not ({"longitude", "pretty", "sign_degree"} & row.keys()) for row in graph["objects"])
@@ -234,6 +234,52 @@ def test_invariant_sect_and_triplicity_materialize_with_prerequisites(monkeypatc
     sun = next(row for row in objects if row["name"] == "Sun")
     assert sun["triplicity_ruler"] == "Sun"
     assert sun["triplicity_uncertainty_evidence_ref"] in package["uncertainty_assessment"]["evidence_registry"]
+
+
+def test_invariant_calculated_point_and_vertex_house_materialize_with_evidence(monkeypatch):
+    assessment = _assessment()
+    frame = assessment["terrestrial_frame"]
+    frame["calculated_points"] = {
+        "Fortune": {
+            "feature_key": "calculated_point:Fortune",
+            "classification": "invariant",
+            "value_kind": "branched_calculated_point_longitude",
+            "availability": "available",
+            "possible_sign_indexes": [2],
+            "possible_formula_ids": ["asc_plus_moon_minus_sun", "asc_plus_sun_minus_moon"],
+            "branches": [],
+            "prerequisite_refs": ["terrestrial_frame:angle:ASC", "body:Sun", "body:Moon", "terrestrial_frame:sect"],
+            "transition_witnesses": [],
+        }
+    }
+    frame["house_memberships"]["calculated_point:Fortune"] = {
+        **frame["house_memberships"]["body:Sun"],
+        "feature_key": "terrestrial_frame:house_membership:calculated_point:Fortune",
+        "possibilities": {"possibility_type": "categorical_set", "values": ["4"], "count": 1},
+    }
+    frame["coordinates"]["angle:Vertex"] = {
+        **frame["coordinates"]["angle:ASC"],
+        "feature_key": "terrestrial_frame:angle:Vertex",
+        "classification": "invariant",
+        "possibilities": {"possibility_type": "categorical_set", "values": ["5"], "count": 1},
+    }
+    frame["house_memberships"]["angle:Vertex"] = {
+        **frame["house_memberships"]["body:Sun"],
+        "feature_key": "terrestrial_frame:house_membership:angle:Vertex",
+        "possibilities": {"possibility_type": "categorical_set", "values": ["7"], "count": 1},
+    }
+    monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(assessment))
+    package = bounded_natal.build_bounded_natal_package(_birth(), ProviderConfig(ephemeris_mode="moshier"))
+    objects = package["canonical_astrology_graph"]["objects"]
+    fortune = next(row for row in objects if row["object_type"] == "bounded_calculated_point")
+    vertex = next(row for row in objects if row["name"] == "Vertex")
+    assert (fortune["sign_index"], fortune["house_number"]) == (2, 4)
+    assert len(fortune["possible_formula_ids"]) == 2
+    assert vertex["house_number"] == 7
+    registry = package["uncertainty_assessment"]["evidence_registry"]
+    assert fortune["uncertainty_evidence_ref"] in registry
+    assert fortune["house_uncertainty_evidence_ref"] in registry
+    assert vertex["house_uncertainty_evidence_ref"] in registry
 
 
 def test_structural_material_is_explicitly_invariant_subgraph_based_and_unscored(monkeypatch):

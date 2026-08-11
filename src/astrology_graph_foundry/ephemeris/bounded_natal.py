@@ -12,7 +12,7 @@ from astrology_graph_foundry.ephemeris.live_natal import evaluate_bounded_natal_
 from astrology_graph_foundry.ephemeris.models import BoundedBirthData, ProviderConfig
 
 BOUNDED_NATAL_SCHEMA_VERSION = "1.0.0"
-BOUNDED_GRAPH_VERSION = "1.6.0"
+BOUNDED_GRAPH_VERSION = "1.7.0"
 
 
 def _body_id(name: str) -> str:
@@ -42,11 +42,17 @@ def _coordinate_node_id(key: str) -> str:
     if parts[0] == "transform" and len(parts) >= 3:
         qualifier = parts[3] if len(parts) == 4 else None
         return _transform_id(parts[1], parts[2], qualifier)
+    if parts[0] == "calculated_point" and len(parts) == 2:
+        return _calculated_point_id(parts[1])
     raise ValueError(f"unsupported bounded coordinate node key: {key}")
 
 
 def _angle_id(name: str) -> str:
     return f"natal:bounded:angle:{name}"
+
+
+def _calculated_point_id(name: str) -> str:
+    return f"natal:bounded:calculated_point:{name}"
 
 
 def _cusp_id(number: int) -> str:
@@ -220,7 +226,7 @@ def build_bounded_natal_package(
         signs = (evidence.get("possibilities") or {}).get("values") or []
         if evidence.get("classification") != "invariant" or len(signs) != 1:
             continue
-        objects.append({
+        angle_object = {
             "id": _angle_id(angle_name),
             "name": angle_name,
             "source_key": f"angle:{angle_name}",
@@ -228,7 +234,30 @@ def build_bounded_natal_package(
             "sign_index": int(signs[0]),
             "uncertainty_evidence_ref": f"uncertainty:terrestrial_frame:angle:{angle_name}",
             "source_operator_hints": ["bounded_invariant_angle_sign"],
-        })
+        }
+        invariant_house = _invariant_house(assessment, f"angle:{angle_name}")
+        if invariant_house is not None:
+            angle_object["house_number"], angle_object["house_uncertainty_evidence_ref"] = invariant_house
+        objects.append(angle_object)
+    for point_name, evidence in sorted((frame.get("calculated_points") or {}).items()):
+        signs = evidence.get("possible_sign_indexes") or []
+        invariant_sign = evidence.get("classification") == "invariant" and len(signs) == 1
+        invariant_house = _invariant_house(assessment, f"calculated_point:{point_name}")
+        if not invariant_sign and invariant_house is None:
+            continue
+        point_object = {
+            "id": _calculated_point_id(point_name),
+            "name": point_name,
+            "source_key": f"calculated_point:{point_name}",
+            "object_type": "bounded_calculated_point",
+            **({"sign_index": signs[0]} if invariant_sign else {}),
+            "possible_formula_ids": evidence.get("possible_formula_ids") or [],
+            "uncertainty_evidence_ref": f"uncertainty:terrestrial_frame:calculated_point:{point_name}",
+            "source_operator_hints": ["bounded_branched_calculated_point"],
+        }
+        if invariant_house is not None:
+            point_object["house_number"], point_object["house_uncertainty_evidence_ref"] = invariant_house
+        objects.append(point_object)
 
     canonical_object_ids = {row["id"] for row in objects}
     for row in frame.get("angle_relationships") or []:
@@ -249,6 +278,25 @@ def build_bounded_natal_package(
             "aspect": row["aspect"],
             "uncertainty_evidence_ref": evidence_ref,
             "source_operator_hints": ["bounded_invariant_angle_aspect"],
+        })
+    for row in frame.get("calculated_point_relationships") or []:
+        if row.get("classification") != "invariant" or not row.get("aspect"):
+            continue
+        source_id = _coordinate_node_id(row["a"])
+        target_id = _coordinate_node_id(row["b"])
+        if source_id not in canonical_object_ids or target_id not in canonical_object_ids:
+            continue
+        evidence_ref = f"uncertainty:terrestrial_frame:calculated_point_relationship:{row['a']}:{row['b']}"
+        relationships.append({
+            "id": f"bounded_calculated_point_aspect:{source_id}:{row['aspect']}:{target_id}",
+            "relationship_type": "BOUNDED_INVARIANT_CALCULATED_POINT_ASPECT",
+            "source_id": source_id,
+            "target_id": target_id,
+            "source_name": row["a_name"],
+            "target_name": row["b_name"],
+            "aspect": row["aspect"],
+            "uncertainty_evidence_ref": evidence_ref,
+            "source_operator_hints": ["bounded_invariant_calculated_point_aspect"],
         })
     for row in assessment.get("derived_aspects") or []:
         if row.get("classification") != "invariant" or not row.get("aspect"):
@@ -301,7 +349,7 @@ def build_bounded_natal_package(
         "cusp_signs_and_rulers": "assessed_with_invariant_prerequisite_promotion",
         "angle_relationships": "assessed_with_invariant_relationship_promotion",
         "sect": "assessed_with_invariant_prerequisite_promotion",
-        "lots": "unavailable_angle_or_sect_dependent",
+        "lots": "assessed_as_branched_calculated_point_ranges",
         "body_latitudes": "assessed_as_continuous_ranges",
         "right_ascensions": "assessed_as_continuous_circular_ranges",
         "declinations": "assessed_as_continuous_ranges",
@@ -348,6 +396,14 @@ def build_bounded_natal_package(
             for key, value in sorted((assessment.get("terrestrial_frame") or {}).get("coordinates", {}).items())
         },
         **{
+            f"uncertainty:terrestrial_frame:calculated_point:{name}": value
+            for name, value in sorted((assessment.get("terrestrial_frame") or {}).get("calculated_points", {}).items())
+        },
+        **{
+            f"uncertainty:terrestrial_frame:calculated_point_relationship:{row['a']}:{row['b']}": row
+            for row in (assessment.get("terrestrial_frame") or {}).get("calculated_point_relationships", [])
+        },
+        **{
             f"uncertainty:terrestrial_frame:house_membership:{key}": value
             for key, value in sorted((assessment.get("terrestrial_frame") or {}).get("house_memberships", {}).items())
         },
@@ -392,6 +448,7 @@ def build_bounded_natal_package(
             "supports_bounded_invariant_angle_aspects": True,
             "supports_bounded_invariant_sect": True,
             "supports_bounded_invariant_triplicity": True,
+            "supports_bounded_branched_calculated_points": True,
             "supports_exact_longitudes": False,
             "supports_longitude_aspects": False,
             "supports_house_transits": False,
@@ -432,6 +489,7 @@ def build_bounded_natal_package(
             "derived_aspect_invariant_absence_count": assessment.get("derived_aspect_invariant_absence_count", 0),
             "declination_relationships": assessment.get("declination_relationships") or [],
             "terrestrial_frame": assessment.get("terrestrial_frame"),
+            "calculated_points": (assessment.get("terrestrial_frame") or {}).get("calculated_points") or {},
         },
         "uncertainty_assessment": {
             **(

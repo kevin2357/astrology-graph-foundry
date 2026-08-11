@@ -166,3 +166,12 @@ to angle ranges rather than reuse exact event solvers.
 Sect is now portable prerequisite evidence rather than a recalculated downstream
 guess. Transit techniques that branch on sect must cite this record and remain
 conditional when the natal interval crosses the horizon.
+
+## Terrestrial-frame Sprint 2, Slice 6 implications
+
+Fortune and Spirit now expose disconnected formula-branch ranges rather than one
+representative degree. Future Transit contact proofs must evaluate every branch and
+may promote a contact only when the same predicate holds over all applicable
+branches. An invariant house is independently reusable even when a lot's sign or
+degree range remains variable. Vertex house evidence is likewise reusable without
+reconstructing the terrestrial frame.

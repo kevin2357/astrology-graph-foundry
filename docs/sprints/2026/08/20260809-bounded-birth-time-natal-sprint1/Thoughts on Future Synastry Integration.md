@@ -161,3 +161,11 @@ cross-chart materialization must remain endpoint-gated.
 Synastry must preserve each participant's sect evidence independently. One
 participant's invariant sect cannot resolve the other's variable horizon branch,
 and no cross-chart interpretation should strengthen a native triplicity claim.
+
+## Terrestrial-frame Sprint 2, Slice 6 implications
+
+Each participant's Fortune, Spirit, and Vertex evidence remains native to that
+participant. Cross-chart relationships must take the Cartesian product of relevant
+formula branches; matching sample indexes across two bounded births would invent a
+shared clock correlation. Formula identity and prerequisite lineage should survive
+projection even when every branch supports the same cross-chart aspect.
