@@ -73,7 +73,7 @@ transit_pkg = transit.build(
 analysis = transit.analysis_view(transit_pkg)
 ```
 
-### Bounded or unknown birth time (0.7.0 candidate)
+### Bounded or unknown birth time (0.7.0)
 
 ```bat
 astro-package natal --provider live --name Alex Example --birth-time-unknown --birth-date 1990-04-12 --birth-timezone America/Denver --birth-lat 39.7392 --birth-lon -104.9903 --source-chart-id example:chart:alex --ephemeris-mode moshier --out alex_bounded_natal.json

@@ -1,6 +1,6 @@
 # Bounded Natal Consumer Handoff
 
-**Status:** AGF 0.7.0 release-candidate contract; downstream enablement pending
+**Status:** Published AGF 0.7.0 contract; downstream enablement pending
 
 ## What the API supplies
 
@@ -58,7 +58,7 @@ structural-strength scores or canonical claims. Downstream systems must not rank
 claim by raw row count: use root-owner `evidence_family_group` lineage when applying
 anti-double-counting policy.
 
-Current 0.7.0 candidate artifacts additionally advertise
+Published 0.7.0 artifacts additionally advertise
 `agf.bounded_uncertainty_evidence.v1.0.0`. Its circular segment sets,
 prerequisites, transition witnesses, and counterexamples are additive to the legacy
 bounded evidence fields. Consumers must feature-detect this version and preserve
@@ -92,7 +92,6 @@ whether dependent readings are superseded.
 
 ## Release posture
 
-AGF 0.7.0 is the correct candidate because it adds a public package, graph,
-provenance, and CLI family while preserving exact contracts. Publication must not
-imply AstroWoof end-to-end readiness until SPC, SBE, API, and frontend acceptance are
-separately qualified.
+AGF 0.7.0 adds a public package, graph, provenance, and CLI family while preserving
+exact contracts. Its publication does not imply AstroWoof end-to-end readiness;
+SPC, SBE, API, and frontend acceptance remain separately qualified work.

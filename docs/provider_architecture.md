@@ -28,7 +28,7 @@ AGF inventories relevant external data nonrecursively: `*.se1`, `sefstars.txt`, 
 
 Chiron, asteroids, and fixed stars are optional. Missing optional object data may produce explicit skipped-object warnings. Core calculation, house, timezone, or required-input failures do not produce a documented partial-but-valid Natal package.
 
-The AGF 0.6.0 qualified live profile requests Moshier directly, uses no external ephemeris files, and disables optional file-backed points. Other provider/data combinations remain available implementation surfaces but are not production-qualified merely because they execute. See [Qualified Live Calculation Profile](Qualified%20Live%20Calculation%20Profile.md).
+The AGF 0.7.0 qualified live profile requests Moshier directly, uses no external ephemeris files, and disables optional file-backed points. Other provider/data combinations remain available implementation surfaces but are not production-qualified merely because they execute. See [Qualified Live Calculation Profile](Qualified%20Live%20Calculation%20Profile.md).
 
 ## Identity boundary
 

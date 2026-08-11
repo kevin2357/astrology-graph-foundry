@@ -130,10 +130,10 @@ Eclipse-season classifications remain explicit candidates until a global eclipse
 
 ### Published immutable release
 
-AGF 0.6.0 is available from the
-[GitHub release](https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.6.0).
+AGF 0.7.0 is available from the
+[GitHub release](https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.7.0).
 The wheel SHA-256 is
-`d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95`.
+`fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53`.
 Production environments must also pin the exact SPC artifact and, for live
 calculation, the qualified provider stack described in
 [`docs/compatibility.md`](docs/compatibility.md).

@@ -4,16 +4,15 @@
 
 | Component | Current Foundry expectation |
 |---|---|
-| Astrology Graph Foundry | published 0.6.0 at tag `astrology-graph-foundry-v0.6.0`; exact wheel SHA-256 `d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95` |
+| Astrology Graph Foundry | published 0.7.0 at tag `astrology-graph-foundry-v0.7.0`; exact wheel SHA-256 `fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53` |
 | Semantic Projection Core | library compatibility range `>=0.10.0,<0.11`; production artifact is exactly 0.10.0 |
 | Python | 3.10 or newer |
 | Swiss Ephemeris | Optional `>=2.10,<2.11`; required only for live calculation |
 
-The source tree is an unpublished AGF 0.7.0 candidate. Its exact canonical graph
-1.3.0 path remains compatible with SPC 0.10.0. Its bounded canonical graph 1.0.0 is
-deliberately rejected until SPC publishes an explicit bounded-graph compatibility
-contract. Production remains pinned to published AGF 0.6.0 until a separate release
-is approved.
+AGF 0.7.0's exact canonical graph 1.3.0 path remains compatible with SPC 0.10.0.
+Its bounded canonical graph 1.3.0 is deliberately rejected until SPC publishes an
+explicit bounded-graph compatibility contract. Production may pin AGF 0.7.0 for
+exact and bounded source generation, but bounded projection is not yet available.
 
 Windows installs also require the declared `tzdata>=2024.1` dependency so IANA timezone normalization works in clean environments. Release deployments pin its exact artifact through the outer lock.
 

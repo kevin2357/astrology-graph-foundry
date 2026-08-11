@@ -1,0 +1,37 @@
+{
+  "artifact_type": "agf_publication_verification",
+  "status": "published_and_download_verified",
+  "release": {
+    "url": "https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.7.0",
+    "published_at": "2026-08-11T16:27:14Z",
+    "tag": "astrology-graph-foundry-v0.7.0",
+    "tag_object": "f09b27f40633aba5d4ab448d36ed848ded3058b2",
+    "target_commit": "8926483b38c6b5c6fd33748aa190d330bba4cd5b",
+    "draft": false,
+    "prerelease": false
+  },
+  "downloaded_assets": {
+    "SHA256SUMS.txt": {
+      "github_asset_digest": "sha256:14999d92a51384ee3c135c659f074fdcab39b6ab573d988dfc39b01ab45849f7",
+      "size_bytes": 201
+    },
+    "astrology_graph_foundry-0.7.0-py3-none-any.whl": {
+      "github_asset_digest": "sha256:fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53",
+      "size_bytes": 171066
+    },
+    "release-manifest.json": {
+      "github_asset_digest": "sha256:dfba548be7304feea58a33346a729b2475039a4156585ac5f12cc4191dead363",
+      "size_bytes": 2532
+    }
+  },
+  "fresh_download_verification": {
+    "checksum_file": "pass",
+    "pip_check": "pass",
+    "astro_package_version": "0.7.0",
+    "generate_daily_ephemeris_version": "0.7.0",
+    "saved_doctor": "pass",
+    "projection_doctor": "pass",
+    "live_doctor": "pass",
+    "installed_tests": "239 passed"
+  }
+}

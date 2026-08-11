@@ -41,4 +41,6 @@ The Swiss Ephemeris licensing activation decision is project-owned and distinct 
 
 Retain compact JSON summaries, hashes, manifest identities, run/release URLs, tag object and commit IDs, and human-readable slice results. Do not retain virtual environments, expanded source exports, duplicate wheels, caches, generated charts, or provider data in sprint documentation.
 
-The published baseline and verification evidence are linked from [release 0.6.0](releases/0.6.0.md).
+The latest published baseline and verification evidence are linked from
+[release 0.7.0](releases/0.7.0.md); [release 0.6.0](releases/0.6.0.md) preserves the
+previous identity/release baseline.

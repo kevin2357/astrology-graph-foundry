@@ -1,7 +1,6 @@
 # Bounded Birth-Time Natal Calculation
 
-**Status:** Implemented on `main` for the Astrology Graph Foundry 0.7.0 release
-candidate; not yet published
+**Status:** Published in Astrology Graph Foundry 0.7.0
 
 **Owner:** Astrology Graph Foundry for calculation, canonical source facts,
 uncertainty evidence, provenance, schemas, and source capabilities
@@ -21,10 +20,10 @@ facts proven valid throughout the complete interval. It must preserve uncertaint
 explicitly rather than hiding a representative noon calculation behind exact-looking
 longitudes, houses, angles, aspects, and derived structures.
 
-The 0.7.0 candidate implements the Python/CLI input, interval evaluation, schemas,
+The 0.7.0 release implements the Python/CLI input, interval evaluation, schemas,
 canonical graph, uncertainty evidence, provenance, capabilities, and exact-only
 consumer rejections described here. SPC and SBE support remains a separate follow-on
-sprint; the published 0.6.0 wheel does not implement bounded Natal.
+sprint. The published 0.7.0 wheel is the first immutable bounded-Natal release.
 
 ## Core invariant
 
@@ -87,7 +86,7 @@ endpoint category after changing inside the interval.
 
 ## Implemented calculation scope
 
-The 0.7.0 candidate conservatively assesses:
+The 0.7.0 release conservatively assesses:
 
 - bounded longitude ranges for ordinary configured bodies;
 - bounded ecliptic-latitude, right-ascension, and declination ranges;
@@ -264,7 +263,7 @@ package, graph, and consumer semantics. The package candidate is AGF 0.7.0. Exac
 Birth Data v1, Natal Dataset 1.1.0, and canonical graph 1.3.0 remain unchanged.
 Bounded contracts begin at Birth Data v1, Bounded Natal Dataset 1.0.0, bounded
 canonical graph 1.0.0, bounded calculation provenance 1.0.0, and interval proof
-profile 1.0.0. The completed 0.7.0 candidate currently emits bounded graph 1.3.0,
+profile 1.0.0. The published 0.7.0 release emits bounded graph 1.3.0,
 `agf.bounded_uncertainty_evidence.v1.0.0`, and bounded calculation profile 1.5.0;
 earlier graph/profile versions remain accepted where their schemas declare them.
 

@@ -1,24 +1,22 @@
 # Runtime and Contract Inventory
 
-This is the concise consumer inventory for the published AGF 0.6.0 wheel. The packaged JSON Schemas remain authoritative; enumerate and hash the installed bytes with `astro-package runtime-manifest` rather than locating source-tree files.
+This is the concise consumer inventory for the published AGF 0.7.0 wheel. The packaged JSON Schemas remain authoritative; enumerate and hash the installed bytes with `astro-package runtime-manifest` rather than locating source-tree files.
 
-## Unpublished 0.7.0 candidate additions
+## Published 0.7.0 bounded additions
 
 The current source adds bounded Birth Data v1, Bounded Natal Dataset 1.0.0, bounded
 canonical graph 1.3.0, bounded calculation provenance 1.0.0, bounded normalization
 policy 1.0.0, bounded uncertainty evidence 1.0.0, bounded calculation profile
-1.5.0, and interval proof profile 1.0.0. Its installed candidate wheel exposes 39
-schema resources and runtime-manifest hash
-`3cb122e5febdcf80dea752813f3acf0e5907488b223032128866ce65e47a9022`.
+1.5.0, and interval proof profile 1.0.0. Its installed wheel exposes 39 schema
+resources and clean-release runtime-manifest hash
+`4f4b344cf1bd344c0b3d76400982bbf9c5d9f1b3852b4d2660631299603fd93a`.
 
-These candidate contracts do not change exact canonical graph 1.3.0. They remain
-unpublished and are not part of the production 0.6.0 artifact lock below.
+These contracts do not change exact canonical graph 1.3.0.
 
 The previously recorded 38-resource manifest hash describes the earlier `00e6c2a`
-candidate boundary and must not be reused. The coordinate-derived expansion is now
-qualified through committed boundary `39e351c`; Gate 7 documentation and tests are
-the only changes after that boundary. The candidate is not a published production
-lock until a separately approved release qualification and publication occurs.
+candidate boundary and must not be reused. The published wheel is built from commit
+`8926483b38c6b5c6fd33748aa190d330bba4cd5b`; its SHA-256 is
+`fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53`.
 
 ## Stable public boundary
 
@@ -31,7 +29,7 @@ lock until a separately approved release qualification and publication occurs.
 - Canonical graph: `canonical_astrology_graph.v1`, graph version 1.3.0.
 - Canonical identity: semantic identity policy `semantic_sensor_identity_v1.1.0`; relationship identity policy `relationship_chart_identity_v1.0.0`. Callers should supply opaque `source_chart_id` through live Natal generation. The deterministic name fallback is compatibility behavior, not a production identity.
 - Calculation provenance: `agf.calculation_provenance.v1.0.0`; calculation profile `agf.calculation_profile.v1.1.0`; normalization policy `agf.normalization_policy.v1.0.0`.
-- Published AGF wheel SHA-256: `d1b357b1ec0e40faf7070b29e5c25d18e54c9507406518f26587aac46300aa95`; installed resource count: 34; canonical runtime-manifest SHA-256: `a674adff1b4b5334b7434cf4cc9b8cf30aaffd5b5fb2c97f1336e245dfa539a4`.
+- Published AGF wheel SHA-256: `fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53`; installed resource count: 39; canonical runtime-manifest SHA-256: `4f4b344cf1bd344c0b3d76400982bbf9c5d9f1b3852b4d2660631299603fd93a`.
 
 The runtime manifest is the complete machine-readable inventory for the installed build. Release-significant families include birth input, Natal packages, canonical and structural graphs, evidence provenance, projection requests/results, transitable charts, temporal activation/source handoffs, and calculation provenance. Consumers must inspect each resource's declared version rather than infer a contract from its filename.
 

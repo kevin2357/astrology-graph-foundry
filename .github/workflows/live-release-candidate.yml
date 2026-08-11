@@ -44,7 +44,7 @@ jobs:
           python -m pip install --disable-pip-version-check \
             "$RUNNER_TEMP/agf-live/wheels/semantic_projection_core-0.10.0-py3-none-any.whl" \
             "$RUNNER_TEMP/agf-live/wheels/pyswisseph-2.10.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" \
-            "$RUNNER_TEMP/agf-live/wheels/astrology_graph_foundry-0.6.0-py3-none-any.whl"
+            "$RUNNER_TEMP/agf-live/wheels/astrology_graph_foundry-0.7.0-py3-none-any.whl"
           python -m pip check
       - name: Run controlled live and installed SPC qualification
         working-directory: /tmp
@@ -53,7 +53,7 @@ jobs:
           set -euo pipefail
           python "$GITHUB_WORKSPACE/scripts/qualify_live_release_candidate.py" \
             --require-installed \
-            --agf-wheel "$RUNNER_TEMP/agf-live/wheels/astrology_graph_foundry-0.6.0-py3-none-any.whl" \
+            --agf-wheel "$RUNNER_TEMP/agf-live/wheels/astrology_graph_foundry-0.7.0-py3-none-any.whl" \
             --spc-wheel "$RUNNER_TEMP/agf-live/wheels/semantic_projection_core-0.10.0-py3-none-any.whl" \
             --pyswisseph-wheel "$RUNNER_TEMP/agf-live/wheels/pyswisseph-2.10.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" \
             --out "$RUNNER_TEMP/agf-live/out/controlled-live-summary.json"

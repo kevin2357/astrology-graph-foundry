@@ -2,7 +2,7 @@
 
 ## AstroWoof qualified profile
 
-AGF 0.6.0 intentionally qualifies a narrow live runtime:
+AGF 0.7.0 retains the narrow live runtime first qualified for 0.6.0:
 
 | Dimension | Qualified value |
 |---|---|

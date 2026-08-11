@@ -323,3 +323,34 @@ completed implementation slices.
   short cleanup container scoped to those five exact directories. The reusable
   dependency image remains available; the repository worktree contains only compact
   documentation evidence and the oracle regression test.
+
+## 2026-08-11 — Approved 0.7.0 publication
+
+- Product owner approved a quick immutable 0.7.0 release before the higher-risk
+  terrestrial-frame bounded-Natal sprint.
+- Recreated the proven build toolchain with Python 3.11.15, setuptools 83.0.0,
+  wheel 0.47.0, build 1.5.0, and `SOURCE_DATE_EPOCH=1786464996`.
+- Two independent clean Git exports of commit
+  `8926483b38c6b5c6fd33748aa190d330bba4cd5b` produced byte-identical 171,066-byte
+  wheels with SHA-256
+  `fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53`.
+- The clean-export wheel's canonical runtime-manifest SHA-256 is
+  `4f4b344cf1bd344c0b3d76400982bbf9c5d9f1b3852b4d2660631299603fd93a`.
+  This supersedes the checkout-built candidate manifest identity; Git export line
+  endings are part of packaged resource bytes, so the release artifact is
+  authoritative.
+- Installed the exact release wheel outside the checkout with SPC 0.10.0 and
+  pyswisseph 2.10.3.2. `pip check`, both CLI versions, all saved/projection/live
+  doctor gates, 239 tests, and a fresh 241-state Moshier bounded calculation passed.
+- Created annotated tag `astrology-graph-foundry-v0.7.0`, tag object
+  `f09b27f40633aba5d4ab448d36ed848ded3058b2`, pointing exactly to the qualified
+  commit, and pushed it.
+- Published the wheel, `release-manifest.json`, and `SHA256SUMS.txt` at
+  <https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.7.0>.
+  No sdist was published.
+- Downloaded all three assets into a fresh directory. GitHub asset digests matched,
+  `SHA256SUMS.txt` passed, and a new container installed the downloaded wheel and
+  passed `pip check`, all doctor modes, both CLI versions, and all 239 tests.
+- Publication evidence is retained in `publication-verification.json`. Release
+  status documentation is committed after the immutable tag by design; it does not
+  move the source commit that produced the wheel.
