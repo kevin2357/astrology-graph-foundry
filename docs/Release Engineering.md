@@ -18,18 +18,27 @@ Source-tree tests are necessary but insufficient. Every release should separatel
 2. installation outside the checkout;
 3. both console entry points and runtime version alignment;
 4. saved-package behavior without optional live dependencies;
-5. exact installed SPC compatibility and projection identity preservation;
+5. AGF operation with SPC absent, followed by a separate exact-wheel AGF-to-SPC
+   serialized-wire compatibility proof when the release claims that integration;
 6. controlled live behavior for each claimed provider/platform/data profile;
 7. repeated semantic fixture behavior under the documented timestamp boundary; and
 8. fresh download, checksum verification, reinstall, and smoke after publication.
 
 AGF 0.6.0's wheel-only pass found defects that source execution had hidden: Windows needed a declared `tzdata` dependency, and the Natal schema still required a removed nested `natal.semantic_graph` alias. Treat findings at this stage as successful QA, fix them with regressions, and restart from a clean environment.
 
-## Private dependency assets
+## Independent downstream compatibility assets
 
-GitHub returns HTTP 404 for unauthenticated release-asset requests to a private repository even when the tag and filename are correct. Do not diagnose that response as a missing artifact until repository visibility and authentication are checked.
+GitHub returns HTTP 404 for unauthenticated release-asset requests to a private
+repository even when the tag and filename are correct. Do not diagnose that
+response as a missing artifact until repository visibility and authentication are
+checked.
 
-The controlled-live workflow uses authenticated `gh release download` for the exact private SPC wheel, then independently verifies its SHA-256. The workflow expects an Actions secret named `SPC_RELEASE_TOKEN`; that secret is intentionally absent after release cleanup. Provision a least-privilege token only for an approved rerun, never print it, and delete it when evidence is retained. Making the dependency repository temporarily public is unnecessary.
+SPC is not an AGF package dependency as of the 0.8.0 candidate. A cross-system
+qualification may still download an exact private SPC wheel, independently verify
+its SHA-256, and install it beside AGF in a disposable integration environment.
+Any workflow credential for that download is an integration-test secret, not an
+AGF runtime credential. Provision it only for an approved run, never print it, and
+delete it after compact evidence is retained.
 
 ## Live calculation and external data
 

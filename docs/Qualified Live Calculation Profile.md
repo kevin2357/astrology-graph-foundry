@@ -2,7 +2,9 @@
 
 ## AstroWoof qualified profile
 
-AGF 0.7.0 retains the narrow live runtime first qualified for 0.6.0:
+AGF 0.7.0 retains the narrow live runtime first qualified for 0.6.0. The 0.8.0
+candidate preserves this provider profile while removing SPC from AGF's runtime
+dependency boundary:
 
 | Dimension | Qualified value |
 |---|---|
@@ -43,11 +45,14 @@ with separately pinned data and runtime evidence; it does not alter this profile
 
 The retained Linux evidence proves:
 
-- imports originate from installed AGF and SPC wheels rather than source trees;
+- AGF imports and live calculation originate from an installed AGF wheel rather
+  than a source tree, with SPC absent from the AGF runtime;
 - the exact pyswisseph wheel hash and Python/platform tags;
 - an empty external-data inventory and an isolated empty ephemeris directory;
 - returned flags report only Moshier for all calculated ecliptic and equatorial positions;
-- explicit source-chart identity survives Natal generation, schema validation, serialization, and installed SPC projection;
+- explicit source-chart identity survives Natal generation, schema validation,
+  and serialization; a separate external harness proves that an independently
+  installed SPC wheel preserves that identity across the serialized wire boundary;
 - repeated controlled inputs preserve canonical semantic content;
 - DST-valid and coordinate-boundary fixtures behave under the accepted birth-input contract; and
 - optional Chiron, asteroids, and fixed stars are absent rather than warning-skipped into the qualified result.

@@ -14,7 +14,8 @@ Semantic Projection Core
 target-domain projected semantic graphs
 ```
 
-Semantic Projection Core is maintained separately. This repository retains the saved-package adapters and CLI bridges that translate Foundry package structures into generic projection inputs.
+Semantic Projection Core is maintained separately and consumes AGF's serialized
+canonical and temporal source contracts. AGF does not import or execute SPC.
 
 ## Installation health check
 
@@ -30,7 +31,9 @@ For machine-readable diagnostics:
 astro-package doctor --json
 ```
 
-The command distinguishes saved-package/projection workflows from optional live Swiss Ephemeris calculation support.
+The command distinguishes the dependency-light saved-package runtime from optional
+live Swiss Ephemeris calculation support. Projection readiness is diagnosed by SPC
+or by the orchestration environment that installs it.
 
 Inspect the installed schema/resource inventory and its SHA-256 identities with:
 
@@ -134,8 +137,8 @@ AGF 0.7.0 is available from the
 [GitHub release](https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.7.0).
 The wheel SHA-256 is
 `fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53`.
-Production environments must also pin the exact SPC artifact and, for live
-calculation, the qualified provider stack described in
+Environments that also execute projection must independently pin the exact SPC
+artifact. Live calculation must pin the qualified provider stack described in
 [`docs/compatibility.md`](docs/compatibility.md).
 
 ### Graph, package, and projection development
@@ -144,7 +147,7 @@ calculation, the qualified provider stack described in
 python -m pip install -e .[dev]
 ```
 
-The `dev` extra intentionally excludes Swiss Ephemeris so saved-package, graph, schema, adapter, and projection integration work does not require a native C build.
+The `dev` extra intentionally excludes Swiss Ephemeris so saved-package, graph, and schema work does not require a native C build.
 
 ### Live chart calculation
 
@@ -160,11 +163,9 @@ python -m pip install -e .[full]
 
 On Windows, wheel availability depends on Python and `pyswisseph` versions. See `docs/ideas_and_improvements.md` for the open packaging compatibility work.
 
-### Semantic Projection Core sibling install
-
-```bat
-python -m pip install -e ..\semantic-projection-core
-```
+Semantic Projection Core is an independent downstream consumer and is not an AGF
+runtime dependency. Install it only in an orchestration or compatibility-test
+environment that owns projection execution.
 
 The Python import package remains:
 

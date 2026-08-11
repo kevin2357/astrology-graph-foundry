@@ -1,11 +1,9 @@
 from __future__ import annotations
-
 import json
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
-from semantic_projection import validate_foundry_temporal_source_bundle
 
 from astrology_graph_foundry.common.temporal_activation import TemporalExportOptions
 from astrology_graph_foundry.temporal_projection_adapter import (
@@ -158,14 +156,3 @@ def test_temporal_projection_source_bundle_schema_validates():
         key=lambda error: list(error.path),
     )
     assert not errors, [error.message for error in errors]
-
-
-def test_shipped_temporal_projection_demo_passes_core_intake_validation():
-    demo_path = (
-        Path(__file__).parents[1]
-        / "examples"
-        / "outputs"
-        / "temporal_projection_source_bundle_demo.json"
-    )
-    demo = json.loads(demo_path.read_text(encoding="utf-8"))
-    validate_foundry_temporal_source_bundle(demo)

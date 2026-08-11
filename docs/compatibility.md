@@ -22,9 +22,15 @@ graph 1.3.0.
 
 Windows installs also require the declared `tzdata>=2024.1` dependency so IANA timezone normalization works in clean environments. Release deployments pin its exact artifact through the outer lock.
 
-Foundry's library metadata permits the SPC 0.10 release line. The release handoff pins SPC 0.10.0 wheel SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`. This digest must be independently reverified during release qualification.
+AGF 0.8.0 has no SPC distribution dependency. External integration evidence may
+still pin SPC 0.10.0 wheel SHA-256
+`60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`;
+that artifact belongs to orchestration/compatibility qualification, not AGF runtime.
 
-Use `astro-package doctor --json` to compare installed distribution versions with imported engine versions. Worker startup may assert `astro-package doctor --require-mode saved|projection|live --json`; failure exits with status 2 and stable failure codes. `live` proves dependency availability only, not that a Swiss Ephemeris data set has been release-qualified.
+Use `astro-package doctor --json` to inspect AGF and live dependency readiness.
+Worker startup may assert `astro-package doctor --require-mode saved|live --json`;
+projection readiness is checked by SPC or orchestration. `live` proves dependency
+availability only, not that a Swiss Ephemeris data set has been release-qualified.
 
 ## Runtime modes
 

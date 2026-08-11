@@ -5,10 +5,6 @@ import json
 import logging
 from pathlib import Path
 
-from semantic_projection.engine import ProjectionExecutionError
-from semantic_projection.registry import ProjectionProfileRegistryError
-from semantic_projection.validation import ProjectionValidationError
-
 from astrology_graph_foundry import __version__
 from astrology_graph_foundry.common.io import read_json, write_json
 from astrology_graph_foundry.common.logging_config import configure_logging
@@ -38,11 +34,6 @@ from astrology_graph_foundry.pipelines import (
     synastry,
     timeline,
     transit,
-)
-from astrology_graph_foundry.projection_adapter import (
-    enforce_unmapped_threshold,
-    project_dataset,
-    projection_materialization_view,
 )
 from astrology_graph_foundry.resources import build_runtime_package_manifest
 from astrology_graph_foundry.temporal_projection_adapter import build_temporal_projection_source_bundle
@@ -148,7 +139,7 @@ def main() -> None:
 
     p = sub.add_parser(
         "doctor",
-        help="Inspect installation health and report graph/projection/live-calculation capabilities.",
+        help="Inspect installation health and report saved/live-calculation capabilities.",
     )
     p.add_argument("--json", action="store_true", help="Emit the doctor report as JSON.")
     p.add_argument(
@@ -356,50 +347,6 @@ def main() -> None:
     p.add_argument("--sampled-exact-orb", type=float, default=0.01)
     p.add_argument("--omit-observation-states", action="store_true")
 
-    p = sub.add_parser(
-        "project",
-        help="Project an existing full Foundry dataset without recalculating astrology.",
-    )
-    p.add_argument("--source-dataset", required=True)
-    p.add_argument(
-        "--projection-profile",
-        default="orthodox_astrology.v1",
-    )
-    p.add_argument("--projection-profile-version", default="1.0.0")
-    p.add_argument("--projection-context", help="JSON file containing ProjectionContext.")
-    p.add_argument("--context-id")
-    p.add_argument("--context-version", default="1.0.0")
-    p.add_argument("--subject-scope")
-    p.add_argument("--relationship-type")
-    p.add_argument("--application-context")
-    p.add_argument("--audience")
-    p.add_argument("--target-domain")
-    p.add_argument("--output-intent", default="structured_semantic_model")
-    p.add_argument(
-        "--unmapped-policy",
-        choices=["diagnostic", "passthrough", "ignore", "fail"],
-        default="diagnostic",
-    )
-    p.add_argument("--no-audit", action="store_true")
-    p.add_argument("--no-diagnostics", action="store_true")
-    p.add_argument(
-        "--fail-on-unmapped-threshold",
-        type=float,
-        help="Fail when unmapped source fraction exceeds this 0..1 value.",
-    )
-    p.add_argument(
-        "--unmapped-threshold-scope",
-        choices=["eligible", "canonical"],
-        default="eligible",
-        help="Threshold denominator: profile-eligible rows or all canonical rows.",
-    )
-    p.add_argument(
-        "--output-mode",
-        choices=["full", "standard", "summary", "forensic"],
-        default="full",
-    )
-    p.add_argument("--out", required=True)
-
     p = sub.add_parser("progressed")
     p.add_argument("--output-dir")
     p.add_argument("--out")
@@ -508,82 +455,6 @@ def main() -> None:
         except (TemporalSourceContractError, ValueError) as exc:
             raise SystemExit(f"Temporal projection source export failed: {exc}") from exc
         write_json(args.out, bundle)
-        logger.info("Command complete: wrote %s", args.out)
-        print(f"Wrote {args.out}")
-        return
-
-    if args.cmd == "project":
-        logger.info(
-            "Projecting saved dataset source=%s profile=%s version=%s",
-            args.source_dataset,
-            args.projection_profile,
-            args.projection_profile_version,
-        )
-        source_package = read_json(args.source_dataset)
-        context = read_json(args.projection_context) if args.projection_context else None
-        if context is None and any(
-            value is not None
-            for value in (
-                args.context_id,
-                args.subject_scope,
-                args.relationship_type,
-                args.application_context,
-                args.audience,
-                args.target_domain,
-            )
-        ):
-            context = {
-                "context_id": args.context_id or "orthodox.general.v1",
-                "context_version": args.context_version,
-                "subject_scope": args.subject_scope or "individual",
-                "relationship_type": args.relationship_type,
-                "age_band": None,
-                "target_domain": (
-                    args.target_domain or args.projection_profile
-                ),
-                "application_context": (
-                    args.application_context or "general_interpretation"
-                ),
-                "audience": args.audience,
-                "output_intent": args.output_intent,
-                "constraints": {},
-                "parameters": {},
-                "extensions": {},
-            }
-        options = {
-            "retain_unmapped_sources": True,
-            "include_audit": not args.no_audit,
-            "include_diagnostics": not args.no_diagnostics,
-            "unmapped_policy": args.unmapped_policy,
-            "compact_audit": False,
-            "extensions": {},
-        }
-        try:
-            projected = project_dataset(
-                source_package,
-                profile_id=args.projection_profile,
-                profile_version=args.projection_profile_version,
-                context=context,
-                options=options,
-            )
-            enforce_unmapped_threshold(
-                projected,
-                args.fail_on_unmapped_threshold,
-                scope=args.unmapped_threshold_scope,
-            )
-        except (
-            ValueError,
-            LookupError,
-            ProjectionExecutionError,
-            ProjectionProfileRegistryError,
-            ProjectionValidationError,
-        ) as exc:
-            raise SystemExit(f"Projection failed: {exc}") from exc
-
-        output = projection_materialization_view(
-            projected, args.output_mode
-        )
-        write_json(args.out, output)
         logger.info("Command complete: wrote %s", args.out)
         print(f"Wrote {args.out}")
         return

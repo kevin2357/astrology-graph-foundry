@@ -70,6 +70,12 @@ def test_synastry_analysis_and_streaming_views_are_compact():
     analysis = synastry.analysis_view(pkg)
     streaming = synastry.streaming_index(pkg)
     assert analysis["metadata"]["view_type"] == "synastry_analysis"
+    assert analysis["metadata"]["view_compaction"] == "source_factual_relationship_handoff_v3"
+    assert analysis["metadata"]["projection_status"] == "not_performed"
+    assert analysis["canonical_source_graph"] == pkg["canonical_astrology_graph"]
+    assert analysis["structural_evidence_graph"] == pkg["structural_evidence_graph"]
+    assert "projected_objects" not in analysis
+    assert "projection_coverage" not in analysis
     assert analysis["natal_context_hints"]["person_a"]
     assert streaming["metadata"]["view_type"] == "synastry_streaming_index"
     assert streaming["contact_registry"]

@@ -7,7 +7,6 @@ import pytest
 from astrology_graph_foundry.common.package_compatibility import BoundedNatalCompatibilityError
 from astrology_graph_foundry.common.transitable_chart import from_package
 from astrology_graph_foundry.pipelines import composite, davison
-from astrology_graph_foundry.projection_adapter import project_dataset
 
 
 def _bounded_package():
@@ -20,11 +19,6 @@ def _bounded_package():
             "relationships": [],
         },
     }
-
-
-def test_current_spc_projection_boundary_rejects_bounded_family_explicitly():
-    with pytest.raises(BoundedNatalCompatibilityError, match="AGF-to-SPC static projection"):
-        project_dataset(_bounded_package(), profile_id="woofmapped_astrology.v0", profile_version="0.3.0")
 
 
 def test_transitable_consumers_reject_bounded_family():

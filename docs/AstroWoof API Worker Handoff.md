@@ -59,7 +59,8 @@ At image build/startup:
 2. run `pip check`;
 3. run `astro-package --version` and compare with the lock;
 4. capture and compare `astro-package runtime-manifest` with the release manifest;
-5. run `astro-package doctor --require-mode projection --json`;
+5. run `astro-package doctor --require-mode saved --json` for AGF and perform a
+   separate SPC startup/compatibility check in the orchestration environment;
 6. for live workers, also run `astro-package doctor --require-mode live --json`; and
 7. separately verify the release-qualified Python/platform, pyswisseph, and ephemeris-data manifest because doctor checks availability, not qualification.
 

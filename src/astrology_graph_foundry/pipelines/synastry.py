@@ -9,18 +9,7 @@ from astrology_graph_foundry.common.aspects import find_aspect, relevance_score
 from astrology_graph_foundry.common.chart_graph import build_chart_graph, normalize_relationship_types
 from astrology_graph_foundry.common.geometry import house_for_lon
 from astrology_graph_foundry.common.graph_compiler import GraphCompiler, TransitTarget
-from astrology_graph_foundry.common.themes import operator_hints, theme_tags
-from astrology_graph_foundry.projection_adapter import (
-    canonical_subset_for_relationship_ids,
-    project_synastry_package,
-    projected_analysis_rows,
-    projection_coverage_for_rows,
-    select_projection_representative_rows,
-    summarize_unmapped_families,
-)
-
 from astrology_graph_foundry.common.semantic_layers import (
-    canonical_graph_from_package,
     finalize_package_semantic_boundary,
     finalize_view_semantic_boundary,
     orthodox_claims_from_package,
@@ -28,6 +17,7 @@ from astrology_graph_foundry.common.semantic_layers import (
     orthodox_report_materials_from_package,
     orthodox_row_annotation,
 )
+from astrology_graph_foundry.common.themes import operator_hints, theme_tags
 from astrology_graph_foundry.pipelines.composite import build_from_datasets as build_composite_from_datasets
 from astrology_graph_foundry.pipelines.composite import resolve_pair_inputs
 
@@ -419,9 +409,8 @@ def _top_rows(rows: list[dict[str, Any]], limit: int) -> list[dict[str, Any]]:
 
 
 def analysis_view(package: dict[str, Any], *, top_aspect_limit: int = 80, top_overlay_limit: int = 60) -> dict[str, Any]:
+    """Build a compact source-factual Synastry handoff without projection."""
     ns = package.get("natal_synastry", {})
-    graph = package.get("canonical_astrology_graph") or {}
-
     all_aspect_rows = (
         (ns.get("a_to_b_aspects", []) or [])
         + (ns.get("b_to_a_aspects", []) or [])
@@ -430,108 +419,31 @@ def analysis_view(package: dict[str, Any], *, top_aspect_limit: int = 80, top_ov
         (ns.get("a_to_b_house_overlays", []) or [])
         + (ns.get("b_to_a_house_overlays", []) or [])
     )
-
-    aspect_rows, aspect_selection = select_projection_representative_rows(
-        graph,
-        all_aspect_rows,
-        limit=top_aspect_limit,
-    )
-    overlay_rows, overlay_selection = select_projection_representative_rows(
-        graph,
-        all_overlay_rows,
-        limit=top_overlay_limit,
-    )
-
-    selected_ids = [
-        str(row.get("id"))
-        for row in [*aspect_rows, *overlay_rows]
-        if row.get("id") is not None
-    ]
-
-    # One batch projection replaces row-by-row orthodox reconstruction.
-    projected = project_synastry_package(
-        package,
-        professional=False,
-        relationship_ids=selected_ids,
-        include_audit=False,
-        include_diagnostics=True,
-    )
-    projected_aspects = projected_analysis_rows(aspect_rows, projected)
-    projected_overlays = projected_analysis_rows(overlay_rows, projected)
-
-    aspect_coverage = {
-        **aspect_selection,
-        **projection_coverage_for_rows(aspect_rows, projected),
-    }
-    overlay_coverage = {
-        **overlay_selection,
-        **projection_coverage_for_rows(overlay_rows, projected),
-    }
-    source_subset = canonical_subset_for_relationship_ids(
-        graph,
-        selected_ids,
-    )
-    unmapped_summary = summarize_unmapped_families(
-        source_subset,
-        projected,
-    )
-
-    theme_registry = dict(package.get("theme_registry") or {})
-    operator_registry = dict(package.get("operator_registry") or {})
+    aspect_rows = [_registry_compact_row(row) for row in all_aspect_rows[:top_aspect_limit]]
+    overlay_rows = [_registry_compact_row(row) for row in all_overlay_rows[:top_overlay_limit]]
     view = {
         "metadata": {
             **package["metadata"],
             "view_type": "synastry_analysis",
-            "view_compaction": "registries_plus_projected_relationships_v2_4_2",
+            "view_compaction": "source_factual_relationship_handoff_v3",
+            "projection_status": "not_performed",
+            "projection_owner": "semantic_projection_core_or_orchestration",
         },
         "person_a": package.get("person_a"),
         "person_b": package.get("person_b"),
         "object_registries": package.get("object_registries", {}),
-        "theme_registry": theme_registry,
-        "operator_registry": operator_registry,
+        "theme_registry": dict(package.get("theme_registry") or {}),
+        "operator_registry": dict(package.get("operator_registry") or {}),
         "natal_context_hints": _natal_context_hints(package),
-        "top_synastry_aspects": projected_aspects,
-        "top_house_overlays": projected_overlays,
-        "projection_coverage": {
-            "top_synastry_aspects": aspect_coverage,
-            "top_house_overlays": overlay_coverage,
-            "overall": {
-                "selected_row_count": len(aspect_rows) + len(overlay_rows),
-                "projected_row_count": (
-                    aspect_coverage["projected_row_count"]
-                    + overlay_coverage["projected_row_count"]
-                ),
-                "unprojected_row_count": (
-                    aspect_coverage["unprojected_row_count"]
-                    + overlay_coverage["unprojected_row_count"]
-                ),
-            },
+        "top_synastry_aspects": aspect_rows,
+        "top_house_overlays": overlay_rows,
+        "source_selection": {
+            "top_synastry_aspects": {"available": len(all_aspect_rows), "selected": len(aspect_rows)},
+            "top_house_overlays": {"available": len(all_overlay_rows), "selected": len(overlay_rows)},
         },
-        "orthodox_relationship_projection": {
-            "metadata": projected.get("metadata", {}),
-            "summary": {
-                **projected.get("summary", {}),
-                "unmapped_family_summary": unmapped_summary,
-            },
-            "diagnostics": {
-                "errors": list(
-                    projected.get("diagnostics", {}).get("errors") or []
-                ),
-                "warnings": list(
-                    projected.get("diagnostics", {}).get("warnings") or []
-                ),
-                "unmapped_family_summary": unmapped_summary,
-            },
-            "indexes": projected.get("indexes", {}),
-            "objects": projected.get("objects", []),
-            "relationships": projected.get("relationships", []),
-        },
+        "canonical_source_graph": package.get("canonical_astrology_graph") or {},
+        "structural_evidence_graph": package.get("structural_evidence_graph") or {},
         "composite_summary": _compact_composite_summary(package.get("composite")),
-        "orthodox_projection_extract": {
-            "relationship_metrics": orthodox_metrics_from_package(package)[:40],
-            "claim_candidates": orthodox_claims_from_package(package)[:25],
-            "report_materials": orthodox_report_materials_from_package(package),
-        },
     }
     return finalize_view_semantic_boundary(view, package)
 

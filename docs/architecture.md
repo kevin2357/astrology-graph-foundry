@@ -264,7 +264,10 @@ This is structured target-domain semantics rather than report prose or claim syn
 
 ## Chunk 2.4 relationship projection
 
-The SDK now contains a narrow `projection_adapter` that translates saved Synastry packages into generic projection requests. Compact Synastry analysis rows derive from one batch orthodox projection rather than hidden row-level theme reconstruction.
+AGF no longer executes semantic projection. Compact Synastry analysis is a
+source-factual handoff containing selected canonical relationships and registries;
+SPC or orchestration owns request construction, target-domain projection, and
+projected materialization.
 
 ## Chunk 2.5 saved-dataset projection
 

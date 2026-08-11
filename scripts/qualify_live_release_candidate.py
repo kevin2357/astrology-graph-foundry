@@ -12,7 +12,6 @@ from copy import deepcopy
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-import semantic_projection
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
@@ -20,7 +19,6 @@ import astrology_graph_foundry
 from astrology_graph_foundry.common.io import write_json
 from astrology_graph_foundry.ephemeris.providers import _ephemeris_data_inventory
 from astrology_graph_foundry.pipelines.natal import build
-from astrology_graph_foundry.projection_adapter import project_dataset
 from astrology_graph_foundry.resources import read_schema, schema_names
 
 EXPECTED_PYSWISSEPH_VERSION = "2.10.3.2"
@@ -66,7 +64,6 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", required=True)
     parser.add_argument("--agf-wheel", type=Path, required=True)
-    parser.add_argument("--spc-wheel", type=Path, required=True)
     parser.add_argument("--pyswisseph-wheel", type=Path, required=True)
     parser.add_argument("--require-installed", action="store_true")
     return parser.parse_args()
@@ -137,12 +134,6 @@ def main() -> None:
             include_optional_points=False,
         )
         assert semantic_payload(repeated) == semantic_payload(packages["baseline"])
-        projected = project_dataset(
-            packages["baseline"],
-            profile_id="orthodox_astrology.v1",
-            profile_version="1.0.0",
-        )
-        assert projected["source_identity"]["source_chart_id"] == "agf:qualification:baseline"
 
     result = {
         "evidence_type": "agf.controlled_live_summary.v1",
@@ -151,13 +142,10 @@ def main() -> None:
             "system": platform.system(),
             "machine": platform.machine(),
             "agf_version": importlib.metadata.version("astrology-graph-foundry"),
-            "spc_distribution_version": importlib.metadata.version("semantic-projection-core"),
-            "spc_engine_version": semantic_projection.ENGINE_VERSION,
             "pyswisseph_version": importlib.metadata.version("pyswisseph"),
         },
         "artifacts": {
             "agf_wheel_sha256": sha256_file(args.agf_wheel),
-            "spc_wheel_sha256": sha256_file(args.spc_wheel),
             "pyswisseph_wheel_sha256": pyswisseph_hash,
         },
         "provider": {
@@ -168,12 +156,6 @@ def main() -> None:
         },
         "fixtures": fixture_summaries,
         "repeat_semantic_equal": True,
-        "projection": {
-            "passed": True,
-            "source_chart_id": projected["source_identity"]["source_chart_id"],
-            "object_count": len(projected["objects"]),
-            "relationship_count": len(projected["relationships"]),
-        },
     }
     write_json(args.out, result)
     print(json.dumps(result, indent=2, sort_keys=True))

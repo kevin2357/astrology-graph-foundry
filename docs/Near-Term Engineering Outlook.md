@@ -9,26 +9,16 @@ enough to remain visible but are not yet approved sprint commitments. Normative
 behavior remains in the schemas, contract documentation, accepted ADRs, and released
 artifacts.
 
-## Decouple AGF from Semantic Projection Core
+## Completed candidate: decouple AGF from Semantic Projection Core
 
 ### Current state
 
-AGF currently declares `semantic-projection-core>=0.10.0,<0.11` as a mandatory
-distribution dependency. `projection_adapter.py` imports the `semantic_projection`
-runtime directly, `doctor` reports an SPC compatibility line, and AGF's installed
-qualification includes AGF-to-SPC projection tests.
+AGF 0.8.0 candidate source has no SPC distribution or runtime dependency. The
+projection adapter, Python exports, CLI command, and projection doctor mode are
+removed. Synastry analysis now emits a source-factual handoff. Canonical graphs and
+projection-neutral temporal exports remain intact.
 
-This is stronger coupling than the ownership model requires. AGF calculates and
-serializes canonical astrology artifacts. SPC consumes compatible canonical
-artifacts and owns projection. Neither core runtime needs to import or install the
-other merely to perform its own work.
-
-The current dependency appears to be residue from projection's earlier development
-inside Foundry plus the convenience of retaining an AGF-owned projection adapter
-after the repository split. Cross-system compatibility tests are valuable, but they
-do not require a production dependency in either direction.
-
-### Intended direction
+### Accepted direction
 
 - AGF's base installation should calculate, validate, serialize, reload, and inspect
   its artifacts without SPC installed.
@@ -42,23 +32,7 @@ do not require a production dependency in either direction.
   explicitly optional integration layer rather than making either core package a
   runtime dependency of the other.
 
-### Sprint questions
-
-1. Should the existing adapter move to SPC, a small neutral bridge package, or an
-   orchestration repository?
-2. Is a temporary AGF `projection` extra useful during migration, or would it
-   prolong an ownership ambiguity that should be removed directly?
-3. Which current public AGF Python functions and CLI routes expose projection, and
-   what deprecation/versioning policy do their users require?
-4. How should `doctor` change so saved and live AGF readiness are wholly independent
-   of SPC while optional integration diagnostics remain available elsewhere?
-5. Which tests belong in AGF as schema/fixture export tests, which belong in SPC as
-   consumer tests, and which belong in cross-project qualification?
-6. Does removing the mandatory dependency warrant AGF 0.8.0 because public adapter
-   imports or CLI behavior change, even though the canonical artifact contracts do
-   not?
-
-### Acceptance direction
+### Remaining acceptance boundary
 
 A clean AGF base wheel must install and pass saved/live workflows without SPC. A
 clean SPC wheel must install and project a compatible saved fixture without AGF.

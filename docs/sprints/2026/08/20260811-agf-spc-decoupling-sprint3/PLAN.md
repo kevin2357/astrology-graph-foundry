@@ -1,6 +1,6 @@
 # AGF/SPC Runtime and Ownership Decoupling Sprint Plan
 
-**Status:** Proposed; sequenced after the time-frame bounded-Natal sprint
+**Status:** Complete; Gate 1 approved
 
 **Repository:** `astrology-graph-foundry`
 

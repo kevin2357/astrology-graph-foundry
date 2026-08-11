@@ -8,10 +8,14 @@
 
 ### Installation and environment diagnostics
 
-`astro-package doctor` now distinguishes saved, projection, and live dependency readiness; AGF 0.6.0 additionally qualified one exact CPython 3.11/Linux/Moshier combination. Follow-up work:
+`astro-package doctor` distinguishes saved and live dependency readiness. Projection
+diagnostics moved to SPC or the orchestration environment when AGF removed its SPC
+runtime dependency. AGF 0.6.0 additionally qualified one exact CPython
+3.11/Linux/Moshier combination. Follow-up work:
 
 - qualify additional Python / `pyswisseph` wheel combinations only when a consumer needs them, including Windows, macOS, musllinux, or newer Python ABIs;
-- convert the current controlled-live workflow into a reusable release workflow with deliberately provisioned least-privilege access to private dependency assets;
+- convert the controlled-live workflow into a reusable AGF-only release workflow,
+  with cross-system exact-wheel checks kept as a separate integration gate;
 - expand doctor output with ephemeris-path validation and optional live-provider smoke checks.
 
 ### Long-window eclipse/lunation workflows

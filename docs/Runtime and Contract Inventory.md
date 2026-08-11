@@ -33,7 +33,8 @@ candidate boundary and must not be reused. The published wheel is built from com
 - Distribution: `astrology-graph-foundry`; import package: `astrology_graph_foundry`.
 - Python: 3.10–3.12 are the declared pure-mode matrix. The only qualified live profile is CPython 3.11 on glibc Linux x86-64 with the exact Moshier configuration documented below.
 - Commands: `astro-package` and `generate-daily-ephemeris`.
-- Base dependency: `semantic-projection-core>=0.10.0,<0.11`; production uses the exact qualified artifact.
+- Base dependencies: no SPC runtime dependency; Windows additionally uses the
+  declared `tzdata` dependency. Projection orchestration installs SPC independently.
 - Timezone database: `tzdata>=2024.1` on Windows, where Python does not normally have an operating-system IANA timezone database. Production locks its exact artifact.
 - Optional live dependency: `pyswisseph>=2.10,<2.11`; its presence alone is not a production qualification.
 - Canonical graph: `canonical_astrology_graph.v1`, graph version 1.3.0.

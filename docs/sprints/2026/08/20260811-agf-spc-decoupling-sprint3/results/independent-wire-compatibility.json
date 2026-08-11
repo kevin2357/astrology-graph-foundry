@@ -1,0 +1,27 @@
+{
+  "agf": {
+    "distribution": "astrology-graph-foundry",
+    "requires": [],
+    "version": "0.8.0",
+    "wheel_sha256_for_wire_run": "c14a92d1935867e54bb0a1cdab73b2106a41a25c99ec8600b587529d5e74310b"
+  },
+  "all_projected_refs_resolve": true,
+  "installation": "independently built wheels installed into a disposable Linux integration environment",
+  "projected_object_count": 17,
+  "projected_relationship_count": 75,
+  "projected_source_ref_count": 17,
+  "source_chart_id": "natal:kevin",
+  "source_graph_version": "1.3.0",
+  "source_object_count": 189,
+  "source_package_sha256": "b95a3534b1bf39252c9ccbb57ce1f2ab7ac596a5af0452c873e4ac051e03a968",
+  "source_relationship_count": 4239,
+  "spc": {
+    "distribution": "semantic-projection-core",
+    "requires": [
+      "jsonschema"
+    ],
+    "version": "0.10.0",
+    "wheel_sha256_for_wire_run": "99e81023cfe916af320f22863a4d2b30fab1e1c8e22e9017f2314a6bbf6a89a1"
+  },
+  "status": "passed"
+}

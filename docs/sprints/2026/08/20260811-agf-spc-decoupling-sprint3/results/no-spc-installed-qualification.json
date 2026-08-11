@@ -1,0 +1,31 @@
+{
+  "agf_version": "0.8.0",
+  "base_environment": {
+    "pip_check": "passed",
+    "semantic_projection_available": false,
+    "spc_import_guard": "passed",
+    "startup_mode": "saved"
+  },
+  "cli": {
+    "astro_package_help": "passed",
+    "generate_daily_ephemeris_help": "passed",
+    "project_subcommand_present": false
+  },
+  "full_installed_wheel_tests": {
+    "failed": 0,
+    "passed": 226,
+    "warning": "read-only source mount prevented pytest cache creation"
+  },
+  "live_environment": {
+    "bounded_natal_sha256": "32ec7b3b5fb71dca8048a00553be4cea521700046f0fcd0cf366461ef5856e7c",
+    "ephemeris_mode": "moshier",
+    "exact_natal_sha256": "37dec23a2df9f839ae5cc6e0e250aa3b4976342effb1ba66a6a851781a6b192d",
+    "platform": "Linux x86-64",
+    "pyswisseph_version": "2.10.3.2",
+    "python": "CPython 3.11",
+    "spc_import_guard": "passed",
+    "startup_mode": "live"
+  },
+  "status": "passed",
+  "wheel_sha256": "4a21c23c4b3f811830d79d90199dc2e3cf08b35b61a3127513f4c2ae47eb3803"
+}
