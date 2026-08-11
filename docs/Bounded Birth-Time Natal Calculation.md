@@ -100,18 +100,16 @@ The 0.7.0 release conservatively assesses:
 - ordinary body-to-body aspects as invariant, conditional, or absent throughout the
   interval, with bounded orb evidence where supportable.
 
-Initially treat these as unavailable in bounded mode:
+Current unreleased source additionally assesses cusp and angle ranges, invariant
+house membership, cusp signs/rulers, angle signs/relationships, sect/triplicity,
+Vertex house membership, and branched Fortune/Spirit ranges and relationships. The
+published 0.7.0 artifact does not contain those post-release additions.
 
-- house cusps and house placements;
-- ASC, DSC, MC, IC, and Vertex;
-- sect;
-- Part of Fortune, Spirit, and other angle/sect-dependent lots;
-- angle and house aspects; and
-- downstream operations requiring one exact natal longitude unless a reviewed
-  bounded operation exists.
-
-This deliberately conservative first scope can expand later without laundering
-uncertainty into the canonical graph.
+Still unavailable are unqualified external-data objects, applying/separating
+semantics, bounded structural scores and patterns, canonical claims, and downstream
+operations requiring one exact natal longitude unless a separately reviewed bounded
+operation exists. This preserves the conservative certainty rule while expanding
+the set of predicates AGF can actually prove.
 
 ## Artifact layers
 
@@ -282,6 +280,10 @@ canonical graph 1.0.0, bounded calculation provenance 1.0.0, and interval proof
 profile 1.0.0. The published 0.7.0 release emits bounded graph 1.3.0,
 `agf.bounded_uncertainty_evidence.v1.0.0`, and bounded calculation profile 1.5.0;
 earlier graph/profile versions remain accepted where their schemas declare them.
+
+The current unreleased parity-complete source emits bounded graph 1.7.0 and bounded
+calculation profile 1.12.0. The recommended package release is 0.8.0; published
+0.7.0 remains the immutable baseline until separately authorized publication.
 
 ## Acceptance examples
 

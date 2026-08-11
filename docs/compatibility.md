@@ -14,6 +14,12 @@ Its bounded canonical graph 1.3.0 is deliberately rejected until SPC publishes a
 explicit bounded-graph compatibility contract. Production may pin AGF 0.7.0 for
 exact and bounded source generation, but bounded projection is not yet available.
 
+Current unreleased AGF source emits bounded graph 1.7.0. SPC 0.10.0 remains
+intentionally incompatible with every bounded graph version; the added vocabulary
+does not weaken that guard. The later SPC bounded-consumer sprint must explicitly
+qualify the complete 1.7.0 contract rather than assuming compatibility from exact
+graph 1.3.0.
+
 Windows installs also require the declared `tzdata>=2024.1` dependency so IANA timezone normalization works in clean environments. Release deployments pin its exact artifact through the outer lock.
 
 Foundry's library metadata permits the SPC 0.10 release line. The release handoff pins SPC 0.10.0 wheel SHA-256 `60bd0f18d3b183d2f4c6375447f90881ab6c22c6138b8f9b8ffe69a246015150`. This digest must be independently reverified during release qualification.

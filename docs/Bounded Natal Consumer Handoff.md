@@ -1,6 +1,7 @@
 # Bounded Natal Consumer Handoff
 
-**Status:** Published AGF 0.7.0 contract; downstream enablement pending
+**Status:** Published AGF 0.7.0 baseline plus unreleased post-0.7 bounded expansion;
+downstream enablement pending
 
 ## What the API supplies
 
@@ -58,6 +59,18 @@ structural-strength scores or canonical claims. Downstream systems must not rank
 claim by raw row count: use root-owner `evidence_family_group` lineage when applying
 anti-double-counting policy.
 
+The current unreleased source extends that family through graph 1.7.0. Versions
+1.4–1.7 add invariant body/point house membership, cusp and angle semantics,
+angle relationships, sect and triplicity, Vertex house evidence, and branched
+Fortune/Spirit evidence and invariant relationships. Calculation profile 1.12.0
+records these policies and explicit optional external-feature dispositions. Dataset
+and uncertainty-evidence contract versions remain 1.0.0.
+
+Complete-chart output continues to mean the retained invariant subgraph. Aspect
+patterns, dispositorship networks, elemental/modal balance, bounded structural
+scores, and canonical claims are not inferred from candidate-chart samples or raw
+row counts. Deterministic indexes and counts are navigation/topology aids only.
+
 Published 0.7.0 artifacts additionally advertise
 `agf.bounded_uncertainty_evidence.v1.0.0`. Its circular segment sets,
 prerequisites, transition witnesses, and counterexamples are additive to the legacy
@@ -95,3 +108,8 @@ whether dependent readings are superseded.
 AGF 0.7.0 adds a public package, graph, provenance, and CLI family while preserving
 exact contracts. Its publication does not imply AstroWoof end-to-end readiness;
 SPC, SBE, API, and frontend acceptance remain separately qualified work.
+
+The post-0.7 expansion is not yet released. Its recommended release line is 0.8.0
+because the additional bounded graph vocabulary and calculation semantics are a
+material additive public capability. Publication waits for downstream review and
+separate authorization.

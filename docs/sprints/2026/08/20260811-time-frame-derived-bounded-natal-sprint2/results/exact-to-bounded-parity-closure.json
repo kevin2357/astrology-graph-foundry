@@ -1,0 +1,41 @@
+{
+  "artifact_type": "agf_exact_to_bounded_natal_parity_closure",
+  "date": "2026-08-11",
+  "status": "gate_8_candidate",
+  "contracts": {
+    "bounded_dataset": "1.0.0",
+    "bounded_graph": "1.7.0",
+    "bounded_evidence": "agf.bounded_uncertainty_evidence.v1.0.0",
+    "bounded_calculation_profile": "agf.bounded_natal.calculation_profile.v1.12.0"
+  },
+  "assessed_and_canonically_promotable_when_invariant": [
+    "zodiac_sign", "motion_state", "sign_dignity", "ordinary_body_aspects",
+    "antiscia", "contra_antiscia", "harmonics", "derived_relationships",
+    "declination_relationships", "house_membership", "cusp_signs_and_rulers",
+    "angle_signs_and_relationships", "sect", "triplicity", "Fortune", "Spirit",
+    "Vertex_house_membership"
+  ],
+  "range_or_alternative_evidence_only": [
+    "ecliptic_longitude", "ecliptic_latitude", "right_ascension", "declination",
+    "coordinate_speed", "orb", "house_cusps", "angles", "branched_lot_longitude"
+  ],
+  "explicitly_unavailable_or_deferred": {
+    "aspect_strength": "no canonical bounded strength",
+    "aspect_application": "no reviewed temporal semantics",
+    "aspect_patterns": "no current exact canonical contract",
+    "dispositorship_networks": "no current exact canonical contract",
+    "elemental_modal_balance": "no current exact canonical contract",
+    "structural_strength_scores": "invalid for invariant-subgraph weighting",
+    "canonical_claims": "projection and authoring are downstream-owned",
+    "optional_external_objects": "requires separately qualified data profile",
+    "timing_and_relationship_charts": "separate future bounded contracts"
+  },
+  "structural_contract": {
+    "basis": "bounded_invariant_subgraph",
+    "indexes": "deterministic identity navigation",
+    "counts": "topology only; not independence weights",
+    "scores": "unavailable",
+    "claims": "none emitted"
+  },
+  "unresolved_downstream_gate": "SPC 0.10.0 rejects bounded graphs; explicit 1.7.0 compatibility work is required"
+}

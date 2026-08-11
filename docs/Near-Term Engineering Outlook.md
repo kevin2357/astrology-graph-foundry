@@ -65,61 +65,27 @@ clean SPC wheel must install and project a compatible saved fixture without AGF.
 The integration gate must then install the two exact artifacts independently and
 prove their wire compatibility, identity preservation, and evidence preservation.
 
-## Evaluate invariant house placements for bounded Natal
+## Completed: invariant terrestrial-frame semantics for bounded Natal
 
 ### Current state
 
-Bounded Natal v1 classifies all houses, house placements, angles, sect, and
-angle-dependent lots as unavailable. This was a deliberately conservative sprint
-boundary, not proof that every planet's house necessarily changes across every
-bounded interval.
+The two August 2026 bounded-parity sprints implemented this work. Current unreleased
+source evaluates Placidus and Whole Sign terrestrial frames minute by minute,
+preserves cusp/angle ranges, and promotes independently invariant house membership,
+cusp signs/rulers, angle signs/relationships, sect/triplicity, Vertex house, and
+branched Fortune/Spirit semantics. Provider failures remain family-scoped and no
+representative degree is emitted.
 
-The current minute-by-minute evaluator calculates body positions only. Exact Natal
-calculates house cusps and angles for one instant and assigns bodies to houses from
-those cusps. Extending bounded proof therefore requires evaluating a moving cusp set
-at every valid minute and proving categorical membership across the complete
-interval.
+Bounded graph 1.7.0 and calculation profile 1.12.0 express the completed contract.
+Published 0.7.0 remains the immutable baseline until a later release is explicitly
+authorized.
 
-### Why this needs a separate slice
+### Remaining work
 
-House membership is more involved than testing whether a body's zodiac sign stays
-constant:
-
-- both the body and every relevant cusp move;
-- the first/last-house boundary wraps through zero degrees;
-- cusp ordering and intercepted-sign behavior depend on the selected house system;
-- high-latitude calculations can fail or become unsupported for some systems;
-- an endpoint-only result can miss an interior boundary crossing;
-- angles are themselves calculation outputs, but invariant planet-in-house
-  membership is a separate categorical claim; and
-- whole-sign houses still depend on the time-sensitive rising sign even though their
-  boundaries are sign-aligned.
-
-Minute-by-minute evaluation is nevertheless a promising and conceptually direct v1
-proof strategy. For each successful instant, calculate the configured house system,
-classify each eligible body into a house using the same exact-Natal rule, and promote
-only a body whose house number is identical at every evaluation. Preserve cusp
-ranges, observed house memberships, failures, and the proof profile as uncertainty
-evidence; do not promote representative cusp degrees or an estimated Ascendant.
-
-### Feasibility and contract questions
-
-1. Which house systems are initially supported, and what happens when Swiss
-   Ephemeris cannot calculate one anywhere inside the interval?
-2. Should a single failed minute make all house evidence inconclusive, or only the
-   affected house-related family?
-3. Are invariant body-in-house facts useful without canonical angle or cusp objects,
-   and can existing graph vocabulary express that distinction unambiguously?
-4. Should house rulership be promoted when a cusp sign is invariant even if its
-   degree is not, or deferred beyond body membership?
-5. How are bodies whose own sign is variable but whose house membership is invariant
-   represented?
-6. What fixtures cover cusp crossings, zero-degree wraparound, intercepted houses,
-   DST-adjacent intervals, polar latitudes, and multiple house systems?
-7. Which future SPC vocabulary projects an invariant house placement while
-   preserving the fact that its cusp and angle geometry is bounded rather than
-   exact?
-
-This extension should be additive to bounded Natal rather than weakening the v1
-certainty rule. Until implemented and versioned, all bounded house features remain
-explicitly unavailable.
+- SPC and SBE need explicit bounded graph 1.7.0 compatibility sprints.
+- Transit and Synastry need distinct range-aware contracts; they may reuse evidence
+  but cannot align bounded participants by sample index.
+- Additional house systems require individual qualification.
+- Optional ephemeris files and catalogs require separately pinned data profiles.
+- Pattern, score, and claim semantics remain unavailable rather than inferred from
+  invariant-subgraph row counts.

@@ -19,7 +19,8 @@
         "agf.bounded_natal.calculation_profile.v1.8.0",
         "agf.bounded_natal.calculation_profile.v1.9.0",
         "agf.bounded_natal.calculation_profile.v1.10.0",
-        "agf.bounded_natal.calculation_profile.v1.11.0"
+        "agf.bounded_natal.calculation_profile.v1.11.0",
+        "agf.bounded_natal.calculation_profile.v1.12.0"
       ]
     },
     "normalization_policy_version": {"const": "agf.bounded_birth_time.normalization_policy.v1.0.0"},

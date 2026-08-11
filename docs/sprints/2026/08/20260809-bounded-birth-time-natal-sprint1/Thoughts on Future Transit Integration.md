@@ -182,3 +182,10 @@ A future Transit implementation must not assume that an optional natal target wa
 calculated merely because its name was requested. `unsupported_profile` and
 `disabled` are distinct inputs. File-backed transit bodies require their own pinned
 provider/data profile and cannot borrow qualification from the natal no-file core.
+
+## Terrestrial-frame Sprint 2, Slice 8 implications
+
+The parity closure confirms that deterministic indexes and invariant-subgraph counts
+are not transit weights. Future Transit should consume proven natal predicates and
+their evidence, not reconstruct whole candidate charts from summary counts. Pattern,
+score, and activation semantics remain separate reviewed work.

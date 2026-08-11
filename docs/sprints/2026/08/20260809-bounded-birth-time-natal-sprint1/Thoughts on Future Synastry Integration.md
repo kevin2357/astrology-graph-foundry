@@ -176,3 +176,10 @@ Optional-object availability belongs to each participant's artifact and profile.
 Synastry may form a relationship only when both endpoint objects exist under their
 respective qualified profiles; a requested-but-unsupported Chiron or fixed star is
 not a latent endpoint that downstream code may reconstruct.
+
+## Terrestrial-frame Sprint 2, Slice 8 implications
+
+Invariant-subgraph counts do not describe the distribution of possible cross-chart
+structures. Future Synastry needs explicit Cartesian predicate proof and must not
+derive aspect patterns, compatibility scores, or claims by combining two native
+bounded summaries.

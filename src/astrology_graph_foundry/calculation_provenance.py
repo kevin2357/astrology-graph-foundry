@@ -25,7 +25,7 @@ from astrology_graph_foundry.ephemeris.uncertainty_evidence import EVIDENCE_CONT
 
 CALCULATION_PROVENANCE_CONTRACT_VERSION = "agf.calculation_provenance.v1.0.0"
 CALCULATION_PROFILE_VERSION = "agf.calculation_profile.v1.1.0"
-BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.11.0"
+BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.12.0"
 NORMALIZATION_POLICY_VERSION = "agf.normalization_policy.v1.0.0"
 BOUNDED_NORMALIZATION_POLICY_VERSION = "agf.bounded_birth_time.normalization_policy.v1.0.0"
 CANONICAL_JSON_POLICY_VERSION = "agf.canonical_json.v1.0.0"
@@ -145,7 +145,7 @@ def build_bounded_calculation_provenance(
             "derived_coordinate_aspects": "assessed_with_invariant_relationship_promotion",
             "declination_relationships": "assessed_with_invariant_relationship_promotion",
             "applying_separating": "unavailable_without_reviewed_temporal_semantics",
-            "structural_material": "invariant_subgraph_counts_and_lineage_without_scores_or_claims",
+            "structural_material": "invariant_subgraph_topology_counts_and_indexes_without_scores_patterns_or_claims",
             "optional_external_features": "explicitly_unavailable_without_qualified_data_profile",
             "canonical_promotion": "invariant_categories_only",
         },

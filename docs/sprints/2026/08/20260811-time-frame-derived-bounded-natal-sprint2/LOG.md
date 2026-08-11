@@ -215,3 +215,34 @@ completed implementation slices.
   pinned resource hashes, coverage, provider-mode proof, and separate versioning.
 - Controlled Linux requested/disabled runs remained complete with the same twelve
   core bodies and emitted the expected `unsupported_profile`/`disabled` evidence.
+
+## 2026-08-11 — Slice 7 approval and commit
+
+- Product owner approved Gate 7.
+- Committed and pushed Slice 7 as `4207c68` (`Classify bounded optional external
+  features`).
+
+## 2026-08-11 — Slice 8 parity and sprint closure
+
+- Reconciled the original exact-to-bounded parity inventory against all completed
+  coordinate and terrestrial-frame slices.
+- Made final complete-chart dispositions explicit: invariant-subgraph topology,
+  counts, indexes, and lineage are available; raw counts are not independence
+  weights; patterns, balance, dispositorship, bounded structural scores, and claims
+  are unavailable or downstream-owned for stated reasons.
+- Advanced bounded calculation profile to `v1.12.0`; bounded graph stays `1.7.0`,
+  dataset and uncertainty evidence stay `1.0.0`, and exact Natal is unchanged.
+- Corrected consumer, compatibility, runtime-inventory, and bounded-calculation docs
+  to distinguish published 0.7.0 from the unreleased parity-complete source.
+- Installed a candidate wheel outside the checkout in the pinned Linux/Python 3.11
+  QA image. Live doctor, runtime manifest, CLI bounded generation, and all 254 tests
+  passed from the installed environment.
+- The controlled live artifact SHA-256 was
+  `447bc9e1a61ba3bea265b85e708fe5d42b71990d56fe691782a87250e75d1ae0`.
+- Two uncontrolled wheel builds differed because build timestamps were not fixed.
+  Repeating both builds with `SOURCE_DATE_EPOCH=1786420800` produced byte-identical
+  wheels at SHA-256
+  `12970ae65889b70ebc656c2e056e8ead79295c3dc0b5ac2f485db5fb2cb2873a`.
+- Recommended eventual package version 0.8.0. No version bump, tag, release, or
+  publication was performed; downstream compatibility review remains intentionally
+  available before release authorization.

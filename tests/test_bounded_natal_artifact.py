@@ -126,7 +126,7 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.11.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.12.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["terrestrial_frame"]["qualified_systems"] == ["P", "W"]
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
@@ -158,6 +158,10 @@ def test_reduced_capabilities_and_feature_dispositions_are_explicit(monkeypatch)
     assert package["capabilities"]["supports_bounded_terrestrial_frame_evidence"] is True
     assert package["capabilities"]["supports_bounded_invariant_house_membership"] is True
     assert dispositions["optional_external_features"] == "explicitly_unavailable_without_qualified_data_profile"
+    assert dispositions["aspect_patterns"] == "unavailable_no_current_exact_canonical_contract"
+    assert dispositions["structural_strength_scores"] == "unavailable_for_bounded_invariant_subgraph"
+    assert dispositions["canonical_claims"] == "none_emitted_projection_and_authoring_downstream_owned"
+    assert dispositions["indexes"] == "deterministic_invariant_subgraph_identity_indexes"
     sun = next(row for row in package["canonical_astrology_graph"]["objects"] if row["name"] == "Sun")
     mars = next(row for row in package["canonical_astrology_graph"]["objects"] if row["name"] == "Mars")
     assert sun["house_number"] == 8

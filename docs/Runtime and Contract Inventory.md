@@ -2,6 +2,16 @@
 
 This is the concise consumer inventory for the published AGF 0.7.0 wheel. The packaged JSON Schemas remain authoritative; enumerate and hash the installed bytes with `astro-package runtime-manifest` rather than locating source-tree files.
 
+## Unreleased bounded expansion
+
+Current source after the two bounded-parity sprints emits bounded canonical graph
+1.7.0 and bounded calculation profile 1.12.0. It adds terrestrial-frame, invariant
+house/cusp/angle, sect/triplicity, branched lot, Vertex-house, and optional-feature
+disposition semantics while keeping Bounded Natal Dataset 1.0.0 and bounded
+uncertainty evidence 1.0.0. This source state is qualified as a release candidate,
+not a published immutable artifact; consumers must continue pinning published 0.7.0
+until a separately authorized release occurs.
+
 ## Published 0.7.0 bounded additions
 
 The current source adds bounded Birth Data v1, Bounded Natal Dataset 1.0.0, bounded
