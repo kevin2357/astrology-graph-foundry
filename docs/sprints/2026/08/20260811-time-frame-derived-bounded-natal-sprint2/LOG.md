@@ -115,3 +115,27 @@ completed implementation slices.
   fallback.
 - Full host suite passed: 244 tests.
 - No downstream repository, tag, release, or external data changed.
+
+## 2026-08-11 — Slice 2 approval and commit
+
+- Product owner approved Gate 2.
+- Committed and pushed Slice 2 as `c66755c` (`Add bounded natal terrestrial frame
+  evidence`).
+
+## 2026-08-11 — Slice 3 invariant house membership
+
+- Added body and enabled coordinate-transform house evaluation across the same
+  normalized minute domain as the terrestrial frame.
+- Required both whole-domain sampled agreement and a conservative relative-motion
+  clearance from each moving bounding cusp before canonical promotion.
+- Added possible-house sets, transition witnesses, prerequisite references, and
+  resolvable canonical `house_uncertainty_evidence_ref` values.
+- Fixed a Julian-day float-noise defect found in Kevin's generated artifact: exact
+  four-hour intervals now produce 241 inclusive states rather than a spurious 242.
+- Controlled Linux evidence: Kevin's four-hour interval retained all 108 membership
+  rows as variable; a 30-minute interval promoted 83 and retained 25 as variable.
+- Advanced bounded calculation profile to v1.7.0 and bounded graph to additive
+  v1.4.0, allowing house-only canonical objects when sign and motion vary. Dataset
+  schema remains 1.0.0.
+- Full host suite passed: 246 tests.
+- No downstream repository, tag, release, or external data changed.

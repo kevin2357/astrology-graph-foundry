@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from astrology_graph_foundry.ephemeris.interval_evaluation import IntervalProofProfile
+from astrology_graph_foundry.ephemeris.interval_evaluation import evaluation_times
 from astrology_graph_foundry.ephemeris.live_natal import (
     evaluate_terrestrial_frame_interval,
     house_data,
@@ -75,3 +76,9 @@ def test_house_assignment_half_open_wrap_contract():
     assert house_for_lon(10, cusps) == 1
     assert house_for_lon(20, cusps) == 2
     assert house_for_lon(349, cusps) == 12
+
+
+def test_exact_four_hour_grid_has_241_states_despite_julian_float_noise():
+    start = 2444518.2916666665
+    end = 2444518.4583333335
+    assert len(evaluation_times(start, end, 60.0)) == 241

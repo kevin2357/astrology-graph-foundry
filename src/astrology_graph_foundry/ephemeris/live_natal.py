@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-import math
 from datetime import datetime
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -10,7 +9,7 @@ from astrology_graph_foundry.common.aspects import all_aspects
 from astrology_graph_foundry.common.constants import SIGN_RULERS_MODERN, SIGN_RULERS_TRADITIONAL
 from astrology_graph_foundry.common.geometry import decimal_to_dms, deg_to_sign, format_zodiac, house_for_lon, normalize
 
-from .interval_evaluation import IntervalProofProfile, evaluate_interval
+from .interval_evaluation import IntervalProofProfile, evaluate_interval, evaluation_times
 from .models import BOUNDED_HOUSE_SYSTEMS, BirthData, BoundedBirthData, ProviderConfig
 from .uncertainty_evidence import circular_range_from_unwrapped, evidence_record, transition_witnesses
 
@@ -154,12 +153,11 @@ def evaluate_terrestrial_frame_interval(
     longitude: float,
     config: ProviderConfig,
     profile: IntervalProofProfile,
+    position_evaluator: Any | None = None,
 ) -> dict[str, Any]:
     if config.house_system not in BOUNDED_HOUSE_SYSTEMS:
         return {"status": "unsupported", "house_system": config.house_system, "failures": [{"reason": "house_system_not_qualified_for_bounded_natal"}]}
-    step_days = profile.minimum_step_seconds / 86400.0
-    count = max(1, math.ceil((end_jd - start_jd) / step_days))
-    times = [start_jd + (end_jd - start_jd) * index / count for index in range(count + 1)]
+    times = evaluation_times(start_jd, end_jd, profile.minimum_step_seconds)
     if len(times) > profile.maximum_evaluations:
         return {"status": "inconclusive", "house_system": config.house_system, "failures": [{"reason": "initial evaluation budget exceeded"}]}
     samples = []
@@ -170,7 +168,8 @@ def evaluate_terrestrial_frame_interval(
             )
             if len(cusps) != 12:
                 raise ValueError("provider did not return twelve cusps")
-            samples.append((list(cusps), list(ascmc), list(cusp_speeds), list(ascmc_speeds)))
+            positions = position_evaluator(time) if position_evaluator is not None else {}
+            samples.append((list(cusps), list(ascmc), list(cusp_speeds), list(ascmc_speeds), positions))
     except Exception as exc:
         return {"status": "inconclusive", "house_system": config.house_system, "failures": [{"reason": f"provider_failure: {type(exc).__name__}: {exc}"}]}
     coordinates = {}
@@ -191,12 +190,65 @@ def evaluate_terrestrial_frame_interval(
             times,
             profile.speed_envelope_factor,
         )
+    memberships = {}
+    if position_evaluator is not None:
+        node_names = []
+        first_positions = samples[0][4]
+        for body_name in first_positions:
+            node_names.append((f"body:{body_name}", body_name, lambda row, n=body_name: float(row[n]["lon"]), lambda row, n=body_name: float(row[n]["speed_lon"])))
+            if config.include_antiscia:
+                node_names.extend([
+                    (f"transform:{body_name}:antiscia", f"{body_name} antiscia", lambda row, n=body_name: normalize(180.0 - float(row[n]["lon"])), lambda row, n=body_name: -float(row[n]["speed_lon"])),
+                    (f"transform:{body_name}:contra_antiscia", f"{body_name} contra antiscia", lambda row, n=body_name: normalize(180.0 + float(row[n]["lon"])), lambda row, n=body_name: float(row[n]["speed_lon"])),
+                ])
+            if config.include_harmonics:
+                for number in config.harmonic_numbers:
+                    node_names.append((f"transform:{body_name}:harmonic:{number}", f"{body_name} harmonic {number}", lambda row, n=body_name, k=number: normalize(float(row[n]["lon"]) * k), lambda row, n=body_name, k=number: float(row[n]["speed_lon"]) * k))
+        for node_key, display_name, lon_getter, speed_getter in node_names:
+            observed = []
+            possible = set()
+            safety_houses = set()
+            for sample in samples:
+                body_lon = lon_getter(sample[4])
+                house = house_for_lon(body_lon, [float(value) for value in sample[0]])
+                observed.append(house)
+                if house is not None:
+                    possible.add(house)
+            for index in range(len(samples) - 1):
+                house = observed[index]
+                if house is None or observed[index + 1] != house:
+                    continue
+                start_index = house - 1
+                end_index = house % 12
+                dt = times[index + 1] - times[index]
+                body_speed = max(abs(speed_getter(samples[index][4])), abs(speed_getter(samples[index + 1][4])))
+                for cusp_index, adjacent in ((start_index, 12 if house == 1 else house - 1), (end_index, 1 if house == 12 else house + 1)):
+                    cusp_speed = max(abs(float(samples[index][2][cusp_index])), abs(float(samples[index + 1][2][cusp_index])))
+                    margin = min(
+                        abs(((lon_getter(samples[index][4]) - float(samples[index][0][cusp_index]) + 180) % 360) - 180),
+                        abs(((lon_getter(samples[index + 1][4]) - float(samples[index + 1][0][cusp_index]) + 180) % 360) - 180),
+                    )
+                    if margin <= (body_speed + cusp_speed) * dt * profile.speed_envelope_factor:
+                        safety_houses.add(adjacent)
+            possible.update(safety_houses)
+            classification = "invariant" if len(possible) == 1 and None not in observed else "variable"
+            memberships[node_key] = evidence_record(
+                feature_key=f"terrestrial_frame:house_membership:{node_key}",
+                classification=classification,
+                value_kind="natal_house_number",
+                possibilities=(str(value) for value in sorted(possible)),
+                prerequisite_refs=[f"terrestrial_frame:cusp:{index}" for index in range(1, 13)] + [f"coordinate:{node_key}"],
+                transitions=transition_witnesses(observed, times, coordinate_unit="jd_ut"),
+                availability="available",
+                status_reason=("continuous boundary envelope admits adjacent house" if safety_houses else None),
+            )
     return {
         "status": "complete",
         "house_system": config.house_system,
         "evaluation_count": len(times),
         "interval": {"start_jd": start_jd, "end_jd": end_jd, "boundary_policy": "inclusive"},
         "coordinates": coordinates,
+        "house_memberships": memberships,
         "failures": [],
     }
 
@@ -336,7 +388,7 @@ def evaluate_bounded_natal_interval(
         profile=profile,
     )
     result["terrestrial_frame"] = evaluate_terrestrial_frame_interval(
-        swe, start_jd, end_jd, birth.birth_lat, birth.birth_lon, config, profile or IntervalProofProfile()
+        swe, start_jd, end_jd, birth.birth_lat, birth.birth_lon, config, profile or IntervalProofProfile(), point_positions
     )
     result["birth_time_basis"] = basis.as_dict()
     result["configured_body_names"] = list(bodies)

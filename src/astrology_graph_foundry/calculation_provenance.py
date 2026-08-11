@@ -25,7 +25,7 @@ from astrology_graph_foundry.ephemeris.uncertainty_evidence import EVIDENCE_CONT
 
 CALCULATION_PROVENANCE_CONTRACT_VERSION = "agf.calculation_provenance.v1.0.0"
 CALCULATION_PROFILE_VERSION = "agf.calculation_profile.v1.1.0"
-BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.6.0"
+BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.7.0"
 NORMALIZATION_POLICY_VERSION = "agf.normalization_policy.v1.0.0"
 BOUNDED_NORMALIZATION_POLICY_VERSION = "agf.bounded_birth_time.normalization_policy.v1.0.0"
 CANONICAL_JSON_POLICY_VERSION = "agf.canonical_json.v1.0.0"
@@ -123,6 +123,7 @@ def build_bounded_calculation_provenance(
                 "assignment_rule": "half_open_circular_cusp_intervals",
             },
             "house_placements_sect_lots": "unavailable_pending_prerequisite_slices",
+            "house_membership": "assessed_with_continuous_invariant_promotion",
             "body_coordinates_and_speeds": "assessed_as_bounded_evidence",
             "antiscia": "assessed_with_invariant_sign_promotion" if config.include_antiscia else "disabled",
             "harmonics": {

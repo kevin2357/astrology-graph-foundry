@@ -146,3 +146,11 @@ circular ranges, transition witnesses, a pinned system, and feature-scoped failu
 Future work should reference those registry records rather than recompute cusps or
 read a representative frame. Placidus and Whole Sign must remain distinct cache and
 calculation profiles.
+
+## Terrestrial-frame Sprint 2, Slice 3 implications
+
+Invariant natal-house membership can now be consumed directly as a categorical
+fact, while variable memberships retain possible houses and cusp-transition
+evidence. Future Transit must still distinguish “transiting body enters a possible
+natal house” from an invariant natal placement; the new membership registry is an
+input, not permission to enable today's exact house-transit interface.

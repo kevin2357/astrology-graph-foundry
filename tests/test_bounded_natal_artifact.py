@@ -77,6 +77,32 @@ def _assessment():
                     "proof_scope": "complete_normalized_birth_interval",
                 }
             },
+            "house_memberships": {
+                "body:Sun": {
+                    "evidence_contract_version": "agf.bounded_uncertainty_evidence.v1.0.0",
+                    "feature_key": "terrestrial_frame:house_membership:body:Sun",
+                    "classification": "invariant",
+                    "value_kind": "natal_house_number",
+                    "possibilities": {"possibility_type": "categorical_set", "values": ["8"], "count": 1},
+                    "prerequisite_refs": ["coordinate:body:Sun"],
+                    "range_evidence": None,
+                    "transition_witnesses": [],
+                    "counterexamples": [],
+                    "proof_scope": "complete_normalized_birth_interval",
+                },
+                "body:Mars": {
+                    "evidence_contract_version": "agf.bounded_uncertainty_evidence.v1.0.0",
+                    "feature_key": "terrestrial_frame:house_membership:body:Mars",
+                    "classification": "variable",
+                    "value_kind": "natal_house_number",
+                    "possibilities": {"possibility_type": "categorical_set", "values": ["7", "8"], "count": 2},
+                    "prerequisite_refs": ["coordinate:body:Mars"],
+                    "range_evidence": None,
+                    "transition_witnesses": [],
+                    "counterexamples": [],
+                    "proof_scope": "complete_normalized_birth_interval",
+                },
+            },
         },
     }
 
@@ -100,13 +126,13 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.6.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.7.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["terrestrial_frame"]["qualified_systems"] == ["P", "W"]
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
-    assert graph["graph_version"] == "1.3.0"
+    assert graph["graph_version"] == "1.4.0"
     assert {row["name"] for row in graph["objects"]} == {"Sun", "Mars"}
     assert len(graph["relationships"]) == 1
     assert all(not ({"longitude", "pretty", "sign_degree"} & row.keys()) for row in graph["objects"])
@@ -130,6 +156,38 @@ def test_reduced_capabilities_and_feature_dispositions_are_explicit(monkeypatch)
     assert package["capabilities"]["supports_bounded_body_coordinate_evidence"] is True
     assert package["capabilities"]["supports_bounded_declination_evidence"] is True
     assert package["capabilities"]["supports_bounded_terrestrial_frame_evidence"] is True
+    assert package["capabilities"]["supports_bounded_invariant_house_membership"] is True
+    sun = next(row for row in package["canonical_astrology_graph"]["objects"] if row["name"] == "Sun")
+    mars = next(row for row in package["canonical_astrology_graph"]["objects"] if row["name"] == "Mars")
+    assert sun["house_number"] == 8
+    assert sun["house_uncertainty_evidence_ref"] in package["uncertainty_assessment"]["evidence_registry"]
+    assert "house_number" not in mars
+
+
+def test_invariant_house_materializes_when_sign_and_motion_vary(monkeypatch):
+    assessment = _assessment()
+    moon = assessment["bodies"]["Moon"]
+    moon["motion"] = {"classification": "variable", "possible_states": ["direct", "stationary"]}
+    assessment["terrestrial_frame"]["house_memberships"]["body:Moon"] = {
+        "evidence_contract_version": "agf.bounded_uncertainty_evidence.v1.0.0",
+        "feature_key": "terrestrial_frame:house_membership:body:Moon",
+        "classification": "invariant",
+        "value_kind": "natal_house_number",
+        "possibilities": {"possibility_type": "categorical_set", "values": ["3"], "count": 1},
+        "prerequisite_refs": ["coordinate:body:Moon"],
+        "range_evidence": None,
+        "transition_witnesses": [],
+        "counterexamples": [],
+        "proof_scope": "complete_normalized_birth_interval",
+    }
+    monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(assessment))
+    package = bounded_natal.build_bounded_natal_package(_birth(), ProviderConfig(ephemeris_mode="moshier"))
+    moon_object = next(row for row in package["canonical_astrology_graph"]["objects"] if row["name"] == "Moon")
+    assert moon_object["house_number"] == 3
+    assert "sign_index" not in moon_object
+    assert "motion_state" not in moon_object
+    schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
+    Draft202012Validator(schema, registry=_registry()).validate(package)
 
 
 def test_structural_material_is_explicitly_invariant_subgraph_based_and_unscored(monkeypatch):

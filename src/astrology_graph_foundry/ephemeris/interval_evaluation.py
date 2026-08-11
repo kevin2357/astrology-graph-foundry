@@ -47,6 +47,16 @@ class IntervalProofProfile:
     maximum_evaluations: int = 5000
 
 
+def evaluation_times(start_jd: float, end_jd: float, step_seconds: float) -> list[float]:
+    """Return an inclusive grid without float-noise creating a phantom segment."""
+    step_days = step_seconds / 86400.0
+    raw_count = (end_jd - start_jd) / step_days
+    nearest = round(raw_count)
+    count = nearest if math.isclose(raw_count, nearest, rel_tol=0.0, abs_tol=1e-5) else math.ceil(raw_count)
+    count = max(1, count)
+    return [start_jd + (end_jd - start_jd) * index / count for index in range(count + 1)]
+
+
 def _unwrap(value: float, reference: float) -> float:
     return reference + ((value - reference + 180.0) % 360.0 - 180.0)
 
@@ -462,9 +472,7 @@ def evaluate_interval(
     # v1 refines the entire initial grid to the minimum step. This is deliberately
     # more conservative than feature-triggered refinement and gives every segment
     # the same documented upper bound; later profiles may prune quiet segments.
-    step_days = profile.minimum_step_seconds / 86400.0
-    count = max(1, math.ceil((end_jd - start_jd) / step_days))
-    times = [start_jd + (end_jd - start_jd) * index / count for index in range(count + 1)]
+    times = evaluation_times(start_jd, end_jd, profile.minimum_step_seconds)
     if len(times) > profile.maximum_evaluations:
         return _inconclusive_result(body_ids, profile, "initial evaluation budget exceeded")
     try:

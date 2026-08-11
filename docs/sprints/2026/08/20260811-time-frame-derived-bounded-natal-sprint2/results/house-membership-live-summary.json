@@ -1,0 +1,26 @@
+{
+  "artifact_type": "agf_bounded_house_membership_live_summary",
+  "status": "slice_3_gate_candidate",
+  "runtime_image": "agf-bounded-qa:py311-pyswe-2.10.3.2",
+  "house_system": "P",
+  "four_hour_kevin_interval": {
+    "evaluation_count": 241,
+    "membership_records": 108,
+    "invariant": 0,
+    "variable": 108,
+    "interpretation": "No house placement is promoted over the complete four-hour domain."
+  },
+  "thirty_minute_kevin_interval": {
+    "evaluation_count": 31,
+    "membership_records": 108,
+    "invariant": 83,
+    "variable": 25,
+    "ordinary_examples": {"Sun": 9, "Moon": 2, "Mercury": 10, "Venus": 11, "Mars": 8}
+  },
+  "grid_regression": {
+    "four_hour_expected_states": 241,
+    "previous_float_noise_states": 242,
+    "status": "fixed_and_tested"
+  },
+  "host_suite": "246 passed"
+}

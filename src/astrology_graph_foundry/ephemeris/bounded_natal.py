@@ -12,7 +12,7 @@ from astrology_graph_foundry.ephemeris.live_natal import evaluate_bounded_natal_
 from astrology_graph_foundry.ephemeris.models import BoundedBirthData, ProviderConfig
 
 BOUNDED_NATAL_SCHEMA_VERSION = "1.0.0"
-BOUNDED_GRAPH_VERSION = "1.3.0"
+BOUNDED_GRAPH_VERSION = "1.4.0"
 
 
 def _body_id(name: str) -> str:
@@ -45,6 +45,14 @@ def _coordinate_node_id(key: str) -> str:
     raise ValueError(f"unsupported bounded coordinate node key: {key}")
 
 
+def _invariant_house(assessment: dict[str, Any], key: str) -> tuple[int, str] | None:
+    evidence = ((assessment.get("terrestrial_frame") or {}).get("house_memberships") or {}).get(key) or {}
+    values = (evidence.get("possibilities") or {}).get("values") or []
+    if evidence.get("classification") != "invariant" or len(values) != 1:
+        return None
+    return int(values[0]), f"uncertainty:terrestrial_frame:house_membership:{key}"
+
+
 def build_bounded_natal_package(
     birth: BoundedBirthData,
     config: ProviderConfig | None = None,
@@ -59,23 +67,27 @@ def build_bounded_natal_package(
         sign_range = evidence.get("longitude_range") or {}
         signs = sign_range.get("possible_sign_indexes") or []
         motion = evidence.get("motion") or {}
-        if evidence.get("classification") != "invariant" or len(signs) != 1 or motion.get("classification") != "invariant":
+        invariant_house = _invariant_house(assessment, f"body:{name}")
+        invariant_sign = len(signs) == 1
+        invariant_motion = motion.get("classification") == "invariant" and len(motion.get("possible_states") or []) == 1
+        if not ((invariant_sign and invariant_motion) or invariant_house is not None):
             continue
         dignity = evidence.get("sign_dignity")
-        objects.append(
-            {
+        object_row = {
                 "id": _body_id(name),
                 "name": name,
                 "source_key": f"n{name}",
                 "object_type": "bounded_natal_body",
-                "sign_index": signs[0],
-                "motion_state": motion["possible_states"][0],
-                "sign_dignity": dignity,
+                **({"sign_index": signs[0]} if invariant_sign else {}),
+                **({"motion_state": motion["possible_states"][0]} if invariant_motion else {}),
+                **({"sign_dignity": dignity} if dignity is not None else {}),
                 "uncertainty_evidence_ref": f"uncertainty:bodies:{name}",
                 "transit_target": False,
                 "source_operator_hints": ["bounded_categorical_placement"],
             }
-        )
+        if invariant_house is not None:
+            object_row["house_number"], object_row["house_uncertainty_evidence_ref"] = invariant_house
+        objects.append(object_row)
     object_names = {row["name"] for row in objects}
     relationships = []
     for row in assessment["aspects"]:
@@ -116,7 +128,10 @@ def build_bounded_natal_package(
         )
         for kind, object_type, relationship_type, transform, qualifier in transform_rows:
             signs = (transform or {}).get("possible_sign_indexes") or []
-            if (transform or {}).get("classification") != "invariant" or len(signs) != 1:
+            membership_key = f"transform:{name}:{kind}{f':{qualifier}' if qualifier is not None else ''}"
+            house = _invariant_house(assessment, membership_key)
+            invariant_sign = (transform or {}).get("classification") == "invariant" and len(signs) == 1
+            if not invariant_sign and house is None:
                 continue
             transform_id = _transform_id(name, kind, qualifier)
             evidence_ref = _transform_evidence_ref(name, kind, qualifier)
@@ -127,13 +142,21 @@ def build_bounded_natal_package(
                     "name": f"{name} {display_kind}",
                     "source_key": f"n{name}:{kind}{f':{qualifier}' if qualifier is not None else ''}",
                     "object_type": object_type,
-                    "sign_index": signs[0],
+                    **({"sign_index": signs[0]} if invariant_sign else {}),
                     "owner_object_ref": _body_id(name),
                     "transform_kind": kind,
                     **({"harmonic_number": int(qualifier)} if qualifier is not None else {}),
                     "uncertainty_evidence_ref": evidence_ref,
                     "transit_target": False,
                     "source_operator_hints": ["bounded_coordinate_transform"],
+                    **(
+                        {
+                            "house_number": house[0],
+                            "house_uncertainty_evidence_ref": house[1],
+                        }
+                        if house
+                        else {}
+                    ),
                 }
             )
             relationships.append(
@@ -196,7 +219,7 @@ def build_bounded_natal_package(
 
     feature_dispositions = {
         "houses": "assessed_as_terrestrial_frame_ranges",
-        "house_placements": "unavailable_birth_time_dependent",
+        "house_placements": "assessed_with_invariant_house_promotion",
         "angles": "assessed_as_terrestrial_frame_ranges",
         "sect": "unavailable_birth_time_dependent",
         "lots": "unavailable_angle_or_sect_dependent",
@@ -226,6 +249,10 @@ def build_bounded_natal_package(
         **{
             f"uncertainty:terrestrial_frame:{key}": value
             for key, value in sorted((assessment.get("terrestrial_frame") or {}).get("coordinates", {}).items())
+        },
+        **{
+            f"uncertainty:terrestrial_frame:house_membership:{key}": value
+            for key, value in sorted((assessment.get("terrestrial_frame") or {}).get("house_memberships", {}).items())
         },
         **{
             f"uncertainty:derived_aspects:{row['a']}:{row['b']}": row["evidence"]
@@ -263,6 +290,7 @@ def build_bounded_natal_package(
             "supports_bounded_derived_aspects": True,
             "supports_bounded_declination_relationships": True,
             "supports_bounded_terrestrial_frame_evidence": True,
+            "supports_bounded_invariant_house_membership": True,
             "supports_exact_longitudes": False,
             "supports_longitude_aspects": False,
             "supports_house_transits": False,

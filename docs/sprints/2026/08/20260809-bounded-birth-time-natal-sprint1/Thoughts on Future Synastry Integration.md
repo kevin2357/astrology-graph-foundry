@@ -140,3 +140,12 @@ The receiving participant can now contribute a labeled frame evidence registry t
 future overlay calculation. Exact-versus-bounded Synastry can pair one exact body
 longitude with these possible cusp intervals; bounded-versus-bounded overlays still
 require independent participant domains and cannot align sample indexes.
+
+## Terrestrial-frame Sprint 2, Slice 3 implications
+
+Future overlays now have the exact receiving-chart primitive they need: invariant
+house numbers when proven, and possible-house sets with transition witnesses when
+not. An exact-versus-bounded overlay can preserve that distinction without
+recalculating the natal participant. Two bounded participants still require a
+Cartesian cross-chart proof for aspects, even though each receiving frame's native
+membership evidence is independently reusable.
