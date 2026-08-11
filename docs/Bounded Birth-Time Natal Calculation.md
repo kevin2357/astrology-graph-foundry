@@ -155,6 +155,13 @@ when harmonic multiplication covers 360 degrees or more, evidence records
 full-circle coverage and no sign is promoted. Derived graph objects retain their
 source-body owner reference and contain a sign index but no exact target longitude.
 
+Bounded canonical graph 1.2.0 can also promote invariant aspects whose endpoints
+are retained body or transformed objects, plus invariant declination parallels and
+contraparallels between retained bodies. Relationship orb ranges remain evidence;
+the canonical relationship carries only the invariant type and resolvable endpoints.
+Pairs with no relationship throughout the interval are counted compactly rather
+than expanded into thousands of negative evidence rows.
+
 This is deliberate dual-write compatibility. Saved 0.7-shaped artifacts remain
 readable and valid under their original contract; consumers should feature-detect
 the new `evidence_contract_version` rather than assuming every bounded artifact has
@@ -172,6 +179,10 @@ Use explicit statuses:
 
 Each excluded feature records its reason and, where useful, possible values,
 longitude/orb range, or transition windows.
+
+Applying/separating is not currently promoted in bounded mode. The exact artifact's
+`applying_delta` is instantaneous signed geometry, not by itself proof that one
+application state persists throughout an uncertain birth interval.
 
 ### Canonical graph
 

@@ -278,6 +278,165 @@ def _aspect_at(a: str, lon_a: float, b: str, lon_b: float, include_minor: bool) 
     return min(candidates)[1] if candidates else None
 
 
+def _classify_longitude_relationship(
+    *,
+    first_key: str,
+    first_name: str,
+    first_path: list[float],
+    first_speeds: list[float],
+    second_key: str,
+    second_name: str,
+    second_path: list[float],
+    second_speeds: list[float],
+    times: list[float],
+    include_minor: bool,
+    factor: float,
+) -> dict[str, Any] | None:
+    observed = [
+        _aspect_at(first_name, first_path[index], second_name, second_path[index], include_minor)
+        for index in range(len(times))
+    ]
+    distinct = set(observed)
+    if distinct == {None}:
+        return None
+    classification: Classification = "invariant" if len(distinct) == 1 and None not in distinct else "conditional"
+    if len(distinct) > 1 and None not in distinct:
+        classification = "variable"
+    aspect_name = next(iter(distinct)) if len(distinct) == 1 else None
+    orb_low = orb_high = None
+    if aspect_name:
+        exact = ASPECTS[aspect_name]
+        orb_values = [
+            abs(_distance(first_path[index], second_path[index]) - exact)
+            for index in range(len(times))
+        ]
+        relative_padding = max(
+            (
+                (abs(first_speeds[index]) + abs(second_speeds[index]))
+                * (times[index + 1] - times[index])
+                * factor
+                for index in range(len(times) - 1)
+            ),
+            default=0.0,
+        )
+        orb_low = max(0.0, min(orb_values) - relative_padding)
+        orb_high = max(orb_values) + relative_padding
+        enabled_angles = [
+            angle
+            for name, angle in ASPECTS.items()
+            if name != aspect_name and (include_minor or name in MAJOR_ASPECTS)
+        ]
+        identity_margin = min((abs(exact - angle) / 2.0 for angle in enabled_angles), default=180.0)
+        if orb_high > orb_allowed(first_name, second_name, aspect_name) or orb_high >= identity_margin:
+            classification = "conditional"
+    return {
+        "a": first_key,
+        "b": second_key,
+        "a_name": first_name,
+        "b_name": second_name,
+        "classification": classification,
+        "aspect": aspect_name,
+        "possible_aspects": sorted(value for value in distinct if value is not None),
+        "orb_range": {"min": orb_low, "max": orb_high} if orb_low is not None else None,
+        "evidence": evidence_record(
+            feature_key=f"derived_aspect:{first_key}:{second_key}",
+            classification=classification,
+            value_kind="aspect_type",
+            possibilities=(value for value in distinct if value is not None),
+            prerequisite_refs=[f"coordinate:{first_key}", f"coordinate:{second_key}"],
+            range_evidence=(
+                scalar_range(orb_low, orb_high, unit="degrees") if orb_low is not None else None
+            ),
+            transitions=transition_witnesses(observed, times, coordinate_unit="jd_ut"),
+            counterexample_rows=(
+                counterexamples(observed, times, expected=observed[0], coordinate_unit="jd_ut")
+                if observed
+                else []
+            ),
+            availability="available",
+        ),
+    }
+
+
+def _declination_relationships(
+    *,
+    body_ids: Mapping[str, int],
+    samples: Mapping[float, Mapping[str, Mapping[str, float | bool | None]]],
+    times: list[float],
+    factor: float,
+    orb: float = 1.0,
+) -> list[dict[str, Any]]:
+    rows = []
+    names = list(body_ids)
+    for index, first in enumerate(names):
+        for second in names[index + 1 :]:
+            declinations = []
+            speeds = []
+            available = True
+            for time in times:
+                first_row, second_row = samples[time][first], samples[time][second]
+                fields = (
+                    first_row.get("declination"),
+                    first_row.get("declination_speed"),
+                    second_row.get("declination"),
+                    second_row.get("declination_speed"),
+                )
+                if any(value is None or not math.isfinite(float(value)) for value in fields):
+                    available = False
+                    break
+                first_value, first_speed, second_value, second_speed = (float(value) for value in fields)
+                declinations.append((first_value, second_value))
+                speeds.append((first_speed, second_speed))
+            if not available:
+                continue
+            relative_padding = max(
+                (
+                    (abs(speeds[i][0]) + abs(speeds[i][1]))
+                    * (times[i + 1] - times[i])
+                    * factor
+                    for i in range(len(times) - 1)
+                ),
+                default=0.0,
+            )
+            for relationship_type, operation in (
+                ("parallel", lambda pair: abs(pair[0] - pair[1])),
+                ("contra_parallel", lambda pair: abs(pair[0] + pair[1])),
+            ):
+                orb_values = [operation(pair) for pair in declinations]
+                observed = [value <= orb for value in orb_values]
+                if not any(observed):
+                    continue
+                orb_low = max(0.0, min(orb_values) - relative_padding)
+                orb_high = max(orb_values) + relative_padding
+                classification: Classification = "invariant" if all(observed) and orb_high <= orb else "conditional"
+                rows.append(
+                    {
+                        "a": first,
+                        "b": second,
+                        "classification": classification,
+                        "relationship": relationship_type,
+                        "possible_relationships": [relationship_type],
+                        "orb_range": {"min": orb_low, "max": orb_high},
+                        "evidence": evidence_record(
+                            feature_key=f"declination_relationship:{first}:{second}:{relationship_type}",
+                            classification=classification,
+                            value_kind="declination_relationship_presence",
+                            possibilities=[relationship_type],
+                            prerequisite_refs=[f"body:{first}:declination", f"body:{second}:declination"],
+                            range_evidence=scalar_range(orb_low, orb_high, unit="degrees"),
+                            transitions=transition_witnesses(observed, times, coordinate_unit="jd_ut"),
+                            counterexample_rows=(
+                                counterexamples(observed, times, expected=True, coordinate_unit="jd_ut")
+                                if observed
+                                else []
+                            ),
+                            availability="available",
+                        ),
+                    }
+                )
+    return rows
+
+
 def evaluate_interval(
     start_jd: float,
     end_jd: float,
@@ -602,6 +761,63 @@ def evaluate_interval(
                 ),
             )
             aspects.append(row)
+
+    coordinate_nodes: dict[str, dict[str, Any]] = {}
+    for name, path in unwrapped.items():
+        speeds = [float(samples[time][name]["speed_lon"]) for time in times]
+        coordinate_nodes[f"body:{name}"] = {"name": name, "path": path, "speeds": speeds, "kind": "body"}
+        if include_antiscia:
+            coordinate_nodes[f"transform:{name}:antiscia"] = {
+                "name": f"{name} antiscia point",
+                "path": [180.0 - value for value in path],
+                "speeds": [-value for value in speeds],
+                "kind": "transform",
+            }
+            coordinate_nodes[f"transform:{name}:contra_antiscia"] = {
+                "name": f"{name} contra antiscia point",
+                "path": [180.0 + value for value in path],
+                "speeds": speeds,
+                "kind": "transform",
+            }
+        if include_harmonics:
+            for number in harmonic_numbers:
+                coordinate_nodes[f"transform:{name}:harmonic:{number}"] = {
+                    "name": f"{name} harmonic {number}",
+                    "path": [float(number) * value for value in path],
+                    "speeds": [float(number) * value for value in speeds],
+                    "kind": "transform",
+                }
+    derived_aspects = []
+    node_keys = list(coordinate_nodes)
+    invariant_absence_count = 0
+    for index, first_key in enumerate(node_keys):
+        for second_key in node_keys[index + 1 :]:
+            first_node, second_node = coordinate_nodes[first_key], coordinate_nodes[second_key]
+            if first_node["kind"] == second_node["kind"] == "body":
+                continue
+            row = _classify_longitude_relationship(
+                first_key=first_key,
+                first_name=first_node["name"],
+                first_path=first_node["path"],
+                first_speeds=first_node["speeds"],
+                second_key=second_key,
+                second_name=second_node["name"],
+                second_path=second_node["path"],
+                second_speeds=second_node["speeds"],
+                times=times,
+                include_minor=include_minor,
+                factor=profile.speed_envelope_factor,
+            )
+            if row is None:
+                invariant_absence_count += 1
+            else:
+                derived_aspects.append(row)
+    declination_relationships = _declination_relationships(
+        body_ids=body_ids,
+        samples=samples,
+        times=times,
+        factor=profile.speed_envelope_factor,
+    )
     return {
         "evidence_contract_version": EVIDENCE_CONTRACT_VERSION,
         "proof_profile": asdict(profile),
@@ -611,6 +827,9 @@ def evaluate_interval(
         "failures": failures,
         "bodies": bodies,
         "aspects": aspects,
+        "derived_aspects": derived_aspects,
+        "derived_aspect_invariant_absence_count": invariant_absence_count,
+        "declination_relationships": declination_relationships,
     }
 
 

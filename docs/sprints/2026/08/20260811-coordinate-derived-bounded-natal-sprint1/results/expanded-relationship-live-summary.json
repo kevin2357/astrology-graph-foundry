@@ -1,0 +1,29 @@
+{
+  "artifact_type": "agf_slice5_expanded_relationship_live_summary",
+  "runtime_image": "agf-bounded-qa:py311-pyswe-2.10.3.2",
+  "interval_evaluations": 241,
+  "canonical_graph_version": "1.2.0",
+  "calculation_profile_version": "agf.bounded_natal.calculation_profile.v1.4.0",
+  "derived_coordinate_pairs": {
+    "relationship_present_and_retained_as_evidence": 1936,
+    "invariant_absence_compact_count": 3776,
+    "invariant_canonical_relationships": 1374
+  },
+  "declination_relationships": {
+    "assessed_present": 10,
+    "invariant_parallel": 7,
+    "invariant_contraparallel": 3
+  },
+  "canonical_relationship_counts": {
+    "ordinary_body_aspect": 16,
+    "derived_coordinate_aspect": 1374,
+    "declination_parallel": 7,
+    "declination_contraparallel": 3,
+    "transform_owner_lineage": 93
+  },
+  "evidence_registry_entries": 2120,
+  "temporary_artifact_bytes": 15711079,
+  "temporary_artifact_sha256": "2d9c1dd710191e7281c56192ba68bb09661488f6f6002b8506e7a8b7ec2b57bb",
+  "dataset_schema_validation": "passed",
+  "retained_live_artifact": false
+}

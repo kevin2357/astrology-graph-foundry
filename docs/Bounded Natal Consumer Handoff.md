@@ -46,6 +46,12 @@ astrological transform names as evidence that an exact transformed longitude is
 present. Graph 1.0.0 remains valid and contains only the original bounded body and
 aspect vocabulary.
 
+Graph 1.2.0 adds invariant relationships involving bounded transform objects and
+invariant declination parallels/contraparallels. These relationships intentionally
+omit orb, strength, distance, and applying/separating scalars. Their evidence
+registry rows retain bounded orb ranges, transitions, alternatives, and coordinate
+prerequisites. A counted invariant absence is not a canonical negative claim.
+
 Newer working artifacts may additionally advertise
 `agf.bounded_uncertainty_evidence.v1.0.0`. Its circular segment sets,
 prerequisites, transition witnesses, and counterexamples are additive to the legacy

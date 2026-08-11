@@ -80,12 +80,12 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.3.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.4.0"
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
-    assert graph["graph_version"] == "1.1.0"
+    assert graph["graph_version"] == "1.2.0"
     assert {row["name"] for row in graph["objects"]} == {"Sun", "Mars"}
     assert len(graph["relationships"]) == 1
     assert all(not ({"longitude", "pretty", "sign_degree"} & row.keys()) for row in graph["objects"])
@@ -169,6 +169,26 @@ def test_invariant_transforms_materialize_without_exact_longitudes_and_keep_owne
             },
         },
     }
+    assessment["derived_aspects"] = [
+        {
+            "a": "body:Sun",
+            "b": "transform:Sun:harmonic:3",
+            "a_name": "Sun",
+            "b_name": "Sun harmonic 3",
+            "classification": "invariant",
+            "aspect": "square",
+            "evidence": {"feature_key": "derived_aspect:body:Sun:transform:Sun:harmonic:3"},
+        }
+    ]
+    assessment["declination_relationships"] = [
+        {
+            "a": "Sun",
+            "b": "Mars",
+            "classification": "invariant",
+            "relationship": "parallel",
+            "evidence": {"feature_key": "declination_relationship:Sun:Mars"},
+        }
+    ]
     monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(assessment))
     package = bounded_natal.build_bounded_natal_package(_birth(), ProviderConfig(ephemeris_mode="moshier"))
     graph = package["canonical_astrology_graph"]
@@ -181,6 +201,14 @@ def test_invariant_transforms_materialize_without_exact_longitudes_and_keep_owne
     assert len(owner_relationships) == 2
     assert all(row["source_id"] in object_ids and row["target_id"] in object_ids for row in owner_relationships)
     assert all(row["uncertainty_evidence_ref"] in package["uncertainty_assessment"]["evidence_registry"] for row in derived)
+    invariant_relationship_types = {row["relationship_type"] for row in graph["relationships"]}
+    assert "BOUNDED_INVARIANT_DERIVED_ASPECT" in invariant_relationship_types
+    assert "BOUNDED_INVARIANT_DECLINATION_PARALLEL" in invariant_relationship_types
+    assert all(
+        "orb" not in row and "applying_delta" not in row
+        for row in graph["relationships"]
+        if row["relationship_type"].startswith("BOUNDED_INVARIANT_")
+    )
     schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator(schema, registry=_registry()).validate(package)
 

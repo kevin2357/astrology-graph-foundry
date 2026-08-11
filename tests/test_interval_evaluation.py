@@ -255,3 +255,104 @@ def test_transform_sign_sets_agree_with_exhaustive_minute_oracle_away_from_bound
         row = transforms[key] if not key.startswith("harmonic:") else transforms["harmonics"][key.split(":")[1]]
         oracle = sorted({int(value // 30) % 12 for value in values})
         assert row["possible_sign_indexes"] == oracle
+
+
+def test_declination_parallel_is_invariant_only_when_continuous_orb_stays_inside_boundary():
+    invariant = evaluate_interval(
+        0,
+        0.1,
+        {"Sun": 0, "Moon": 1},
+        _rich_linear(
+            Sun=(10, 1, 0, 0, 10, 1, 5, 0.1),
+            Moon=(20, 1, 0, 0, 20, 1, 5.2, 0.1),
+        ),
+        include_antiscia=False,
+        include_harmonics=False,
+        profile=PROFILE,
+    )
+    row = invariant["declination_relationships"][0]
+    assert row["classification"] == "invariant"
+    assert row["relationship"] == "parallel"
+    assert row["evidence"]["prerequisite_refs"] == ["body:Moon:declination", "body:Sun:declination"]
+
+    crossing = evaluate_interval(
+        0,
+        0.2,
+        {"Sun": 0, "Moon": 1},
+        _rich_linear(
+            Sun=(10, 1, 0, 0, 10, 1, 5, 0),
+            Moon=(20, 1, 0, 0, 20, 1, 5.8, 2),
+        ),
+        include_antiscia=False,
+        include_harmonics=False,
+        profile=PROFILE,
+    )
+    assert crossing["declination_relationships"][0]["classification"] == "conditional"
+
+
+def test_parallel_and_contraparallel_are_independent_near_celestial_equator():
+    result = evaluate_interval(
+        0,
+        0.1,
+        {"Sun": 0, "Moon": 1},
+        _rich_linear(
+            Sun=(10, 1, 0, 0, 10, 1, 0.2, 0),
+            Moon=(20, 1, 0, 0, 20, 1, -0.2, 0),
+        ),
+        include_antiscia=False,
+        include_harmonics=False,
+        profile=PROFILE,
+    )
+    assert {row["relationship"] for row in result["declination_relationships"]} == {
+        "parallel",
+        "contra_parallel",
+    }
+
+
+def test_harmonic_relationships_are_assessed_without_claiming_application_state():
+    result = evaluate_interval(
+        0,
+        0.1,
+        {"Sun": 0, "Moon": 1},
+        _linear(Sun=(0, 0), Moon=(60, 0)),
+        include_antiscia=False,
+        harmonic_numbers=(2,),
+        profile=PROFILE,
+    )
+    row = next(
+        item
+        for item in result["derived_aspects"]
+        if {item["a"], item["b"]} == {"body:Sun", "transform:Moon:harmonic:2"}
+    )
+    assert row["classification"] == "invariant"
+    assert row["aspect"] == "trine"
+    assert "applying_delta" not in row
+    assert "derived_aspect_invariant_absence_count" in result
+
+
+def test_derived_relationship_leave_and_return_is_not_promoted():
+    def oscillating(jd):
+        phase = 2 * math.pi * 24 * jd
+        moon_lon = 20 + 5 * math.sin(phase)
+        moon_speed = 5 * 2 * math.pi * 24 * math.cos(phase)
+        return {
+            "Sun": {"lon": 0, "speed_lon": 0},
+            "Moon": {"lon": moon_lon, "speed_lon": moon_speed},
+        }
+
+    result = evaluate_interval(
+        0,
+        1 / 12,
+        {"Sun": 0, "Moon": 1},
+        oscillating,
+        include_antiscia=False,
+        harmonic_numbers=(3,),
+        profile=PROFILE,
+    )
+    row = next(
+        item
+        for item in result["derived_aspects"]
+        if {item["a"], item["b"]} == {"body:Sun", "transform:Moon:harmonic:3"}
+    )
+    assert row["classification"] == "conditional"
+    assert len(row["evidence"]["transition_witnesses"]) >= 2

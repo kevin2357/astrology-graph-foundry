@@ -181,3 +181,47 @@ completed implementation slices.
   Reviewed the final diff and removed the temporary Slice 4 live directory from
   `C:\tmp`; only the compact summary and SHA-256 remain. The reusable QA image was
   retained intentionally.
+
+## 2026-08-11 — Slice 5 expanded coordinate-derived relationships
+
+- Began from approved, committed, and pushed Slice 4 boundary `f36f9f8`.
+- Evaluated aspects across all ordinary bodies and enabled antiscia, contra-antiscia,
+  and harmonic coordinate nodes. Base-body pairs remain in the established aspect
+  collection; the derived collection includes every pair with at least one
+  transformed endpoint.
+- Reused the exact aspect/orb vocabulary and derived-node display naming behavior.
+  Continuous safety requires both orb containment and stable nearest-aspect identity.
+- Omitted all-sample relationship absences from row-level evidence to avoid bulky
+  negative claims, while retaining a deterministic aggregate count. Possible,
+  entry/exit, type-change, and leave-and-return cases retain evidence and are never
+  promoted as invariant.
+- Added independent parallel and contraparallel predicates over bounded declination
+  paths. Corrected an implementation draft that treated them as mutually exclusive;
+  near the celestial equator both may validly hold and now receive separate evidence
+  rows and identities.
+- Explicitly withheld applying/separating semantics. Exact `applying_delta` is
+  instantaneous signed geometry and cannot be copied into a complete-interval claim.
+- Promoted only invariant relationships whose endpoint objects survived canonical
+  filtering. Canonical rows omit orb, distance, strength, and application scalars;
+  evidence retains orb ranges, prerequisites, transitions, and counterexamples.
+- Advanced bounded canonical graph 1.1.0 to 1.2.0 for derived-aspect and declination
+  relationship vocabulary. Advanced bounded calculation profile 1.3.0 to 1.4.0;
+  previous graph/profile versions remain schema-valid.
+- Focused fixtures cover entry/exit, leave-and-return, declination boundary crossing,
+  simultaneous parallel/contraparallel, endpoint/evidence integrity, and prohibited
+  application-state laundering.
+- Controlled four-hour live Moshier evaluation assessed 1,936 relationship-present
+  derived-coordinate pairs, compactly counted 3,776 invariant absences, and promoted
+  1,374 invariant derived aspects. It assessed and promoted seven parallels and
+  three contraparallels. The 15,711,079-byte temporary artifact contained 2,120
+  evidence-registry entries and passed the packaged dataset schema.
+- The large relationship surface is an expected exact-parity consequence and a
+  material input to Slice 6: structural summaries and downstream selection must not
+  equate raw relationship multiplicity with independent evidentiary weight.
+- No downstream repository, release tag, or published artifact was changed. Slice
+  remains uncommitted pending final Gate 5 validation and approval.
+- Final focused Ruff passed. The full suite passed 235 tests in 29.69 seconds;
+  44 schema/result JSON files parsed and `git diff --check` passed.
+- Five changed Markdown files passed relative-link and trailing-whitespace checks.
+  Reviewed the final diff and removed the 15.7 MB temporary live artifact from
+  `C:\tmp`; only the compact evidence summary and SHA-256 remain.

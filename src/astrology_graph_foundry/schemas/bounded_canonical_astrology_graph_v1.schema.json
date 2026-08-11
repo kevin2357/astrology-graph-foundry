@@ -5,7 +5,7 @@
   "required": ["graph_type", "graph_version", "source_chart_id", "source_chart_ids", "projection_status", "objects", "relationships", "capabilities"],
   "properties": {
     "graph_type": {"const": "bounded_canonical_astrology_graph"},
-    "graph_version": {"enum": ["1.0.0", "1.1.0"]},
+    "graph_version": {"enum": ["1.0.0", "1.1.0", "1.2.0"]},
     "source_chart_id": {"type": "string", "minLength": 1},
     "source_chart_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
     "projection_status": {"const": "pre_projection"},
@@ -38,7 +38,7 @@
         "type": "object",
         "required": ["id", "relationship_type", "source_id", "target_id", "uncertainty_evidence_ref", "evidence_metadata"],
         "properties": {
-          "relationship_type": {"enum": ["BOUNDED_INVARIANT_ASPECT", "BOUNDED_HAS_ANTISCIA_POINT", "BOUNDED_HAS_CONTRA_ANTISCIA_POINT", "BOUNDED_HAS_HARMONIC_POINT"]},
+          "relationship_type": {"enum": ["BOUNDED_INVARIANT_ASPECT", "BOUNDED_INVARIANT_DERIVED_ASPECT", "BOUNDED_INVARIANT_DECLINATION_PARALLEL", "BOUNDED_INVARIANT_DECLINATION_CONTRAPARALLEL", "BOUNDED_HAS_ANTISCIA_POINT", "BOUNDED_HAS_CONTRA_ANTISCIA_POINT", "BOUNDED_HAS_HARMONIC_POINT"]},
           "orb": false,
           "distance": false,
           "applying_delta": false,
@@ -46,7 +46,7 @@
         },
         "allOf": [
           {
-            "if": {"properties": {"relationship_type": {"const": "BOUNDED_INVARIANT_ASPECT"}}},
+            "if": {"properties": {"relationship_type": {"enum": ["BOUNDED_INVARIANT_ASPECT", "BOUNDED_INVARIANT_DERIVED_ASPECT"]}}},
             "then": {"required": ["aspect"]}
           }
         ],

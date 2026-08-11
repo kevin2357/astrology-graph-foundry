@@ -12,7 +12,7 @@ from astrology_graph_foundry.ephemeris.live_natal import evaluate_bounded_natal_
 from astrology_graph_foundry.ephemeris.models import BoundedBirthData, ProviderConfig
 
 BOUNDED_NATAL_SCHEMA_VERSION = "1.0.0"
-BOUNDED_GRAPH_VERSION = "1.1.0"
+BOUNDED_GRAPH_VERSION = "1.2.0"
 
 
 def _body_id(name: str) -> str:
@@ -33,6 +33,16 @@ def _transform_id(name: str, kind: str, qualifier: str | None = None) -> str:
 def _transform_evidence_ref(name: str, kind: str, qualifier: str | None = None) -> str:
     suffix = f":{qualifier}" if qualifier is not None else ""
     return f"uncertainty:transforms:{name}:{kind}{suffix}"
+
+
+def _coordinate_node_id(key: str) -> str:
+    parts = key.split(":")
+    if parts[0] == "body" and len(parts) == 2:
+        return _body_id(parts[1])
+    if parts[0] == "transform" and len(parts) >= 3:
+        qualifier = parts[3] if len(parts) == 4 else None
+        return _transform_id(parts[1], parts[2], qualifier)
+    raise ValueError(f"unsupported bounded coordinate node key: {key}")
 
 
 def build_bounded_natal_package(
@@ -139,6 +149,51 @@ def build_bounded_natal_package(
                 }
             )
 
+    canonical_object_ids = {row["id"] for row in objects}
+    for row in assessment.get("derived_aspects") or []:
+        if row.get("classification") != "invariant" or not row.get("aspect"):
+            continue
+        source_id, target_id = _coordinate_node_id(row["a"]), _coordinate_node_id(row["b"])
+        if source_id not in canonical_object_ids or target_id not in canonical_object_ids:
+            continue
+        evidence_ref = f"uncertainty:derived_aspects:{row['a']}:{row['b']}"
+        relationships.append(
+            {
+                "id": f"bounded_derived_aspect:{source_id}:{row['aspect']}:{target_id}",
+                "relationship_type": "BOUNDED_INVARIANT_DERIVED_ASPECT",
+                "source_id": source_id,
+                "target_id": target_id,
+                "source_name": row["a_name"],
+                "target_name": row["b_name"],
+                "aspect": row["aspect"],
+                "uncertainty_evidence_ref": evidence_ref,
+                "source_operator_hints": ["bounded_invariant_derived_aspect"],
+            }
+        )
+    for row in assessment.get("declination_relationships") or []:
+        if row.get("classification") != "invariant" or not row.get("relationship"):
+            continue
+        source_id, target_id = _body_id(row["a"]), _body_id(row["b"])
+        if source_id not in canonical_object_ids or target_id not in canonical_object_ids:
+            continue
+        evidence_ref = f"uncertainty:declination_relationships:{row['a']}:{row['b']}:{row['relationship']}"
+        relationships.append(
+            {
+                "id": f"bounded_declination:{source_id}:{row['relationship']}:{target_id}",
+                "relationship_type": (
+                    "BOUNDED_INVARIANT_DECLINATION_PARALLEL"
+                    if row["relationship"] == "parallel"
+                    else "BOUNDED_INVARIANT_DECLINATION_CONTRAPARALLEL"
+                ),
+                "source_id": source_id,
+                "target_id": target_id,
+                "source_name": row["a"],
+                "target_name": row["b"],
+                "uncertainty_evidence_ref": evidence_ref,
+                "source_operator_hints": ["bounded_invariant_declination_relationship"],
+            }
+        )
+
     feature_dispositions = {
         "houses": "unavailable_birth_time_dependent",
         "house_placements": "unavailable_birth_time_dependent",
@@ -148,7 +203,7 @@ def build_bounded_natal_package(
         "body_latitudes": "assessed_as_continuous_ranges",
         "right_ascensions": "assessed_as_continuous_circular_ranges",
         "declinations": "assessed_as_continuous_ranges",
-        "declination_aspects": "deferred_interval_semantics",
+        "declination_aspects": "assessed_with_invariant_relationship_promotion",
         "antiscia": "assessed_with_invariant_sign_promotion",
         "harmonics": "assessed_with_invariant_sign_promotion",
         "fixed_stars": "deferred_interval_semantics",
@@ -167,6 +222,14 @@ def build_bounded_natal_package(
                 ("contra_antiscia", (body.get("transforms") or {}).get("contra_antiscia")),
             )
             if transform is not None
+        },
+        **{
+            f"uncertainty:derived_aspects:{row['a']}:{row['b']}": row["evidence"]
+            for row in assessment.get("derived_aspects") or []
+        },
+        **{
+            f"uncertainty:declination_relationships:{row['a']}:{row['b']}:{row['relationship']}": row["evidence"]
+            for row in assessment.get("declination_relationships") or []
         },
         **{
             _transform_evidence_ref(name, "harmonic", number): transform["evidence"]
@@ -193,6 +256,8 @@ def build_bounded_natal_package(
             "supports_bounded_body_coordinate_evidence": True,
             "supports_bounded_declination_evidence": True,
             "supports_bounded_coordinate_transforms": True,
+            "supports_bounded_derived_aspects": True,
+            "supports_bounded_declination_relationships": True,
             "supports_exact_longitudes": False,
             "supports_longitude_aspects": False,
             "supports_house_transits": False,
@@ -229,6 +294,9 @@ def build_bounded_natal_package(
             "source_chart_id": source_chart_id,
             "bodies": {name: evidence for name, evidence in sorted(assessment["bodies"].items())},
             "aspects": assessment["aspects"],
+            "derived_aspects": assessment.get("derived_aspects") or [],
+            "derived_aspect_invariant_absence_count": assessment.get("derived_aspect_invariant_absence_count", 0),
+            "declination_relationships": assessment.get("declination_relationships") or [],
         },
         "uncertainty_assessment": {
             **(
@@ -243,6 +311,8 @@ def build_bounded_natal_package(
             "failures": assessment["failures"],
             "body_evidence": assessment["bodies"],
             "aspect_evidence": assessment["aspects"],
+            "derived_aspect_evidence": assessment.get("derived_aspects") or [],
+            "declination_relationship_evidence": assessment.get("declination_relationships") or [],
             "evidence_registry": evidence_registry,
             "feature_dispositions": feature_dispositions,
         },
