@@ -1,0 +1,24 @@
+{
+  "artifact_type": "agf_terrestrial_frame_live_summary",
+  "status": "slice_2_gate_candidate",
+  "runtime": {
+    "image": "agf-bounded-qa:py311-pyswe-2.10.3.2",
+    "image_digest": "sha256:7adbd0cf756aab8fafc2b3a2f3f5e4785d77b9a0e0d7d4dfa315f2a27e0b2618",
+    "source_mount": "read_only",
+    "pyswisseph": "2.10.3.2",
+    "swisseph": "2.10.03"
+  },
+  "four_hour_denver": {
+    "evaluation_count": 241,
+    "coordinate_evidence_records": 17,
+    "placidus": {"status": "complete", "failures": []},
+    "whole_sign": {"status": "complete", "failures": []}
+  },
+  "two_hour_latitude_67_placidus": {
+    "status": "inconclusive",
+    "failure_family": "terrestrial_frame",
+    "normalized_provider_message": "within polar circle, switched to Porphyry",
+    "fallback_output_accepted": false
+  },
+  "host_suite": "244 passed"
+}

@@ -138,3 +138,11 @@ silently substitute a polar-capable system after Placidus failure.
 Family-scoped failure also supports phased Transit behavior: a failed terrestrial
 frame can make house contacts inconclusive while independently proven contacts to
 bounded celestial bodies remain available.
+
+## Terrestrial-frame Sprint 2, Slice 2 implications
+
+Transit-house feasibility now has portable inputs: seventeen labeled frame records,
+circular ranges, transition witnesses, a pinned system, and feature-scoped failure.
+Future work should reference those registry records rather than recompute cusps or
+read a representative frame. Placidus and Whole Sign must remain distinct cache and
+calculation profiles.

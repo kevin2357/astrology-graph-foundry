@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import math
 from datetime import datetime
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -10,7 +11,8 @@ from astrology_graph_foundry.common.constants import SIGN_RULERS_MODERN, SIGN_RU
 from astrology_graph_foundry.common.geometry import decimal_to_dms, deg_to_sign, format_zodiac, house_for_lon, normalize
 
 from .interval_evaluation import IntervalProofProfile, evaluate_interval
-from .models import BirthData, BoundedBirthData, ProviderConfig
+from .models import BOUNDED_HOUSE_SYSTEMS, BirthData, BoundedBirthData, ProviderConfig
+from .uncertainty_evidence import circular_range_from_unwrapped, evidence_record, transition_witnesses
 
 logger = logging.getLogger(__name__)
 
@@ -99,11 +101,104 @@ def house_data(swe: Any, jd_ut: float, lat: float, lon: float, house_system: str
     cusps_raw = list(cusps_raw)
     cusps = cusps_raw[1:] if len(cusps_raw) == 13 and abs(float(cusps_raw[0])) < 1e-9 else cusps_raw[:12]
     cusps = [normalize(float(x)) for x in cusps]
+    if len(cusps) != 12:
+        raise ValueError(f"house system {house_system!r} did not return twelve cusps")
     asc = normalize(float(ascmc[0])); mc = normalize(float(ascmc[1]))
-    closest_index = min(range(12), key=lambda i: abs((cusps[i] - asc + 180) % 360 - 180))
-    if closest_index != 0:
-        cusps = cusps[closest_index:] + cusps[:closest_index]
     return {"cusps": cusps, "ASC": asc, "DSC": normalize(asc + 180), "MC": mc, "IC": normalize(mc + 180), "Vertex": normalize(float(ascmc[3])) if len(ascmc) > 3 else None}
+
+
+def _unwrap_path(values: list[float]) -> list[float]:
+    path = [values[0]]
+    for value in values[1:]:
+        path.append(path[-1] + ((value - path[-1] + 180.0) % 360.0 - 180.0))
+    return path
+
+
+def _frame_coordinate_evidence(
+    key: str,
+    values: list[float],
+    speeds: list[float],
+    times: list[float],
+    factor: float,
+) -> dict[str, Any]:
+    path = _unwrap_path(values)
+    padding = [
+        max(abs(speeds[index]), abs(speeds[index + 1]))
+        * (times[index + 1] - times[index])
+        * factor
+        for index in range(len(times) - 1)
+    ]
+    low = min(value - (padding[index - 1] if index else padding[0]) for index, value in enumerate(path))
+    high = max(value + (padding[index - 1] if index else padding[0]) for index, value in enumerate(path))
+    first = int((low + 1e-7) // 30)
+    last = int((high - 1e-7) // 30)
+    signs = sorted({index % 12 for index in range(first, last + 1)})
+    sampled_signs = [int(value // 30) % 12 for value in values]
+    return evidence_record(
+        feature_key=f"terrestrial_frame:{key}",
+        classification="invariant" if len(signs) == 1 else "variable",
+        value_kind="terrestrial_ecliptic_longitude",
+        possibilities=(str(index) for index in signs),
+        prerequisite_refs=["provider:houses_ex2"],
+        range_evidence=circular_range_from_unwrapped(low, high),
+        transitions=transition_witnesses(sampled_signs, times, coordinate_unit="jd_ut"),
+        availability="available",
+    )
+
+
+def evaluate_terrestrial_frame_interval(
+    swe: Any,
+    start_jd: float,
+    end_jd: float,
+    latitude: float,
+    longitude: float,
+    config: ProviderConfig,
+    profile: IntervalProofProfile,
+) -> dict[str, Any]:
+    if config.house_system not in BOUNDED_HOUSE_SYSTEMS:
+        return {"status": "unsupported", "house_system": config.house_system, "failures": [{"reason": "house_system_not_qualified_for_bounded_natal"}]}
+    step_days = profile.minimum_step_seconds / 86400.0
+    count = max(1, math.ceil((end_jd - start_jd) / step_days))
+    times = [start_jd + (end_jd - start_jd) * index / count for index in range(count + 1)]
+    if len(times) > profile.maximum_evaluations:
+        return {"status": "inconclusive", "house_system": config.house_system, "failures": [{"reason": "initial evaluation budget exceeded"}]}
+    samples = []
+    try:
+        for time in times:
+            cusps, ascmc, cusp_speeds, ascmc_speeds = swe.houses_ex2(
+                time, latitude, longitude, config.house_system.encode("ascii")
+            )
+            if len(cusps) != 12:
+                raise ValueError("provider did not return twelve cusps")
+            samples.append((list(cusps), list(ascmc), list(cusp_speeds), list(ascmc_speeds)))
+    except Exception as exc:
+        return {"status": "inconclusive", "house_system": config.house_system, "failures": [{"reason": f"provider_failure: {type(exc).__name__}: {exc}"}]}
+    coordinates = {}
+    for index in range(12):
+        coordinates[f"cusp:{index + 1}"] = _frame_coordinate_evidence(
+            f"cusp:{index + 1}",
+            [float(sample[0][index]) % 360 for sample in samples],
+            [float(sample[2][index]) for sample in samples],
+            times,
+            profile.speed_envelope_factor,
+        )
+    angle_sources = {"ASC": (1, 0, 1.0, 0.0), "DSC": (1, 0, 1.0, 180.0), "MC": (1, 1, 1.0, 0.0), "IC": (1, 1, 1.0, 180.0), "Vertex": (1, 3, 1.0, 0.0)}
+    for name, (_, index, multiplier, offset) in angle_sources.items():
+        coordinates[f"angle:{name}"] = _frame_coordinate_evidence(
+            f"angle:{name}",
+            [(float(sample[1][index]) * multiplier + offset) % 360 for sample in samples],
+            [float(sample[3][index]) * multiplier for sample in samples],
+            times,
+            profile.speed_envelope_factor,
+        )
+    return {
+        "status": "complete",
+        "house_system": config.house_system,
+        "evaluation_count": len(times),
+        "interval": {"start_jd": start_jd, "end_jd": end_jd, "boundary_policy": "inclusive"},
+        "coordinates": coordinates,
+        "failures": [],
+    }
 
 def is_day_chart(sun_house: int | None) -> bool:
     return sun_house in {7, 8, 9, 10, 11, 12}
@@ -239,6 +334,9 @@ def evaluate_bounded_natal_interval(
         include_harmonics=config.include_harmonics,
         harmonic_numbers=config.harmonic_numbers,
         profile=profile,
+    )
+    result["terrestrial_frame"] = evaluate_terrestrial_frame_interval(
+        swe, start_jd, end_jd, birth.birth_lat, birth.birth_lon, config, profile or IntervalProofProfile()
     )
     result["birth_time_basis"] = basis.as_dict()
     result["configured_body_names"] = list(bodies)

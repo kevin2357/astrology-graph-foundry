@@ -195,9 +195,9 @@ def build_bounded_natal_package(
         )
 
     feature_dispositions = {
-        "houses": "unavailable_birth_time_dependent",
+        "houses": "assessed_as_terrestrial_frame_ranges",
         "house_placements": "unavailable_birth_time_dependent",
-        "angles": "unavailable_birth_time_dependent",
+        "angles": "assessed_as_terrestrial_frame_ranges",
         "sect": "unavailable_birth_time_dependent",
         "lots": "unavailable_angle_or_sect_dependent",
         "body_latitudes": "assessed_as_continuous_ranges",
@@ -222,6 +222,10 @@ def build_bounded_natal_package(
                 ("contra_antiscia", (body.get("transforms") or {}).get("contra_antiscia")),
             )
             if transform is not None
+        },
+        **{
+            f"uncertainty:terrestrial_frame:{key}": value
+            for key, value in sorted((assessment.get("terrestrial_frame") or {}).get("coordinates", {}).items())
         },
         **{
             f"uncertainty:derived_aspects:{row['a']}:{row['b']}": row["evidence"]
@@ -258,6 +262,7 @@ def build_bounded_natal_package(
             "supports_bounded_coordinate_transforms": True,
             "supports_bounded_derived_aspects": True,
             "supports_bounded_declination_relationships": True,
+            "supports_bounded_terrestrial_frame_evidence": True,
             "supports_exact_longitudes": False,
             "supports_longitude_aspects": False,
             "supports_house_transits": False,
@@ -297,6 +302,7 @@ def build_bounded_natal_package(
             "derived_aspects": assessment.get("derived_aspects") or [],
             "derived_aspect_invariant_absence_count": assessment.get("derived_aspect_invariant_absence_count", 0),
             "declination_relationships": assessment.get("declination_relationships") or [],
+            "terrestrial_frame": assessment.get("terrestrial_frame"),
         },
         "uncertainty_assessment": {
             **(
@@ -313,6 +319,7 @@ def build_bounded_natal_package(
             "aspect_evidence": assessment["aspects"],
             "derived_aspect_evidence": assessment.get("derived_aspects") or [],
             "declination_relationship_evidence": assessment.get("declination_relationships") or [],
+            "terrestrial_frame_evidence": assessment.get("terrestrial_frame"),
             "evidence_registry": evidence_registry,
             "feature_dispositions": feature_dispositions,
         },

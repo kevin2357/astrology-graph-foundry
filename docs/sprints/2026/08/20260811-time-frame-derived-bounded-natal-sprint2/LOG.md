@@ -90,3 +90,28 @@ completed implementation slices.
   uncertainty contract.
 - No runtime code, schema, version, downstream repository, tag, or release changed.
   Exact-path fixes and executable regressions open Slice 2 after Gate 1 approval.
+
+## 2026-08-11 — Slice 1 approval and commit
+
+- Product owner approved Gate 1.
+- Committed and pushed Slice 1 as `88e6e40` (`Audit bounded natal terrestrial
+  frame`).
+
+## 2026-08-11 — Slice 2 cusp and angle evidence
+
+- Removed exact-path cusp rotation and added provider-order regression coverage.
+- Added strict reviewed twelve-house-code validation, rejecting unknown, lowercase,
+  and Gauquelin-sector configurations before Swiss Ephemeris invocation.
+- Implemented minute-grid `houses_ex2` evaluation for qualified bounded systems `P`
+  and `W`, with 12 cusp and five angle evidence records.
+- Added conservative speed-enveloped circular ranges, possible signs, origin-wrap
+  representation, transition witnesses, and family-scoped failure results.
+- Added terrestrial evidence to the bounded artifact, uncertainty registry, feature
+  dispositions, and calculation provenance. Advanced bounded calculation profile to
+  `agf.bounded_natal.calculation_profile.v1.6.0`; dataset/schema version is unchanged.
+- Controlled Linux execution produced complete 241-evaluation results for both
+  Placidus and Whole Sign over four hours. Latitude-67 Placidus returned
+  inconclusive terrestrial evidence and rejected the provider's reported Porphyry
+  fallback.
+- Full host suite passed: 244 tests.
+- No downstream repository, tag, release, or external data changed.

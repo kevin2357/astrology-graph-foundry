@@ -133,3 +133,10 @@ A receiving participant's failed Placidus frame should make overlays inconclusiv
 without discarding cross-chart body-aspect evidence. Whole Sign may be configured as
 a polar-capable frame, but cannot be an automatic fallback because that changes the
 natal calculation contract.
+
+## Terrestrial-frame Sprint 2, Slice 2 implications
+
+The receiving participant can now contribute a labeled frame evidence registry to a
+future overlay calculation. Exact-versus-bounded Synastry can pair one exact body
+longitude with these possible cusp intervals; bounded-versus-bounded overlays still
+require independent participant domains and cannot align sample indexes.

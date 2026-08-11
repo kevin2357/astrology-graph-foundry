@@ -25,6 +25,8 @@ class BirthData:
 
 BOUNDED_BIRTH_TIME_MAX_HOURS = 48.0
 BirthTimeMode = Literal["exact", "bounded", "unknown_time"]
+SUPPORTED_TWELVE_HOUSE_SYSTEMS = frozenset("PKORCAEVXHTBMUW")
+BOUNDED_HOUSE_SYSTEMS = frozenset({"P", "W"})
 
 
 @dataclass(frozen=True)
@@ -259,3 +261,8 @@ class ProviderConfig:
     def __post_init__(self) -> None:
         if self.ephemeris_mode not in {"auto", "swiss", "moshier"}:
             raise ValueError("ephemeris_mode must be one of: auto, swiss, moshier")
+        if self.house_system not in SUPPORTED_TWELVE_HOUSE_SYSTEMS:
+            raise ValueError(
+                "house_system must be one supported uppercase twelve-house code: "
+                + ", ".join(sorted(SUPPORTED_TWELVE_HOUSE_SYSTEMS))
+            )

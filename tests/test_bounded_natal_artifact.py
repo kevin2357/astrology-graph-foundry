@@ -58,6 +58,26 @@ def _assessment():
             },
             {"a": "Sun", "b": "Moon", "classification": "conditional", "aspect": None, "possible_aspects": ["square"], "orb_range": None},
         ],
+        "terrestrial_frame": {
+            "status": "complete",
+            "house_system": "P",
+            "evaluation_count": 361,
+            "failures": [],
+            "coordinates": {
+                "angle:ASC": {
+                    "evidence_contract_version": "agf.bounded_uncertainty_evidence.v1.0.0",
+                    "feature_key": "terrestrial_frame:angle:ASC",
+                    "classification": "variable",
+                    "value_kind": "terrestrial_ecliptic_longitude",
+                    "possibilities": {"possibility_type": "categorical_set", "values": ["0", "1"], "count": 2},
+                    "prerequisite_refs": ["provider:houses_ex2"],
+                    "range_evidence": None,
+                    "transition_witnesses": [],
+                    "counterexamples": [],
+                    "proof_scope": "complete_normalized_birth_interval",
+                }
+            },
+        },
     }
 
 
@@ -80,7 +100,8 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.5.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.6.0"
+    assert provenance["calculation_profile"]["bounded_feature_policy"]["terrestrial_frame"]["qualified_systems"] == ["P", "W"]
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
     graph = package["canonical_astrology_graph"]
@@ -100,11 +121,15 @@ def test_reduced_capabilities_and_feature_dispositions_are_explicit(monkeypatch)
     assert package["capabilities"]["supports_exact_longitudes"] is False
     assert package["capabilities"]["supports_semantic_graph_activation"] is False
     dispositions = package["uncertainty_assessment"]["feature_dispositions"]
-    assert dispositions["houses"] == "unavailable_birth_time_dependent"
+    assert dispositions["houses"] == "assessed_as_terrestrial_frame_ranges"
+    assert dispositions["angles"] == "assessed_as_terrestrial_frame_ranges"
+    assert package["bounded_natal"]["terrestrial_frame"]["house_system"] == "P"
+    assert "uncertainty:terrestrial_frame:angle:ASC" in package["uncertainty_assessment"]["evidence_registry"]
     assert dispositions["representative_longitudes"] == "prohibited_precision_laundering"
     assert dispositions["declinations"] == "assessed_as_continuous_ranges"
     assert package["capabilities"]["supports_bounded_body_coordinate_evidence"] is True
     assert package["capabilities"]["supports_bounded_declination_evidence"] is True
+    assert package["capabilities"]["supports_bounded_terrestrial_frame_evidence"] is True
 
 
 def test_structural_material_is_explicitly_invariant_subgraph_based_and_unscored(monkeypatch):
