@@ -126,13 +126,13 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.8.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.9.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["terrestrial_frame"]["qualified_systems"] == ["P", "W"]
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
-    assert graph["graph_version"] == "1.5.0"
+    assert graph["graph_version"] == "1.6.0"
     assert {row["name"] for row in graph["objects"]} == {"Sun", "Mars"}
     assert len(graph["relationships"]) == 1
     assert all(not ({"longitude", "pretty", "sign_degree"} & row.keys()) for row in graph["objects"])
@@ -209,6 +209,31 @@ def test_invariant_cusp_rulers_angles_and_angle_aspects_materialize(monkeypatch)
     assert any(row["relationship_type"] == "BOUNDED_INVARIANT_ANGLE_ASPECT" for row in graph["relationships"])
     schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator(schema, registry=_registry()).validate(package)
+
+
+def test_invariant_sect_and_triplicity_materialize_with_prerequisites(monkeypatch):
+    assessment = _assessment()
+    assessment["terrestrial_frame"]["sect"] = {
+        "evidence_contract_version": "agf.bounded_uncertainty_evidence.v1.0.0",
+        "feature_key": "terrestrial_frame:sect", "classification": "invariant",
+        "value_kind": "day_night_sect",
+        "possibilities": {"possibility_type": "categorical_set", "values": ["day"], "count": 1},
+        "prerequisite_refs": ["terrestrial_frame:house_membership:body:Sun"],
+        "range_evidence": None, "transition_witnesses": [], "counterexamples": [],
+        "proof_scope": "complete_normalized_birth_interval", "availability": "available",
+    }
+    assessment["sect_triplicity"] = {"Sun": {
+        **assessment["terrestrial_frame"]["sect"],
+        "feature_key": "body:Sun:triplicity", "value_kind": "sect_triplicity_ruler",
+        "possibilities": {"possibility_type": "categorical_set", "values": ["Sun"], "count": 1},
+    }}
+    monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(assessment))
+    package = bounded_natal.build_bounded_natal_package(_birth(), ProviderConfig(ephemeris_mode="moshier"))
+    objects = package["canonical_astrology_graph"]["objects"]
+    assert any(row["object_type"] == "bounded_sect_state" and row["sect"] == "day" for row in objects)
+    sun = next(row for row in objects if row["name"] == "Sun")
+    assert sun["triplicity_ruler"] == "Sun"
+    assert sun["triplicity_uncertainty_evidence_ref"] in package["uncertainty_assessment"]["evidence_registry"]
 
 
 def test_structural_material_is_explicitly_invariant_subgraph_based_and_unscored(monkeypatch):

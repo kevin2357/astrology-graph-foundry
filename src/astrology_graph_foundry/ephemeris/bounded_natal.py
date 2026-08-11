@@ -12,7 +12,7 @@ from astrology_graph_foundry.ephemeris.live_natal import evaluate_bounded_natal_
 from astrology_graph_foundry.ephemeris.models import BoundedBirthData, ProviderConfig
 
 BOUNDED_NATAL_SCHEMA_VERSION = "1.0.0"
-BOUNDED_GRAPH_VERSION = "1.5.0"
+BOUNDED_GRAPH_VERSION = "1.6.0"
 
 
 def _body_id(name: str) -> str:
@@ -95,6 +95,11 @@ def build_bounded_natal_package(
             }
         if invariant_house is not None:
             object_row["house_number"], object_row["house_uncertainty_evidence_ref"] = invariant_house
+        triplicity = (assessment.get("sect_triplicity") or {}).get(name) or {}
+        triplicity_values = (triplicity.get("possibilities") or {}).get("values") or []
+        if triplicity.get("classification") == "invariant" and len(triplicity_values) == 1:
+            object_row["triplicity_ruler"] = triplicity_values[0]
+            object_row["triplicity_uncertainty_evidence_ref"] = f"uncertainty:sect_triplicity:{name}"
         objects.append(object_row)
     object_names = {row["name"] for row in objects}
     relationships = []
@@ -181,6 +186,18 @@ def build_bounded_natal_package(
             )
 
     frame = assessment.get("terrestrial_frame") or {}
+    sect = frame.get("sect") or {}
+    sect_values = (sect.get("possibilities") or {}).get("values") or []
+    if sect.get("classification") == "invariant" and len(sect_values) == 1:
+        objects.append({
+            "id": "natal:bounded:sect",
+            "name": f"{sect_values[0].title()} sect",
+            "source_key": "sect",
+            "object_type": "bounded_sect_state",
+            "sect": sect_values[0],
+            "uncertainty_evidence_ref": "uncertainty:terrestrial_frame:sect",
+            "source_operator_hints": ["bounded_invariant_sect"],
+        })
     for house_number, semantics in sorted((frame.get("cusp_semantics") or {}).items(), key=lambda item: int(item[0])):
         sign = semantics.get("sign") or {}
         sign_values = (sign.get("possibilities") or {}).get("values") or []
@@ -283,7 +300,7 @@ def build_bounded_natal_package(
         "angles": "assessed_as_terrestrial_frame_ranges",
         "cusp_signs_and_rulers": "assessed_with_invariant_prerequisite_promotion",
         "angle_relationships": "assessed_with_invariant_relationship_promotion",
-        "sect": "unavailable_birth_time_dependent",
+        "sect": "assessed_with_invariant_prerequisite_promotion",
         "lots": "unavailable_angle_or_sect_dependent",
         "body_latitudes": "assessed_as_continuous_ranges",
         "right_ascensions": "assessed_as_continuous_circular_ranges",
@@ -307,6 +324,15 @@ def build_bounded_natal_package(
                 ("contra_antiscia", (body.get("transforms") or {}).get("contra_antiscia")),
             )
             if transform is not None
+        },
+        **(
+            {"uncertainty:terrestrial_frame:sect": (assessment.get("terrestrial_frame") or {})["sect"]}
+            if (assessment.get("terrestrial_frame") or {}).get("sect") is not None
+            else {}
+        ),
+        **{
+            f"uncertainty:sect_triplicity:{name}": evidence
+            for name, evidence in sorted((assessment.get("sect_triplicity") or {}).items())
         },
         **{
             f"uncertainty:terrestrial_frame:cusp_semantics:{house}:{kind}": evidence
@@ -364,6 +390,8 @@ def build_bounded_natal_package(
             "supports_bounded_invariant_house_membership": True,
             "supports_bounded_invariant_cusp_semantics": True,
             "supports_bounded_invariant_angle_aspects": True,
+            "supports_bounded_invariant_sect": True,
+            "supports_bounded_invariant_triplicity": True,
             "supports_exact_longitudes": False,
             "supports_longitude_aspects": False,
             "supports_house_transits": False,

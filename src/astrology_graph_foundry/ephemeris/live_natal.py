@@ -303,6 +303,23 @@ def evaluate_terrestrial_frame_interval(
                 )
                 if relationship is not None:
                     angle_relationships.append(relationship)
+    sun_membership = memberships.get("body:Sun") or {}
+    sun_houses = {int(value) for value in (sun_membership.get("possibilities") or {}).get("values", [])}
+    sect_values = []
+    if config.include_sect and sun_houses:
+        if sun_houses & {7, 8, 9, 10, 11, 12}:
+            sect_values.append("day")
+        if sun_houses & {1, 2, 3, 4, 5, 6}:
+            sect_values.append("night")
+    sect = evidence_record(
+        feature_key="terrestrial_frame:sect",
+        classification=("invariant" if len(sect_values) == 1 else "variable" if len(sect_values) > 1 else "unavailable"),
+        value_kind="day_night_sect",
+        possibilities=sect_values,
+        prerequisite_refs=["terrestrial_frame:house_membership:body:Sun"],
+        availability=("available" if sect_values else "disabled" if not config.include_sect else "prerequisite_unavailable"),
+        status_reason=(None if sect_values else "sect disabled by configuration" if not config.include_sect else "Sun house membership unavailable"),
+    )
     return {
         "status": "complete",
         "house_system": config.house_system,
@@ -312,6 +329,7 @@ def evaluate_terrestrial_frame_interval(
         "cusp_semantics": cusp_semantics,
         "house_memberships": memberships,
         "angle_relationships": angle_relationships,
+        "sect": sect,
         "failures": [],
     }
 
@@ -453,6 +471,31 @@ def evaluate_bounded_natal_interval(
     result["terrestrial_frame"] = evaluate_terrestrial_frame_interval(
         swe, start_jd, end_jd, birth.birth_lat, birth.birth_lon, config, profile or IntervalProofProfile(), point_positions
     )
+    sect = result["terrestrial_frame"]["sect"]
+    sect_values = (sect.get("possibilities") or {}).get("values") or []
+    triplicity = {}
+    for name, body in result["bodies"].items():
+        sign_dignity = body.get("sign_dignity") or {}
+        sign = sign_dignity.get("sign")
+        if len(sect_values) == 1 and sign:
+            ruler = dignity_for(name, sign, sect_values[0] == "day")["triplicity_ruler"]
+            triplicity[name] = evidence_record(
+                feature_key=f"body:{name}:triplicity",
+                classification="invariant",
+                value_kind="sect_triplicity_ruler",
+                possibilities=[ruler],
+                prerequisite_refs=[f"body:{name}:sign", "terrestrial_frame:sect"],
+                availability="available",
+            )
+        else:
+            triplicity[name] = evidence_record(
+                feature_key=f"body:{name}:triplicity",
+                classification="variable" if sign and len(sect_values) > 1 else "unavailable",
+                value_kind="sect_triplicity_ruler",
+                prerequisite_refs=[f"body:{name}:sign", "terrestrial_frame:sect"],
+                availability="prerequisite_variable_or_unavailable",
+            )
+    result["sect_triplicity"] = triplicity
     result["birth_time_basis"] = basis.as_dict()
     result["configured_body_names"] = list(bodies)
     result["ephemeris_mode_requested"] = config.ephemeris_mode

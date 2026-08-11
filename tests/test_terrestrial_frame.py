@@ -19,7 +19,7 @@ class FakeSwe:
         offset = (jd - 1.0) * 360.0
         cusps = tuple((350.0 + 30.0 * index + offset) % 360 for index in range(12))
         ascmc = ((350.0 + offset) % 360, (260.0 + offset) % 360, 0.0, (80.0 + offset) % 360)
-        return cusps, ascmc, (360.0,) * 12, (360.0, 360.0, 0.0, 360.0)
+        return cusps, ascmc, (36.0,) * 12, (36.0, 36.0, 0.0, 36.0)
 
 
 def test_house_data_preserves_provider_numbering_when_ascendant_differs():
@@ -70,16 +70,18 @@ def test_unqualified_exact_house_system_is_explicitly_unsupported_in_bounded_mod
 
 def test_cusp_semantics_and_continuous_angle_relationships_are_derived():
     result = evaluate_terrestrial_frame_interval(
-        FakeSwe(), 1.0, 1.0 + 10.0 / 1440.0, 39.0, -105.0,
+        FakeSwe(), 1.0, 1.0 + 5.0 / 1440.0, 39.0, -105.0,
         ProviderConfig(house_system="P"),
-        IntervalProofProfile(minimum_step_seconds=600),
-        lambda jd: {"Sun": {"lon": (350.0 + (jd - 1.0) * 360.0) % 360, "speed_lon": 360.0}},
+        IntervalProofProfile(minimum_step_seconds=300),
+        lambda jd: {"Sun": {"lon": (355.0 + (jd - 1.0) * 360.0) % 360, "speed_lon": 36.0}},
     )
     assert result["cusp_semantics"]["1"]["sign"]["classification"] == "invariant"
     assert result["cusp_semantics"]["3"]["traditional_ruler"]["classification"] == "invariant"
     conjunction = next(row for row in result["angle_relationships"] if row["a"] == "body:Sun" and row["b"] == "angle:ASC")
     assert conjunction["classification"] == "invariant"
     assert conjunction["aspect"] == "conjunction"
+    assert result["sect"]["classification"] == "invariant"
+    assert result["sect"]["possibilities"]["values"] == ["night"]
 
 
 def test_house_assignment_half_open_wrap_contract():
@@ -90,6 +92,17 @@ def test_house_assignment_half_open_wrap_contract():
     assert house_for_lon(10, cusps) == 1
     assert house_for_lon(20, cusps) == 2
     assert house_for_lon(349, cusps) == 12
+
+
+def test_sect_can_be_explicitly_disabled_without_inventing_a_branch():
+    result = evaluate_terrestrial_frame_interval(
+        FakeSwe(), 1.0, 1.0 + 5.0 / 1440.0, 39.0, -105.0,
+        ProviderConfig(house_system="P", include_sect=False),
+        IntervalProofProfile(minimum_step_seconds=300),
+        lambda jd: {"Sun": {"lon": 355.0, "speed_lon": 0.0}},
+    )
+    assert result["sect"]["classification"] == "unavailable"
+    assert result["sect"]["availability"] == "disabled"
 
 
 def test_exact_four_hour_grid_has_241_states_despite_julian_float_noise():

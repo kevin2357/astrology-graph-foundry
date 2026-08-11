@@ -155,3 +155,9 @@ membership evidence is independently reusable.
 Future Synastry can preserve invariant cusp rulers and angle-aspect categories.
 Evidence-valid relationships without canonical endpoint identity demonstrate why
 cross-chart materialization must remain endpoint-gated.
+
+## Terrestrial-frame Sprint 2, Slice 5 implications
+
+Synastry must preserve each participant's sect evidence independently. One
+participant's invariant sect cannot resolve the other's variable horizon branch,
+and no cross-chart interpretation should strengthen a native triplicity claim.

@@ -160,3 +160,9 @@ input, not permission to enable today's exact house-transit interface.
 Invariant angle identities and body-to-angle aspects now have portable evidence,
 but exact angle degrees remain unavailable. Future Transit must classify contacts
 to angle ranges rather than reuse exact event solvers.
+
+## Terrestrial-frame Sprint 2, Slice 5 implications
+
+Sect is now portable prerequisite evidence rather than a recalculated downstream
+guess. Transit techniques that branch on sect must cite this record and remain
+conditional when the natal interval crosses the horizon.

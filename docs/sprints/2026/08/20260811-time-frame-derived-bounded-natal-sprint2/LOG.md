@@ -116,6 +116,21 @@ completed implementation slices.
 - Full host suite passed: 244 tests.
 - No downstream repository, tag, release, or external data changed.
 
+## 2026-08-11 — Slice 4 approval and commit
+
+- Product owner approved Gate 4 and pushed commit `d2212c4`.
+
+## 2026-08-11 — Slice 5 sect and dependency propagation
+
+- Derived day/night strictly from the continuously qualified Sun-house possibility
+  set and honored explicit sect disablement.
+- Promoted triplicity only when both sign and sect were invariant.
+- Added bounded sect-state objects and triplicity evidence; advanced graph to v1.6.0
+  and calculation profile to v1.9.0.
+- Linux day/night intervals each retained 12 triplicity records; sunrise crossing
+  retained both sect branches and promoted none.
+- No downstream repository, tag, release, or external data changed.
+
 ## 2026-08-11 — Slice 2 approval and commit
 
 - Product owner approved Gate 2.
