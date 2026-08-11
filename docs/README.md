@@ -36,6 +36,7 @@ semantics, schemas, and implementation.
 - [Rich Natal Facts](rich_natal_facts.md)
 - [Bounded Birth-Time Natal Calculation](Bounded%20Birth-Time%20Natal%20Calculation.md) — implemented 0.7.0 candidate contract and uncertainty model.
 - [Bounded Natal Consumer Handoff](Bounded%20Natal%20Consumer%20Handoff.md) — API, SPC, SBE, storage, caching, and migration obligations.
+- [Near-Term Engineering Outlook](Near-Term%20Engineering%20Outlook.md) — visible but non-normative follow-up opportunities and sprint questions.
 - [Unified Transit Dataset](transit_dataset.md)
 - [Legacy Transit Period Note](transit_period_dataset.md)
 - [Transit Streaming Profiles and Game Index](Transit%20Streaming%20Profiles%20and%20Game%20Index.md)
