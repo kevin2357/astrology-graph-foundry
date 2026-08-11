@@ -1,6 +1,6 @@
 # Coordinate-Derived Bounded Natal Expansion Sprint Plan
 
-**Status:** Proposed for review; planning only
+**Status:** Slice 1 Gate 1 pending review
 
 **Repository:** `astrology-graph-foundry`
 

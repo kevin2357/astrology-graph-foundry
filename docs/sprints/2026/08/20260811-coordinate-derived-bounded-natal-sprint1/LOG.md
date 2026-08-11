@@ -25,3 +25,29 @@ completed implementation slices.
   angles, sect, branching lots, optional data, and complete-chart structures.
 - No production code, schema, test, package version, tag, release, or downstream
   repository was changed during sprint planning.
+
+## 2026-08-11 — Slice 1 exact-to-bounded parity audit
+
+- Began from approved planning commit `0534c35` on `main`, one commit ahead of
+  `origin/main` because the user requested a commit but not a push.
+- Audited exact and bounded live calculation, provider configuration, interval
+  evaluation, Natal package construction, graph compilation, semantic finalization,
+  structural evidence, JSON Schemas, exact fixtures, bounded tests, and capability
+  boundaries.
+- Produced a machine-readable feature matrix and normalized semantic predicate
+  contract for exhaustive exact-chart oracle comparison.
+- Confirmed the Sprint 1 boundary covers celestial coordinate paths and accepted
+  transforms; houses, angles, sect, branching lots, optional data, and complete-
+  chart semantics remain Sprint 2.
+- Found that exact triplicity dignity depends on sect, exact `applying_delta` is not
+  yet a complete application doctrine, optional Chiron is attempted by default but
+  skipped in no-file mode, and exact graph compilation generates relationships
+  beyond the raw aspect buckets.
+- Full baseline suite passed 214 tests in 25.03 seconds. JSON parsing, changed-
+  Markdown relative-link validation, whitespace validation, and `git diff --check`
+  passed.
+- The first JSON validation command asserted an incorrect expected row count of 31;
+  inspection confirmed the valid matrix intentionally contains 32 feature families,
+  and the corrected parse check passed. No artifact content changed as a result.
+- No production code, schema, package version, or downstream repository was changed.
+  Slice remains uncommitted pending Gate 1 approval.

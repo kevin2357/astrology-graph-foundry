@@ -1,0 +1,80 @@
+{
+  "artifact_type": "agf_exact_to_bounded_natal_parity_matrix",
+  "matrix_version": "1.0.0",
+  "status": "slice_1_gate_candidate",
+  "source_boundary": {
+    "agf_commit": "0534c35",
+    "exact_package": "natal_dataset 1.1.0",
+    "exact_canonical_graph": "canonical_astrology_graph 1.3.0",
+    "bounded_package": "bounded_natal_dataset 1.0.0",
+    "bounded_canonical_graph": "bounded_canonical_astrology_graph 1.0.0"
+  },
+  "classification_vocabulary": {
+    "implemented_bounded_v1": "Implemented before this sprint and retained as baseline behavior.",
+    "sprint_1_coordinate_derived": "In scope when proof depends only on sampled celestial coordinates and accepted transforms.",
+    "sprint_2_terrestrial_or_branching": "Deferred because proof depends on houses, angles, sect, formula branching, or complete-chart semantics.",
+    "optional_data_profile": "Requires explicitly pinned optional ephemeris or catalog data and is deferred to Sprint 2.",
+    "downstream_owned": "Not an AGF canonical-calculation feature.",
+    "not_canonicalizable": "May be evidence or presentation material but must not become a bounded canonical fact."
+  },
+  "normalized_predicate_contract": {
+    "purpose": "Compare semantic truth across exact candidate charts without intersecting serialized rows.",
+    "identity": "predicate kind plus stable source keys, normalized unordered or directed endpoints as appropriate, categorical value, configuration/profile identity, and prerequisite identities",
+    "excluded_from_identity": [
+      "display name",
+      "created_at",
+      "exact longitude or orb unless the predicate explicitly represents a range",
+      "pretty strings",
+      "sample index",
+      "filesystem path",
+      "projection context"
+    ],
+    "promotion_rule": "A categorical predicate is canonical only when present with the same meaning at every valid domain state and continuous-safety evidence does not permit an unobserved transition.",
+    "non_promotion_rule": "Absence from the intersection is not proof of falsity; preserve observed alternatives, ranges, transition witnesses, and counterexamples as uncertainty evidence.",
+    "failure_rule": "A required missing, non-finite, failed, or budget-exhausted prerequisite yields inconclusive evidence for the affected feature family.",
+    "ordering": "Canonical and evidence collections use deterministic semantic-key ordering after chart-scoped identity finalization.",
+    "predicate_families": [
+      "body_sign(body, sign)",
+      "body_motion(body, state)",
+      "body_dignity_component(body, component, value)",
+      "body_coordinate_category(body, coordinate, category)",
+      "derived_point_category(owner, transform, parameter, category)",
+      "relationship_type(endpoint_a, endpoint_b, relationship)",
+      "structural_property(scope, property, value)"
+    ]
+  },
+  "features": [
+    {"id": "birth_time_basis", "exact_source": "BirthData/birth_data_v1", "bounded_disposition": "implemented_bounded_v1", "dependencies": ["civil time", "IANA timezone"], "canonical_rule": "provenance only", "notes": "Bounded and unknown_time normalization is already authoritative."},
+    {"id": "source_chart_identity", "exact_source": "source_chart_id and semantic finalizer", "bounded_disposition": "implemented_bounded_v1", "dependencies": ["caller identity or compatibility fallback"], "canonical_rule": "preserve opaque chart scope", "notes": "Calculation identity and projection context remain distinct."},
+    {"id": "ecliptic_longitude", "exact_source": "bodies.*.lon", "bounded_disposition": "implemented_bounded_v1", "dependencies": ["body ephemeris position"], "canonical_rule": "range evidence only", "notes": "Representative longitude is prohibited."},
+    {"id": "zodiac_sign", "exact_source": "body longitude and object sign", "bounded_disposition": "implemented_bounded_v1", "dependencies": ["ecliptic_longitude"], "canonical_rule": "promote one invariant sign", "notes": "Current proof uses unwrapped longitude plus speed envelope."},
+    {"id": "longitude_speed_and_motion", "exact_source": "speed_lon and retrograde", "bounded_disposition": "implemented_bounded_v1", "dependencies": ["ephemeris speed"], "canonical_rule": "promote invariant direct/retrograde/stationary category; retain speed range", "notes": "Stationary classification is a bounded category, not one exact speed."},
+    {"id": "ecliptic_latitude", "exact_source": "bodies.*.lat", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["body ephemeris position"], "canonical_rule": "numeric range evidence; categorical promotion only if a reviewed category exists", "notes": "Exact graph currently carries latitude inside facts rather than a dedicated canonical category."},
+    {"id": "right_ascension", "exact_source": "bodies.*.right_ascension", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["equatorial ephemeris calculation"], "canonical_rule": "circular range evidence", "notes": "Requires independent availability/failure handling from ecliptic position."},
+    {"id": "declination", "exact_source": "bodies.*.declination and declination_position objects", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["equatorial ephemeris calculation"], "canonical_rule": "scalar range evidence and only accepted categorical facts", "notes": "Do not create an exact declination_position object."},
+    {"id": "sign_based_dignity", "exact_source": "dignity domicile/exaltation/detriment/fall", "bounded_disposition": "implemented_bounded_v1", "dependencies": ["zodiac_sign"], "canonical_rule": "promote invariant components", "notes": "Already excludes sect-dependent components."},
+    {"id": "triplicity_dignity", "exact_source": "dignity triplicity ruler fields", "bounded_disposition": "sprint_2_terrestrial_or_branching", "dependencies": ["zodiac_sign", "sect"], "canonical_rule": "no Sprint 1 promotion", "notes": "Exact dignity_for branches on day_birth."},
+    {"id": "ordinary_body_aspects", "exact_source": "natal_planet_aspects and generated ASPECT relationships", "bounded_disposition": "implemented_bounded_v1", "dependencies": ["two body longitudes", "aspect/orb profile"], "canonical_rule": "promote continuously invariant aspect type", "notes": "Current bounded evidence retains possible types and invariant orb ranges."},
+    {"id": "aspect_distance_orb_strength", "exact_source": "distance/orb/strength fields", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["ordinary_body_aspects"], "canonical_rule": "distance/orb ranges remain evidence; promote strength label only if invariant and accepted", "notes": "Current exact strength is a label derived from exact orb."},
+    {"id": "aspect_application", "exact_source": "applying_delta", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["two body longitudes", "motion convention"], "canonical_rule": "promote only an accepted invariant applying/separating category", "notes": "Exact applying_delta is geometric signed separation, not a fully reviewed traditional applying/separating algorithm."},
+    {"id": "declination_relationships", "exact_source": "declination_aspects and DECLINATION_* relationships", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["two declination ranges", "declination orb profile"], "canonical_rule": "promote continuous invariant parallel or contraparallel", "notes": "Preserve separation/orb range as evidence."},
+    {"id": "antiscia_points", "exact_source": "body.antiscia and antiscia_point objects", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["body longitude", "antiscia transform"], "canonical_rule": "promote invariant categorical position facts; retain circular/disjoint range", "notes": "Compatibility target_longitude relationships cannot carry exact scalars in bounded output."},
+    {"id": "contra_antiscia_points", "exact_source": "body.antiscia and contra_antiscia_point objects", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["body longitude", "contra-antiscia transform"], "canonical_rule": "same as antiscia", "notes": "Owner lineage must survive filtering."},
+    {"id": "harmonic_points", "exact_source": "body.harmonics and harmonic_point objects", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["body longitude", "configured harmonic number"], "canonical_rule": "promote invariant categorical position facts; retain disjoint circular ranges", "notes": "Multiplication amplifies motion and repeated wraparound."},
+    {"id": "derived_point_relationships", "exact_source": "generated ASPECT, HAS_ANTISCIA_POINT, HAS_CONTRA_ANTISCIA_POINT, HAS_HARMONIC_POINT and projection relationships", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["derived point", "owner", "other endpoint"], "canonical_rule": "promote invariant topology and relationship category", "notes": "Legacy longitude-only projection rows require bounded redesign or omission."},
+    {"id": "base_optional_points", "exact_source": "active_body_map optional Chiron", "bounded_disposition": "optional_data_profile", "dependencies": ["Swiss Ephemeris data file", "configured inclusion"], "canonical_rule": "explicit unavailable or qualified profile", "notes": "include_optional_points defaults true, but Moshier/no-file may skip Chiron."},
+    {"id": "asteroids", "exact_source": "active_body_map configured asteroid IDs", "bounded_disposition": "optional_data_profile", "dependencies": ["Swiss Ephemeris data file", "configured IDs"], "canonical_rule": "explicit unavailable or qualified profile", "notes": "Deferred with external-data provenance."},
+    {"id": "fixed_stars", "exact_source": "fixed_stars and fixed_star objects/relationships", "bounded_disposition": "optional_data_profile", "dependencies": ["star catalog/data", "configured names"], "canonical_rule": "explicit unavailable or qualified profile", "notes": "No external star-data profile is currently qualified."},
+    {"id": "house_cusps", "exact_source": "houses", "bounded_disposition": "sprint_2_terrestrial_or_branching", "dependencies": ["time", "coordinates", "house system"], "canonical_rule": "no Sprint 1 promotion", "notes": "Moving terrestrial frame and polar/system failure semantics."},
+    {"id": "angles_and_vertex", "exact_source": "angles plus ASC/DSC/MC/IC/Vertex body rows", "bounded_disposition": "sprint_2_terrestrial_or_branching", "dependencies": ["house calculation"], "canonical_rule": "no Sprint 1 promotion", "notes": "Angle sign and relationship invariance remain feasible later."},
+    {"id": "body_house_membership", "exact_source": "bodies.*.house", "bounded_disposition": "sprint_2_terrestrial_or_branching", "dependencies": ["body longitude", "all house cusps", "assignment rule"], "canonical_rule": "no Sprint 1 promotion", "notes": "Can be invariant even when sign or angle degree varies."},
+    {"id": "cusp_rulership", "exact_source": "houses.*.traditional_ruler/modern_ruler", "bounded_disposition": "sprint_2_terrestrial_or_branching", "dependencies": ["cusp sign"], "canonical_rule": "no Sprint 1 promotion", "notes": "Potential invariant categorical feature."},
+    {"id": "sect", "exact_source": "sect and sect_state object", "bounded_disposition": "sprint_2_terrestrial_or_branching", "dependencies": ["Sun house", "horizon model"], "canonical_rule": "no Sprint 1 promotion", "notes": "Exact implementation derives day/night from Sun house."},
+    {"id": "lots", "exact_source": "lots plus Fortune/Spirit body and lot objects", "bounded_disposition": "sprint_2_terrestrial_or_branching", "dependencies": ["Ascendant", "Sun", "Moon", "sect formula", "houses"], "canonical_rule": "no Sprint 1 promotion", "notes": "Branching can produce disconnected ranges."},
+    {"id": "planet_angle_and_point_aspects", "exact_source": "natal_planet_angle_aspects/natal_planet_point_aspects", "bounded_disposition": "sprint_2_terrestrial_or_branching", "dependencies": ["body longitude", "angle or derived point"], "canonical_rule": "no Sprint 1 promotion", "notes": "Point aspects split according to the point's prerequisite family."},
+    {"id": "structural_evidence_counts_and_lineage", "exact_source": "structural_evidence_graph", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["accepted invariant canonical graph"], "canonical_rule": "derive only from bounded invariant graph and label scope", "notes": "Counts and repeated operators must not imply full candidate-chart structure."},
+    {"id": "structural_strength_scores", "exact_source": "canonical row structural_strength_score", "bounded_disposition": "sprint_1_coordinate_derived", "dependencies": ["row evidence tier and exact relationship fields"], "canonical_rule": "retain only after semantics are reviewed for bounded rows", "notes": "Current finalizer assigns scores mechanically; equality with exact score is not assumed."},
+    {"id": "orthodox_projection_views_and_claims", "exact_source": "projection_views and claim_candidates", "bounded_disposition": "downstream_owned", "dependencies": ["projection profile", "consumer semantics"], "canonical_rule": "never part of bounded canonical source intersection", "notes": "SPC/SBE own bounded projection and authoring support."},
+    {"id": "transitable_chart_and_timing_capabilities", "exact_source": "transitable_chart and capabilities", "bounded_disposition": "not_canonicalizable", "dependencies": ["exact longitude", "houses", "angles"], "canonical_rule": "remain false/rejected in these Natal parity sprints", "notes": "Later bounded Transit work requires a distinct range-aware contract."}
+  ]
+}
