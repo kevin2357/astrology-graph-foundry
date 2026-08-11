@@ -1,0 +1,58 @@
+{
+  "artifact_type": "agf_house_system_audit_matrix",
+  "matrix_version": "1.0.0",
+  "status": "slice_1_gate_candidate",
+  "controlled_runtime": {
+    "image": "agf-bounded-qa:py311-pyswe-2.10.3.2",
+    "image_digest": "sha256:7adbd0cf756aab8fafc2b3a2f3f5e4785d77b9a0e0d7d4dfa315f2a27e0b2618",
+    "swisseph_version": "2.10.03",
+    "julian_day_ut": 2458850.0,
+    "longitude": -104.9903
+  },
+  "recommended_initial_bounded_profile": {
+    "supported_systems": ["P", "W"],
+    "unsupported_until_qualified": ["K", "O", "R", "C", "A", "E", "V", "X", "H", "T", "B", "M", "U"],
+    "excluded": {
+      "G": "Returns 36 clockwise Gauquelin sectors, not AGF's twelve-house contract.",
+      "other": "Unrecognized codes must be rejected before provider invocation."
+    }
+  },
+  "provider_findings": {
+    "P": {"name": "Placidus", "latitude_66_0": "success", "latitude_66_6": "provider_error", "latitude_67_0": "provider_error", "latitude_80_0": "provider_error", "latitude_89_9": "provider_error"},
+    "K": {"name": "Koch", "latitude_66_0": "success", "latitude_66_6": "provider_error", "latitude_67_0": "provider_error", "latitude_80_0": "provider_error", "latitude_89_9": "provider_error"},
+    "W": {"name": "Whole sign", "all_probed_latitudes": "success", "cusp_1_equals_ascendant": false},
+    "Z": {"recognized_name": "", "observed_behavior": "silently behaves like Placidus, including its polar failures", "contract_consequence": "Reject an unrecognized code rather than label Placidus output as system Z."}
+  },
+  "exact_path_defect": {
+    "location": "astrology_graph_foundry.ephemeris.live_natal.house_data",
+    "behavior": "Rotates the provider's numbered cusps so the cusp nearest the Ascendant becomes house 1.",
+    "impact": "Renumbers valid systems whose first cusp is not the Ascendant. At the probe instant Whole Sign cusp 1 is 240 degrees, cusp 2 is 270 degrees, and the Ascendant is 265.980211753 degrees, so AGF rotates house 2 into house 1.",
+    "required_resolution": "Preserve provider cusp order and separately expose the Ascendant."
+  },
+  "assignment_contract": {
+    "rule": "House N is the half-open circular interval [cusp N, cusp N+1); a longitude exactly on a cusp belongs to the house beginning at that cusp.",
+    "wrap_fixture": {"cusps": [350, 20, 50, 80, 110, 140, 170, 200, 230, 260, 290, 320], "expectations": {"355": 1, "10": 1, "20": 2, "349": 12}}
+  },
+  "failure_policy": {
+    "configured_system_failure": "The terrestrial-frame family is inconclusive for the complete interval; no houses, angles, house membership, sect, cusp rulers, or dependent lots may be promoted.",
+    "independent_features": "Existing celestial-coordinate and body-to-body evidence remains valid.",
+    "fallback": "Never silently substitute another house system.",
+    "provider_failures": "Retain instant, system, coordinates, provider profile, and normalized error class without unstable paths."
+  },
+  "continuity_policy": {
+    "minute_grid": "Inclusive one-minute enumeration is the exact-chart oracle and witness set, not by itself a continuous proof.",
+    "smooth_systems": "Use houses_ex2 speeds for conservative between-sample envelopes; unwrap each labeled cusp and angle independently.",
+    "piecewise_systems": "For Whole Sign, prove Ascendant-sign invariance or retain both frame alternatives at a sign ingress.",
+    "failure_rule": "Missing/non-finite speed, provider error, topology violation, or unbounded transition makes the affected predicate inconclusive.",
+    "circular_ranges": "Represent zero crossings as ordered circular segments, not one scalar envelope.",
+    "representative_frame": "Prohibited."
+  },
+  "baseline_fixtures": [
+    "half-open cusp boundary and house-12/house-1 wrap",
+    "Placidus success at latitude 66.0 and error at 66.6 for the pinned instant",
+    "Whole Sign first-cusp/Ascendant divergence",
+    "unrecognized code Z rejection",
+    "Ascendant zero crossing",
+    "Whole Sign Ascendant-sign ingress"
+  ]
+}

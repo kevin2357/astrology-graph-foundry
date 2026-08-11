@@ -126,3 +126,15 @@ timing API must therefore budget by proof domain and retained evidence surface, 
 assume a bounded artifact is smaller merely because it contains fewer canonical
 facts. Structural family groups may help downstream selection, but are not contact
 probabilities or timing weights.
+
+## Terrestrial-frame Sprint 2, Slice 1 implications
+
+House-system identity belongs in any later transit-house proof. Provider success is
+system- and latitude-dependent, Whole Sign has piecewise frame jumps at Ascendant
+sign ingress, and some legitimate systems do not identify cusp 1 with the
+Ascendant. A future transit engine must consume labeled cusp evidence and must not
+silently substitute a polar-capable system after Placidus failure.
+
+Family-scoped failure also supports phased Transit behavior: a failed terrestrial
+frame can make house contacts inconclusive while independently proven contacts to
+bounded celestial bodies remain available.

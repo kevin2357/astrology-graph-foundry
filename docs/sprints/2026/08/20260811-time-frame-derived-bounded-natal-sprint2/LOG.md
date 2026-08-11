@@ -64,3 +64,29 @@ completed implementation slices.
   `../20260811-agf-spc-decoupling-sprint3/PLAN.md` as that sprint's first slice.
 - No implementation, package, schema, test, release, or downstream repository was
   changed during this planning correction.
+
+## 2026-08-11 — Slice 1 terrestrial-frame audit
+
+- Began from clean synchronized `main` at `a7e2bba`; AGF 0.7.0 remains the
+  immutable entry baseline.
+- Audited configuration and CLI surfaces, exact `house_data`, circular
+  `house_for_lon`, sect/lot dependencies, bounded dispositions, provenance, tests,
+  and the prior parity matrix.
+- Reviewed primary Swiss Ephemeris documentation and confirmed pinned pyswisseph
+  2.10.03 exposes `houses_ex2` cusp/angle speeds.
+- Ran the reproducible probe in Linux image
+  `agf-bounded-qa:py311-pyswe-2.10.3.2` at digest
+  `sha256:7adbd0cf756aab8fafc2b3a2f3f5e4785d77b9a0e0d7d4dfa315f2a27e0b2618`.
+- Confirmed Placidus and Koch errors at tested polar latitudes and successful Whole
+  Sign calculation through latitude 89.9 degrees.
+- Found an exact-path defect: `house_data` rotates numbered cusps toward the
+  Ascendant, corrupting systems where cusp 1 is intentionally distinct.
+- Found an input/provenance defect: unrecognized code `Z` silently behaves like
+  Placidus while AGF records `Z` as configured.
+- Recommended initial bounded systems `P` and `W`; all others require individual
+  qualification. Gauquelin is excluded from the twelve-house contract.
+- Defined family-scoped failure, no fallback, half-open circular assignment, smooth
+  speed-envelope, and Whole Sign ingress policies without changing Sprint 1's
+  uncertainty contract.
+- No runtime code, schema, version, downstream repository, tag, or release changed.
+  Exact-path fixes and executable regressions open Slice 2 after Gate 1 approval.

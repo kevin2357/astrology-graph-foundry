@@ -121,3 +121,15 @@ minute index B would discard most valid combinations. Qualification also confirm
 that wider domains increase conditional evidence even while canonical row counts
 fall, so a Cartesian feasibility sprint needs explicit evaluation budgets and
 compact counterexample/evidence policies before it promises 48-by-48-hour support.
+
+## Terrestrial-frame Sprint 2, Slice 1 implications
+
+House overlays must preserve the receiving participant's provider-defined cusp
+numbering and house-system identity. Deriving house 1 by rotating toward the
+Ascendant corrupts valid Whole Sign and other systems, so future Synastry must
+consume labeled cusp evidence rather than infer the frame from angles.
+
+A receiving participant's failed Placidus frame should make overlays inconclusive
+without discarding cross-chart body-aspect evidence. Whole Sign may be configured as
+a polar-capable frame, but cannot be an automatic fallback because that changes the
+natal calculation contract.
