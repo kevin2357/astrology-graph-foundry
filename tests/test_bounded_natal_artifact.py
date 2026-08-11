@@ -80,12 +80,12 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.4.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.5.0"
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
-    assert graph["graph_version"] == "1.2.0"
+    assert graph["graph_version"] == "1.3.0"
     assert {row["name"] for row in graph["objects"]} == {"Sun", "Mars"}
     assert len(graph["relationships"]) == 1
     assert all(not ({"longitude", "pretty", "sign_degree"} & row.keys()) for row in graph["objects"])
@@ -105,6 +105,24 @@ def test_reduced_capabilities_and_feature_dispositions_are_explicit(monkeypatch)
     assert dispositions["declinations"] == "assessed_as_continuous_ranges"
     assert package["capabilities"]["supports_bounded_body_coordinate_evidence"] is True
     assert package["capabilities"]["supports_bounded_declination_evidence"] is True
+
+
+def test_structural_material_is_explicitly_invariant_subgraph_based_and_unscored(monkeypatch):
+    package = _build(monkeypatch)
+    graph = package["canonical_astrology_graph"]
+    assert graph["summary"]["basis"] == "bounded_invariant_subgraph"
+    assert graph["summary"]["object_count"] == 2
+    assert graph["summary"]["object_count"] < len(package["uncertainty_assessment"]["body_evidence"])
+    assert graph["summary"]["raw_counts_are_independence_weights"] is False
+    assert graph["capabilities"]["supports_structural_strength_scores"] is False
+    assert graph["capabilities"]["supports_canonical_claims"] is False
+    assert all("structural_strength_score" not in row for row in graph["objects"] + graph["relationships"])
+    structural = package["structural_evidence_graph"]
+    assert structural["basis"] == "bounded_invariant_subgraph"
+    assert structural["score_policy"]["status"] == "unavailable"
+    assert structural["claim_policy"]["status"] == "none_emitted"
+    assert "claims" not in package
+    assert set(graph["indexes"]["objects_by_id"]) == {row["id"] for row in graph["objects"]}
 
 
 def test_ids_are_deterministic_scoped_and_display_name_independent(monkeypatch):
@@ -201,6 +219,10 @@ def test_invariant_transforms_materialize_without_exact_longitudes_and_keep_owne
     assert len(owner_relationships) == 2
     assert all(row["source_id"] in object_ids and row["target_id"] in object_ids for row in owner_relationships)
     assert all(row["uncertainty_evidence_ref"] in package["uncertainty_assessment"]["evidence_registry"] for row in derived)
+    assert all(row["evidence_metadata"]["derivation_type"] == "derived" for row in derived)
+    assert {row["evidence_metadata"]["evidence_tier"] for row in derived} == {"antiscia", "harmonic"}
+    base = next(row for row in graph["objects"] if row["object_type"] == "bounded_natal_body")
+    assert base["evidence_metadata"]["evidence_tier"] == "core"
     invariant_relationship_types = {row["relationship_type"] for row in graph["relationships"]}
     assert "BOUNDED_INVARIANT_DERIVED_ASPECT" in invariant_relationship_types
     assert "BOUNDED_INVARIANT_DECLINATION_PARALLEL" in invariant_relationship_types
@@ -209,6 +231,8 @@ def test_invariant_transforms_materialize_without_exact_longitudes_and_keep_owne
         for row in graph["relationships"]
         if row["relationship_type"].startswith("BOUNDED_INVARIANT_")
     )
+    structural = package["structural_evidence_graph"]
+    assert structural["evidence_family_group_count"] < structural["record_independence_group_count"]
     schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator(schema, registry=_registry()).validate(package)
 

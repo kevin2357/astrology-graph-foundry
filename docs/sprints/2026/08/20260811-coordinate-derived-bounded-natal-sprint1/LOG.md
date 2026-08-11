@@ -225,3 +225,41 @@ completed implementation slices.
 - Five changed Markdown files passed relative-link and trailing-whitespace checks.
   Reviewed the final diff and removed the 15.7 MB temporary live artifact from
   `C:\tmp`; only the compact evidence summary and SHA-256 remain.
+
+## 2026-08-11 — Slice 6 invariant-subgraph structural material
+
+- Began from approved, committed, and pushed Slice 5 boundary `22076a1`.
+- Audited shared finalization, indexes, structural evidence, scores, claim
+  conversion, graph summaries, and root-owner family grouping.
+- Found bounded bodies and transforms fell through the shared object classifier as
+  generic supplemental rows. Classified bounded bodies as core/direct and bounded
+  antiscia/harmonic objects under their corresponding derived evidence tiers.
+- Found the shared structural-strength heuristic assigned a default exactness value
+  when bounded canonical relationships intentionally omitted orb. Removed structural
+  scores from bounded objects/relationships and declared the bounded score policy
+  unavailable rather than reusing a semantically different exact-chart score.
+- Preserved deterministic graph indexes, object/relationship type counts, evidence
+  tier counts, derivation-family counts, and root-owner family groups. Marked every
+  summary explicitly as `bounded_invariant_subgraph` and declared raw counts not to
+  be independence weights.
+- Confirmed bounded generation emits no canonical claims or orthodox projection
+  claims. Added explicit `none_emitted` claim policy rather than manufacturing
+  summaries from topology.
+- Moved bounded structural policy into the shared finalizer after a regression test
+  showed repeat finalization recreated generic scores and erased policy annotations.
+  Repeated finalization is again byte-stable for the canonical graph.
+- Advanced bounded canonical graph 1.2.0 to 1.3.0 and calculation profile 1.4.0 to
+  1.5.0. Previous graph/profile versions remain schema-valid.
+- Controlled four-hour live output contained 1,598 structural records collapsed to
+  525 evidence families/source-chart families, demonstrating why root-owner grouping
+  matters. It contained zero structural scores and no claims. Evidence tiers were
+  core 28, antiscia 212, harmonic 1,348, and supplemental declination 10.
+- The schema-valid temporary artifact was 15,698,217 bytes with SHA-256
+  `1fc93d6717c2942b41dc448e857cd4f8dd9ae5db79193d0980fe2e11ad73007e`.
+- No downstream repository, release tag, or published artifact was changed. Slice
+  remains uncommitted pending final Gate 6 validation and approval.
+- Final focused Ruff passed. The full suite passed 236 tests in 25.72 seconds;
+  45 schema/result JSON files parsed and `git diff --check` passed.
+- Five changed Markdown files passed relative-link and trailing-whitespace checks.
+  Reviewed the final diff and removed the temporary Slice 6 live artifact from
+  `C:\tmp`; only its compact structural summary and SHA-256 remain.

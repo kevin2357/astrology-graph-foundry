@@ -52,6 +52,12 @@ omit orb, strength, distance, and applying/separating scalars. Their evidence
 registry rows retain bounded orb ranges, transitions, alternatives, and coordinate
 prerequisites. A counted invariant absence is not a canonical negative claim.
 
+Graph 1.3.0 and its structural evidence explicitly describe the retained invariant
+subgraph. It supplies deterministic indexes and topology/family counts, but no
+structural-strength scores or canonical claims. Downstream systems must not rank or
+claim by raw row count: use root-owner `evidence_family_group` lineage when applying
+anti-double-counting policy.
+
 Newer working artifacts may additionally advertise
 `agf.bounded_uncertainty_evidence.v1.0.0`. Its circular segment sets,
 prerequisites, transition witnesses, and counterexamples are additive to the legacy

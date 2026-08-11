@@ -12,7 +12,7 @@ from astrology_graph_foundry.ephemeris.live_natal import evaluate_bounded_natal_
 from astrology_graph_foundry.ephemeris.models import BoundedBirthData, ProviderConfig
 
 BOUNDED_NATAL_SCHEMA_VERSION = "1.0.0"
-BOUNDED_GRAPH_VERSION = "1.2.0"
+BOUNDED_GRAPH_VERSION = "1.3.0"
 
 
 def _body_id(name: str) -> str:

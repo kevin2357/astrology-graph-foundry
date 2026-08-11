@@ -475,7 +475,7 @@ def _object_evidence_metadata(obj: dict[str, Any], sensor_id: str, source_chart_
         tier = "angle"
         family = "direct_angle"
         derivation = "direct"
-    elif object_type in CORE_OBJECT_TYPES:
+    elif object_type in CORE_OBJECT_TYPES or object_type == "bounded_natal_body":
         tier = "core"
         family = "direct_chart_object"
         derivation = "direct"
@@ -483,11 +483,16 @@ def _object_evidence_metadata(obj: dict[str, Any], sensor_id: str, source_chart_
         tier = "calculated_point"
         family = "calculated_point_derivation"
         derivation = "derived"
-    elif object_type in {"antiscia_point", "contra_antiscia_point"}:
+    elif object_type in {
+        "antiscia_point",
+        "contra_antiscia_point",
+        "bounded_antiscia_point",
+        "bounded_contra_antiscia_point",
+    }:
         tier = "antiscia"
         family = "antiscia_derivation"
         derivation = "derived"
-    elif object_type == "harmonic_point":
+    elif object_type in {"harmonic_point", "bounded_harmonic_point"}:
         tier = "harmonic"
         family = "harmonic_derivation"
         derivation = "derived"
@@ -856,6 +861,48 @@ def structural_evidence_from_graph(
             "consumer-facing confidence",
         ],
     }
+
+
+def _apply_bounded_structural_policy(package: dict[str, Any]) -> None:
+    graph = package["canonical_astrology_graph"]
+    for row in [*(graph.get("objects") or []), *(graph.get("relationships") or [])]:
+        row.pop("structural_strength_score", None)
+    object_counts = Counter(str(row.get("object_type") or "unknown") for row in graph.get("objects") or [])
+    relationship_counts = Counter(
+        str(row.get("relationship_type") or "unknown") for row in graph.get("relationships") or []
+    )
+    graph.setdefault("summary", {}).update(
+        {
+            "basis": "bounded_invariant_subgraph",
+            "object_counts_by_type": dict(sorted(object_counts.items())),
+            "relationship_counts_by_type": dict(sorted(relationship_counts.items())),
+            "raw_counts_are_independence_weights": False,
+        }
+    )
+    graph["capabilities"].update(
+        {
+            "supports_invariant_subgraph_summary": True,
+            "supports_structural_strength_scores": False,
+            "supports_canonical_claims": False,
+        }
+    )
+    package["structural_evidence_graph"].update(
+        {
+            "basis": "bounded_invariant_subgraph",
+            "score_policy": {
+                "status": "unavailable",
+                "reason": "exact orb and complete-chart equivalence are intentionally absent",
+            },
+            "claim_policy": {
+                "status": "none_emitted",
+                "reason": "bounded structural topology is not an orthodox or product claim layer",
+            },
+            "count_interpretation": (
+                "Record counts describe retained invariant topology; evidence-family groups collapse "
+                "shared root-owner lineage and are the anti-double-counting unit."
+            ),
+        }
+    )
 
 
 def _convert_claim_candidate(claim: dict[str, Any]) -> dict[str, Any]:
@@ -1443,6 +1490,8 @@ def finalize_package_semantic_boundary(package: dict[str, Any]) -> dict[str, Any
             source_chart_ids=source_chart_ids,
             package=package,
         )
+        if canonical.get("graph_type") == "bounded_canonical_astrology_graph":
+            _apply_bounded_structural_policy(package)
 
     _apply_full_materialization_policy(package)
 

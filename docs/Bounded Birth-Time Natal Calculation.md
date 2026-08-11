@@ -184,6 +184,19 @@ Applying/separating is not currently promoted in bounded mode. The exact artifac
 `applying_delta` is instantaneous signed geometry, not by itself proof that one
 application state persists throughout an uncertain birth interval.
 
+### Structural material
+
+Bounded canonical graph 1.3.0 labels all summaries as
+`bounded_invariant_subgraph`. Deterministic indexes, counts by object/relationship
+type, evidence tiers, derivation families, and root-owner evidence-family groups are
+available. Raw record counts are not independence weights.
+
+AGF emits no bounded structural-strength score or canonical claim. The shared exact
+score heuristic depends partly on exact orb and complete-chart interpretation; its
+fallback for missing orb is not meaningful evidence for a bounded relationship.
+Consumers should use evidence-family grouping to prevent repeated harmonics and
+owner-derived structures from being counted as independent source facts.
+
 ### Canonical graph
 
 Emit invariant facts only. Do not put a representative midpoint/noon longitude into
