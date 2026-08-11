@@ -4,17 +4,17 @@
 
 | Component | Current Foundry expectation |
 |---|---|
-| Astrology Graph Foundry | published 0.7.0 at tag `astrology-graph-foundry-v0.7.0`; exact wheel SHA-256 `fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53` |
-| Semantic Projection Core | library compatibility range `>=0.10.0,<0.11`; production artifact is exactly 0.10.0 |
+| Astrology Graph Foundry | published 0.8.0 at tag `astrology-graph-foundry-v0.8.0`; exact wheel SHA-256 `f236de0bb7c254c4421f571e816f2314251636ebbed9aa3cb9cb2a09925c04ae` |
+| Semantic Projection Core | independent downstream package; externally qualified exact-path consumer is 0.10.0 |
 | Python | 3.10 or newer |
 | Swiss Ephemeris | Optional `>=2.10,<2.11`; required only for live calculation |
 
 AGF 0.7.0's exact canonical graph 1.3.0 path remains compatible with SPC 0.10.0.
 Its bounded canonical graph 1.3.0 is deliberately rejected until SPC publishes an
-explicit bounded-graph compatibility contract. Production may pin AGF 0.7.0 for
+explicit bounded-graph compatibility contract. Production may pin AGF 0.8.0 for
 exact and bounded source generation, but bounded projection is not yet available.
 
-Current unreleased AGF source emits bounded graph 1.7.0. SPC 0.10.0 remains
+AGF 0.8.0 emits bounded graph 1.7.0. SPC 0.10.0 remains
 intentionally incompatible with every bounded graph version; the added vocabulary
 does not weaken that guard. The later SPC bounded-consumer sprint must explicitly
 qualify the complete 1.7.0 contract rather than assuming compatibility from exact

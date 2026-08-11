@@ -1,0 +1,45 @@
+{
+  "artifacts": {
+    "wheel": {
+      "entry_count": 90,
+      "filename": "astrology_graph_foundry-0.8.0-py3-none-any.whl",
+      "root_is_purelib": true,
+      "sha256": "f236de0bb7c254c4421f571e816f2314251636ebbed9aa3cb9cb2a09925c04ae",
+      "size_bytes": 170756,
+      "tag": "py3-none-any"
+    }
+  },
+  "build": {
+    "byte_identical_builds": 2,
+    "source_date_epoch": 1786474641
+  },
+  "candidate": {
+    "commit": "2e5feef35e6d7144c3e639ece0aba9ff587ea4e9",
+    "distribution": "astrology-graph-foundry",
+    "package": "astrology_graph_foundry",
+    "tag": "astrology-graph-foundry-v0.8.0",
+    "version": "0.8.0"
+  },
+  "dependency_boundary": {
+    "semantic_projection_core_required_by_agf": false,
+    "spc_0_10_0_external_wire_qualification": "passed"
+  },
+  "manifest_type": "astrology_graph_foundry_release_manifest.v1",
+  "publication": {
+    "channel": "github_release",
+    "sdist": false
+  },
+  "qualification": {
+    "base_runtime_with_spc_absent": "passed",
+    "bounded_live_natal": "passed",
+    "exact_live_natal": "passed",
+    "installed_test_count": 226,
+    "live_platform": "CPython 3.11 / Linux x86-64 / Moshier",
+    "spc_import_guard": "passed"
+  },
+  "runtime_resources": {
+    "manifest_file_sha256": "413c84728bc279bdfa67f892481ebe9837c0306093c2d28444caf239043ed5e2",
+    "resource_count": 39,
+    "schema_count": 39
+  }
+}

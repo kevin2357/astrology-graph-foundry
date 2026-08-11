@@ -2,8 +2,8 @@
 
 ## AstroWoof qualified profile
 
-AGF 0.7.0 retains the narrow live runtime first qualified for 0.6.0. The 0.8.0
-candidate preserves this provider profile while removing SPC from AGF's runtime
+AGF 0.8.0 retains the narrow live runtime first qualified for 0.6.0. It
+preserves this provider profile while removing SPC from AGF's runtime
 dependency boundary:
 
 | Dimension | Qualified value |

@@ -1,9 +1,9 @@
 # Astrology Graph Foundry documentation
 
-These pages describe the published Astrology Graph Foundry 0.7.0 release. Documents under
+These pages describe the published Astrology Graph Foundry 0.8.0 release. Documents under
 [`history/`](history/) are implementation records and are not normative.
 
-Release notes: [published 0.7.0](releases/0.7.0.md); [previous 0.6.0](releases/0.6.0.md).
+Release notes: [published 0.8.0](releases/0.8.0.md); [previous 0.7.0](releases/0.7.0.md).
 
 Astrology Graph Foundry calculates astrology packages and compiles canonical source graphs, structural evidence, temporal activation graphs, and consumer-oriented materializations. Semantic Projection Core owns target-domain projection. Reasoning, claims, game rules, report planning, and publication remain downstream.
 

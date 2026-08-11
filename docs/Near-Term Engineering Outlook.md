@@ -9,11 +9,11 @@ enough to remain visible but are not yet approved sprint commitments. Normative
 behavior remains in the schemas, contract documentation, accepted ADRs, and released
 artifacts.
 
-## Completed candidate: decouple AGF from Semantic Projection Core
+## Completed: decouple AGF from Semantic Projection Core
 
 ### Current state
 
-AGF 0.8.0 candidate source has no SPC distribution or runtime dependency. The
+Published AGF 0.8.0 has no SPC distribution or runtime dependency. The
 projection adapter, Python exports, CLI command, and projection doctor mode are
 removed. Synastry analysis now emits a source-factual handoff. Canonical graphs and
 projection-neutral temporal exports remain intact.
@@ -32,12 +32,13 @@ projection-neutral temporal exports remain intact.
   explicitly optional integration layer rather than making either core package a
   runtime dependency of the other.
 
-### Remaining acceptance boundary
+### Accepted qualification boundary
 
-A clean AGF base wheel must install and pass saved/live workflows without SPC. A
-clean SPC wheel must install and project a compatible saved fixture without AGF.
-The integration gate must then install the two exact artifacts independently and
-prove their wire compatibility, identity preservation, and evidence preservation.
+A clean AGF base wheel installed and passed saved/live workflows without SPC. The
+integration gate installed independently built AGF 0.8.0 and SPC 0.10.0 wheels and
+proved serialized-wire compatibility, identity preservation, and source-reference
+resolution. Future releases should repeat this pattern against exact candidate
+artifacts.
 
 ## Completed: invariant terrestrial-frame semantics for bounded Natal
 

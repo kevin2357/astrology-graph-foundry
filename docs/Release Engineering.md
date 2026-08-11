@@ -33,7 +33,7 @@ repository even when the tag and filename are correct. Do not diagnose that
 response as a missing artifact until repository visibility and authentication are
 checked.
 
-SPC is not an AGF package dependency as of the 0.8.0 candidate. A cross-system
+SPC is not an AGF package dependency as of 0.8.0. A cross-system
 qualification may still download an exact private SPC wheel, independently verify
 its SHA-256, and install it beside AGF in a disposable integration environment.
 Any workflow credential for that download is an integration-test secret, not an
@@ -51,5 +51,5 @@ The Swiss Ephemeris licensing activation decision is project-owned and distinct 
 Retain compact JSON summaries, hashes, manifest identities, run/release URLs, tag object and commit IDs, and human-readable slice results. Do not retain virtual environments, expanded source exports, duplicate wheels, caches, generated charts, or provider data in sprint documentation.
 
 The latest published baseline and verification evidence are linked from
-[release 0.7.0](releases/0.7.0.md); [release 0.6.0](releases/0.6.0.md) preserves the
-previous identity/release baseline.
+[release 0.8.0](releases/0.8.0.md); [release 0.7.0](releases/0.7.0.md) preserves the
+previous bounded-Natal baseline.

@@ -133,10 +133,10 @@ Eclipse-season classifications remain explicit candidates until a global eclipse
 
 ### Published immutable release
 
-AGF 0.7.0 is available from the
-[GitHub release](https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.7.0).
+AGF 0.8.0 is available from the
+[GitHub release](https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.8.0).
 The wheel SHA-256 is
-`fca6c153b14cd88f56ca9e151baf8d048cde4d3ac41a14af9912e3176fa52f53`.
+`f236de0bb7c254c4421f571e816f2314251636ebbed9aa3cb9cb2a09925c04ae`.
 Environments that also execute projection must independently pin the exact SPC
 artifact. Live calculation must pin the qualified provider stack described in
 [`docs/compatibility.md`](docs/compatibility.md).
@@ -205,7 +205,7 @@ fingerprint, or projection context. Omitting it retains a deterministic
 name-derived compatibility fallback that is unsuitable for durable production
 joins. See `docs/Canonical Identity and Projection Context Ownership.md`.
 
-For a known date with unknown birth time, the 0.7.0 release candidate can produce a
+For a known date with unknown birth time, the current release can produce a
 separate uncertainty-aware bounded artifact:
 
 ```bat

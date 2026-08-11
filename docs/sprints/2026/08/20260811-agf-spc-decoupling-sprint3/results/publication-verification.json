@@ -1,0 +1,12 @@
+{
+  "all_assets_redownloaded": true,
+  "all_sha256s_verified": true,
+  "annotated_tag": "astrology-graph-foundry-v0.8.0",
+  "downloaded_wheel_install": "passed",
+  "release_url": "https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.8.0",
+  "runtime_manifest_reproduced": true,
+  "saved_doctor": "passed",
+  "source_commit": "2e5feef35e6d7144c3e639ece0aba9ff587ea4e9",
+  "status": "passed",
+  "wheel_sha256": "f236de0bb7c254c4421f571e816f2314251636ebbed9aa3cb9cb2a09925c04ae"
+}

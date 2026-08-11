@@ -69,3 +69,22 @@ completed implementation slices.
 
 - Product owner approved Slice 1, the 0.8.0 version decision, commit and push, and
   immediate immutable wheel release qualification and publication.
+- Committed the approved slice as `2e5feef35e6d7144c3e639ece0aba9ff587ea4e9`
+  and pushed `main`.
+- Two clean Git exports built byte-identical wheels with
+  `SOURCE_DATE_EPOCH=1786474641`. Qualified wheel SHA-256 is
+  `f236de0bb7c254c4421f571e816f2314251636ebbed9aa3cb9cb2a09925c04ae`.
+- The exact wheel passed clean no-SPC saved mode, installed CLI execution,
+  controlled exact and bounded Linux/Moshier generation, and 226 installed-wheel
+  tests.
+- Created and pushed annotated tag `astrology-graph-foundry-v0.8.0` at the exact
+  qualified commit. Published the GitHub release with wheel, release manifest,
+  runtime-package manifest, and `SHA256SUMS.txt`.
+- Re-downloaded all four assets. Every checksum passed; the downloaded wheel
+  reinstalled cleanly with no SPC and reproduced the published runtime manifest.
+- Publication smoke initially ran from the read-only download mount and exposed
+  that AGF's default file logger expects a writable current directory. Repeating
+  the documented installed-runtime smoke from a writable disposable directory
+  passed. This operational constraint is retained in the 0.8.0 release record.
+- Release URL:
+  `https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.8.0`.
