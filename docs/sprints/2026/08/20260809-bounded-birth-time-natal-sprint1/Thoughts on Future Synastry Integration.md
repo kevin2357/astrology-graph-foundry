@@ -106,3 +106,18 @@ Release sequencing remains important: AGF 0.7.0 supplies participant evidence, b
 SPC and SBE support does not make bounded Synastry automatic. Exact-versus-bounded
 and bounded-versus-bounded relationship evidence still need distinct semantics,
 qualification fixtures, and compatibility versions.
+
+## Coordinate-derived parity sprint qualification implications
+
+The completed follow-on sprint supplies schema-qualified circular/scalar ranges,
+transform prerequisites, counterexamples, and stable evidence references through
+the 48-hour maximum. That materially lowers the cost of an exact-versus-bounded
+Synastry prototype: the bounded participant's Natal evidence can remain immutable
+and the new cross-chart engine can own only the scalar-versus-range proof.
+
+It does not collapse the bounded-versus-bounded problem. Each participant retains
+an independent minute domain and calculation identity; aligning minute index A with
+minute index B would discard most valid combinations. Qualification also confirms
+that wider domains increase conditional evidence even while canonical row counts
+fall, so a Cartesian feasibility sprint needs explicit evaluation budgets and
+compact counterexample/evidence policies before it promises 48-by-48-hour support.

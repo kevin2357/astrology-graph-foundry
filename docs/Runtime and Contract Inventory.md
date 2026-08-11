@@ -5,19 +5,20 @@ This is the concise consumer inventory for the published AGF 0.6.0 wheel. The pa
 ## Unpublished 0.7.0 candidate additions
 
 The current source adds bounded Birth Data v1, Bounded Natal Dataset 1.0.0, bounded
-canonical graph 1.0.0, bounded calculation provenance 1.0.0, bounded normalization
-policy 1.0.0, and interval proof profile 1.0.0. Its installed candidate wheel exposes
-38 schema resources and runtime-manifest hash
-`64178c9085474eb94f7b90bd14524e883d7e941764d9ecd13779a592b1b80018`.
+canonical graph 1.3.0, bounded calculation provenance 1.0.0, bounded normalization
+policy 1.0.0, bounded uncertainty evidence 1.0.0, bounded calculation profile
+1.5.0, and interval proof profile 1.0.0. Its installed candidate wheel exposes 39
+schema resources and runtime-manifest hash
+`3cb122e5febdcf80dea752813f3acf0e5907488b223032128866ce65e47a9022`.
 
 These candidate contracts do not change exact canonical graph 1.3.0. They remain
 unpublished and are not part of the production 0.6.0 artifact lock below.
 
-The current post-qualification working source adds a thirty-ninth packaged schema,
-`bounded_uncertainty_evidence_v1.schema.json`, and advances the bounded calculation
-profile to `agf.bounded_natal.calculation_profile.v1.1.0`. The previously recorded
-38-resource manifest hash describes commit `00e6c2a`; it must not be reused for this
-newer unqualified source boundary.
+The previously recorded 38-resource manifest hash describes the earlier `00e6c2a`
+candidate boundary and must not be reused. The coordinate-derived expansion is now
+qualified through committed boundary `39e351c`; Gate 7 documentation and tests are
+the only changes after that boundary. The candidate is not a published production
+lock until a separately approved release qualification and publication occurs.
 
 ## Stable public boundary
 

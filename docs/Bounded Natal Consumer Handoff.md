@@ -58,7 +58,7 @@ structural-strength scores or canonical claims. Downstream systems must not rank
 claim by raw row count: use root-owner `evidence_family_group` lineage when applying
 anti-double-counting policy.
 
-Newer working artifacts may additionally advertise
+Current 0.7.0 candidate artifacts additionally advertise
 `agf.bounded_uncertainty_evidence.v1.0.0`. Its circular segment sets,
 prerequisites, transition witnesses, and counterexamples are additive to the legacy
 bounded evidence fields. Consumers must feature-detect this version and preserve

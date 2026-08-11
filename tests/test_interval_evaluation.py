@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import math
 
+import pytest
+
+from astrology_graph_foundry.common.aspects import find_aspect
 from astrology_graph_foundry.ephemeris.interval_evaluation import IntervalProofProfile, evaluate_interval
 
 PROFILE = IntervalProofProfile(minimum_step_seconds=60, maximum_evaluations=3000)
@@ -110,6 +113,57 @@ def test_provider_failure_and_budget_exhaustion_fail_closed():
 def test_repeat_determinism():
     args = (0, 0.25, {"Sun": 0, "Moon": 1}, _linear(Sun=(1, 1), Moon=(121, 13)))
     assert evaluate_interval(*args, profile=PROFILE) == evaluate_interval(*args, profile=PROFILE)
+
+
+@pytest.mark.parametrize("hours", [4, 24, 48])
+def test_four_to_forty_eight_hour_normalized_intersection_matches_exact_minute_oracle(hours):
+    start = 0.0
+    end = hours / 24.0
+    profile = IntervalProofProfile(minimum_step_seconds=60, maximum_evaluations=5000)
+    evaluator = _rich_linear(
+        Sun=(11, 1, 1, 0.05, 11, 1, 5, 0.05),
+        Moon=(127, 1, -1, -0.05, 127, 1, 5.2, 0.05),
+    )
+    result = evaluate_interval(start, end, {"Sun": 0, "Moon": 1}, evaluator, harmonic_numbers=(2, 3), profile=profile)
+
+    count = math.ceil((end - start) / (profile.minimum_step_seconds / 86400.0))
+    times = [start + (end - start) * index / count for index in range(count + 1)]
+    exact_states = [evaluator(jd) for jd in times]
+
+    assert result["evaluation_count"] == len(exact_states)
+    for body in ("Sun", "Moon"):
+        exact_signs = sorted({int(state[body]["lon"] // 30) % 12 for state in exact_states})
+        assert result["bodies"][body]["longitude_range"]["possible_sign_indexes"] == exact_signs
+        assert result["bodies"][body]["motion"]["possible_states"] == ["direct"]
+        for harmonic in (2, 3):
+            exact_harmonic_signs = sorted(
+                {int(((harmonic * state[body]["lon"]) % 360) // 30) % 12 for state in exact_states}
+            )
+            assert (
+                result["bodies"][body]["transforms"]["harmonics"][str(harmonic)]["possible_sign_indexes"]
+                == exact_harmonic_signs
+            )
+
+    exact_aspects = {
+        aspect["aspect"] if aspect else None
+        for state in exact_states
+        for aspect in [find_aspect("Sun", state["Sun"]["lon"], "Moon", state["Moon"]["lon"])]
+    }
+    aspect_row = result["aspects"][0]
+    assert aspect_row["classification"] == "invariant"
+    assert aspect_row["aspect"] == "trine"
+    assert aspect_row["possible_aspects"] == sorted(value for value in exact_aspects if value is not None)
+
+    exact_declination_relationships = {
+        relationship
+        for state in exact_states
+        for relationship, predicate in (
+            ("parallel", abs(state["Sun"]["declination"] - state["Moon"]["declination"]) <= 1.0),
+            ("contra_parallel", abs(state["Sun"]["declination"] + state["Moon"]["declination"]) <= 1.0),
+        )
+        if predicate
+    }
+    assert {row["relationship"] for row in result["declination_relationships"] if row["classification"] == "invariant"} == exact_declination_relationships
 
 
 def test_generalized_evidence_records_prerequisites_transitions_and_counterexamples():

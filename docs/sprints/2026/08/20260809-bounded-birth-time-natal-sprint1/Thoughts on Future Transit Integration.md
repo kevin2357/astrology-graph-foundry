@@ -110,3 +110,19 @@ pin the bounded proof-profile/configuration hashes in its own contact cache key.
 AGF 0.7.0 publication alone will not enable Transit. The exact `TransitableChart`
 guard remains binding until a separately versioned range-aware interface and
 acceptance matrix are implemented.
+
+## Coordinate-derived parity sprint qualification implications
+
+The completed follow-on sprint qualifies portable longitude, coordinate-speed,
+declination, antiscia, harmonic, ordinary-aspect, derived-aspect, and declination-
+relationship evidence across 4/24/48-hour domains. A future Transit feasibility
+sprint can therefore consume a versioned evidence registry rather than rebuild
+Natal coordinates, but it still needs a two-clock contact proof: transit time and
+possible natal time are independent axes.
+
+Maximum-duration qualification showed the expected monotonic semantic pressure:
+canonical invariant relationships fell as conditional/variable evidence grew. A
+timing API must therefore budget by proof domain and retained evidence surface, not
+assume a bounded artifact is smaller merely because it contains fewer canonical
+facts. Structural family groups may help downstream selection, but are not contact
+probabilities or timing weights.

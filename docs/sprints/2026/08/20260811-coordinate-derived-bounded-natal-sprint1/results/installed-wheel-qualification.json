@@ -1,0 +1,43 @@
+{
+  "artifact_type": "agf_installed_wheel_qualification",
+  "status": "slice_7_gate_candidate",
+  "source_commit": "39e351c",
+  "distribution": "astrology-graph-foundry",
+  "package_version": "0.7.0",
+  "wheel": {
+    "filename": "astrology_graph_foundry-0.7.0-py3-none-any.whl",
+    "size_bytes": 170264,
+    "sha256": "bca194b8ae052375f59a7e0f9c7824b87dbbe80c7cfdd69a990d993aed6cfb15",
+    "entry_count": 91,
+    "schema_count": 39,
+    "metadata_present": true,
+    "entry_points_present": true,
+    "license_present": true,
+    "record_present": true
+  },
+  "installed_runtime": {
+    "origin": "/usr/local/lib/python3.11/site-packages/astrology_graph_foundry/__init__.py",
+    "python": "CPython 3.11.15",
+    "platform": "Linux x86-64 glibc (Docker Desktop/WSL2)",
+    "pyswisseph": "2.10.3.2",
+    "semantic_projection_core": "0.10.0",
+    "runtime_resource_count": 39,
+    "runtime_manifest_sha256": "3cb122e5febdcf80dea752813f3acf0e5907488b223032128866ce65e47a9022"
+  },
+  "checks": {
+    "installed_import_outside_source_tree": "pass",
+    "full_test_suite_at_committed_boundary": "236 passed",
+    "saved_doctor_mode": "pass",
+    "projection_doctor_mode": "pass",
+    "live_doctor_mode": "pass",
+    "astro_package_entry_point": "pass",
+    "generate_daily_ephemeris_entry_point": "pass",
+    "live_bounded_4h_24h_48h": "pass",
+    "packaged_schema_validation": "pass"
+  },
+  "release_decision": {
+    "recommended_version": "0.7.0",
+    "rationale": "The unpublished 0.7.0 candidate already denotes the additive bounded-Natal contract family; this sprint completes rather than supersedes that candidate.",
+    "publication_authorized": false
+  }
+}

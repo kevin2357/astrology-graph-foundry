@@ -155,7 +155,7 @@ when harmonic multiplication covers 360 degrees or more, evidence records
 full-circle coverage and no sign is promoted. Derived graph objects retain their
 source-body owner reference and contain a sign index but no exact target longitude.
 
-Bounded canonical graph 1.2.0 can also promote invariant aspects whose endpoints
+Bounded canonical graph 1.3.0 can also promote invariant aspects whose endpoints
 are retained body or transformed objects, plus invariant declination parallels and
 contraparallels between retained bodies. Relationship orb ranges remain evidence;
 the canonical relationship carries only the invariant type and resolvable endpoints.
@@ -225,7 +225,11 @@ promoted merely because sampled endpoints agree. Controlled Linux/Python 3.11
 Moshier evidence for the original longitude-only evaluator measured approximately
 0.70 seconds for 24 hours and 1.27 seconds for the maximum 48 hours. A Slice 3
 four-hour run including ecliptic and equatorial coordinates and speeds completed in
-1.77 seconds; broader-duration performance is requalified at the final sprint gate.
+1.77 seconds. Final installed-wheel qualification completed four-hour, 24-hour, and
+maximum 48-hour Moshier artifacts in approximately 8, 36, and 65 wall-clock seconds
+respectively after coordinate-derived transforms, relationships, evidence, and
+structural material were enabled. Runtime depends on profile and hardware; these
+figures are qualification observations, not an API service-level guarantee.
 
 ## Identity, hashing, and provenance
 
@@ -260,7 +264,9 @@ package, graph, and consumer semantics. The package candidate is AGF 0.7.0. Exac
 Birth Data v1, Natal Dataset 1.1.0, and canonical graph 1.3.0 remain unchanged.
 Bounded contracts begin at Birth Data v1, Bounded Natal Dataset 1.0.0, bounded
 canonical graph 1.0.0, bounded calculation provenance 1.0.0, and interval proof
-profile 1.0.0.
+profile 1.0.0. The completed 0.7.0 candidate currently emits bounded graph 1.3.0,
+`agf.bounded_uncertainty_evidence.v1.0.0`, and bounded calculation profile 1.5.0;
+earlier graph/profile versions remain accepted where their schemas declare them.
 
 ## Acceptance examples
 

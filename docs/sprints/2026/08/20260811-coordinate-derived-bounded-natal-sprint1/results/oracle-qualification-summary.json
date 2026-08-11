@@ -1,0 +1,80 @@
+{
+  "artifact_type": "agf_bounded_natal_oracle_qualification_summary",
+  "status": "slice_7_gate_candidate",
+  "qualification_profile": {
+    "platform": "Linux x86-64 glibc (Docker Desktop/WSL2)",
+    "python": "CPython 3.11.15",
+    "pyswisseph": "2.10.3.2",
+    "semantic_projection_core": "0.10.0",
+    "ephemeris_mode": "moshier",
+    "external_ephemeris_files": false,
+    "optional_points": false,
+    "interval_proof": "agf.interval_proof.v1.0.0",
+    "calculation_profile": "agf.bounded_natal.calculation_profile.v1.5.0",
+    "bounded_graph": "1.3.0"
+  },
+  "normalized_oracle": {
+    "interval_hours": [4, 24, 48],
+    "sample_policy": "every valid minute, inclusive endpoints",
+    "predicate_families": [
+      "body sign",
+      "body motion",
+      "harmonic sign",
+      "ordinary aspect type",
+      "declination relationship type"
+    ],
+    "continuous_safety_boundary_rule": "Point-state equality is asserted away from tolerance boundaries; conservative envelope alternatives at a boundary are correct and are covered separately.",
+    "result": "pass"
+  },
+  "live_cases": {
+    "4h": {
+      "evaluation_count": 241,
+      "assessment_status": "complete",
+      "failure_count": 0,
+      "schema_valid": true,
+      "object_count": 105,
+      "relationship_count": 1493,
+      "evidence_registry_count": 2120,
+      "invariant_evidence_count": 1559,
+      "conditional_evidence_count": 558,
+      "variable_evidence_count": 3,
+      "size_bytes": 15849897,
+      "sha256": "eb6e645d92eeb06f6abba248a9649de2e4704a43b625e33a9554a84de252d7c6"
+    },
+    "24h": {
+      "evaluation_count": 1441,
+      "assessment_status": "complete",
+      "failure_count": 0,
+      "schema_valid": true,
+      "object_count": 100,
+      "relationship_count": 1256,
+      "evidence_registry_count": 2679,
+      "invariant_evidence_count": 1297,
+      "conditional_evidence_count": 1374,
+      "variable_evidence_count": 8,
+      "size_bytes": 20219427,
+      "sha256": "46af6520bc17cb60da4e7ec2b34e4f2d26f5169634edf09a271a0c02c6cc93b4"
+    },
+    "48h": {
+      "evaluation_count": 2881,
+      "assessment_status": "complete",
+      "failure_count": 0,
+      "schema_valid": true,
+      "object_count": 97,
+      "relationship_count": 1074,
+      "evidence_registry_count": 2988,
+      "invariant_evidence_count": 1110,
+      "conditional_evidence_count": 1867,
+      "variable_evidence_count": 11,
+      "size_bytes": 24062283,
+      "sha256": "c51186efe3610d9a13585db3cf018516809551168c2543e571a92e625b960ca8"
+    }
+  },
+  "deterministic_replay": {
+    "case": "4h",
+    "excluded_operational_fields": ["metadata.created_at"],
+    "semantic_sha256": "095855f8099c023058bf0468553addd979d591c6ce70a13d8cb50909b6169346",
+    "equal": true,
+    "output_hash_boundary": "AGF declares the persistence-owned output hash contract but does not emit a final byte hash because created_at is operational metadata."
+  }
+}

@@ -263,3 +263,63 @@ completed implementation slices.
 - Five changed Markdown files passed relative-link and trailing-whitespace checks.
   Reviewed the final diff and removed the temporary Slice 6 live artifact from
   `C:\tmp`; only its compact structural summary and SHA-256 remain.
+
+## 2026-08-11 — Slice 7 oracle qualification, documentation, and version decision
+
+- Began from approved, committed, and pushed Slice 6 boundary `39e351c` on `main`.
+- Reused local QA image `agf-bounded-qa:py311-pyswe-2.10.3.2` and a persistent
+  container. The first build attempt correctly exposed that the source mount was
+  read-only; the clean retry copied an exclusion-filtered source snapshot to a
+  writable container path before building.
+- Built `astrology_graph_foundry-0.7.0-py3-none-any.whl` (170,264 bytes, SHA-256
+  `bca194b8ae052375f59a7e0f9c7824b87dbbe80c7cfdd69a990d993aed6cfb15`).
+  Installed it without dependencies and confirmed import origin under
+  `/usr/local/lib/python3.11/site-packages`, outside the source checkout.
+- The installed committed boundary passed all 236 tests in 10.11 seconds. The only
+  warning was pytest's expected inability to write cache data into the deliberately
+  read-only source mount.
+- Confirmed both installed console entry points and version reporting. Doctor
+  assertions passed for saved, projection, and live modes with SPC 0.10.0 and
+  pyswisseph 2.10.3.2. The installed runtime reports 39 packaged schemas and
+  runtime-manifest SHA-256
+  `3cb122e5febdcf80dea752813f3acf0e5907488b223032128866ce65e47a9022`.
+- Inspected the wheel: 91 entries, 39 schemas, and distribution metadata, console
+  entry points, license, and RECORD are present.
+- Generated controlled Moshier/no-external-files/no-optional-points artifacts for
+  4, 24, and the maximum 48 elapsed hours. The runs completed in approximately 8,
+  36, and 65 seconds and evaluated 241, 1,441, and 2,881 inclusive minute states.
+  All reported complete status with zero failures and validated against schemas
+  loaded from the installed wheel.
+- Added an independent normalized exact-minute oracle over 4/24/48-hour synthetic
+  domains for body signs/motion, harmonic signs, ordinary aspects, and declination
+  relationships. Its first draft landed a harmonic exactly on a category boundary;
+  AGF correctly retained both possibilities via its continuous safety envelope.
+  The equivalence vector was moved away from tolerances while existing boundary
+  tests continue to require conservative alternatives. The focused file passed 23
+  tests, including all three new duration cases.
+- Repeated the four-hour live invocation. Raw artifacts differed at operational
+  `metadata.created_at`; after removing that field, canonical JSON was byte-equal
+  with semantic SHA-256
+  `095855f8099c023058bf0468553addd979d591c6ce70a13d8cb50909b6169346`.
+  AGF's persisted-output hash remains explicitly orchestration-owned.
+- Live hashes, sizes, graph/evidence counts, installed package identity, and the
+  version decision are retained in compact JSON evidence beside the Slice 7 result.
+  Large generated datasets and the candidate wheel remain temporary pending final
+  validation, then are removed; the reusable base image remains intentionally.
+- Retained package version 0.7.0. It is still unpublished and already denotes this
+  additive bounded-Natal contract family; exact Natal contracts remain unchanged.
+  No tag, publication, downstream repository, or credential was touched.
+- Final focused Ruff passed on the only changed Python file. The complete installed
+  suite passed 239 tests in 10.18 seconds with cache writes disabled for the
+  read-only checkout mount. Eight sprint-result JSON files parsed; eight changed
+  Markdown files had no missing relative links or trailing whitespace; and
+  `git diff --check` passed.
+- Repository-wide Ruff is not a Gate 7 baseline: invoking the newly installed Ruff
+  against the entire historical tree surfaced 177 pre-existing style/permission
+  findings, dominated by executable-bit interpretation on the Windows bind mount.
+  No bulk lint rewrite was attempted; the changed test is clean under host Ruff.
+- Removed the named qualification container and all temporary wheel/replay/live
+  artifacts under `C:\tmp\agf-slice7`. Docker-owned file permissions required one
+  short cleanup container scoped to those five exact directories. The reusable
+  dependency image remains available; the repository worktree contains only compact
+  documentation evidence and the oracle regression test.
