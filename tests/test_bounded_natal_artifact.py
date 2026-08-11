@@ -126,13 +126,13 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["metadata"]["created_at"].endswith("+00:00")
     provenance = package["metadata"]["calculation_provenance"]
     assert "evidence_contract_version" not in provenance["source_input"]
-    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.7.0"
+    assert provenance["calculation_profile_version"] == "agf.bounded_natal.calculation_profile.v1.8.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["terrestrial_frame"]["qualified_systems"] == ["P", "W"]
     assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     assert provenance["calculation_profile"]["bounded_feature_policy"]["harmonics"]["numbers"] == [2, 3, 4, 5, 7, 9]
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
-    assert graph["graph_version"] == "1.4.0"
+    assert graph["graph_version"] == "1.5.0"
     assert {row["name"] for row in graph["objects"]} == {"Sun", "Mars"}
     assert len(graph["relationships"]) == 1
     assert all(not ({"longitude", "pretty", "sign_degree"} & row.keys()) for row in graph["objects"])
@@ -186,6 +186,27 @@ def test_invariant_house_materializes_when_sign_and_motion_vary(monkeypatch):
     assert moon_object["house_number"] == 3
     assert "sign_index" not in moon_object
     assert "motion_state" not in moon_object
+    schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
+    Draft202012Validator(schema, registry=_registry()).validate(package)
+
+
+def test_invariant_cusp_rulers_angles_and_angle_aspects_materialize(monkeypatch):
+    assessment = _assessment()
+    frame = assessment["terrestrial_frame"]
+    frame["coordinates"]["angle:ASC"]["classification"] = "invariant"
+    frame["coordinates"]["angle:ASC"]["possibilities"] = {"possibility_type": "categorical_set", "values": ["0"], "count": 1}
+    frame["cusp_semantics"] = {"1": {
+        "sign": {**frame["coordinates"]["angle:ASC"], "feature_key": "terrestrial_frame:cusp:1:sign", "possibilities": {"possibility_type": "categorical_set", "values": ["Aries"], "count": 1}},
+        "traditional_ruler": {**frame["coordinates"]["angle:ASC"], "feature_key": "terrestrial_frame:cusp:1:traditional_ruler", "possibilities": {"possibility_type": "categorical_set", "values": ["Mars"], "count": 1}},
+        "modern_ruler": {**frame["coordinates"]["angle:ASC"], "feature_key": "terrestrial_frame:cusp:1:modern_ruler", "possibilities": {"possibility_type": "categorical_set", "values": ["Mars"], "count": 1}},
+    }}
+    frame["angle_relationships"] = [{"a": "body:Sun", "b": "angle:ASC", "a_name": "Sun", "b_name": "ASC", "classification": "invariant", "aspect": "conjunction", "evidence": frame["coordinates"]["angle:ASC"]}]
+    monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(assessment))
+    package = bounded_natal.build_bounded_natal_package(_birth(), ProviderConfig(ephemeris_mode="moshier"))
+    graph = package["canonical_astrology_graph"]
+    assert any(row["object_type"] == "bounded_house_cusp" and row["traditional_ruler"] == "Mars" for row in graph["objects"])
+    assert any(row["object_type"] == "bounded_angle" and row["name"] == "ASC" for row in graph["objects"])
+    assert any(row["relationship_type"] == "BOUNDED_INVARIANT_ANGLE_ASPECT" for row in graph["relationships"])
     schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator(schema, registry=_registry()).validate(package)
 

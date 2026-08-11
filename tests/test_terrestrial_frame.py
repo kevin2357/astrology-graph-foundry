@@ -68,6 +68,20 @@ def test_unqualified_exact_house_system_is_explicitly_unsupported_in_bounded_mod
     assert result["failures"][0]["reason"] == "house_system_not_qualified_for_bounded_natal"
 
 
+def test_cusp_semantics_and_continuous_angle_relationships_are_derived():
+    result = evaluate_terrestrial_frame_interval(
+        FakeSwe(), 1.0, 1.0 + 10.0 / 1440.0, 39.0, -105.0,
+        ProviderConfig(house_system="P"),
+        IntervalProofProfile(minimum_step_seconds=600),
+        lambda jd: {"Sun": {"lon": (350.0 + (jd - 1.0) * 360.0) % 360, "speed_lon": 360.0}},
+    )
+    assert result["cusp_semantics"]["1"]["sign"]["classification"] == "invariant"
+    assert result["cusp_semantics"]["3"]["traditional_ruler"]["classification"] == "invariant"
+    conjunction = next(row for row in result["angle_relationships"] if row["a"] == "body:Sun" and row["b"] == "angle:ASC")
+    assert conjunction["classification"] == "invariant"
+    assert conjunction["aspect"] == "conjunction"
+
+
 def test_house_assignment_half_open_wrap_contract():
     from astrology_graph_foundry.common.geometry import house_for_lon
 

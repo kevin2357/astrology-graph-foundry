@@ -138,4 +138,17 @@ completed implementation slices.
   v1.4.0, allowing house-only canonical objects when sign and motion vary. Dataset
   schema remains 1.0.0.
 - Full host suite passed: 246 tests.
+
+## 2026-08-11 — Slice 3 approval and commit
+
+- Product owner approved Gate 3 and pushed commit `2c7133d`.
+
+## 2026-08-11 — Slice 4 cusp semantics and angle relationships
+
+- Derived cusp signs and traditional/modern rulers only from invariant cusp signs.
+- Reused continuous longitude relationship proof for bodies/points versus angles.
+- Added bounded cusp/angle objects and endpoint-gated invariant relationships.
+- Advanced bounded graph to v1.5.0 and calculation profile to v1.8.0.
+- Linux results: four hours promoted none; 30 minutes promoted 10 cusps, 3 angles,
+  and 20 angle relationships. No downstream repository or release changed.
 - No downstream repository, tag, release, or external data changed.

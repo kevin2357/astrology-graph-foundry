@@ -154,3 +154,9 @@ fact, while variable memberships retain possible houses and cusp-transition
 evidence. Future Transit must still distinguish “transiting body enters a possible
 natal house” from an invariant natal placement; the new membership registry is an
 input, not permission to enable today's exact house-transit interface.
+
+## Terrestrial-frame Sprint 2, Slice 4 implications
+
+Invariant angle identities and body-to-angle aspects now have portable evidence,
+but exact angle degrees remain unavailable. Future Transit must classify contacts
+to angle ranges rather than reuse exact event solvers.

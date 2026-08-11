@@ -149,3 +149,9 @@ not. An exact-versus-bounded overlay can preserve that distinction without
 recalculating the natal participant. Two bounded participants still require a
 Cartesian cross-chart proof for aspects, even though each receiving frame's native
 membership evidence is independently reusable.
+
+## Terrestrial-frame Sprint 2, Slice 4 implications
+
+Future Synastry can preserve invariant cusp rulers and angle-aspect categories.
+Evidence-valid relationships without canonical endpoint identity demonstrate why
+cross-chart materialization must remain endpoint-gated.

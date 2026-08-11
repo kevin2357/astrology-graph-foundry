@@ -9,7 +9,12 @@ from astrology_graph_foundry.common.aspects import all_aspects
 from astrology_graph_foundry.common.constants import SIGN_RULERS_MODERN, SIGN_RULERS_TRADITIONAL
 from astrology_graph_foundry.common.geometry import decimal_to_dms, deg_to_sign, format_zodiac, house_for_lon, normalize
 
-from .interval_evaluation import IntervalProofProfile, evaluate_interval, evaluation_times
+from .interval_evaluation import (
+    IntervalProofProfile,
+    _classify_longitude_relationship,
+    evaluate_interval,
+    evaluation_times,
+)
 from .models import BOUNDED_HOUSE_SYSTEMS, BirthData, BoundedBirthData, ProviderConfig
 from .uncertainty_evidence import circular_range_from_unwrapped, evidence_record, transition_witnesses
 
@@ -190,7 +195,40 @@ def evaluate_terrestrial_frame_interval(
             times,
             profile.speed_envelope_factor,
         )
+    cusp_semantics = {}
+    for house_number in range(1, 13):
+        coordinate = coordinates[f"cusp:{house_number}"]
+        sign_indexes = [int(value) for value in coordinate["possibilities"]["values"]]
+        sign_names = [deg_to_sign(index * 30.0)["sign"] for index in sign_indexes]
+        cusp_semantics[str(house_number)] = {
+            "sign": evidence_record(
+                feature_key=f"terrestrial_frame:cusp:{house_number}:sign",
+                classification="invariant" if len(sign_names) == 1 else "variable",
+                value_kind="zodiac_sign",
+                possibilities=sign_names,
+                prerequisite_refs=[f"terrestrial_frame:cusp:{house_number}"],
+                transitions=coordinate["transition_witnesses"],
+                availability="available",
+            ),
+            "traditional_ruler": evidence_record(
+                feature_key=f"terrestrial_frame:cusp:{house_number}:traditional_ruler",
+                classification="invariant" if len(sign_names) == 1 else "variable",
+                value_kind="traditional_house_ruler",
+                possibilities=(SIGN_RULERS_TRADITIONAL[sign] for sign in sign_names),
+                prerequisite_refs=[f"terrestrial_frame:cusp:{house_number}:sign"],
+                availability="available",
+            ),
+            "modern_ruler": evidence_record(
+                feature_key=f"terrestrial_frame:cusp:{house_number}:modern_ruler",
+                classification="invariant" if len(sign_names) == 1 else "variable",
+                value_kind="modern_house_ruler",
+                possibilities=(SIGN_RULERS_MODERN[sign] for sign in sign_names),
+                prerequisite_refs=[f"terrestrial_frame:cusp:{house_number}:sign"],
+                availability="available",
+            ),
+        }
     memberships = {}
+    angle_relationships = []
     if position_evaluator is not None:
         node_names = []
         first_positions = samples[0][4]
@@ -242,13 +280,38 @@ def evaluate_terrestrial_frame_interval(
                 availability="available",
                 status_reason=("continuous boundary envelope admits adjacent house" if safety_houses else None),
             )
+            node_path = _unwrap_path([lon_getter(sample[4]) for sample in samples])
+            node_speeds = [speed_getter(sample[4]) for sample in samples]
+            for angle_name, (_, angle_index, multiplier, offset) in angle_sources.items():
+                angle_path = _unwrap_path([
+                    (float(sample[1][angle_index]) * multiplier + offset) % 360
+                    for sample in samples
+                ])
+                angle_speeds = [float(sample[3][angle_index]) * multiplier for sample in samples]
+                relationship = _classify_longitude_relationship(
+                    first_key=node_key,
+                    first_name=display_name,
+                    first_path=node_path,
+                    first_speeds=node_speeds,
+                    second_key=f"angle:{angle_name}",
+                    second_name=angle_name,
+                    second_path=angle_path,
+                    second_speeds=angle_speeds,
+                    times=times,
+                    include_minor=config.include_minor,
+                    factor=profile.speed_envelope_factor,
+                )
+                if relationship is not None:
+                    angle_relationships.append(relationship)
     return {
         "status": "complete",
         "house_system": config.house_system,
         "evaluation_count": len(times),
         "interval": {"start_jd": start_jd, "end_jd": end_jd, "boundary_policy": "inclusive"},
         "coordinates": coordinates,
+        "cusp_semantics": cusp_semantics,
         "house_memberships": memberships,
+        "angle_relationships": angle_relationships,
         "failures": [],
     }
 

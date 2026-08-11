@@ -12,7 +12,7 @@ from astrology_graph_foundry.ephemeris.live_natal import evaluate_bounded_natal_
 from astrology_graph_foundry.ephemeris.models import BoundedBirthData, ProviderConfig
 
 BOUNDED_NATAL_SCHEMA_VERSION = "1.0.0"
-BOUNDED_GRAPH_VERSION = "1.4.0"
+BOUNDED_GRAPH_VERSION = "1.5.0"
 
 
 def _body_id(name: str) -> str:
@@ -43,6 +43,14 @@ def _coordinate_node_id(key: str) -> str:
         qualifier = parts[3] if len(parts) == 4 else None
         return _transform_id(parts[1], parts[2], qualifier)
     raise ValueError(f"unsupported bounded coordinate node key: {key}")
+
+
+def _angle_id(name: str) -> str:
+    return f"natal:bounded:angle:{name}"
+
+
+def _cusp_id(number: int) -> str:
+    return f"natal:bounded:house_cusp:{number}"
 
 
 def _invariant_house(assessment: dict[str, Any], key: str) -> tuple[int, str] | None:
@@ -172,7 +180,59 @@ def build_bounded_natal_package(
                 }
             )
 
+    frame = assessment.get("terrestrial_frame") or {}
+    for house_number, semantics in sorted((frame.get("cusp_semantics") or {}).items(), key=lambda item: int(item[0])):
+        sign = semantics.get("sign") or {}
+        sign_values = (sign.get("possibilities") or {}).get("values") or []
+        if sign.get("classification") != "invariant" or len(sign_values) != 1:
+            continue
+        objects.append({
+            "id": _cusp_id(int(house_number)),
+            "name": f"House {house_number} cusp",
+            "source_key": f"house:{house_number}",
+            "object_type": "bounded_house_cusp",
+            "house_number": int(house_number),
+            "sign_index": ("Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces").index(sign_values[0]),
+            "traditional_ruler": ((semantics["traditional_ruler"].get("possibilities") or {}).get("values") or [None])[0],
+            "modern_ruler": ((semantics["modern_ruler"].get("possibilities") or {}).get("values") or [None])[0],
+            "uncertainty_evidence_ref": f"uncertainty:terrestrial_frame:cusp_semantics:{house_number}:sign",
+            "source_operator_hints": ["bounded_invariant_house_cusp"],
+        })
+    for angle_name in ("ASC", "DSC", "MC", "IC", "Vertex"):
+        evidence = (frame.get("coordinates") or {}).get(f"angle:{angle_name}") or {}
+        signs = (evidence.get("possibilities") or {}).get("values") or []
+        if evidence.get("classification") != "invariant" or len(signs) != 1:
+            continue
+        objects.append({
+            "id": _angle_id(angle_name),
+            "name": angle_name,
+            "source_key": f"angle:{angle_name}",
+            "object_type": "bounded_angle",
+            "sign_index": int(signs[0]),
+            "uncertainty_evidence_ref": f"uncertainty:terrestrial_frame:angle:{angle_name}",
+            "source_operator_hints": ["bounded_invariant_angle_sign"],
+        })
+
     canonical_object_ids = {row["id"] for row in objects}
+    for row in frame.get("angle_relationships") or []:
+        if row.get("classification") != "invariant" or not row.get("aspect"):
+            continue
+        source_id = _coordinate_node_id(row["a"])
+        target_id = _angle_id(row["b"].split(":", 1)[1])
+        if source_id not in canonical_object_ids or target_id not in canonical_object_ids:
+            continue
+        evidence_ref = f"uncertainty:terrestrial_frame:angle_relationship:{row['a']}:{row['b']}"
+        relationships.append({
+            "id": f"bounded_angle_aspect:{source_id}:{row['aspect']}:{target_id}",
+            "relationship_type": "BOUNDED_INVARIANT_ANGLE_ASPECT",
+            "source_id": source_id,
+            "target_id": target_id,
+            "source_name": row["a_name"],
+            "target_name": row["b_name"],
+            "aspect": row["aspect"],
+            "uncertainty_evidence_ref": evidence_ref,
+            "source_operator_hints": ["bounded_invariant_angle_aspect"],
+        })
     for row in assessment.get("derived_aspects") or []:
         if row.get("classification") != "invariant" or not row.get("aspect"):
             continue
@@ -221,6 +281,8 @@ def build_bounded_natal_package(
         "houses": "assessed_as_terrestrial_frame_ranges",
         "house_placements": "assessed_with_invariant_house_promotion",
         "angles": "assessed_as_terrestrial_frame_ranges",
+        "cusp_signs_and_rulers": "assessed_with_invariant_prerequisite_promotion",
+        "angle_relationships": "assessed_with_invariant_relationship_promotion",
         "sect": "unavailable_birth_time_dependent",
         "lots": "unavailable_angle_or_sect_dependent",
         "body_latitudes": "assessed_as_continuous_ranges",
@@ -245,6 +307,15 @@ def build_bounded_natal_package(
                 ("contra_antiscia", (body.get("transforms") or {}).get("contra_antiscia")),
             )
             if transform is not None
+        },
+        **{
+            f"uncertainty:terrestrial_frame:cusp_semantics:{house}:{kind}": evidence
+            for house, semantics in sorted((assessment.get("terrestrial_frame") or {}).get("cusp_semantics", {}).items())
+            for kind, evidence in sorted(semantics.items())
+        },
+        **{
+            f"uncertainty:terrestrial_frame:angle_relationship:{row['a']}:{row['b']}": row["evidence"]
+            for row in (assessment.get("terrestrial_frame") or {}).get("angle_relationships", [])
         },
         **{
             f"uncertainty:terrestrial_frame:{key}": value
@@ -291,6 +362,8 @@ def build_bounded_natal_package(
             "supports_bounded_declination_relationships": True,
             "supports_bounded_terrestrial_frame_evidence": True,
             "supports_bounded_invariant_house_membership": True,
+            "supports_bounded_invariant_cusp_semantics": True,
+            "supports_bounded_invariant_angle_aspects": True,
             "supports_exact_longitudes": False,
             "supports_longitude_aspects": False,
             "supports_house_transits": False,
