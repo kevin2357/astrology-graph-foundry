@@ -26,10 +26,13 @@ def test_stable_and_variable_moon_signs():
 
 
 def test_circular_wraparound_is_not_a_false_zodiac_ingress():
-    result = evaluate_interval(0, 0.2, {"Sun": 0}, _linear(Sun=(359, 2)), profile=PROFILE)
+    result = evaluate_interval(0, 0.2, {"Sun": 0}, _linear(Sun=(359.9, 2)), profile=PROFILE)
     evidence = result["bodies"]["Sun"]["longitude_range"]
     assert evidence["unwrapped_min"] > 358
     assert evidence["unwrapped_max"] > 359
+    generalized = result["bodies"]["Sun"]["evidence"]["longitude"]
+    assert generalized["range_evidence"]["wraps_origin"] is True
+    assert len(generalized["range_evidence"]["segments"]) == 2
 
 
 def test_station_window_is_variable_motion():
@@ -79,3 +82,23 @@ def test_provider_failure_and_budget_exhaustion_fail_closed():
 def test_repeat_determinism():
     args = (0, 0.25, {"Sun": 0, "Moon": 1}, _linear(Sun=(1, 1), Moon=(121, 13)))
     assert evaluate_interval(*args, profile=PROFILE) == evaluate_interval(*args, profile=PROFILE)
+
+
+def test_generalized_evidence_records_prerequisites_transitions_and_counterexamples():
+    result = evaluate_interval(0, 0.25, {"Moon": 1}, _linear(Moon=(29, 13)), profile=PROFILE)
+    assert result["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
+    sign = result["bodies"]["Moon"]["evidence"]["sign"]
+    assert sign["classification"] == "variable"
+    assert sign["possibilities"]["values"] == ["Aries", "Taurus"]
+    assert sign["prerequisite_refs"] == ["body:Moon:longitude"]
+    assert sign["transition_witnesses"]
+    assert sign["counterexamples"]
+
+
+def test_aspect_generalized_evidence_preserves_endpoint_prerequisites():
+    result = evaluate_interval(0, 0.1, {"Sun": 0, "Moon": 1}, _linear(Sun=(0, 1), Moon=(120, 1)), profile=PROFILE)
+    row = result["aspects"][0]["evidence"]
+    assert row["classification"] == "invariant"
+    assert row["possibilities"]["values"] == ["trine"]
+    assert row["prerequisite_refs"] == ["body:Moon:longitude", "body:Sun:longitude"]
+    assert row["range_evidence"]["range_type"] == "scalar_closed"

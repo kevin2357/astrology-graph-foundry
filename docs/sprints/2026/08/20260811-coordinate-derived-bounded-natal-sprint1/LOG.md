@@ -51,3 +51,38 @@ completed implementation slices.
   and the corrected parse check passed. No artifact content changed as a result.
 - No production code, schema, package version, or downstream repository was changed.
   Slice remains uncommitted pending Gate 1 approval.
+
+## 2026-08-11 — Slice 2 generalized uncertainty evidence
+
+- Began from approved, committed, and pushed Slice 1 boundary `bbf399f`.
+- Added standalone `agf.bounded_uncertainty_evidence.v1.0.0` helpers and packaged
+  JSON Schema for scalar ranges, circular/disjoint segments, categorical
+  possibilities, prerequisites, transitions, counterexamples, and proof scope.
+- Chose additive dual-write migration: legacy bounded evidence fields remain intact,
+  and the Bounded Natal Dataset 1.0.0 schema accepts but does not require the new
+  contract marker so older saved artifacts remain valid.
+- Advanced the bounded calculation profile to 1.1.0 because evidence representation
+  changes configuration/output identity. Exact Natal and bounded graph versions are
+  unchanged at this slice.
+- Integrated generalized longitude, sign, motion, and aspect evidence into real
+  interval evaluation while preserving the existing conservative safety envelopes.
+- Added deterministic unit/schema/integration tests and compact retained vectors.
+- Focused gate suite passed 34 tests after correcting two expected development
+  findings: the wrap fixture initially did not actually cross 360°, and the bounded
+  calculation-provenance schema needed the approved profile-version advance.
+- Targeted lint exposed the bounded artifact's operational `created_at` as a naive
+  datetime. Corrected it to an offset-aware UTC timestamp; it remains operational
+  envelope metadata and does not enter semantic identity.
+- Added an explicit legacy-artifact schema regression: Bounded Natal Dataset 1.0.0
+  with calculation profile 1.0.0 and no generalized evidence marker remains valid.
+- Targeted Ruff passed. The broad suite passed 221 tests in 22.27 seconds before the
+  final retained-vector replay assertion was added.
+- Final targeted Ruff and full-suite rerun passed 222 tests in 22.01 seconds.
+- Final diff review found the evidence-contract version initially attached to the
+  returned source-input provenance rather than the calculation profile. Moved it to
+  configuration provenance and added a regression assertion so birth-input identity
+  remains independent of evidence serialization policy.
+- Post-correction targeted Ruff passed and the full suite passed 222 tests in 25.95
+  seconds.
+- No downstream repository, release tag, or published artifact was changed. Slice
+  remains uncommitted pending final Gate 2 validation and approval.

@@ -37,6 +37,13 @@ and are referenced by canonical rows. Consumers may filter canonical rows while
 retaining evidence references and provenance. They must not convert a range endpoint
 or midpoint into an exact placement.
 
+Newer working artifacts may additionally advertise
+`agf.bounded_uncertainty_evidence.v1.0.0`. Its circular segment sets,
+prerequisites, transition witnesses, and counterexamples are additive to the legacy
+bounded evidence fields. Consumers must feature-detect this version and preserve
+unknown evidence members; absence means an older bounded artifact, not malformed
+uncertainty.
+
 SPC 0.10.0 supports exact canonical graph 1.3.0 only. AGF rejects bounded static
 projection before constructing an SPC request. SPC needs a bounded-vocabulary sprint.
 SBE consumes projected artifacts, so its bounded eligibility/authoring sprint follows

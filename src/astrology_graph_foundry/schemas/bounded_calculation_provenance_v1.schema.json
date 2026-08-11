@@ -6,7 +6,12 @@
   "properties": {
     "contract_version": {"const": "agf.bounded_natal.calculation_provenance.v1.0.0"},
     "calculation_basis_status": {"const": "complete_bounded_live_profile"},
-    "calculation_profile_version": {"const": "agf.bounded_natal.calculation_profile.v1.0.0"},
+    "calculation_profile_version": {
+      "enum": [
+        "agf.bounded_natal.calculation_profile.v1.0.0",
+        "agf.bounded_natal.calculation_profile.v1.1.0"
+      ]
+    },
     "normalization_policy_version": {"const": "agf.bounded_birth_time.normalization_policy.v1.0.0"},
     "canonical_json_policy_version": {"const": "agf.canonical_json.v1.0.0"},
     "source_input": {"type": "object", "required": ["normalization_policy_version", "completeness", "sha256", "values", "included_fields", "excluded_descriptive_fields"]},

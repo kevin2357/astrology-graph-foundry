@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded Uncertainty Evidence v1",
+  "type": "object",
+  "required": [
+    "evidence_contract_version",
+    "feature_key",
+    "classification",
+    "value_kind",
+    "possibilities",
+    "prerequisite_refs",
+    "range_evidence",
+    "transition_witnesses",
+    "counterexamples",
+    "proof_scope"
+  ],
+  "properties": {
+    "evidence_contract_version": {"const": "agf.bounded_uncertainty_evidence.v1.0.0"},
+    "feature_key": {"type": "string", "minLength": 1},
+    "classification": {"enum": ["invariant", "conditional", "variable", "unavailable", "inconclusive"]},
+    "value_kind": {"type": "string", "minLength": 1},
+    "possibilities": {
+      "type": "object",
+      "required": ["possibility_type", "values", "count"],
+      "properties": {
+        "possibility_type": {"const": "categorical_set"},
+        "values": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "count": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "prerequisite_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "range_evidence": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["range_type", "unit"],
+          "properties": {
+            "range_type": {"enum": ["scalar_closed", "circular_closed_segments"]},
+            "unit": {"type": "string", "minLength": 1},
+            "minimum": {"type": "number"},
+            "maximum": {"type": "number"},
+            "period": {"type": "number", "exclusiveMinimum": 0},
+            "coverage": {"enum": ["partial", "full_circle"]},
+            "wraps_origin": {"type": "boolean"},
+            "segments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["minimum", "maximum"],
+                "properties": {"minimum": {"type": "number"}, "maximum": {"type": "number"}},
+                "additionalProperties": false
+              }
+            },
+            "unwrapped_envelope": {
+              "type": "object",
+              "required": ["minimum", "maximum"],
+              "properties": {"minimum": {"type": "number"}, "maximum": {"type": "number"}},
+              "additionalProperties": false
+            },
+            "observed": {
+              "type": "object",
+              "required": ["minimum", "maximum"],
+              "properties": {"minimum": {"type": "number"}, "maximum": {"type": "number"}},
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "transition_witnesses": {"type": "array", "items": {"type": "object"}},
+    "counterexamples": {"type": "array", "items": {"type": "object"}},
+    "proof_scope": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

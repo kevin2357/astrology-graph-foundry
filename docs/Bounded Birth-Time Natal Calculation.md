@@ -125,6 +125,24 @@ transition/refinement findings, tolerances, requested and observed ephemeris mod
 and feature extrema or possible categorical values. Do not retain bulky sampling
 traces unless they are required for qualification or dispute analysis.
 
+The post-0.7.0 working source formalizes
+`agf.bounded_uncertainty_evidence.v1.0.0` as an additive evidence envelope. Existing
+`longitude_range`, `motion`, `possible_sign_indexes`, `possible_aspects`, and
+`orb_range` fields remain available while new nested evidence adds:
+
+- circular ranges represented as one or more ordered closed segments;
+- scalar proof ranges with optional observed subranges;
+- deterministic categorical possibility sets;
+- prerequisite evidence references;
+- adjacent sampled transition witnesses;
+- compact counterexamples explaining withheld invariance; and
+- an explicit complete-normalized-birth-interval proof scope.
+
+This is deliberate dual-write compatibility. Saved 0.7-shaped artifacts remain
+readable and valid under their original contract; consumers should feature-detect
+the new `evidence_contract_version` rather than assuming every bounded artifact has
+the generalized envelope.
+
 ### Uncertainty assessment
 
 Use explicit statuses:

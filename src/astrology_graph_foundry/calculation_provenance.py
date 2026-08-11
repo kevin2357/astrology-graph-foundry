@@ -21,10 +21,11 @@ from astrology_graph_foundry.common.constants import (
     POINTS,
 )
 from astrology_graph_foundry.ephemeris.models import BirthData, BoundedBirthData, ProviderConfig
+from astrology_graph_foundry.ephemeris.uncertainty_evidence import EVIDENCE_CONTRACT_VERSION
 
 CALCULATION_PROVENANCE_CONTRACT_VERSION = "agf.calculation_provenance.v1.0.0"
 CALCULATION_PROFILE_VERSION = "agf.calculation_profile.v1.1.0"
-BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.0.0"
+BOUNDED_CALCULATION_PROFILE_VERSION = "agf.bounded_natal.calculation_profile.v1.1.0"
 NORMALIZATION_POLICY_VERSION = "agf.normalization_policy.v1.0.0"
 BOUNDED_NORMALIZATION_POLICY_VERSION = "agf.bounded_birth_time.normalization_policy.v1.0.0"
 CANONICAL_JSON_POLICY_VERSION = "agf.canonical_json.v1.0.0"
@@ -103,6 +104,7 @@ def build_bounded_calculation_provenance(
         "profile_version": BOUNDED_CALCULATION_PROFILE_VERSION,
         "canonical_json_policy_version": CANONICAL_JSON_POLICY_VERSION,
         "normalization_policy_version": BOUNDED_NORMALIZATION_POLICY_VERSION,
+        "evidence_contract_version": EVIDENCE_CONTRACT_VERSION,
         "proof_profile": interval_assessment["proof_profile"],
         "ephemeris_mode": config.ephemeris_mode,
         "zodiac": {"framework": "tropical", "ayanamsha": None},

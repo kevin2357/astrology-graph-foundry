@@ -1,0 +1,14 @@
+{
+  "artifact_type": "agf_bounded_uncertainty_evidence_vectors",
+  "contract_version": "agf.bounded_uncertainty_evidence.v1.0.0",
+  "cases": [
+    {"name": "scalar_with_observed_bounds", "classification": "valid", "range_type": "scalar_closed", "minimum": -2.0, "maximum": 5.0, "observed_minimum": -1.0, "observed_maximum": 4.0},
+    {"name": "circular_quiet_segment", "classification": "valid", "unwrapped_minimum": 10.0, "unwrapped_maximum": 12.0, "wraps_origin": false, "segments": [{"minimum": 10.0, "maximum": 12.0}]},
+    {"name": "circular_origin_wrap", "classification": "valid_disjoint_segments", "unwrapped_minimum": 359.0, "unwrapped_maximum": 361.0, "wraps_origin": true, "segments": [{"minimum": 0.0, "maximum": 1.0}, {"minimum": 359.0, "maximum": 360.0}]},
+    {"name": "circular_full_coverage", "classification": "valid_full_circle", "unwrapped_minimum": 10.0, "unwrapped_maximum": 370.0, "coverage": "full_circle"},
+    {"name": "categorical_transition", "classification": "variable", "possibilities": ["Aries", "Pisces"], "transition_count": 1, "counterexample_count": 2},
+    {"name": "duplicate_prerequisites", "classification": "normalized", "input": ["position:Moon", "provider:swisseph", "position:Moon"], "output": ["position:Moon", "provider:swisseph"]},
+    {"name": "invalid_nonfinite_scalar", "classification": "rejected"},
+    {"name": "invalid_observation_outside_proof_range", "classification": "rejected"}
+  ]
+}

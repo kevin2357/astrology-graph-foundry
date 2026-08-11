@@ -77,6 +77,10 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     package = _build(monkeypatch)
     schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator(schema, registry=_registry()).validate(package)
+    assert package["metadata"]["created_at"].endswith("+00:00")
+    provenance = package["metadata"]["calculation_provenance"]
+    assert "evidence_contract_version" not in provenance["source_input"]
+    assert provenance["calculation_profile"]["evidence_contract_version"] == "agf.bounded_uncertainty_evidence.v1.0.0"
     graph = package["canonical_astrology_graph"]
     assert graph["graph_type"] == "bounded_canonical_astrology_graph"
     assert graph["graph_version"] == "1.0.0"
@@ -118,3 +122,17 @@ def test_repeated_finalization_is_idempotent(monkeypatch):
     before = json.dumps(package["canonical_astrology_graph"], sort_keys=True)
     finalize_package_semantic_boundary(package)
     assert json.dumps(package["canonical_astrology_graph"], sort_keys=True) == before
+
+
+def test_pre_generalized_bounded_artifact_remains_schema_valid(monkeypatch):
+    package = _build(monkeypatch)
+    assessment = package["uncertainty_assessment"]
+    assessment.pop("evidence_contract_version", None)
+    for row in list(assessment["body_evidence"].values()) + list(assessment["aspect_evidence"]):
+        row.pop("evidence", None)
+    provenance = package["metadata"]["calculation_provenance"]
+    provenance["calculation_profile_version"] = "agf.bounded_natal.calculation_profile.v1.0.0"
+    provenance["calculation_profile"]["profile_version"] = "agf.bounded_natal.calculation_profile.v1.0.0"
+    provenance["calculation_profile"].pop("evidence_contract_version", None)
+    schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
+    Draft202012Validator(schema, registry=_registry()).validate(package)

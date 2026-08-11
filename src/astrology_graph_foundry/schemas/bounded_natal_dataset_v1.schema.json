@@ -19,7 +19,11 @@
     "bounded_natal": {"type": "object", "required": ["bodies", "aspects"]},
     "uncertainty_assessment": {
       "type": "object",
-      "required": ["status", "proof_profile", "interval", "evaluation_count", "failures", "body_evidence", "aspect_evidence", "evidence_registry", "feature_dispositions"]
+      "required": ["status", "proof_profile", "interval", "evaluation_count", "failures", "body_evidence", "aspect_evidence", "evidence_registry", "feature_dispositions"],
+      "properties": {
+        "evidence_contract_version": {"const": "agf.bounded_uncertainty_evidence.v1.0.0"}
+      },
+      "additionalProperties": true
     },
     "capabilities": {"type": "object"},
     "canonical_astrology_graph": {"$ref": "bounded_canonical_astrology_graph_v1.schema.json"},

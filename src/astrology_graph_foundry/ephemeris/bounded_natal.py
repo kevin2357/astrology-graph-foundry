@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from astrology_graph_foundry.calculation_provenance import (
@@ -122,7 +122,7 @@ def build_bounded_natal_package(
         "metadata": {
             "schema_version": BOUNDED_NATAL_SCHEMA_VERSION,
             "analysis_type": "bounded_natal_dataset",
-            "created_at": datetime.now().isoformat(timespec="seconds"),
+            "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "person": birth.name,
             "source_chart_id": source_chart_id,
             "provider": "live_swiss_ephemeris",
@@ -147,6 +147,11 @@ def build_bounded_natal_package(
             "aspects": assessment["aspects"],
         },
         "uncertainty_assessment": {
+            **(
+                {"evidence_contract_version": assessment["evidence_contract_version"]}
+                if assessment.get("evidence_contract_version")
+                else {}
+            ),
             "status": assessment["status"],
             "proof_profile": assessment["proof_profile"],
             "interval": assessment["interval"],

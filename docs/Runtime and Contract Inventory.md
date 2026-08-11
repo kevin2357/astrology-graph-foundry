@@ -13,6 +13,12 @@ policy 1.0.0, and interval proof profile 1.0.0. Its installed candidate wheel ex
 These candidate contracts do not change exact canonical graph 1.3.0. They remain
 unpublished and are not part of the production 0.6.0 artifact lock below.
 
+The current post-qualification working source adds a thirty-ninth packaged schema,
+`bounded_uncertainty_evidence_v1.schema.json`, and advances the bounded calculation
+profile to `agf.bounded_natal.calculation_profile.v1.1.0`. The previously recorded
+38-resource manifest hash describes commit `00e6c2a`; it must not be reused for this
+newer unqualified source boundary.
+
 ## Stable public boundary
 
 - Distribution: `astrology-graph-foundry`; import package: `astrology_graph_foundry`.

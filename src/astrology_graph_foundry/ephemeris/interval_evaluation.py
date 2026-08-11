@@ -12,6 +12,15 @@ from astrology_graph_foundry.common.constants import (
     SIGN_RULERS_MODERN,
     SIGN_RULERS_TRADITIONAL,
 )
+from astrology_graph_foundry.ephemeris.uncertainty_evidence import (
+    EVIDENCE_CONTRACT_VERSION,
+    EvidenceClassification,
+    circular_range_from_unwrapped,
+    counterexamples,
+    evidence_record,
+    scalar_range,
+    transition_witnesses,
+)
 
 Classification = Literal["invariant", "conditional", "variable", "inconclusive"]
 PositionEvaluator = Callable[[float], Mapping[str, Mapping[str, float | bool | None]]]
@@ -57,6 +66,14 @@ def _motion_states(low: float, high: float, tolerance: float) -> list[str]:
     if low <= tolerance and high >= -tolerance:
         states.append("stationary")
     return states
+
+
+def _sample_motion_state(speed: float, tolerance: float) -> str:
+    if speed > tolerance:
+        return "direct"
+    if speed < -tolerance:
+        return "retrograde"
+    return "stationary"
 
 
 def _distance(a: float, b: float) -> float:
@@ -147,6 +164,10 @@ def evaluate_interval(
         )
         speed_low, speed_high = min(speeds) - speed_padding, max(speeds) + speed_padding
         motions = _motion_states(speed_low, speed_high, profile.speed_zero_tolerance_degrees_per_day)
+        sign_values = [SIGNS[int(value // 30) % 12] for value in values]
+        motion_values = [_sample_motion_state(value, profile.speed_zero_tolerance_degrees_per_day) for value in speeds]
+        sign_classification: EvidenceClassification = "invariant" if len(signs) == 1 else "variable"
+        motion_classification: EvidenceClassification = "invariant" if len(motions) == 1 else "variable"
         sign_dignity = None
         if len(signs) == 1:
             sign = SIGNS[signs[0]]
@@ -172,6 +193,56 @@ def evaluate_interval(
             },
             "sign_dignity": sign_dignity,
             "sample_count": len(times),
+            "evidence": {
+                "longitude": evidence_record(
+                    feature_key=f"body:{name}:longitude",
+                    classification=(
+                        "invariant"
+                        if high - low <= profile.longitude_tolerance_degrees
+                        else "variable"
+                    ),
+                    value_kind="ecliptic_longitude_range",
+                    prerequisite_refs=[f"provider_position:{name}"],
+                    range_evidence=circular_range_from_unwrapped(low, high),
+                ),
+                "sign": evidence_record(
+                    feature_key=f"body:{name}:sign",
+                    classification=sign_classification,
+                    value_kind="zodiac_sign",
+                    possibilities=(SIGNS[index] for index in signs),
+                    prerequisite_refs=[f"body:{name}:longitude"],
+                    transitions=transition_witnesses(sign_values, times, coordinate_unit="jd_ut"),
+                    counterexample_rows=(
+                        counterexamples(
+                            sign_values,
+                            times,
+                            expected=sign_values[0],
+                            coordinate_unit="jd_ut",
+                        )
+                        if sign_values
+                        else []
+                    ),
+                ),
+                "motion": evidence_record(
+                    feature_key=f"body:{name}:motion",
+                    classification=motion_classification,
+                    value_kind="longitudinal_motion_state",
+                    possibilities=motions,
+                    prerequisite_refs=[f"provider_speed:{name}"],
+                    range_evidence=scalar_range(speed_low, speed_high, unit="degrees_per_day"),
+                    transitions=transition_witnesses(motion_values, times, coordinate_unit="jd_ut"),
+                    counterexample_rows=(
+                        counterexamples(
+                            motion_values,
+                            times,
+                            expected=motion_values[0],
+                            coordinate_unit="jd_ut",
+                        )
+                        if motion_values
+                        else []
+                    ),
+                ),
+            },
         }
 
     aspects = []
@@ -203,8 +274,7 @@ def evaluate_interval(
                 orb_high = max(orb_values) + relative_padding
                 if orb_high > orb_allowed(first, second, aspect_name):
                     classification = "conditional"
-            aspects.append(
-                {
+            row = {
                     "a": first,
                     "b": second,
                     "classification": classification,
@@ -212,8 +282,30 @@ def evaluate_interval(
                     "possible_aspects": sorted(value for value in distinct if value is not None),
                     "orb_range": {"min": orb_low, "max": orb_high} if orb_values else None,
                 }
+            row["evidence"] = evidence_record(
+                feature_key=f"aspect:{first}:{second}",
+                classification=classification,
+                value_kind="aspect_type",
+                possibilities=(value for value in distinct if value is not None),
+                prerequisite_refs=[f"body:{first}:longitude", f"body:{second}:longitude"],
+                range_evidence=(
+                    scalar_range(orb_low, orb_high, unit="degrees") if orb_values else None
+                ),
+                transitions=transition_witnesses(observed, times, coordinate_unit="jd_ut"),
+                counterexample_rows=(
+                    counterexamples(
+                        observed,
+                        times,
+                        expected=observed[0],
+                        coordinate_unit="jd_ut",
+                    )
+                    if observed
+                    else []
+                ),
             )
+            aspects.append(row)
     return {
+        "evidence_contract_version": EVIDENCE_CONTRACT_VERSION,
         "proof_profile": asdict(profile),
         "interval": {"start_jd": start_jd, "end_jd": end_jd, "boundary_policy": "inclusive"},
         "evaluation_count": len(times),
@@ -226,6 +318,7 @@ def evaluate_interval(
 
 def _inconclusive_result(body_ids: Mapping[str, int], profile: IntervalProofProfile, reason: str) -> dict[str, Any]:
     return {
+        "evidence_contract_version": EVIDENCE_CONTRACT_VERSION,
         "proof_profile": asdict(profile),
         "status": "inconclusive",
         "failures": [{"reason": reason}],
