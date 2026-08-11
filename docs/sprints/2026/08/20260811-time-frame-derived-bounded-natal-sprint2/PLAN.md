@@ -1,6 +1,6 @@
 # Time-Frame and Derived-Structure Bounded Natal Expansion Sprint Plan
 
-**Status:** Proposed for review; blocked on Sprint 1 completion
+**Status:** Proposed for review; entry gate satisfied by published AGF 0.7.0
 
 **Repository:** `astrology-graph-foundry`
 
@@ -16,8 +16,8 @@ normal exact-Natal feature family ends with an explicit bounded disposition.
 
 ## Entry gate
 
-This sprint must not begin until the coordinate-derived bounded-Natal sprint is
-implemented, tested, documented, approved, and committed. Its parity matrix,
+The coordinate-derived bounded-Natal sprint is implemented, tested, documented,
+approved, committed, and published as AGF 0.7.0. Its parity matrix,
 normalized semantic predicates, generalized evidence primitives, profile versions,
 and exhaustive-oracle harness become inputs to this sprint and may not be silently
 redesigned here.
