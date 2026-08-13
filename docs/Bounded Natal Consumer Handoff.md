@@ -78,6 +78,15 @@ bounded evidence fields. Consumers must feature-detect this version and preserve
 unknown evidence members; absence means an older bounded artifact, not malformed
 uncertainty.
 
+Within each generalized evidence envelope, treat `classification` as the epistemic
+state. `availability` separately explains whether the calculation path was
+available, disabled, unsupported, missing a prerequisite, or failed. Do not infer
+one from the other: `prerequisite_variable_or_unavailable`, for example, can
+accompany either a variable or unavailable classification. Preserve `status_reason`
+verbatim as open explanatory text. AGF 0.8.1 reconciliation accepts the two earlier
+schema-only compatibility spellings while current producers emit the canonical
+vocabulary documented in the calculation contract.
+
 SPC 0.10.0 supports exact canonical graph 1.3.0 only. AGF rejects bounded static
 projection before constructing an SPC request. SPC needs a bounded-vocabulary sprint.
 SBE consumes projected artifacts, so its bounded eligibility/authoring sprint follows

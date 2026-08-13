@@ -73,7 +73,7 @@
     "transition_witnesses": {"type": "array", "items": {"type": "object"}},
     "counterexamples": {"type": "array", "items": {"type": "object"}},
     "proof_scope": {"type": "string", "minLength": 1},
-    "availability": {"enum": ["available", "disabled_by_configuration", "unsupported_provider_field", "missing_provider_field", "nonfinite_provider_value", "provider_failure"]},
+    "availability": {"enum": ["available", "disabled", "disabled_by_configuration", "missing_provider_field", "nonfinite_provider_value", "prerequisite_unavailable", "prerequisite_variable_or_unavailable", "provider_failure", "unsupported_profile", "unsupported_provider_field"]},
     "status_reason": {"type": "string", "minLength": 1}
   },
   "additionalProperties": false

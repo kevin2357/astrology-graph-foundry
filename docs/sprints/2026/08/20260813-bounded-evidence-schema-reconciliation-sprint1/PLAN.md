@@ -1,6 +1,6 @@
 # Bounded Evidence Schema Reconciliation Sprint Plan
 
-**Status:** Gate 1 candidate; awaiting review
+**Status:** Gate 2 candidate; awaiting review
 
 **Repository:** `astrology-graph-foundry`
 

@@ -7,7 +7,10 @@ import pytest
 from jsonschema import Draft202012Validator
 
 from astrology_graph_foundry.ephemeris.uncertainty_evidence import (
+    CANONICAL_AVAILABILITY_VALUES,
+    COMPATIBILITY_AVAILABILITY_ALIASES,
     EVIDENCE_CONTRACT_VERSION,
+    SUPPORTED_AVAILABILITY_VALUES,
     categorical_possibilities,
     circular_range_from_unwrapped,
     counterexamples,
@@ -78,25 +81,9 @@ def test_common_evidence_record_is_schema_valid_and_sorts_prerequisites():
     assert row["prerequisite_refs"] == ["position:Moon", "provider:swisseph"]
 
 
-def test_released_availability_schema_gap_is_reproduced_for_reconciliation():
-    """Characterize the 0.8.0 producer/schema mismatch before changing policy."""
-
+def test_availability_vocabulary_is_closed_and_matches_schema():
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
     validator = Draft202012Validator(schema)
-    declared = {
-        "available",
-        "disabled_by_configuration",
-        "unsupported_provider_field",
-        "missing_provider_field",
-        "nonfinite_provider_value",
-        "provider_failure",
-    }
-    additional_producer_values = {
-        "disabled",
-        "unsupported_profile",
-        "prerequisite_unavailable",
-        "prerequisite_variable_or_unavailable",
-    }
 
     def record(availability):
         return evidence_record(
@@ -106,8 +93,33 @@ def test_released_availability_schema_gap_is_reproduced_for_reconciliation():
             availability=availability,
         )
 
-    assert all(not list(validator.iter_errors(record(value))) for value in declared)
-    assert all(list(validator.iter_errors(record(value))) for value in additional_producer_values)
+    assert CANONICAL_AVAILABILITY_VALUES.isdisjoint(COMPATIBILITY_AVAILABILITY_ALIASES)
+    assert set(schema["properties"]["availability"]["enum"]) == SUPPORTED_AVAILABILITY_VALUES
+    assert all(not list(validator.iter_errors(record(value))) for value in SUPPORTED_AVAILABILITY_VALUES)
+    with pytest.raises(ValueError, match="unsupported bounded evidence availability"):
+        record("future_unregistered_value")
+
+
+@pytest.mark.parametrize(
+    ("classification", "availability"),
+    [
+        ("invariant", "available"),
+        ("variable", "available"),
+        ("inconclusive", "provider_failure"),
+        ("unavailable", "disabled"),
+        ("unavailable", "unsupported_profile"),
+        ("unavailable", "prerequisite_unavailable"),
+        ("variable", "prerequisite_variable_or_unavailable"),
+    ],
+)
+def test_representative_classification_and_availability_axes_validate(classification, availability):
+    row = evidence_record(
+        feature_key=f"audit:{classification}:{availability}",
+        classification=classification,
+        value_kind="audit_value",
+        availability=availability,
+    )
+    Draft202012Validator(json.loads(SCHEMA.read_text(encoding="utf-8"))).validate(row)
 
 
 def test_retained_uncertainty_vectors_match_implemented_range_contract():

@@ -6,6 +6,38 @@ from typing import Any, Literal
 
 EVIDENCE_CONTRACT_VERSION = "agf.bounded_uncertainty_evidence.v1.0.0"
 EvidenceClassification = Literal["invariant", "conditional", "variable", "unavailable", "inconclusive"]
+EvidenceAvailability = Literal[
+    "available",
+    "disabled",
+    "disabled_by_configuration",
+    "missing_provider_field",
+    "nonfinite_provider_value",
+    "prerequisite_unavailable",
+    "prerequisite_variable_or_unavailable",
+    "provider_failure",
+    "unsupported_profile",
+    "unsupported_provider_field",
+]
+
+CANONICAL_AVAILABILITY_VALUES = frozenset(
+    {
+        "available",
+        "disabled",
+        "missing_provider_field",
+        "nonfinite_provider_value",
+        "prerequisite_unavailable",
+        "prerequisite_variable_or_unavailable",
+        "provider_failure",
+        "unsupported_profile",
+    }
+)
+COMPATIBILITY_AVAILABILITY_ALIASES = frozenset(
+    {
+        "disabled_by_configuration",
+        "unsupported_provider_field",
+    }
+)
+SUPPORTED_AVAILABILITY_VALUES = CANONICAL_AVAILABILITY_VALUES | COMPATIBILITY_AVAILABILITY_ALIASES
 
 
 def scalar_range(
@@ -163,7 +195,7 @@ def evidence_record(
     transitions: Iterable[Mapping[str, Any]] = (),
     counterexample_rows: Iterable[Mapping[str, Any]] = (),
     proof_scope: str = "complete_normalized_birth_interval",
-    availability: str | None = None,
+    availability: EvidenceAvailability | None = None,
     status_reason: str | None = None,
 ) -> dict[str, Any]:
     """Build the common additive evidence envelope used by bounded feature rows."""
@@ -181,6 +213,8 @@ def evidence_record(
         "proof_scope": proof_scope,
     }
     if availability is not None:
+        if availability not in SUPPORTED_AVAILABILITY_VALUES:
+            raise ValueError(f"unsupported bounded evidence availability: {availability}")
         record["availability"] = availability
     if status_reason is not None:
         record["status_reason"] = status_reason

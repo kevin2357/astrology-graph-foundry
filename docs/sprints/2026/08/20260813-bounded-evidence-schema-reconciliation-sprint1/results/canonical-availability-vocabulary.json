@@ -1,0 +1,57 @@
+{
+  "canonical_values": [
+    {
+      "meaning": "The configured producer and all required inputs were available.",
+      "token": "available"
+    },
+    {
+      "meaning": "The caller deliberately disabled the feature.",
+      "token": "disabled"
+    },
+    {
+      "meaning": "A required provider result field was absent.",
+      "token": "missing_provider_field"
+    },
+    {
+      "meaning": "The provider returned a non-finite value required for proof.",
+      "token": "nonfinite_provider_value"
+    },
+    {
+      "meaning": "A required upstream feature could not be produced.",
+      "token": "prerequisite_unavailable"
+    },
+    {
+      "meaning": "A required upstream feature was variable or unavailable, preventing stronger promotion.",
+      "token": "prerequisite_variable_or_unavailable"
+    },
+    {
+      "meaning": "The provider attempted but failed the feature calculation.",
+      "token": "provider_failure"
+    },
+    {
+      "meaning": "The requested feature is outside the selected qualified calculation/data profile.",
+      "token": "unsupported_profile"
+    }
+  ],
+  "compatibility_aliases": [
+    {
+      "current_producer": false,
+      "preferred_canonical_token": "disabled",
+      "token": "disabled_by_configuration"
+    },
+    {
+      "current_producer": false,
+      "preferred_canonical_token": "missing_provider_field or unsupported_profile according to cause",
+      "token": "unsupported_provider_field"
+    }
+  ],
+  "contract_version": "agf.bounded_uncertainty_evidence.v1.0.0",
+  "policy": {
+    "availability_axis": "calculation path, configuration, provider, or prerequisite state",
+    "classification_axis": "epistemic result across the normalized interval",
+    "status_reason_axis": "open non-empty explanatory string preserved verbatim",
+    "unknown_availability": "rejected by evidence_record and standalone JSON Schema"
+  },
+  "schema_runtime_sets_equal": true,
+  "status": "accepted_gate_candidate"
+}

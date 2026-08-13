@@ -127,7 +127,7 @@ transition/refinement findings, tolerances, requested and observed ephemeris mod
 and feature extrema or possible categorical values. Do not retain bulky sampling
 traces unless they are required for qualification or dispute analysis.
 
-The post-0.7.0 working source formalizes
+AGF 0.8.0 formalizes
 `agf.bounded_uncertainty_evidence.v1.0.0` as an additive evidence envelope. Existing
 `longitude_range`, `motion`, `possible_sign_indexes`, `possible_aspects`, and
 `orb_range` fields remain available while new nested evidence adds:
@@ -145,6 +145,23 @@ non-finite, or failed calculation. A failed equatorial calculation therefore mak
 right ascension and declination inconclusive without erasing an otherwise valid
 ecliptic placement. Numeric ranges remain evidence and are not promoted as exact
 canonical coordinates.
+
+Evidence has three separate descriptive axes:
+
+- `classification` is the epistemic result across the complete interval:
+  invariant, conditional, variable, unavailable, or inconclusive;
+- `availability` describes the calculation path or prerequisite state and never
+  overrides classification; and
+- `status_reason` is open explanatory text that consumers preserve verbatim.
+
+Canonical availability values are `available`, `disabled`,
+`missing_provider_field`, `nonfinite_provider_value`,
+`prerequisite_unavailable`, `prerequisite_variable_or_unavailable`,
+`provider_failure`, and `unsupported_profile`. The earlier schema-only spellings
+`disabled_by_configuration` and `unsupported_provider_field` remain accepted as
+compatibility aliases but are not emitted by current AGF producers. Unknown tokens
+are rejected at the common evidence-construction boundary so implementation and
+packaged schema cannot drift silently.
 
 Antiscia and harmonic transforms operate on the conservative source-longitude proof
 envelope, not a midpoint. Circular origin crossings become ordered segment sets;

@@ -68,3 +68,33 @@ completed implementation slices.
   bounded-artifact tests in 0.90 seconds.
 - Machine-readable audit JSON parsed successfully and `git diff --check` passed.
 - No production implementation or schema was changed in Slice 1.
+
+## 2026-08-13 — Slice 1 approval and Slice 2 canonical vocabulary
+
+- Product owner approved Slice 1. Committed and pushed it as `bf70a78` (`Audit
+  bounded evidence schema drift`).
+- Adopted the eight released producer values as the canonical availability
+  vocabulary. Retained the two earlier schema-only spellings as accepted
+  compatibility aliases so reconciliation broadens rather than narrows the 1.0.0
+  evidence contract.
+- Added `EvidenceAvailability`, `CANONICAL_AVAILABILITY_VALUES`,
+  `COMPATIBILITY_AVAILABILITY_ALIASES`, and `SUPPORTED_AVAILABILITY_VALUES` to the
+  common evidence module.
+- The common `evidence_record()` boundary now rejects unregistered availability
+  values before serialization. This also closes the dynamic provider-propagation
+  path identified in Slice 1.
+- Expanded the standalone JSON Schema enum to exactly match the supported runtime
+  vocabulary. Evidence contract version remains 1.0.0 because existing artifacts
+  retain their meaning and previously declared values remain valid.
+- Replaced the transitional mismatch test with closure tests proving runtime/schema
+  equality, acceptance of all supported values, rejection of unknown values, and
+  representative independence of classification and availability.
+- Updated the bounded calculation contract and consumer handoff to distinguish
+  classification, availability, and free-form status reason.
+- Focused evidence, interval, terrestrial-frame, and bounded-artifact suite passed:
+  59 tests in 4.41 seconds.
+- Full source suite ran 234 tests: 233 passed and the installed-distribution metadata
+  test could not find package metadata because the bundled Python used only the
+  checkout `src` path. This is an environment-only installed-boundary assertion;
+  Slice 3's wheel qualification will run it from an installed artifact.
+- Focused Ruff import/error checks and `git diff --check` passed.
