@@ -1,0 +1,34 @@
+{
+  "aggregate_schema": {
+    "common_evidence_ref": "bounded_uncertainty_evidence_v1.schema.json",
+    "heterogeneous_registry_strategy": "path-aware runtime discovery",
+    "homogeneous_paths_composed": true
+  },
+  "installed_candidate": {
+    "package_version": "0.8.0",
+    "resource_count": 39,
+    "schema_availability_count": 10,
+    "tests_passed": 249,
+    "wheel_sha256": "76d7283239aa4a3a3fe74467c2889325ee21709f59aa0766d5c0d2dfcacbabb5"
+  },
+  "mutation_families": [
+    "body evidence",
+    "transform evidence",
+    "aspect evidence",
+    "derived-aspect evidence",
+    "declination evidence",
+    "terrestrial coordinate evidence",
+    "cusp-semantics evidence",
+    "house-membership evidence",
+    "sect evidence",
+    "angle-relationship evidence",
+    "calculated-point evidence",
+    "formula-branch evidence",
+    "optional-feature evidence"
+  ],
+  "registry_checks": [
+    "unknown availability discovered with exact artifact path",
+    "missing contract version discovered by common-envelope structural signature"
+  ],
+  "status": "gate_candidate"
+}

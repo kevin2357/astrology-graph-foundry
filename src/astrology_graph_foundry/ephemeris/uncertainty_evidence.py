@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, Literal
 
 EVIDENCE_CONTRACT_VERSION = "agf.bounded_uncertainty_evidence.v1.0.0"
@@ -38,6 +38,33 @@ COMPATIBILITY_AVAILABILITY_ALIASES = frozenset(
     }
 )
 SUPPORTED_AVAILABILITY_VALUES = CANONICAL_AVAILABILITY_VALUES | COMPATIBILITY_AVAILABILITY_ALIASES
+COMMON_EVIDENCE_SIGNATURE = frozenset(
+    {
+        "feature_key",
+        "classification",
+        "value_kind",
+        "possibilities",
+        "prerequisite_refs",
+        "range_evidence",
+        "transition_witnesses",
+        "counterexamples",
+        "proof_scope",
+    }
+)
+
+
+def iter_bounded_evidence_records(value: Any, path: str = "$") -> Iterator[tuple[str, Mapping[str, Any]]]:
+    """Yield every versioned common evidence envelope with its artifact path."""
+
+    if isinstance(value, Mapping):
+        if "evidence_contract_version" in value or COMMON_EVIDENCE_SIGNATURE <= value.keys():
+            yield path, value
+            return
+        for key, child in value.items():
+            yield from iter_bounded_evidence_records(child, f"{path}.{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            yield from iter_bounded_evidence_records(child, f"{path}[{index}]")
 
 
 def scalar_range(

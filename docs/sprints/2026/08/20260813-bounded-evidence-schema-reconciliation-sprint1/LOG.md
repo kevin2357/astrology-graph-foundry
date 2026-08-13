@@ -98,3 +98,36 @@ completed implementation slices.
   checkout `src` path. This is an environment-only installed-boundary assertion;
   Slice 3's wheel qualification will run it from an installed artifact.
 - Focused Ruff import/error checks and `git diff --check` passed.
+
+## 2026-08-13 — Slice 2 approval and Slice 3 whole-artifact validation
+
+- Product owner approved Slice 2. Committed and pushed it as `f5bae0f`
+  (`Reconcile bounded evidence availability vocabulary`).
+- Composed the standalone bounded-evidence schema into the aggregate package schema
+  at homogeneous body, transform, relationship, terrestrial-frame,
+  calculated-point, formula-branch, and optional-feature paths, including their
+  uncertainty-assessment mirrors.
+- Preserved the calculated-point available branched record and the heterogeneous
+  evidence registry rather than forcing all supported records into one envelope.
+- Added `iter_bounded_evidence_records()` to locate common envelopes in that
+  registry by contract marker or complete structural signature and return precise
+  artifact paths. The signature fallback exposes records whose version marker is
+  missing instead of silently skipping them.
+- Added thirteen package-mutation vectors covering every homogeneous evidence
+  family, plus registry tests for unknown availability and a missing contract
+  version.
+- Stronger validation exposed an existing transform-test placeholder that was not
+  a valid evidence envelope. Replaced it with a production-constructed fixture and
+  retained the new regression coverage.
+- Added `scripts/qualify_bounded_evidence_schema.py` as an installed-safe resource,
+  vocabulary, and schema-composition qualification check.
+- The first Docker qualification attempt failed before testing because shell
+  quoting mangled inline Python. Replaced the fragile inline probe with the durable
+  qualification script.
+- Final focused bounded-artifact suite passed 41 tests.
+- Built and installed the candidate wheel in the qualified Python 3.11 Linux image
+  outside the source checkout. All 249 tests passed; the runtime manifest contained
+  39 packaged resources; runtime and schema exposed 10 availability values; and
+  aggregate-schema composition was confirmed.
+- Candidate wheel SHA-256 was
+  `76d7283239aa4a3a3fe74467c2889325ee21709f59aa0766d5c0d2dfcacbabb5`.

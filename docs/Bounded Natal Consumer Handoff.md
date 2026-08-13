@@ -83,9 +83,16 @@ state. `availability` separately explains whether the calculation path was
 available, disabled, unsupported, missing a prerequisite, or failed. Do not infer
 one from the other: `prerequisite_variable_or_unavailable`, for example, can
 accompany either a variable or unavailable classification. Preserve `status_reason`
-verbatim as open explanatory text. AGF 0.8.1 reconciliation accepts the two earlier
-schema-only compatibility spellings while current producers emit the canonical
-vocabulary documented in the calculation contract.
+  verbatim as open explanatory text. AGF 0.8.1 reconciliation accepts the two earlier
+  schema-only compatibility spellings while current producers emit the canonical
+  vocabulary documented in the calculation contract.
+
+  Do not apply the common evidence schema blindly to every value in
+  `evidence_registry`: the registry also contains supported wrapper and branched
+  record shapes. Use package-schema validation for homogeneous embedded paths and
+  `iter_bounded_evidence_records()` when a consumer needs to locate common evidence
+  envelopes in the heterogeneous registry; retain the returned artifact path in
+  validation diagnostics.
 
 SPC 0.10.0 supports exact canonical graph 1.3.0 only. AGF rejects bounded static
 projection before constructing an SPC request. SPC needs a bounded-vocabulary sprint.

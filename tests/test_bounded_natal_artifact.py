@@ -4,11 +4,13 @@ import json
 from copy import deepcopy
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
 from astrology_graph_foundry.ephemeris import bounded_natal
 from astrology_graph_foundry.ephemeris.models import BirthTimeBasis, BoundedBirthData, ProviderConfig
+from astrology_graph_foundry.ephemeris.uncertainty_evidence import evidence_record, iter_bounded_evidence_records
 
 SCHEMA_DIR = Path(__file__).resolve().parents[1] / "src" / "astrology_graph_foundry" / "schemas"
 
@@ -119,6 +121,67 @@ def _registry():
     return registry
 
 
+def _schema_validator(name="bounded_natal_dataset_v1.schema.json"):
+    schema = json.loads((SCHEMA_DIR / name).read_text(encoding="utf-8"))
+    return Draft202012Validator(schema, registry=_registry())
+
+
+def _set_path(root, path, value):
+    target = root
+    for part in path[:-1]:
+        target = target[part]
+    target[path[-1]] = value
+
+
+def _package_with_all_common_evidence_paths(monkeypatch):
+    package = _build(monkeypatch)
+    body = package["bounded_natal"]["bodies"]["Sun"]
+    body["evidence"] = {"longitude": evidence_record(feature_key="body:Sun:longitude", classification="variable", value_kind="longitude")}
+    body["transforms"] = {
+        "antiscia": {"evidence": evidence_record(feature_key="body:Sun:antiscia", classification="variable", value_kind="transform")}
+    }
+    package["bounded_natal"]["aspects"][0]["evidence"] = evidence_record(
+        feature_key="aspect:Sun:Mars", classification="invariant", value_kind="aspect"
+    )
+    package["bounded_natal"]["derived_aspects"] = [{
+        "evidence": evidence_record(feature_key="derived:Sun:Mars", classification="variable", value_kind="derived_aspect")
+    }]
+    package["bounded_natal"]["declination_relationships"] = [{
+        "evidence": evidence_record(feature_key="declination:Sun:Mars", classification="variable", value_kind="declination")
+    }]
+    frame = package["bounded_natal"]["terrestrial_frame"]
+    frame["cusp_semantics"] = {"1": {
+        "sign": evidence_record(feature_key="cusp:1:sign", classification="variable", value_kind="sign")
+    }}
+    frame["sect"] = evidence_record(feature_key="sect", classification="unavailable", value_kind="sect", availability="disabled")
+    frame["angle_relationships"] = [{
+        "evidence": evidence_record(feature_key="angle:Sun:ASC", classification="variable", value_kind="aspect")
+    }]
+    frame["calculated_points"] = {
+        "Fortune": evidence_record(
+            feature_key="calculated_point:Fortune",
+            classification="unavailable",
+            value_kind="calculated_point",
+            availability="prerequisite_unavailable",
+        )
+    }
+    frame["calculated_point_relationships"] = [{
+        "formula_branch_evidence": [
+            evidence_record(feature_key="lot:Fortune:Sun", classification="variable", value_kind="aspect")
+        ]
+    }]
+    package["bounded_natal"]["calculated_points"] = frame["calculated_points"]
+    package["bounded_natal"]["optional_external_features"] = {
+        "Chiron": evidence_record(
+            feature_key="optional:Chiron",
+            classification="unavailable",
+            value_kind="optional_feature",
+            availability="unsupported_profile",
+        )
+    }
+    return package
+
+
 def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     package = _build(monkeypatch)
     schema = json.loads((SCHEMA_DIR / "bounded_natal_dataset_v1.schema.json").read_text(encoding="utf-8"))
@@ -140,6 +203,64 @@ def test_bounded_package_is_schema_valid_and_precision_safe(monkeypatch):
     assert package["uncertainty_assessment"]["body_evidence"]["Moon"]["classification"] == "variable"
     registry = package["uncertainty_assessment"]["evidence_registry"]
     assert all(row["uncertainty_evidence_ref"] in registry for row in graph["objects"] + graph["relationships"])
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        ("bounded_natal", "bodies", "Sun", "evidence", "longitude", "availability"),
+        ("bounded_natal", "bodies", "Sun", "transforms", "antiscia", "evidence", "availability"),
+        ("bounded_natal", "aspects", 0, "evidence", "availability"),
+        ("bounded_natal", "derived_aspects", 0, "evidence", "availability"),
+        ("bounded_natal", "declination_relationships", 0, "evidence", "availability"),
+        ("bounded_natal", "terrestrial_frame", "coordinates", "angle:ASC", "availability"),
+        ("bounded_natal", "terrestrial_frame", "cusp_semantics", "1", "sign", "availability"),
+        ("bounded_natal", "terrestrial_frame", "house_memberships", "body:Sun", "availability"),
+        ("bounded_natal", "terrestrial_frame", "sect", "availability"),
+        ("bounded_natal", "terrestrial_frame", "angle_relationships", 0, "evidence", "availability"),
+        ("bounded_natal", "terrestrial_frame", "calculated_points", "Fortune", "availability"),
+        ("bounded_natal", "terrestrial_frame", "calculated_point_relationships", 0, "formula_branch_evidence", 0, "availability"),
+        ("bounded_natal", "optional_external_features", "Chiron", "availability"),
+    ],
+)
+def test_aggregate_schema_rejects_invalid_availability_at_each_common_evidence_family(monkeypatch, path):
+    package = _package_with_all_common_evidence_paths(monkeypatch)
+    _schema_validator().validate(package)
+    _set_path(package, path, "unknown_availability")
+    errors = list(_schema_validator().iter_errors(package))
+    assert errors
+    assert any("unknown_availability" in error.message for error in errors)
+
+
+def test_recursive_evidence_iterator_covers_heterogeneous_registry_records(monkeypatch):
+    package = _package_with_all_common_evidence_paths(monkeypatch)
+    registry = package["uncertainty_assessment"]["evidence_registry"]
+    registry["uncertainty:audit:common"] = evidence_record(
+        feature_key="audit:registry", classification="unavailable", value_kind="audit", availability="disabled"
+    )
+    records = dict(iter_bounded_evidence_records(package))
+    registry_path = "$.uncertainty_assessment.evidence_registry.uncertainty:audit:common"
+    assert registry_path in records
+    records[registry_path]["availability"] = "unknown_availability"
+    evidence_validator = _schema_validator("bounded_uncertainty_evidence_v1.schema.json")
+    path_errors = [
+        (path, error.message)
+        for path, record in iter_bounded_evidence_records(package)
+        for error in evidence_validator.iter_errors(record)
+    ]
+    assert any(path == registry_path and "unknown_availability" in message for path, message in path_errors)
+
+
+def test_recursive_evidence_iterator_finds_registry_envelope_with_missing_contract_version(monkeypatch):
+    package = _package_with_all_common_evidence_paths(monkeypatch)
+    record = evidence_record(feature_key="audit:missing-version", classification="variable", value_kind="audit")
+    del record["evidence_contract_version"]
+    package["uncertainty_assessment"]["evidence_registry"]["uncertainty:audit:missing-version"] = record
+    records = dict(iter_bounded_evidence_records(package))
+    path = "$.uncertainty_assessment.evidence_registry.uncertainty:audit:missing-version"
+    assert path in records
+    errors = list(_schema_validator("bounded_uncertainty_evidence_v1.schema.json").iter_errors(records[path]))
+    assert any("evidence_contract_version" in error.message for error in errors)
 
 
 def test_reduced_capabilities_and_feature_dispositions_are_explicit(monkeypatch):
@@ -373,27 +494,34 @@ def test_pre_generalized_bounded_artifact_remains_schema_valid(monkeypatch):
 
 def test_invariant_transforms_materialize_without_exact_longitudes_and_keep_owner_lineage(monkeypatch):
     assessment = _assessment()
+    def common_evidence(feature_key, classification="invariant"):
+        return evidence_record(
+            feature_key=feature_key,
+            classification=classification,
+            value_kind="test_evidence",
+        )
+
     assessment["bodies"]["Sun"]["transforms"] = {
         "antiscia": {
             "classification": "invariant",
             "possible_sign_indexes": [5],
-            "evidence": {"feature_key": "body:Sun:transform:antiscia"},
+            "evidence": common_evidence("body:Sun:transform:antiscia"),
         },
         "contra_antiscia": {
             "classification": "variable",
             "possible_sign_indexes": [5, 6],
-            "evidence": {"feature_key": "body:Sun:transform:contra_antiscia"},
+            "evidence": common_evidence("body:Sun:transform:contra_antiscia", "variable"),
         },
         "harmonics": {
             "3": {
                 "classification": "invariant",
                 "possible_sign_indexes": [1],
-                "evidence": {"feature_key": "body:Sun:transform:harmonic:3"},
+                "evidence": common_evidence("body:Sun:transform:harmonic:3"),
             },
             "9": {
                 "classification": "variable",
                 "possible_sign_indexes": list(range(12)),
-                "evidence": {"feature_key": "body:Sun:transform:harmonic:9"},
+                "evidence": common_evidence("body:Sun:transform:harmonic:9", "variable"),
             },
         },
     }
@@ -405,7 +533,7 @@ def test_invariant_transforms_materialize_without_exact_longitudes_and_keep_owne
             "b_name": "Sun harmonic 3",
             "classification": "invariant",
             "aspect": "square",
-            "evidence": {"feature_key": "derived_aspect:body:Sun:transform:Sun:harmonic:3"},
+            "evidence": common_evidence("derived_aspect:body:Sun:transform:Sun:harmonic:3"),
         }
     ]
     assessment["declination_relationships"] = [
@@ -414,7 +542,7 @@ def test_invariant_transforms_materialize_without_exact_longitudes_and_keep_owne
             "b": "Mars",
             "classification": "invariant",
             "relationship": "parallel",
-            "evidence": {"feature_key": "declination_relationship:Sun:Mars"},
+            "evidence": common_evidence("declination_relationship:Sun:Mars"),
         }
     ]
     monkeypatch.setattr(bounded_natal, "evaluate_bounded_natal_interval", lambda birth, config: deepcopy(assessment))

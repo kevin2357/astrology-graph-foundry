@@ -1,6 +1,90 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Bounded Natal Dataset v1",
+  "$defs": {
+    "evidence": {"$ref": "bounded_uncertainty_evidence_v1.schema.json"},
+    "body_map": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "evidence": {"type": "object", "additionalProperties": {"$ref": "#/$defs/evidence"}},
+          "transforms": {
+            "type": "object",
+            "properties": {
+              "antiscia": {"$ref": "#/$defs/transform_wrapper"},
+              "contra_antiscia": {"$ref": "#/$defs/transform_wrapper"},
+              "harmonics": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transform_wrapper"}}
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "transform_wrapper": {
+      "type": "object",
+      "properties": {"evidence": {"$ref": "#/$defs/evidence"}},
+      "additionalProperties": true
+    },
+    "relationship_array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {"evidence": {"$ref": "#/$defs/evidence"}},
+        "additionalProperties": true
+      }
+    },
+    "calculated_point_map": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {"$ref": "#/$defs/evidence"},
+          {
+            "type": "object",
+            "required": ["feature_key", "classification", "value_kind", "availability", "branches", "prerequisite_refs", "transition_witnesses"],
+            "properties": {
+              "feature_key": {"type": "string", "minLength": 1},
+              "classification": {"enum": ["invariant", "conditional", "variable", "unavailable", "inconclusive"]},
+              "value_kind": {"type": "string", "minLength": 1},
+              "availability": {"enum": ["available"]},
+              "branches": {"type": "array"},
+              "prerequisite_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+              "transition_witnesses": {"type": "array"}
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    },
+    "terrestrial_frame": {
+      "type": ["object", "null"],
+      "properties": {
+        "coordinates": {"type": "object", "additionalProperties": {"$ref": "#/$defs/evidence"}},
+        "cusp_semantics": {
+          "type": "object",
+          "additionalProperties": {"type": "object", "additionalProperties": {"$ref": "#/$defs/evidence"}}
+        },
+        "house_memberships": {"type": "object", "additionalProperties": {"$ref": "#/$defs/evidence"}},
+        "sect": {"anyOf": [{"$ref": "#/$defs/evidence"}, {"type": "null"}]},
+        "angle_relationships": {"$ref": "#/$defs/relationship_array"},
+        "calculated_points": {"$ref": "#/$defs/calculated_point_map"},
+        "calculated_point_relationships": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "evidence": {"$ref": "#/$defs/evidence"},
+              "formula_branch_evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}}
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "optional_feature_map": {"type": "object", "additionalProperties": {"$ref": "#/$defs/evidence"}}
+  },
   "type": "object",
   "required": ["metadata", "person", "birth_time_basis", "bounded_natal", "uncertainty_assessment", "capabilities", "canonical_astrology_graph", "structural_evidence_graph", "semantic_boundary"],
   "properties": {
@@ -16,12 +100,32 @@
       "additionalProperties": true
     },
     "birth_time_basis": {"type": "object"},
-    "bounded_natal": {"type": "object", "required": ["bodies", "aspects"]},
+    "bounded_natal": {
+      "type": "object",
+      "required": ["bodies", "aspects"],
+      "properties": {
+        "bodies": {"$ref": "#/$defs/body_map"},
+        "aspects": {"$ref": "#/$defs/relationship_array"},
+        "derived_aspects": {"$ref": "#/$defs/relationship_array"},
+        "declination_relationships": {"$ref": "#/$defs/relationship_array"},
+        "terrestrial_frame": {"$ref": "#/$defs/terrestrial_frame"},
+        "calculated_points": {"$ref": "#/$defs/calculated_point_map"},
+        "optional_external_features": {"$ref": "#/$defs/optional_feature_map"}
+      },
+      "additionalProperties": true
+    },
     "uncertainty_assessment": {
       "type": "object",
       "required": ["status", "proof_profile", "interval", "evaluation_count", "failures", "body_evidence", "aspect_evidence", "evidence_registry", "feature_dispositions"],
       "properties": {
-        "evidence_contract_version": {"const": "agf.bounded_uncertainty_evidence.v1.0.0"}
+        "evidence_contract_version": {"const": "agf.bounded_uncertainty_evidence.v1.0.0"},
+        "body_evidence": {"$ref": "#/$defs/body_map"},
+        "aspect_evidence": {"$ref": "#/$defs/relationship_array"},
+        "derived_aspect_evidence": {"$ref": "#/$defs/relationship_array"},
+        "declination_relationship_evidence": {"$ref": "#/$defs/relationship_array"},
+        "terrestrial_frame_evidence": {"$ref": "#/$defs/terrestrial_frame"},
+        "optional_external_feature_evidence": {"$ref": "#/$defs/optional_feature_map"},
+        "evidence_registry": {"type": "object"}
       },
       "additionalProperties": true
     },

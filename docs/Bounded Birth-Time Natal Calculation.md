@@ -163,6 +163,13 @@ compatibility aliases but are not emitted by current AGF producers. Unknown toke
 are rejected at the common evidence-construction boundary so implementation and
 packaged schema cannot drift silently.
 
+The bounded package schema composes the standalone evidence schema at homogeneous
+evidence-bearing paths. The evidence registry itself remains heterogeneous, so it
+is not correct to validate every registry value as a common evidence envelope.
+`iter_bounded_evidence_records()` discovers common envelopes by their contract
+marker or complete structural signature and reports each artifact path for focused
+validation and diagnostics.
+
 Antiscia and harmonic transforms operate on the conservative source-longitude proof
 envelope, not a midpoint. Circular origin crossings become ordered segment sets;
 when harmonic multiplication covers 360 degrees or more, evidence records
