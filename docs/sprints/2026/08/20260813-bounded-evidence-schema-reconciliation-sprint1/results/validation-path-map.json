@@ -1,0 +1,67 @@
+{
+  "aggregate_schema": "bounded_natal_dataset_v1.schema.json",
+  "evidence_surfaces": [
+    {
+      "path": "bounded_natal.bodies.*",
+      "record_shape": "legacy body aggregate containing nested common evidence envelopes",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.aspects[*]",
+      "record_shape": "aspect wrapper with nested evidence envelope",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.derived_aspects[*].evidence",
+      "record_shape": "common evidence envelope",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.declination_relationships[*].evidence",
+      "record_shape": "common evidence envelope",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.terrestrial_frame.coordinates.*",
+      "record_shape": "common evidence envelope",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.terrestrial_frame.cusp_semantics.*.*",
+      "record_shape": "common evidence envelope",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.terrestrial_frame.house_memberships.*",
+      "record_shape": "common evidence envelope",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.terrestrial_frame.sect",
+      "record_shape": "common evidence envelope",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.terrestrial_frame.calculated_points.*",
+      "record_shape": "common unavailable envelope or available branched calculated-point record",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "bounded_natal.optional_external_features.*",
+      "record_shape": "common evidence envelope",
+      "standalone_schema_applied_by_aggregate": false
+    },
+    {
+      "path": "uncertainty_assessment.evidence_registry.*",
+      "record_shape": "heterogeneous union of aggregates, wrappers, branched records, and common envelopes",
+      "standalone_schema_applied_by_aggregate": false
+    }
+  ],
+  "schema_refs_currently_applied": [
+    "metadata.calculation_provenance -> bounded_calculation_provenance_v1.schema.json",
+    "canonical_astrology_graph -> bounded_canonical_astrology_graph_v1.schema.json",
+    "structural_evidence_graph -> structural_evidence_graph_v1.schema.json"
+  ],
+  "whole_package_false_confidence": "A package can validate while an embedded common evidence envelope fails bounded_uncertainty_evidence_v1.schema.json.",
+  "recommended_slice_3_strategy": "Apply JSON Schema refs to homogeneous evidence-envelope locations and use an explicit recursive/path-aware validator for heterogeneous or legacy wrapper locations."
+}

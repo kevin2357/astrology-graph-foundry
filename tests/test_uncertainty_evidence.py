@@ -78,6 +78,38 @@ def test_common_evidence_record_is_schema_valid_and_sorts_prerequisites():
     assert row["prerequisite_refs"] == ["position:Moon", "provider:swisseph"]
 
 
+def test_released_availability_schema_gap_is_reproduced_for_reconciliation():
+    """Characterize the 0.8.0 producer/schema mismatch before changing policy."""
+
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    declared = {
+        "available",
+        "disabled_by_configuration",
+        "unsupported_provider_field",
+        "missing_provider_field",
+        "nonfinite_provider_value",
+        "provider_failure",
+    }
+    additional_producer_values = {
+        "disabled",
+        "unsupported_profile",
+        "prerequisite_unavailable",
+        "prerequisite_variable_or_unavailable",
+    }
+
+    def record(availability):
+        return evidence_record(
+            feature_key="audit:availability",
+            classification="unavailable",
+            value_kind="audit_value",
+            availability=availability,
+        )
+
+    assert all(not list(validator.iter_errors(record(value))) for value in declared)
+    assert all(list(validator.iter_errors(record(value))) for value in additional_producer_values)
+
+
 def test_retained_uncertainty_vectors_match_implemented_range_contract():
     cases = {row["name"]: row for row in json.loads(VECTORS.read_text(encoding="utf-8"))["cases"]}
     wrapped = circular_range_from_unwrapped(359, 361)

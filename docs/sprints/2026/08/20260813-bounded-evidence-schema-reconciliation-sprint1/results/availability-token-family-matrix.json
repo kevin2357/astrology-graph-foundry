@@ -1,0 +1,143 @@
+{
+  "contract": "agf.bounded_uncertainty_evidence.v1.0.0",
+  "declared_schema_values": [
+    "available",
+    "disabled_by_configuration",
+    "missing_provider_field",
+    "nonfinite_provider_value",
+    "provider_failure",
+    "unsupported_provider_field"
+  ],
+  "findings": [
+    {
+      "classification_usage": [
+        "invariant",
+        "variable"
+      ],
+      "families": [
+        "body_coordinates",
+        "body_speeds",
+        "coordinate_transforms",
+        "aspects",
+        "declination_relationships",
+        "terrestrial_coordinates",
+        "cusp_semantics",
+        "house_memberships",
+        "sect",
+        "triplicity",
+        "calculated_points"
+      ],
+      "schema_valid_0_8_0": true,
+      "token": "available"
+    },
+    {
+      "classification_usage": [
+        "unavailable"
+      ],
+      "families": [
+        "calculated_points_when_sect_disabled",
+        "optional_external_features_not_requested",
+        "sect_disabled"
+      ],
+      "schema_valid_0_8_0": false,
+      "token": "disabled"
+    },
+    {
+      "classification_usage": [],
+      "families": [],
+      "note": "Declared schema spelling with no current bounded-Natal producer",
+      "schema_valid_0_8_0": true,
+      "token": "disabled_by_configuration"
+    },
+    {
+      "classification_usage": [
+        "inconclusive"
+      ],
+      "families": [
+        "body_coordinate_or_speed_missing_from_provider_result"
+      ],
+      "schema_valid_0_8_0": true,
+      "token": "missing_provider_field"
+    },
+    {
+      "classification_usage": [
+        "inconclusive"
+      ],
+      "families": [
+        "body_coordinate_or_speed_nonfinite"
+      ],
+      "schema_valid_0_8_0": true,
+      "token": "nonfinite_provider_value"
+    },
+    {
+      "classification_usage": [
+        "inconclusive"
+      ],
+      "families": [
+        "equatorial_coordinate_provider_failure"
+      ],
+      "note": "Written to provider result fields and propagated into evidence",
+      "schema_valid_0_8_0": true,
+      "token": "provider_failure"
+    },
+    {
+      "classification_usage": [
+        "unavailable"
+      ],
+      "families": [
+        "calculated_points_without_coordinate_prerequisites",
+        "sect_without_sun_house_membership"
+      ],
+      "schema_valid_0_8_0": false,
+      "token": "prerequisite_unavailable"
+    },
+    {
+      "classification_usage": [
+        "unavailable",
+        "variable"
+      ],
+      "families": [
+        "sect_dependent_triplicity"
+      ],
+      "schema_valid_0_8_0": false,
+      "token": "prerequisite_variable_or_unavailable"
+    },
+    {
+      "classification_usage": [],
+      "families": [],
+      "note": "Declared schema spelling with no current bounded-Natal producer",
+      "schema_valid_0_8_0": true,
+      "token": "unsupported_provider_field"
+    },
+    {
+      "classification_usage": [
+        "unavailable"
+      ],
+      "families": [
+        "requested_optional_external_features_without_qualified_data_profile"
+      ],
+      "schema_valid_0_8_0": false,
+      "token": "unsupported_profile"
+    }
+  ],
+  "propagation_risk": {
+    "current_live_writer_values": [
+      "provider_failure"
+    ],
+    "fallback_values": [
+      "missing_provider_field"
+    ],
+    "finding": "Provider result availability strings are propagated without central vocabulary validation."
+  },
+  "producer_values": [
+    "available",
+    "disabled",
+    "missing_provider_field",
+    "nonfinite_provider_value",
+    "prerequisite_unavailable",
+    "prerequisite_variable_or_unavailable",
+    "provider_failure",
+    "unsupported_profile"
+  ],
+  "status": "mismatch_reproduced"
+}
