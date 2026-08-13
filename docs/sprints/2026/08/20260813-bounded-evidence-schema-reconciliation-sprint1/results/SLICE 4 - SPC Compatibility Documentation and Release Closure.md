@@ -46,7 +46,7 @@ eventual independently qualified SPC release artifact and hash.
 - Both installed CLIs reported 0.8.1.
 - Packaged resource count remained 39 and evidence vocabulary count remained 10.
 - Reproducible candidate wheel SHA-256:
-  `37d7efeb04ced6823c708b1ba09d4fa9a6e4ab29af32aefbcd5fe63116bc2575`.
+  `860c48793318c82c986b32664cd0f3fe97c4b1e02fb1e489561bc395c8b5a3ed`.
 
 See the [machine-readable candidate evidence](spc-compatibility-and-release-candidate.json).
 

@@ -151,8 +151,11 @@ completed implementation slices.
   and 10 availability values, and passed aggregate-schema composition qualification.
 - Base mode passed in a clean environment with SPC absent. Live mode passed with SPC
   imports forbidden. Both installed CLIs reported 0.8.1.
-- Reproducible candidate wheel SHA-256 was
+- The pre-commit candidate wheel SHA-256 was
   `37d7efeb04ced6823c708b1ba09d4fa9a6e4ab29af32aefbcd5fe63116bc2575`.
+  Rebuilding twice from clean commit `40d3234` under the controlled release epoch
+  produced byte-identical wheels with final candidate SHA-256
+  `860c48793318c82c986b32664cd0f3fe97c4b1e02fb1e489561bc395c8b5a3ed`.
 - A final source-only focused run produced 40 passes plus the expected installed-
   distribution metadata failure because that interpreter had only checkout `src`
   on its path. The same assertion passed within the 249-test installed-wheel run.
