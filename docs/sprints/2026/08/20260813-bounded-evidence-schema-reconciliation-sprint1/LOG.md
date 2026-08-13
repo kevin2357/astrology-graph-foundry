@@ -164,3 +164,25 @@ completed implementation slices.
   import-path error; supplied the qualifier's required mode; and used a truly clean
   virtual environment after the QA image's system site packages exposed SPC.
 - No tag, release, upload, push, or credential use occurred during Slice 4.
+
+## 2026-08-13 — Approval, immutable publication, and verification
+
+- Product owner approved Slice 4 and explicitly authorized tagging and publication.
+- Committed and pushed Slice 4 as `40d3234` (`Qualify AGF 0.8.1 release candidate`).
+- Rebuilt twice from the clean commit, then committed its artifact lock as `e086e71`
+  (`Lock AGF 0.8.1 release artifact hash`) and rebuilt that exact commit under the
+  same controlled epoch. The final two wheels were byte-identical and matched the
+  recorded SHA-256.
+- Created and pushed annotated tag `astrology-graph-foundry-v0.8.1` at
+  `e086e710d36213ac80d361b8a63bdb93520fdce3`.
+- Published the wheel, `SHA256SUMS.txt`, `release-manifest.json`, and
+  `runtime-package-manifest.json` in the GitHub release.
+- Downloaded all published assets afresh. All three checksummed artifacts matched;
+  the downloaded wheel installed successfully; both CLIs reported 0.8.1; and the
+  packaged evidence qualification reported 39 resources, 10 availability values,
+  and aggregate-schema composition.
+- The first container checksum command ran from `/tmp`, so relative filenames in
+  `SHA256SUMS.txt` resolved to no files. Rerunning from the downloaded asset directory
+  verified all assets. This was a harness working-directory correction.
+- Release URL:
+  `https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.8.1`.

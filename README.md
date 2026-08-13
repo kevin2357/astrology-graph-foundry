@@ -133,18 +133,16 @@ Eclipse-season classifications remain explicit candidates until a global eclipse
 
 ### Published immutable release
 
-AGF 0.8.0 is available from the
-[GitHub release](https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.8.0).
+AGF 0.8.1 is available from the
+[GitHub release](https://github.com/kevin2357/astrology-graph-foundry/releases/tag/astrology-graph-foundry-v0.8.1).
 The wheel SHA-256 is
-`f236de0bb7c254c4421f571e816f2314251636ebbed9aa3cb9cb2a09925c04ae`.
+`860c48793318c82c986b32664cd0f3fe97c4b1e02fb1e489561bc395c8b5a3ed`.
 Environments that also execute projection must independently pin the exact SPC
 artifact. Live calculation must pin the qualified provider stack described in
 [`docs/compatibility.md`](docs/compatibility.md).
 
-AGF 0.8.1 is an unpublished patch candidate that reconciles bounded evidence
-availability vocabulary and whole-package validation. See
-[`docs/releases/0.8.1.md`](docs/releases/0.8.1.md); 0.8.0 remains the current
-published immutable release until separate publication approval.
+AGF 0.8.1 reconciles bounded evidence availability vocabulary and whole-package
+validation. See [`docs/releases/0.8.1.md`](docs/releases/0.8.1.md).
 
 ### Graph, package, and projection development
 

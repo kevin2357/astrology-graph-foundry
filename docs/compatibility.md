@@ -4,16 +4,15 @@
 
 | Component | Current Foundry expectation |
 |---|---|
-| Astrology Graph Foundry | published 0.8.0 at tag `astrology-graph-foundry-v0.8.0`; exact wheel SHA-256 `f236de0bb7c254c4421f571e816f2314251636ebbed9aa3cb9cb2a09925c04ae` |
+| Astrology Graph Foundry | published 0.8.1 at tag `astrology-graph-foundry-v0.8.1`; exact wheel SHA-256 `860c48793318c82c986b32664cd0f3fe97c4b1e02fb1e489561bc395c8b5a3ed` |
 | Semantic Projection Core | independent downstream package; externally qualified exact-path consumer is 0.10.0 |
 | Python | 3.10 or newer |
 | Swiss Ephemeris | Optional `>=2.10,<2.11`; required only for live calculation |
 
-AGF 0.8.1 is currently a qualified, unpublished patch candidate. It repairs the
+AGF 0.8.1 is the published patch baseline. It repairs the
 bounded evidence availability/schema mismatch without changing package schema 1.0.0,
 bounded graph 1.7.0, evidence contract 1.0.0, calculation profile 1.12.0, or exact
-Natal behavior. Until separately approved and published, 0.8.0 remains the immutable
-production artifact identified above.
+Natal behavior.
 
 AGF 0.7.0's exact canonical graph 1.3.0 path remains compatible with SPC 0.10.0.
 Its bounded canonical graph 1.3.0 is deliberately rejected until SPC publishes an
