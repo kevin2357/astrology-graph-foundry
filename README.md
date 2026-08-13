@@ -141,6 +141,11 @@ Environments that also execute projection must independently pin the exact SPC
 artifact. Live calculation must pin the qualified provider stack described in
 [`docs/compatibility.md`](docs/compatibility.md).
 
+AGF 0.8.1 is an unpublished patch candidate that reconciles bounded evidence
+availability vocabulary and whole-package validation. See
+[`docs/releases/0.8.1.md`](docs/releases/0.8.1.md); 0.8.0 remains the current
+published immutable release until separate publication approval.
+
 ### Graph, package, and projection development
 
 ```bat

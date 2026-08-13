@@ -26,7 +26,7 @@ def main() -> None:
     import astrology_graph_foundry
     from astrology_graph_foundry.doctor import build_doctor_report
 
-    if astrology_graph_foundry.__version__ != "0.8.0":
+    if astrology_graph_foundry.__version__ != "0.8.1":
         raise SystemExit(f"unexpected AGF version: {astrology_graph_foundry.__version__}")
     readiness_mode = "saved" if args.mode == "base" else "live"
     if not build_doctor_report()["startup_readiness"][readiness_mode]:

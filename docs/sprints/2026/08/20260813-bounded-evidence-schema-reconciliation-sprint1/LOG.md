@@ -131,3 +131,33 @@ completed implementation slices.
   aggregate-schema composition was confirmed.
 - Candidate wheel SHA-256 was
   `76d7283239aa4a3a3fe74467c2889325ee21709f59aa0766d5c0d2dfcacbabb5`.
+
+## 2026-08-13 — Slice 3 approval and Slice 4 release closure
+
+- Product owner approved Slice 3. Committed and pushed it as `4ca0b7e`
+  (`Validate bounded evidence across package artifacts`).
+- Selected package version 0.8.1 for the additive evidence-contract repair. Dataset,
+  graph, evidence-contract, and calculation-profile versions remain unchanged.
+- Updated the runtime version source, version-sensitive tests and qualification,
+  README candidate notice, compatibility guidance, and candidate release notes.
+- Inspected SPC's active bounded intake read-only. Its 15 focused tests passed, and
+  a cross-repository probe proved that all ten AGF-supported availability values
+  survive adaptation verbatim while classification remains independently validated.
+- SPC's bounded work is not released and its worktree contains owner changes. No SPC
+  file was modified, staged, or committed by this sprint.
+- Built the AGF 0.8.1 wheel twice under the same controlled source-date epoch; the
+  wheels were byte-identical.
+- The installed Linux candidate passed all 249 tests, exposed 39 packaged resources
+  and 10 availability values, and passed aggregate-schema composition qualification.
+- Base mode passed in a clean environment with SPC absent. Live mode passed with SPC
+  imports forbidden. Both installed CLIs reported 0.8.1.
+- Reproducible candidate wheel SHA-256 was
+  `37d7efeb04ced6823c708b1ba09d4fa9a6e4ab29af32aefbcd5fe63116bc2575`.
+- A final source-only focused run produced 40 passes plus the expected installed-
+  distribution metadata failure because that interpreter had only checkout `src`
+  on its path. The same assertion passed within the 249-test installed-wheel run.
+- Ruff, machine-readable JSON parsing, and `git diff --check` passed.
+- Harness corrections: ran SPC tests from their repository root after an initial
+  import-path error; supplied the qualifier's required mode; and used a truly clean
+  virtual environment after the QA image's system site packages exposed SPC.
+- No tag, release, upload, push, or credential use occurred during Slice 4.

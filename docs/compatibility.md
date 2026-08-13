@@ -9,6 +9,12 @@
 | Python | 3.10 or newer |
 | Swiss Ephemeris | Optional `>=2.10,<2.11`; required only for live calculation |
 
+AGF 0.8.1 is currently a qualified, unpublished patch candidate. It repairs the
+bounded evidence availability/schema mismatch without changing package schema 1.0.0,
+bounded graph 1.7.0, evidence contract 1.0.0, calculation profile 1.12.0, or exact
+Natal behavior. Until separately approved and published, 0.8.0 remains the immutable
+production artifact identified above.
+
 AGF 0.7.0's exact canonical graph 1.3.0 path remains compatible with SPC 0.10.0.
 Its bounded canonical graph 1.3.0 is deliberately rejected until SPC publishes an
 explicit bounded-graph compatibility contract. Production may pin AGF 0.8.0 for
@@ -19,6 +25,12 @@ intentionally incompatible with every bounded graph version; the added vocabular
 does not weaken that guard. The later SPC bounded-consumer sprint must explicitly
 qualify the complete 1.7.0 contract rather than assuming compatibility from exact
 graph 1.3.0.
+
+SPC's in-development bounded consumer validates the AGF 0.8 wire identities and
+uses `classification` as epistemic authority while preserving `availability` and
+`status_reason` as upstream evidence. This is compatibility evidence, not a released
+SPC support claim; production bounded projection must pin the eventual qualified SPC
+artifact and hash.
 
 Windows installs also require the declared `tzdata>=2024.1` dependency so IANA timezone normalization works in clean environments. Release deployments pin its exact artifact through the outer lock.
 

@@ -11,7 +11,7 @@ from astrology_graph_foundry.pipelines import eclipse_lunation, solar_return
 def test_doctor_report_is_structured_and_renderable():
     report = build_doctor_report()
     assert report["report_type"] == "astrology_graph_foundry_doctor"
-    assert report["foundry"]["package_version"] == "0.8.0"
+    assert report["foundry"]["package_version"] == "0.8.1"
     assert "semantic_projection_core" not in report
     assert "project_saved_packages" not in report["capabilities"]
     assert "live_ephemeris_calculation" in report["capabilities"]
